@@ -507,12 +507,17 @@ number below is projected.
   SV column that `lift.c` already produced). Class `3/1024` **complete**:
   `graphs=363207 violations=19 p_drop_bugs=0`, independently matching
   `lift.c`'s `SV_fail = 19` on the same class. Classes `1/1024` and `2/1024` —
-  **still running** at report time, 0 violations through 450,000 of 788,161 and
-  650,000 of 894,575 nonbipartite graphs respectively, consistent with
-  `lift.c`'s `SV_fail = 0` on both. It slows sharply on the dense tail of the
-  enumeration. Nothing in this report depends on it finishing: the falsification
-  rests on the certified witnesses, and the per-class SV counts already come from
-  the completed `lift.c` holdout.
+  **NOT COMPLETED**. They reached 450,000 of 788,161 and 650,000 of 894,575
+  nonbipartite graphs with **0 violations**, then one shard was killed as
+  collateral when I stopped the polling wrappers around it and the other was
+  still grinding the dense tail of the enumeration, where `phase0 run2` slows by
+  roughly an order of magnitude. Reported as a prefix, not as a census.
+
+  Nothing in this report depends on it. The falsification rests on the four-engine
+  certificate for the individual witnesses, and the per-class SV counts come from
+  the **completed** `lift.c` holdout (`SV_fail = 19, 0, 0` on classes 3, 2, 1) —
+  this `phase0` run was only a redundant re-derivation of the same column with
+  the project's own engine, and on the one class it did finish it agreed exactly.
 * `fcore run` at n = 14 (Lemma A) — **COMPLETE**: 31,193,324 connected bipartite
   graphs, 2,391,365,507 instances, **0 cyclic forced cores**, 0 infeasible,
   max forced path 12, 3,105 s. Folded into R2 above.
