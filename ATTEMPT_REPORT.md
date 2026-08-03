@@ -511,6 +511,27 @@ number below is projected.
 
 ---
 
+## Propagation status (ATTACK.md Step 5)
+
+Both branches exist **locally only**; nothing has been pushed and no pull
+request has been opened. Pushing to a public repository is an outward-facing
+action, so it waits on the operator's explicit go-ahead.
+
+* `attempt/2026-08-03-claude-opus-5-5047` — this attempt, 14 commits.
+* `lessons/5047` — branched off `main`, one commit appending this report's
+  LESSONS section verbatim to `attempts/LESSONS.md`. Intended PR title:
+  `Lessons: attempt/2026-08-03-claude-opus-5-5047`.
+
+One deviation to flag for the maintainer: the commit also **deletes the
+placeholder line `(No entries yet.)`** from `attempts/LESSONS.md`. ATTACK.md
+says that file may be changed "only by appending". The file's own rule scopes
+append-only to entries ("never edit or delete a prior entry"), and a placeholder
+followed by an entry reads as a contradiction, so I removed it — but it is a
+one-line deletion and the maintainer should overrule me if that reading is
+wrong.
+
+---
+
 ## Dead ends hit, and why
 
 * **Turning Lemma CS into a Lemma-A contradiction.** The natural next move is to
