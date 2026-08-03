@@ -4,14 +4,43 @@
 **Model / harness** Claude Opus 5 (1M context), Claude Code CLI, macOS 8-core
 (6P+2E), Python 3.9.6, clang -O2, `nauty` `geng` from Homebrew.
 **Date** 2026-08-03. Clone at `main` = `0617d7a`, tags v1.0/v1.1.
-**Outcome in one line** — no counterexample and no proof of Lemma A, Lemma B or
-SV; verified movement on four fronts: the paper's weakest computational claim
-(Lemma A at n = 11) is now reproducible and dual-engine, Lemma A is verified
-exhaustively at n = 12 and n = 13, F2 (the statement the bipartite case actually
-needs) is verified directly for the first time through n = 13, and the lifting
-inequality (ATTACK.md target 4, previously untouched) is preregistered,
-exhaustively scanned, and **proved for a structured class covering 94% of the
-small universe**. One new lemma on the banked carrier-family angle is proved.
+**Outcome in one line** — **SV (ATTACK.md open item 3) is FALSIFIED at n = 11**
+with certified 11-vertex witnesses, triple-checked including by the project's own
+frozen `phase0 run2`; n = 11 is minimal. Alongside that: Lemma A at n = 11 is now
+reproducible and dual-engine and is verified exhaustively at n = 12 and n = 13;
+F2 (the statement the bipartite case actually needs) is verified directly for the
+first time through n = 13; the lifting inequality (target 4, previously
+untouched) is preregistered, exhaustively scanned to n = 10 plus a prospective
+n = 11 holdout, and **proved for a structured class**; and one new lemma on the
+banked carrier-family angle is proved. No proof or counterexample for Lemma A or
+Lemma B.
+
+### Headline: SV is false
+
+`SV-FALSIFIED.md` on this branch carries the full certificate. Smallest witness
+found, 11 vertices and 15 edges, graph6 `J???FAWdVD?`:
+
+```
+E = 0-7, 0-8, 0-9, 0-10, 1-7, 1-10, 2-7, 2-10, 3-8, 3-9, 4-8, 5-9, 6-10, 7-9, 8-10
+```
+
+`0-7-9-0` and `0-8-10-0` are triangles meeting only at `0`, so no single vertex
+other than `0` is an odd-cycle transversal, and `G - 0` is bipartite: the minimum
+OCT is the **unique** set `{0}`, so SV's existential quantifier has exactly one
+candidate. And `p(G) = 3 > 2 = p(G - 0)`. SV fails.
+
+The project's own frozen engine, with its SV gold suite passing, agrees:
+`J???FAWdVD? oG=1 pG=3 elig=1 minGain=-1`. So does an independently written
+Python engine. `n = 11` is minimal: SV was re-verified here, with an engine
+written from Definition 5.3, on all 272,209 connected nonbipartite graphs with
+`n <= 9` and all 11,712,539 at `n = 10` — 0 failures, both census counts matching
+the paper exactly.
+
+Conjecture 40 is **untouched** — the paper says explicitly that a failure of SV
+would not refute it, and both witnesses satisfy it with slack 4. What dies is the
+route: Theorem 5.5 (SV + bipartite case ⇒ full conjecture) now rests on a false
+hypothesis. The other route through the same gap, the lifting inequality, is
+unharmed — LIFT-A and even LIFT-A-ALL hold on these very witnesses.
 
 ---
 
@@ -377,14 +406,65 @@ unit of slack to spend, which is a materially easier target than the general
 statement. Smallest uncovered instance: `DC{` (n = 5, `o = 1`, `p = 2`,
 `max_T c_e = 1`, slack 1).
 
-### R7. The aborted n = 12 Lemma-B holdout (ATTACK.md target 5)
+### R7. SV falsified at n = 11 (ATTACK.md open item 3, target 3)
+
+Full certificate in `SV-FALSIFIED.md`; summary in the headline above. Found by
+the preregistered n = 11 structured holdout (`PREREG-LIFT-N11.md`, frozen and
+committed in `74156fb` before the run), which carried SV as one of its five
+frozen statements and preregistered exactly this contingency: *"An SV failure at
+n = 11 is a **new** data point (the paper verifies SV only to n = 10) and must be
+reported as such, not treated as an engine bug."*
+
+Two witnesses are written out in full with hand-checkable structure:
+`J???FAWdVD?` (15 edges) and `J???FBObs\?` (16 edges). Both have
+`f = 9, b = 10, p = 3`, hence `tau = 2, o = 1, ell = 8`, a **unique** minimum OCT
+`{0}`, and `p(G-0) = 2`.
+
+*Mechanism, as a rule:* every witness has `o(G) = 1` **with a unique minimum
+OCT**. Then SV's existential quantifier is vacuous and the statement degenerates
+to the unconditional `p(G) <= p(G-t)` for that single vertex — which fails
+whenever the OCT vertex is a hub whose neighbours are all needed internally by an
+optimal path cover of `G - t`, so that restoring it costs a path.
+
+*Frequency:* not rare, but clustered. The frozen `phase0 run2` engine found 10
+violations in the first 20,000 graphs of residue class `3/1024` and 19 in that
+class overall, against 0 in classes `1/1024` and `2/1024` over the same prefix
+lengths — `geng`'s enumeration order groups them. `lift.c` independently reports
+`SV_fail = 19` for the whole of class `3/1024` (364,859 graphs), matching.
+Every witness has `o = 1`; none with `o >= 2` was seen.
+
+**LIFT-P dies with it.** For a graph whose minimum OCT is the unique singleton
+`{t}`, LIFT-P (`exists minimum OCT T : p(G) <= p(G-T)`) and SV are the *same*
+statement. So the same 19 graphs falsify **LIFT-P**, which was one of the five
+statements frozen in `PREREG-LIFT.md` and which had 0 failures over the entire
+`n <= 10` universe. `lift.c` reports `LIFT-P_fail = 19` on class `3/1024`,
+exactly matching `SV_fail`. This is the project's documented death pattern
+happening to my own frozen statement — holds through `n <= 10`, killed at
+`n = 11` — and it is the reason the preregistration was worth writing.
+
+**LIFT-A survives, and so does LIFT-A-ALL.** On the same witnesses the target
+statement has slack 4. Over the preregistered `n = 11` classes, LIFT-A and
+LIFT-A-ALL both report 0 failures. So of the two routes through the
+general-to-bipartite gap, the path-cover route (SV / LIFT-P) is now closed and
+the `tau`-based route (LIFT-A) is the one still standing.
+
+### R8. The aborted n = 12 Lemma-B holdout (ATTACK.md target 5)
 
 Resumed exactly per `proofs/FROZEN-BPLUS2.md` with the shipped frozen checker
 `tools/b_hslide.py` (`OK` against `SHA256SUMS.txt`; frozen-source hash
 `54e13cac…` published in FROZEN-BPLUS2.md). Holdout discipline observed more
 strictly than the original run, whose recorded deviation (O-45) was reading the
 failure counters mid-run: **I did not read `b-hslide-prog.txt` at any point**;
-liveness was monitored only via `ps`. Outcome in "Jobs" below.
+liveness was monitored only via `ps` and the progress file's byte count (a
+graphs-processed proxy, which is what O-45's corrective explicitly permits).
+
+**Outcome: stopped by decision, NO VERDICT** — the same disposition as the
+original run (O-58). It ran ~1.5 hours and was at roughly 17,000 of 212,780
+graphs when the SV falsification landed; I stopped it to put its core on the SV
+census, which was by then clearly the higher-value use of the machine. No
+failure or gap counter was ever read, so the holdout's integrity is intact and
+the statements plus checker hash remain reusable exactly as FROZEN-BPLUS2.md
+says. Projected cost at the observed (decelerating) rate: well over 10 hours.
 
 ---
 
@@ -471,18 +551,18 @@ finish.
 
 ## LESSONS FOR FUTURE ATTEMPTS
 
-- [TOOLING] `work/fcore.c` (sha256 598bb06f…) decides forced-core acyclicity by the flow test of paper Thm 3.10 instead of intersecting all feasible selections; it agrees field-for-field with `tools/forced_core.py` at n=8,9,10,11 and runs n=13 in 115 s versus 414 s for n=11 in Python. Dual-engine Lemma A now exists.
-- [VERIFIED] Lemma A (forced core acyclic) holds on all 994,607 instances at n=11 — the paper's footnote figure, now reproducible from the hashed `tools/forced_core.py`, and independently confirmed by `work/fcore.c`. The "not independently reproducible" caveat in paper §4.1 / PROOFS.md D / LEMMA-A-CHALLENGE.md can be lifted.
-- [VERIFIED] Lemma A holds exhaustively at n=12 (10,970,519 instances) and n=13 (141,887,501 instances); max forced-core path length rises to 10. `infeasible (G,S,e) = 0` throughout, confirming Corollary 3.8 over 155M instances.
-- [VERIFIED] F2-ALL — an acyclic feasible selection exists for EVERY minimum FVS and EVERY fixed edge — holds through n=13 (`work/f2.c`, sha256 e528a4ae…, positive control on O-56/63/64). F2, not Lemma A + Lemma B, is what Theorem 3.13 needs; it had never been scanned directly.
-- [CONJECTURAL LEAD] LIFT-A-ALL: `ell(G) >= 2 tau(G-T) + |T| + 1` for EVERY minimum OCT `T`, not merely some. Preregistered before any run (`PREREG-LIFT.md`, `work/lift.c` sha256 c0cc2dd3…) and exhaustive with 0 failures over all 11,716,571 connected graphs n<=10 (shard counts sum exactly; 11,712,539 nonbipartite, matching the paper's SV census; dual-engine at n<=8 via `work/liftcheck2.py`). Stronger than ATTACK.md target 4 — the next holdout should be n=11.
-- [FALSIFIED] LIFT-P-ALL (`p(G) <= p(G-T)` for every minimum OCT `T`) fails from n=7: 3 / 16 / 150 / 2,130 failures at n=7 / 8 / 9 / 10; first witness in `work/lift-witness-n9.txt`. The existential quantifier over minimum OCTs in LIFT-P is load-bearing. (LIFT-A, LIFT-P and SV themselves: 0 failures throughout n<=10.)
-- [PROVED] L1: for bipartite `B`, `f(B) >= ceil(n_B/2) + c_e` where `c_e` counts edge-containing components (engine: DeLaViña's 2004 `f >= b/2 + 1`, applied to `G-T`). Hence L2: LIFT-A holds whenever some minimum OCT `T` has `p(G) <= 2 c_e(G-T) - 1` — every traceable `G`, and 94.2% of connected nonbipartite graphs n<=8. Crucially, **every LIFT-A-tight graph is inside the class**: over 3<=n<=8 the minimum slack among L2-uncovered graphs is 1 and among covered is 0, so the remaining obligation is the strictly slacker `ell >= 2 tau(G-T) + |T| + 2` on the uncovered 5.8%.
-- [PROVED] Lemma CS (carrier–cycle separation), `LEMMA-A-CARRIER.md` §1: with `U = ⋃_{s in P} B_s`, every `s in P \ U` has `deg_U(q) <= 1` at both forced ends, and consecutive `s_i, s_{i+1} in P \ U` force `deg_U(q_i) = 0`. Hall layer only; first use of the whole carrier family at once.
-- [DEAD END] Lemma CS does not repair the P-local bridge. Building an FVS `(Q \ {q_j}) u U` of size `|S|-1` still requires `tau(G[H u P]) <= |P|-1`, refuted as a route by O-55/O-56; CS constrains `U` near `Q` and says nothing about how `P`'s external neighbours sit in the `H`-forest.
-- [DEAD END] Do not assume `P ∩ U = ∅`. It fails in 4,931 of 11,097 random abstract systems with a cyclic forced core (~44%).
-- [DEAD END] `Lemma A°` (disconnected) is not a wider universe: raising capacities only enlarges the feasible set, so `forced(all caps 2) ⊆ forced(caps for e)`, and a disconnected instance decomposes into the `e`-component plus all-capacity-2 components. The "connected instances only" caveat on the n<=11 evidence is not a gap.
-- [DEAD END] F2 is not a two-matroid intersection. Suppressing the degree-2 `S`-vertices makes F2 "pick one pair per `s`, all distinct, forming a linear forest on `H`" — transversal matroid ∩ graphic matroid — but the capacity bound `deg <= 2` is not a matroid constraint (path `a-b-c-d`, `c(b)=c(c)=1`: `{bc}` maximal of size 1, `{ab,cd}` of size 2).
-- [TOOLING] Hereditary FVS tightness for all `X ⊆ S` is EQUIVALENT to "`S` is a minimum FVS of `G`". This factorises the Lemma-A° counterexample search: cyclicity of the forced core depends only on the abstract system, minimum-FVS-ness only on the `H`-forest. `work/larealize.py` exploits it; 2,392,972 forest completions of cyclic-core systems gave 0 counterexamples, with a positive control hitting `tau = |S|` in 7.1% of acyclic-core completions.
-- [CONJECTURAL LEAD] In 345 of 876 sampled Lemma-A near-misses (39%) the inclusion-minimal hereditarily violating `X` lies inside neither `P` nor any single `B_s`. Test any proposed localization against `work/larealize.py`'s population before writing prose about it.
-- [TOOLING] `proofs/PROOFS.md` §D implies O-56 and O-63 are inside the hereditary-tightness class. Measured `tau(G[H u S])` vs `|S|`: 2 vs 4, 3 vs 5, 2 vs 3 — all three witnesses are outside it, and all three satisfy `S = T_F`. Documentation only; no claim depends on it.
+- [FALSIFIED] **SV (paper Definition 5.3; ATTACK.md open item 3) is FALSE**, and n=11 is its minimum order. Two hand-checkable 11-vertex witnesses in `SV-FALSIFIED.md`: `J???FAWdVD?` (15 edges) and `J???FBObs\?` (16 edges), both `f=9, b=10, p=3`, unique minimum OCT `{0}`, `p(G-0)=2 < 3 = p(G)`. Confirmed by three engines including the repository's own frozen `verification/phase0.c run2` with its SV gold suite passing (`oG=1 pG=3 elig=1 minGain=-1`). Paper Theorem 5.5 now rests on a false hypothesis; Conjecture 40 is untouched (both witnesses satisfy it with slack 4).
+- [FALSIFIED] SV holds for every connected nonbipartite graph on n<=10 — re-verified independently here from Definition 5.3 with 0 failures over all 272,209 such graphs with n<=9 and all 11,712,539 at n=10, both censuses matching the paper exactly. So the falsification is sharp in n.
+- [CONJECTURAL LEAD] Mechanism of every SV counterexample seen: `o(G)=1` with a UNIQUE minimum OCT, which makes SV's existential quantifier vacuous; the single OCT vertex is a hub whose neighbours are all interior in an optimal path cover of `G-t`, so restoring it costs a path. No witness with `o>=2` was found. Any repair of Theorem 5.5 must handle the unique-OCT case separately or drop the single-vertex framing.
+- [FALSIFIED] LIFT-P (`exists minimum OCT T : p(G) <= p(G-T)`) dies with SV: for a unique-singleton minimum OCT the two statements coincide, so the same n=11 witnesses kill it (`lift.c` reports `LIFT-P_fail = SV_fail = 19` on class `3/1024`). It had 0 failures over the entire n<=10 universe — the project's documented "holds to n<=10, killed at n=11" pattern, this time on a preregistered statement of mine.
+- [CONJECTURAL LEAD] LIFT-A and LIFT-A-ALL (`ell(G) >= 2 tau(G-T) + |T| + 1` for some / for EVERY minimum OCT `T`) survive, including on the SV witnesses (slack 4). Preregistered before any run (`PREREG-LIFT.md`, `work/lift.c` sha256 c0cc2dd3…); 0 failures over all 11,716,571 connected graphs n<=10 and over the preregistered n=11 classes; dual-engine at n<=8 and on spread n=10/n=11 samples. With SV/LIFT-P dead, this is the surviving route through the general-to-bipartite gap.
+- [PROVED] L1: for bipartite `B`, `f(B) >= ceil(n_B/2) + c_e` with `c_e` = number of edge-containing components (engine: DeLaViña's 2004 `f >= b/2 + 1`, applied to `G-T`). Hence L2: LIFT-A holds whenever some minimum OCT `T` has `p(G) <= 2 c_e(G-T) - 1` — every traceable `G`, and 94.2% of connected nonbipartite graphs n<=8. **Every LIFT-A-tight graph is inside the class**: over 3<=n<=8 the minimum slack among uncovered graphs is 1, among covered 0. So the remaining obligation is the slacker `ell >= 2 tau(G-T) + |T| + 2` on the uncovered 5.8%.
+- [VERIFIED] Lemma A (forced core acyclic) at n=11: the paper's 994,607-instance footnote figure is now a reproducible hashed run of `tools/forced_core.py`, and is independently confirmed by `work/fcore.c`. The "not independently reproducible" caveat in paper §4.1 / PROOFS.md D / LEMMA-A-CHALLENGE.md can be lifted. Extended exhaustively to n=12 (10,970,519 instances) and n=13 (141,887,501 instances), 0 cyclic cores; max forced-core path length rises to 10. `infeasible (G,S,e) = 0` throughout, confirming Corollary 3.8 over 155M instances.
+- [TOOLING] `work/fcore.c` (sha256 598bb06f…) decides forcedness by the flow test of paper Thm 3.10 instead of intersecting all feasible selections; agrees field-for-field with `tools/forced_core.py` at n=8..11 and runs n=13 in 115 s versus 414 s for n=11 in Python. Positive control on O-56/63/64 (must report a cyclic core) passes.
+- [VERIFIED] F2-ALL — an acyclic feasible selection exists for EVERY minimum FVS and EVERY fixed edge — holds through n=13 (`work/f2.c`, sha256 e528a4ae…, positive control on the three witnesses). F2, not Lemma A + Lemma B, is what Theorem 3.13 needs, and it had never been scanned directly.
+- [PROVED] Lemma CS (carrier–cycle separation), `LEMMA-A-CARRIER.md` §1: with `U = union of B_s over s in P`, every `s in P \ U` has `deg_U(q) <= 1` at both forced ends, and consecutive `s_i, s_{i+1} in P \ U` force `deg_U(q_i) = 0`. Hall layer only; first use of the whole carrier family at once.
+- [TOOLING] Hereditary FVS tightness for all `X ⊆ S` is EQUIVALENT to "`S` is a minimum FVS of `G`". This factorises the Lemma-A° counterexample search — cyclicity of the forced core depends only on the abstract system, minimum-FVS-ness only on the `H`-forest. `work/larealize.py` exploits it: 2,392,972 forest completions of cyclic-forced-core systems, 0 counterexamples, with a positive control hitting `tau=|S|` in 7–22% of acyclic-core completions.
+- [CONJECTURAL LEAD] In 345 of 876 sampled Lemma-A near-misses (39%) the inclusion-minimal hereditarily violating `X` lies inside neither `P` nor any single `B_s`. The three frozen witnesses showed no *single* localization is universal; this says a large minority escapes *all* of them. Test any proposed localization against `work/larealize.py`'s population first.
+- [DEAD END] Lemma CS does not repair the P-local bridge: building an FVS `(Q \ {q_j}) u U` of size `|S|-1` still needs `tau(G[H u P]) <= |P|-1`, refuted as a route by O-55/O-56. CS constrains `U` near `Q` and says nothing about how `P`'s external neighbours sit in the `H`-forest. Also do not assume `P ∩ U = ∅`: it fails in 4,931 of 11,097 random abstract cyclic systems (~44%).
+- [DEAD END] `Lemma A°` (disconnected) is not a wider universe than connected Lemma A: raising capacities only enlarges the feasible set, so `forced(all caps 2) ⊆ forced(caps for e)`, and a disconnected instance decomposes into the `e`-component plus all-capacity-2 components. The "connected instances only" caveat on the n<=11 evidence is not a gap.
+- [DEAD END] F2 is not a two-matroid intersection. Suppressing the degree-2 `S`-vertices makes F2 "pick one pair per `s`, all distinct, forming a linear forest on `H`" — transversal matroid ∩ graphic matroid — but the capacity bound `deg <= 2` is not a matroid constraint (path `a-b-c-d` with `c(b)=c(c)=1`: `{bc}` is maximal of size 1, `{ab,cd}` has size 2). The reformulation is still what made the fast F2 oracle possible.

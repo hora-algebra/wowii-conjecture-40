@@ -1,0 +1,2 @@
+DONE graphs=364859 nonbipartite=363207  LIFT-A_fail=0 LIFT-A-ALL_fail=0 LIFT-P_fail=19 LIFT-P-ALL_fail=924 SV_fail=19 SV_emptyelig=0 consistency_fail=0 maxminOCTs=43 time=432.66s (843 g/s)
+bestA slack histogram: 0:120 1:4391 2:105978 3:151245 4:67928 5:33229 6:316
