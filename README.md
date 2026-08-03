@@ -71,6 +71,12 @@ the known number of connected graphs at each order. Every low-slack graph is
 re-checked by the independent engine `phase0_verify2.py`. See
 [verification/README.md](verification/README.md) for the checker-hash provenance.
 
+## Data availability and citation
+
+This repository (release tag `v1.0`) is archived at
+**https://doi.org/10.5281/zenodo.21778700**. Source:
+https://github.com/cozuya/wowii-conjecture-40.
+
 ## License
 
 Code (the contents of `verification/`) is released under the **MIT License**

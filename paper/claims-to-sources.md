@@ -79,13 +79,14 @@ cites a ledger entry and, where relevant, a checker hash.
  direct Conjecture-40 sweep at the OLD partial n=10 (~59%, no verdict) — the
  paper uses only the COMPLETE re-run (RUN 1 RESULT); the aborted n=12 Lemma-B
  holdout (no verdict).
-- **Unverified reference URLs (to confirm before any external use)**: the WOWII
- open-problems URL `[2]` and the exact formal-conjectures file path in `[3]`
- were written from memory of the standard locations, not fetched/verified here
- (no web access was used). The repo base URL `github.com/google-deepmind/
- formal-conjectures` and the nauty citation (McKay–Piperno, J. Symbolic Comput.
- 60 (2014) 94–112, doi:10.1016/j.jsc.2013.09.003) are standard. The data-
- availability repo URL + Zenodo DOI remain placeholders.
+- **Reference URLs (confirmed)**: the WOWII open-problems URL `[2]`
+ (`http://cms.uhd.edu/faculty/delavinae/research/wowII/open.html`) and the
+ formal-conjectures file path in `[3]`
+ (`FormalConjectures/WrittenOnTheWallII/GraphConjecture40.lean`) are confirmed;
+ the nauty citation (McKay–Piperno, J. Symbolic Comput. 60 (2014) 94–112,
+ doi:10.1016/j.jsc.2013.09.003) is standard. Data availability: repository
+ `https://github.com/cozuya/wowii-conjecture-40` (release `v1.0`), archived at
+ doi:10.5281/zenodo.21778700.
 
 ## Review revision round (R1–R13) — resolution
 
