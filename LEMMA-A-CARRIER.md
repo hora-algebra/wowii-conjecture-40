@@ -245,7 +245,10 @@ inclusion-minimal violating `X ⊆ S`:
 | size 1 / size 2 | 583 / 293 |
 
 The headline is the last row of the middle block: **39% of the violating sets
-are "mixed"** — contained neither in `P` nor in any single puncture. That is a
+are "mixed"** — contained neither in `P` nor in any single puncture. (The random
+`|S| <= 5` run gives 575 mixed out of 3,000 sampled, 19%, with the rest split
+between `P` and the individual punctures — so "mixed" is a large minority
+across both regimes, not an artefact of one.) That is a
 stronger negative than the three witnesses gave (they only showed no *single*
 one of `P`, `B_s`, `T_F` is universal); it says a large fraction of cases are
 not covered by *any* of the localizations that have been proposed, and any

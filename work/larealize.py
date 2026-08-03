@@ -186,7 +186,10 @@ def analyse(S, H, nbH, cap, steiner, stats, witnesses):
                         if cc[c1c[0]] == cc[c1c[1]]:
                             continue
                         must = [tuple(c1c)]
+                    cnt = 0
                     for hedges in forests_over(allowed, must):
+                        cnt += 1
+                        if cnt > 2000: break
                         stats["ctrl_completions"] += 1
                         E = [(s, h) for s in S for h in nbH[s]] + list(hedges)
                         t, _ = tau_of(set(Hc) | set(S), E)

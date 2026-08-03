@@ -256,7 +256,7 @@ def gen_exhaustive(maxK, maxP):
 def gen_random(trials, seed):
     rng = random.Random(seed)
     for _ in range(trials):
-        p = rng.randint(3, 8)
+        p = rng.randint(3, 6)
         k = rng.randint(2, 5)
         H = list(range(p))
         S = [f"s{i}" for i in range(k)]

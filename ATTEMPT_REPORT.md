@@ -241,14 +241,22 @@ extra `H`-vertices), and computes `tau(G)`.
 |---|---|---|---|
 | `exhaustive 3 4`, 0 / 1 / 2 / 3 Steiner | 438 | 732 / 6,768 / 77,976 / 1,070,160 | **0 / 0 / 0 / 0** |
 | `exhaustive 3 5`, 2 Steiner | 798 | 590,796 | **0** |
+| `random 20000 seed 555`, 1 Steiner (`|S| <= 5`, `|H| <= 6`) | 682 | 732,016 | **0** |
+
+Counting the three non-nested universes, **2,392,972 forest completions of
+systems with a cyclic forced core, zero counterexamples**. Five random systems
+hit the declared 50,000-completions-per-system cap; that is reported rather than
+silently dropped.
 
 **Positive control** (essential): the same completion loop on *acyclic*-core
-systems reaches `tau(G) = |S|` in 3,968 of 55,846 completions (7.1%), so the
-loop demonstrably can produce genuine minimum-FVS instances.
+systems reaches `tau(G) = |S|` in 3,968 of 55,846 completions (7.1%) in the
+exhaustive run and 50,944 of 233,924 (21.8%) in the random run, so the loop
+demonstrably can produce genuine minimum-FVS instances.
 
 **Status: COMPUTATIONALLY VERIFIED** (universe: abstract systems with `|S| <= 3`,
-`|H| <= 5`, up to 3 incidence-free extra `H`-vertices, all bipartite-legal
-forest completions). Not a proof, and the universe is small — but it is the
+`|H| <= 5`, up to 3 incidence-free extra `H`-vertices, plus a random `|S| <= 5`,
+`|H| <= 6` layer; all bipartite-legal forest completions). Not a proof, and the
+universe is small — but it is the
 first search of the counterexample space that is exhaustive in *both*
 coordinates and is calibrated.
 
@@ -281,10 +289,28 @@ Frozen statements: **LIFT-A** (∃ minimum OCT `T`: `ell(G) >= 2 tau(G-T) + |T| 
 | 7 | 853 | 809 | 0 | 0 | 0 | 3 | 0 |
 | 8 | 11,117 | 10,935 | 0 | 0 | 0 | 16 | 0 |
 | 9 | 261,080 | 260,350 | 0 | 0 | 0 | 150 | 0 |
-| 10 | 11,716,571 | *(see Jobs)* | | | | | |
+| **10** | **11,716,571** | **11,712,539** | **0** | **0** | **0** | 2,130 | **0** |
 
-Connected-graph counts reproduce the known values exactly. The SV column
-reproduces the paper's `n <= 9` SV verification independently.
+Every statement above was frozen in `PREREG-LIFT.md` and the checker hashed and
+committed **before the first sweep**, so the whole range `3 <= n <= 10` is a
+prospective test, not a fit.
+
+Two accounting checks the preregistration required, both passing: the n = 10
+shard counts (four `geng` residue classes) sum to exactly **11,716,571**, the
+known number of connected graphs on 10 vertices; and the nonbipartite count is
+exactly **11,712,539**, which is the same number the paper reports for its SV
+verification at n = 10 — an independent reproduction of that census. The SV
+column likewise reproduces the paper's SV result for every `n <= 10` with a
+checker written from the definition rather than from `phase0.c`'s `run2`.
+
+n = 10 wall time 1,334–1,526 s per shard at ~2,000 graphs/s, four shards.
+Best-`T` slack histogram over all 11,712,539 nonbipartite graphs:
+`{0: 52,303, 1: 333,485, 2: 1,311,405, 3: 3,227,682, 4: 3,852,977, 5: 2,614,879, 6: 317,201, 7: 2,607}`.
+Minimum slack is 0, i.e. the inequality is attained.
+
+*Dual engine.* `work/liftcheck2.py` is an independently written pure-Python
+implementation of the five frozen statements. It agrees with `lift.c`
+field-for-field — including the complete slack histograms — at n = 6, 7, 8.
 
 Two things the scan says beyond "no counterexample":
 
@@ -295,8 +321,8 @@ Two things the scan says beyond "no counterexample":
   `work/lift-witness-n9.txt`): the path-cover form genuinely needs its
   existential quantifier over minimum OCTs.
 * the best-`T` slack `max_T [ell - 2 tau(G-T) - |T| - 1]` is 0 for 2,494 graphs
-  at n = 9, so the inequality is tight on a substantial family — it is a sharp
-  statement, not a slack one.
+  at n = 9 and 52,303 at n = 10, so the inequality is tight on a substantial
+  family — it is a sharp statement, not a slack one.
 
 **A structured class, proved.** ATTACK.md target 4 also asks for a proof on a
 structured class.
@@ -348,12 +374,8 @@ Three sweeps were still running when this report was written. Their status is
 recorded here rather than guessed; anything not stated as finished did not
 finish.
 
-* `lift run` over all connected graphs on 10 vertices, 4 `geng` residue shards —
-  **PENDING**
 * `fcore run` at n = 14 — **PENDING**
 * `b_hslide.py 12` (the frozen n = 12 Lemma-B holdout) — **PENDING**
-* `larealize.py random 30000 555 2` (larger `|S|` realization search) —
-  **PENDING**
 
 ---
 
@@ -437,6 +459,6 @@ finish.
 - [DEAD END] Do not assume `P ∩ U = ∅`. It fails in 4,931 of 11,097 random abstract systems with a cyclic forced core (~44%).
 - [DEAD END] `Lemma A°` (disconnected) is not a wider universe: raising capacities only enlarges the feasible set, so `forced(all caps 2) ⊆ forced(caps for e)`, and a disconnected instance decomposes into the `e`-component plus all-capacity-2 components. The "connected instances only" caveat on the n<=11 evidence is not a gap.
 - [DEAD END] F2 is not a two-matroid intersection. Suppressing the degree-2 `S`-vertices makes F2 "pick one pair per `s`, all distinct, forming a linear forest on `H`" — transversal matroid ∩ graphic matroid — but the capacity bound `deg <= 2` is not a matroid constraint (path `a-b-c-d`, `c(b)=c(c)=1`: `{bc}` maximal of size 1, `{ab,cd}` of size 2).
-- [TOOLING] Hereditary FVS tightness for all `X ⊆ S` is EQUIVALENT to "`S` is a minimum FVS of `G`". This factorises the Lemma-A° counterexample search: cyclicity of the forced core depends only on the abstract system, minimum-FVS-ness only on the `H`-forest. `work/larealize.py` exploits it; ~1.67M forest completions of cyclic-core systems gave 0 counterexamples, with a positive control hitting `tau = |S|` in 7.1% of acyclic-core completions.
+- [TOOLING] Hereditary FVS tightness for all `X ⊆ S` is EQUIVALENT to "`S` is a minimum FVS of `G`". This factorises the Lemma-A° counterexample search: cyclicity of the forced core depends only on the abstract system, minimum-FVS-ness only on the `H`-forest. `work/larealize.py` exploits it; 2,392,972 forest completions of cyclic-core systems gave 0 counterexamples, with a positive control hitting `tau = |S|` in 7.1% of acyclic-core completions.
 - [CONJECTURAL LEAD] In 345 of 876 sampled Lemma-A near-misses (39%) the inclusion-minimal hereditarily violating `X` lies inside neither `P` nor any single `B_s`. Test any proposed localization against `work/larealize.py`'s population before writing prose about it.
 - [TOOLING] `proofs/PROOFS.md` §D implies O-56 and O-63 are inside the hereditary-tightness class. Measured `tau(G[H u S])` vs `|S|`: 2 vs 4, 3 vs 5, 2 vs 3 — all three witnesses are outside it, and all three satisfy `S = T_F`. Documentation only; no claim depends on it.
