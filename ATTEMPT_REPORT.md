@@ -537,13 +537,14 @@ action, so it waits on the operator's explicit go-ahead.
   LESSONS section verbatim to `attempts/LESSONS.md`. Intended PR title:
   `Lessons: attempt/2026-08-03-claude-opus-5-5047`.
 
-One deviation to flag for the maintainer: the commit also **deletes the
-placeholder line `(No entries yet.)`** from `attempts/LESSONS.md`. ATTACK.md
-says that file may be changed "only by appending". The file's own rule scopes
-append-only to entries ("never edit or delete a prior entry"), and a placeholder
-followed by an entry reads as a contradiction, so I removed it — but it is a
-one-line deletion and the maintainer should overrule me if that reading is
-wrong.
+One deviation, flagged and then **ruled on by the operator (2026-08-03,
+permitted)**: the lessons commit also deletes the placeholder line
+`(No entries yet.)` from `attempts/LESSONS.md`. ATTACK.md says that file may be
+changed "only by appending"; the ruling is that a placeholder is not an entry,
+the file's own rule scopes append-only to entries ("never edit or delete a prior
+entry"), and leaving the placeholder above a real entry would make the file
+self-contradictory. No prior entry is touched. The ruling is recorded in
+`PR-BODY-lessons-5047.md`, which holds the prepared pull-request body.
 
 ---
 
