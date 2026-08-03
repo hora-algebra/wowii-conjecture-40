@@ -498,11 +498,16 @@ number below is projected.
   19 LIFT-P failures lie in class `3/1024`; classes `1/1024` (789,328 graphs) and
   `2/1024` (897,009 graphs) are clean for both.
 * **n = 11 SV census** (`verification/phase0.c` mode `run2`, the project's own
-  frozen engine, over the same three classes). Class `3/1024` **complete**:
+  frozen engine, over the same three classes; a redundant cross-check of the
+  SV column that `lift.c` already produced). Class `3/1024` **complete**:
   `graphs=363207 violations=19 p_drop_bugs=0`, independently matching
-  `lift.c`'s `SV_fail = 19`. Classes `1/1024`, `2/1024` — **RUNNING**, 0
-  violations through 300,000 / 400,000 nonbipartite graphs respectively, so the
-  witnesses cluster in `geng` order rather than being uniformly spread.
+  `lift.c`'s `SV_fail = 19` on the same class. Classes `1/1024` and `2/1024` —
+  **still running** at report time, 0 violations through 450,000 of 788,161 and
+  650,000 of 894,575 nonbipartite graphs respectively, consistent with
+  `lift.c`'s `SV_fail = 0` on both. It slows sharply on the dense tail of the
+  enumeration. Nothing in this report depends on it finishing: the falsification
+  rests on the certified witnesses, and the per-class SV counts already come from
+  the completed `lift.c` holdout.
 * `fcore run` at n = 14 (Lemma A) — **COMPLETE**: 31,193,324 connected bipartite
   graphs, 2,391,365,507 instances, **0 cyclic forced cores**, 0 infeasible,
   max forced path 12, 3,105 s. Folded into R2 above.
