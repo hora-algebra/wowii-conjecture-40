@@ -277,7 +277,8 @@ statements, the universe, the decision rules and the gold suite;
 both were committed (`5e93527`) **before** the first sweep. The checker reuses
 the exact invariant primitives of the frozen `verification/phase0.c`, and its
 gold suite reproduces phase0's `(f,b,p)` golds (`K_10`, `K_{5,5}`, `K_{1,9}`,
-`C_10`, `K_{2,2,2}`, `K_{1,1,1,3}`) plus eight lifting-specific golds.
+`C_10`, `K_{2,2,2}`, `K_{1,1,1,3}`) plus six lifting-specific golds
+(`K_3`, `K_4`, `K_5`, `C_5`, `C_7`, bowtie), all PASS.
 
 Frozen statements: **LIFT-A** (∃ minimum OCT `T`: `ell(G) >= 2 tau(G-T) + |T| + 1`),
 **LIFT-A-ALL** (same for every minimum `T`), **LIFT-P** (∃ `T`: `p(G) <= p(G-T)`),
@@ -299,9 +300,11 @@ Two accounting checks the preregistration required, both passing: the n = 10
 shard counts (four `geng` residue classes) sum to exactly **11,716,571**, the
 known number of connected graphs on 10 vertices; and the nonbipartite count is
 exactly **11,712,539**, which is the same number the paper reports for its SV
-verification at n = 10 — an independent reproduction of that census. The SV
-column likewise reproduces the paper's SV result for every `n <= 10` with a
-checker written from the definition rather than from `phase0.c`'s `run2`.
+verification at n = 10 — an independent reproduction of that census. The
+nonbipartite counts for `3 <= n <= 9` sum to `1 + 3 + 16 + 95 + 809 + 10,935 +
+260,350 = ` **272,209**, again exactly the paper's figure for its `n <= 9` SV
+verification. So both SV censuses are reproduced, with 0 failures, by a checker
+written from Definition 5.3 rather than from `phase0.c`'s `run2`.
 
 n = 10 wall time 1,334–1,526 s per shard at ~2,000 graphs/s, four shards.
 Best-`T` slack histogram over all 11,712,539 nonbipartite graphs:
@@ -469,9 +472,9 @@ finish.
 - [VERIFIED] Lemma A (forced core acyclic) holds on all 994,607 instances at n=11 — the paper's footnote figure, now reproducible from the hashed `tools/forced_core.py`, and independently confirmed by `work/fcore.c`. The "not independently reproducible" caveat in paper §4.1 / PROOFS.md D / LEMMA-A-CHALLENGE.md can be lifted.
 - [VERIFIED] Lemma A holds exhaustively at n=12 (10,970,519 instances) and n=13 (141,887,501 instances); max forced-core path length rises to 10. `infeasible (G,S,e) = 0` throughout, confirming Corollary 3.8 over 155M instances.
 - [VERIFIED] F2-ALL — an acyclic feasible selection exists for EVERY minimum FVS and EVERY fixed edge — holds through n=13 (`work/f2.c`, sha256 e528a4ae…, positive control on O-56/63/64). F2, not Lemma A + Lemma B, is what Theorem 3.13 needs; it had never been scanned directly.
-- [CONJECTURAL LEAD] LIFT-A-ALL: `ell(G) >= 2 tau(G-T) + |T| + 1` for EVERY minimum OCT `T`, not merely some. Exhaustive, 0 failures, all connected nonbipartite graphs n<=9. Stronger than ATTACK.md target 4; `work/lift.c` (sha256 c0cc2dd3…) is frozen and gold-tested — freeze it and run an n=10/11 holdout.
-- [FALSIFIED] LIFT-P-ALL (`p(G) <= p(G-T)` for every minimum OCT `T`) fails from n=7: 3 failures at n=7, 16 at n=8, 150 at n=9; first witness in `work/lift-witness-n9.txt`. The existential quantifier over minimum OCTs in LIFT-P is load-bearing.
-- [PROVED] L1: for bipartite `B`, `f(B) >= ceil(n_B/2) + c_e` where `c_e` counts edge-containing components. Hence L2: LIFT-A holds whenever some minimum OCT `T` has `p(G) <= 2 c_e(G-T) - 1`, which covers every traceable `G` and 94.2% of all connected nonbipartite graphs with n<=8. The hard part of the general-to-bipartite step lives in the other 5.8%.
+- [CONJECTURAL LEAD] LIFT-A-ALL: `ell(G) >= 2 tau(G-T) + |T| + 1` for EVERY minimum OCT `T`, not merely some. Preregistered before any run (`PREREG-LIFT.md`, `work/lift.c` sha256 c0cc2dd3…) and exhaustive with 0 failures over all 11,716,571 connected graphs n<=10 (shard counts sum exactly; 11,712,539 nonbipartite, matching the paper's SV census; dual-engine at n<=8 via `work/liftcheck2.py`). Stronger than ATTACK.md target 4 — the next holdout should be n=11.
+- [FALSIFIED] LIFT-P-ALL (`p(G) <= p(G-T)` for every minimum OCT `T`) fails from n=7: 3 / 16 / 150 / 2,130 failures at n=7 / 8 / 9 / 10; first witness in `work/lift-witness-n9.txt`. The existential quantifier over minimum OCTs in LIFT-P is load-bearing. (LIFT-A, LIFT-P and SV themselves: 0 failures throughout n<=10.)
+- [PROVED] L1: for bipartite `B`, `f(B) >= ceil(n_B/2) + c_e` where `c_e` counts edge-containing components (engine: DeLaViña's 2004 `f >= b/2 + 1`, applied to `G-T`). Hence L2: LIFT-A holds whenever some minimum OCT `T` has `p(G) <= 2 c_e(G-T) - 1` — every traceable `G`, and 94.2% of connected nonbipartite graphs n<=8. Crucially, **every LIFT-A-tight graph is inside the class**: over 3<=n<=8 the minimum slack among L2-uncovered graphs is 1 and among covered is 0, so the remaining obligation is the strictly slacker `ell >= 2 tau(G-T) + |T| + 2` on the uncovered 5.8%.
 - [PROVED] Lemma CS (carrier–cycle separation), `LEMMA-A-CARRIER.md` §1: with `U = ⋃_{s in P} B_s`, every `s in P \ U` has `deg_U(q) <= 1` at both forced ends, and consecutive `s_i, s_{i+1} in P \ U` force `deg_U(q_i) = 0`. Hall layer only; first use of the whole carrier family at once.
 - [DEAD END] Lemma CS does not repair the P-local bridge. Building an FVS `(Q \ {q_j}) u U` of size `|S|-1` still requires `tau(G[H u P]) <= |P|-1`, refuted as a route by O-55/O-56; CS constrains `U` near `Q` and says nothing about how `P`'s external neighbours sit in the `H`-forest.
 - [DEAD END] Do not assume `P ∩ U = ∅`. It fails in 4,931 of 11,097 random abstract systems with a cyclic forced core (~44%).
