@@ -1,0 +1,19 @@
+[exhaustive k<=3 p<=5 steiner=2] abstract systems = 115774
+    completions = 590796
+    ctrl_completions = 55846
+    ctrl_minFVS_hits = 3968
+    ctrl_systems = 300
+    cyclic_systems = 798
+    located = 3000
+    role:mixed = 735
+    role:subset-of-P = 2238
+    role:subset-of-P/subset-of-U/subset-of-B_s0 = 4
+    role:subset-of-P/subset-of-U/subset-of-B_s1 = 11
+    role:subset-of-P/subset-of-U/subset-of-B_s2 = 12
+    seen = 590796
+    tau_deficit_1 = 264312
+    tau_deficit_2 = 326484
+    viol_size:1 = 1711
+    viol_size:2 = 1289
+    no counterexample: every forest completion of every cyclic system had tau(G) < |S|
+python3 larealize.py exhaustive 3 5 2  26.51s user 0.10s system 97% cpu 27.291 total
