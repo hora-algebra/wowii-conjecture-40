@@ -163,11 +163,17 @@ so supplied explicitly) the engine reports cycle rank 1 and forced-core sizes
 | 11 | 25,598 | 994,607 | **0** | 8 | 0.4 s |
 | 12 | 212,780 | 10,970,519 | **0** | 10 | 6.6 s |
 | 13 | 2,241,730 | 141,887,501 | **0** | 10 | 115 s |
-| 14 | see §"Jobs" below | | | | |
+| **14** | **31,193,324** | **2,391,365,507** | **0** | 12 | 3,105 s |
 
 `infeasible (G,S,e) skipped = 0` at every order — an empirical confirmation of
 Corollary 3.8 (a feasible selection exists for every distinguished edge) over
-155M instances.
+**2.55 billion** instances.
+
+The n = 14 layer alone is 2,391,365,507 instances — more than 2,400 times the
+n = 11 universe that the paper could not fully ledger — and it is clean. The
+maximum forced-core path length grows 8 (n=11) → 10 (n=12, 13) → 12 (n=14),
+roughly `n - 2`, which is worth knowing: forced cores get long, they just never
+close.
 
 **Status: COMPUTATIONALLY VERIFIED**, universe as tabulated. Previous published
 frontier: exhaustive n ≤ 10 plus the unreproducible n = 11 report.
@@ -479,14 +485,19 @@ number below is projected.
   `LIFT-P-ALL_fail = 924`, **`SV_fail = 19`**, `consistency_fail = 0`, max
   minimum-OCT count 43, best-`T` slack histogram
   `{0: 120, 1: 4391, 2: 105978, 3: 151245, 4: 67928, 5: 33229, 6: 316}`.
-  Classes `1/1024` and `2/1024` — **RUNNING** (they are larger than class 3).
+  Class `2/1024` **complete**: 897,009 graphs, 894,575 nonbipartite,
+  `LIFT-A_fail = 0`, `LIFT-A-ALL_fail = 0`, `LIFT-P_fail = 0`,
+  `LIFT-P-ALL_fail = 966`, `SV_fail = 0`, `consistency_fail = 0`. Class
+  `1/1024` — **RUNNING**.
 * **n = 11 SV census** (`verification/phase0.c` mode `run2`, the project's own
   frozen engine, over the same three classes). Class `3/1024` **complete**:
   `graphs=363207 violations=19 p_drop_bugs=0`, independently matching
   `lift.c`'s `SV_fail = 19`. Classes `1/1024`, `2/1024` — **RUNNING**, 0
   violations through 300,000 / 400,000 nonbipartite graphs respectively, so the
   witnesses cluster in `geng` order rather than being uniformly spread.
-* `fcore run` at n = 14 (Lemma A) — **RUNNING**, no result to report.
+* `fcore run` at n = 14 (Lemma A) — **COMPLETE**: 31,193,324 connected bipartite
+  graphs, 2,391,365,507 instances, **0 cyclic forced cores**, 0 infeasible,
+  max forced path 12, 3,105 s. Folded into R2 above.
 * `b_hslide.py 12` (the frozen n = 12 Lemma-B holdout) — **STOPPED BY DECISION,
   NO VERDICT** (see R8).
 
@@ -579,7 +590,7 @@ number below is projected.
 - [FALSIFIED] LIFT-P (`exists minimum OCT T : p(G) <= p(G-T)`) dies with SV: for a unique-singleton minimum OCT the two statements coincide, so the same n=11 witnesses kill it (`lift.c` reports `LIFT-P_fail = SV_fail = 19` on class `3/1024`). It had 0 failures over the entire n<=10 universe — the project's documented "holds to n<=10, killed at n=11" pattern, this time on a preregistered statement of mine.
 - [CONJECTURAL LEAD] LIFT-A and LIFT-A-ALL (`ell(G) >= 2 tau(G-T) + |T| + 1` for some / for EVERY minimum OCT `T`) survive, including on the SV witnesses (slack 4). Preregistered before any run (`PREREG-LIFT.md`, `work/lift.c` sha256 c0cc2dd3…); 0 failures over all 11,716,571 connected graphs n<=10 and over the preregistered n=11 classes; dual-engine at n<=8 and on spread n=10/n=11 samples. With SV/LIFT-P dead, this is the surviving route through the general-to-bipartite gap.
 - [PROVED] L1: for bipartite `B`, `f(B) >= ceil(n_B/2) + c_e` with `c_e` = number of edge-containing components (engine: DeLaViña's 2004 `f >= b/2 + 1`, applied to `G-T`). Hence L2: LIFT-A holds whenever some minimum OCT `T` has `p(G) <= 2 c_e(G-T) - 1` — every traceable `G`, and 94.2% of connected nonbipartite graphs n<=8. **Every LIFT-A-tight graph is inside the class**: over 3<=n<=8 the minimum slack among uncovered graphs is 1, among covered 0. So the remaining obligation is the slacker `ell >= 2 tau(G-T) + |T| + 2` on the uncovered 5.8%.
-- [VERIFIED] Lemma A (forced core acyclic) at n=11: the paper's 994,607-instance footnote figure is now a reproducible hashed run of `tools/forced_core.py`, and is independently confirmed by `work/fcore.c`. The "not independently reproducible" caveat in paper §4.1 / PROOFS.md D / LEMMA-A-CHALLENGE.md can be lifted. Extended exhaustively to n=12 (10,970,519 instances) and n=13 (141,887,501 instances), 0 cyclic cores; max forced-core path length rises to 10. `infeasible (G,S,e) = 0` throughout, confirming Corollary 3.8 over 155M instances.
+- [VERIFIED] Lemma A (forced core acyclic) at n=11: the paper's 994,607-instance footnote figure is now a reproducible hashed run of `tools/forced_core.py`, independently confirmed by `work/fcore.c`. The "not independently reproducible" caveat in paper §4.1 / PROOFS.md D / LEMMA-A-CHALLENGE.md can be lifted. Extended exhaustively to **n=12, 13 and 14** — 10,970,519 / 141,887,501 / **2,391,365,507** instances, 0 cyclic cores at every order. Max forced-core path length grows 8, 10, 10, 12 (about n-2), so forced cores get long but never close. `infeasible (G,S,e) = 0` throughout, confirming Corollary 3.8 over 2.55 billion instances.
 - [TOOLING] `work/fcore.c` (sha256 598bb06f…) decides forcedness by the flow test of paper Thm 3.10 instead of intersecting all feasible selections; agrees field-for-field with `tools/forced_core.py` at n=8..11 and runs n=13 in 115 s versus 414 s for n=11 in Python. Positive control on O-56/63/64 (must report a cyclic core) passes.
 - [VERIFIED] F2-ALL — an acyclic feasible selection exists for EVERY minimum FVS and EVERY fixed edge — holds through n=13 (`work/f2.c`, sha256 e528a4ae…, positive control on the three witnesses). F2, not Lemma A + Lemma B, is what Theorem 3.13 needs, and it had never been scanned directly.
 - [PROVED] Lemma CS (carrier–cycle separation), `LEMMA-A-CARRIER.md` §1: with `U = union of B_s over s in P`, every `s in P \ U` has `deg_U(q) <= 1` at both forced ends, and consecutive `s_i, s_{i+1} in P \ U` force `deg_U(q_i) = 0`. Hall layer only; first use of the whole carrier family at once.
