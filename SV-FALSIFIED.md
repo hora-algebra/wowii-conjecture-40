@@ -129,6 +129,12 @@ nonbipartite graphs with `3 <= n <= 9` and all 11,712,539 on `n = 10` — both
 census counts matching the paper's exactly. So **11 is the minimum order of an
 SV counterexample.**
 
+The `n <= 10` clean sweep is not vacuous: the very same `lift.c` SV routine
+reports 19 failures at `n = 11`, so it demonstrably can fail. And the `n = 11`
+census is itself cross-checked — `phase0 run2` reports
+`graphs=363207 violations=19` on residue class `3/1024` and `lift.c` reports
+`SV_fail = 19` on the same class, independently.
+
 ## How common
 
 Not rare. In the first 20,000 graphs of the single `geng` residue class
