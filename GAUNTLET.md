@@ -153,9 +153,10 @@ spanning linear forest of `G` with `2|S| + 1` edges.
 
 Two immediate consequences of the reformulation, both used below:
 
-* *(cycle-count identity)* If `d_1` is the number of `H`-vertices of load 1 and
-  `C` the number of connected components of `J`, then the number of selected
-  cycles is `C - d_1/2`. (From `d_1 + 2 d_2 = 2|S|` and cycle rank
+* *(cycle-count identity)* Let `d_1` be the number of `H`-vertices of load 1
+  and `C` the number of connected components of the graph formed by the selected
+  incidences (equivalently of `M`). Then the number of selected cycles is
+  `C - d_1/2`. (From `d_1 + 2 d_2 = 2|S|` and cycle rank
   `= |E| - |V| + C`.) So acyclicity is exactly "`|S| + 1` or more distinct
   `H`-vertices get used, in the right pattern".
 * *(matroid shape)* "Distinct pairs, one per `s`" is independence in a
