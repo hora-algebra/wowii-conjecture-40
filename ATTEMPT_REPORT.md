@@ -140,7 +140,7 @@ the run is reproducible from `tools/` at the published hashes
 **Status: COMPUTATIONALLY VERIFIED.** Universe: all 25,598 connected bipartite
 graphs on 11 vertices, every minimum FVS, every edge of `H` — 994,607 instances.
 
-### R2. An independent second engine, and Lemma A at n = 12 and n = 13
+### R2. An independent second engine, and Lemma A exhaustively to n = 14
 
 `work/fcore.c` (sha256 `598bb06f…`) decides forcedness by the **flow**
 characterization (paper Theorem 3.10: release the incidence and ask for a
@@ -531,11 +531,13 @@ number below is projected.
   components, each of which is implied by the connected fixed-edge result. So
   the "connected only" caveat on the existing `n <= 11` evidence is not a gap.
   (I chased this as a possible untested hole before checking; it is not one.)
-* **SV at n = 11 is out of reach here.** SV needs `o(G-t)` and `p(G-t)` for
-  every eligible `t`, i.e. roughly an order of magnitude more work per graph than
-  the 18.1-hour n = 11 conjecture sweep. Not attempted; measured throughput at
-  n = 10 was 2,780 graphs/s single-process including SV, which projects to about
-  100 CPU-hours at n = 11.
+* **Exhaustive SV at n = 11 is out of reach here** (it is what would give the
+  exact count of counterexamples). SV needs `o(G-t)` and `p(G-t)` for every
+  eligible `t`; measured throughput is 2,780 graphs/s at n = 10 and about
+  1,500 graphs/s for the frozen `phase0 run2` at n = 11, projecting to roughly
+  185 CPU-hours for the full 1,006,700,565-graph layer. What I ran instead is the
+  preregistered three-class structured holdout — which was enough to falsify SV,
+  but is not enough to count its counterexamples.
 
 ---
 
