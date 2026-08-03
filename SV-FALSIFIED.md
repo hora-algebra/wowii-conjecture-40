@@ -84,7 +84,11 @@ pins the path cover.
 
 ## Verification
 
-Three engines, all agreeing, on both witnesses.
+**Four** engines, all agreeing, on every witness — including *both* engines of
+the paper's own dual-engine protocol, each verified against the repository's
+published hashes first (`shasum -a 256 -c verification/SHA256SUMS.txt` →
+**237/237 OK**, covering `phase0.c` = `17db663b…` and `phase0_verify2.py` =
+`69bae704…`).
 
 1. **`verification/phase0.c` mode `run2` — the project's own frozen engine**, the
    one used for the paper's SV verification. Compiled from the repository copy
@@ -101,7 +105,18 @@ Three engines, all agreeing, on both witnesses.
 2. **`work/lift.c`** (sha256 `c0cc2dd3…`, frozen and committed in `5e93527`
    before any sweep, gold suite `GOLD ALL PASS`) — found them, reports
    `SV_fail`.
-3. **`work/liftcheck2.py`**, an independently written pure-Python engine —
+3. **`verification/phase0_verify2.py` — the project's frozen *second* engine**,
+   the independently coded pure-Python bitmask implementation used to re-check
+   every low-slack graph in the paper. Driving its own `f_forest`, `b_bip` and
+   `p_cover` primitives directly from Definition 5.3:
+   ```
+   'J???FAWdVD?'  f=9 b=10 p=3  o=1  eligible(t,p(G-t))=[(0, 2)]  SV=FAILS
+   'J???FAWdUD_'  f=9 b=10 p=3  o=1  eligible(t,p(G-t))=[(0, 2)]  SV=FAILS
+   'J???FBObs\?'  f=9 b=10 p=3  o=1  eligible(t,p(G-t))=[(0, 2)]  SV=FAILS
+   ```
+   So the falsification is certified by the same pair of engines, at the same
+   hashes, that certified the paper's positive results.
+4. **`work/liftcheck2.py`**, an independently written pure-Python engine —
    reports `SV_fail=1` on each, and prints the full per-vertex table
    `o(G-t), p(G-t)` for every `t`, from which the failure can be read directly.
 

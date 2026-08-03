@@ -4,3 +4,5 @@
 [run2] 200000 graphs viol=19
 [run2] 250000 graphs viol=19
 [run2] 300000 graphs viol=19
+[run2] 350000 graphs viol=19
+RUN2 DONE: graphs=363207 violations=19 p_drop_bugs=0 runtime_sec=434.1
