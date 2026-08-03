@@ -2,3 +2,5 @@
 [run2] 100000 graphs viol=19
 [run2] 150000 graphs viol=19
 [run2] 200000 graphs viol=19
+[run2] 250000 graphs viol=19
+[run2] 300000 graphs viol=19

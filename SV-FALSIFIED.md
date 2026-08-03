@@ -123,6 +123,23 @@ all with the same signature `o = 1`, `p = 3`, one eligible vertex,
 (`1/1024`, `2/1024`, `3/1024`; see `PREREG-LIFT-N11.md`) is reported in
 `ATTEMPT_REPORT.md`.
 
+## The family is uniform
+
+All 19 witnesses found in residue class `3/1024` have the **identical**
+signature:
+
+    o = 1 ,  p = 3 ,  exactly one eligible vertex ,  p(G - t) = 2
+
+with Conjecture-40 slack 4 (14 of them) or 2 (5 of them), and 15 to 19 edges.
+Two attain 15 edges: `J???FAWdVD?` (Witness 1 above) and
+
+    J???FAWdUD_ :  0-7, 0-8, 0-9, 0-10, 1-7, 1-10, 2-7, 3-8, 3-9,
+                   4-8, 5-9, 6-10, 7-9, 8-10, 9-10
+
+which `phase0 run2` also certifies (`oG=1 pG=3 elig=1 minGain=-1`), with
+`G - 0` bipartite, `p(G) = 3`, `p(G-0) = 2`, and no other single vertex an
+odd-cycle transversal.
+
 ## The mechanism, stated as a rule
 
 Every witness found has `o(G) = 1` **with a unique minimum OCT**. When the
