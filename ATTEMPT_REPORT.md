@@ -470,12 +470,25 @@ says. Projected cost at the observed (decelerating) rate: well over 10 hours.
 
 ## Jobs still running at report time
 
-Three sweeps were still running when this report was written. Their status is
-recorded here rather than guessed; anything not stated as finished did not
-finish.
+Recorded as measured; anything not stated as finished did not finish, and no
+number below is projected.
 
-* `fcore run` at n = 14 — **PENDING**
-* `b_hslide.py 12` (the frozen n = 12 Lemma-B holdout) — **PENDING**
+* **n = 11 lifting holdout** (`work/lift.c`, three preregistered `geng` residue
+  classes). Class `3/1024` **complete**: 364,859 graphs, 363,207 nonbipartite,
+  `LIFT-A_fail = 0`, `LIFT-A-ALL_fail = 0`, **`LIFT-P_fail = 19`**,
+  `LIFT-P-ALL_fail = 924`, **`SV_fail = 19`**, `consistency_fail = 0`, max
+  minimum-OCT count 43, best-`T` slack histogram
+  `{0: 120, 1: 4391, 2: 105978, 3: 151245, 4: 67928, 5: 33229, 6: 316}`.
+  Classes `1/1024` and `2/1024` — **RUNNING** (they are larger than class 3).
+* **n = 11 SV census** (`verification/phase0.c` mode `run2`, the project's own
+  frozen engine, over the same three classes). Class `3/1024` **complete**:
+  `graphs=363207 violations=19 p_drop_bugs=0`, independently matching
+  `lift.c`'s `SV_fail = 19`. Classes `1/1024`, `2/1024` — **RUNNING**, 0
+  violations through 300,000 / 400,000 nonbipartite graphs respectively, so the
+  witnesses cluster in `geng` order rather than being uniformly spread.
+* `fcore run` at n = 14 (Lemma A) — **RUNNING**, no result to report.
+* `b_hslide.py 12` (the frozen n = 12 Lemma-B holdout) — **STOPPED BY DECISION,
+  NO VERDICT** (see R8).
 
 ---
 
