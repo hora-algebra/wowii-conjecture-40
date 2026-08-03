@@ -1,0 +1,5 @@
+# run-output artifacts (not part of the repo)
+tools/a1-verify*.txt
+tools/b-hslide*.txt
+tools/forced-core*.txt
+tools/L1-holdout*.txt

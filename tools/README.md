@@ -74,6 +74,39 @@ values reproduce identically). Both hashes:
 The frozen-source hash is the artifact that generated the recorded results; a
 future run that re-freezes should hash its own build and record both.
 
+### Exact divergence from the frozen sources
+
+Each shipped copy differs from its frozen original in these lines only
+(line numbers are identical in original and shipped file; content class in
+brackets):
+
+- `a1_verify.py`: line 1 [docstring]; lines 14, 20, 21 [filesystem path]
+- `b_hslide.py`: lines 17, 24, 25 [filesystem path]
+- `inv40_a.py`: line 58 [filesystem path]
+- `inv40_b.py`: line 12 [filesystem path]
+
+Byte-exact originals matching the published hashes are retained privately by the
+operator; provenance can be re-established on request.
+
+### Gold reproduction (shipped copies)
+
+Recorded runs of the shipped (sanitized) copies, confirming the checker logic is
+intact:
+
+- `inv40_a.py` / `inv40_b.py` — invariants `(n,f,b,p)`: `K_4 → (4,2,2,1)`,
+  `C_5 → (5,4,4,1)` (matches hand computation).
+- `a1_verify.py 7` — `A1 = 143/143, failures = 0`: every n=7 cycle component
+  satisfies A1 (reproduces A1-holds).
+- `b_hslide.py 9` — 24,195 cycles, gap histogram `{0: 24195}`, 0 failures.
+- `b_hslide.py 10` — 448,577 cycles, gap histogram `{0: 448577}`, 0 failures.
+  The cycle count 448,577 matches the ledger's recorded n≤10 A1/U1 universe.
+- `b_hslide.py 11` — 8,202,633 cycles, gap histogram `{0: 8202627, 2: 6}`,
+  positive-gap = 6, and no-CES / B-PLUS-2 / terminal-slide / H-slide failures
+  all = 0 (max gap = 2). This reproduces the exact **six n=11 positive-gap
+  witnesses** that falsified the shortest-path-only A1/U1 forms, and confirms
+  B-PLUS-2 and the terminal-slide repair on all six — the distinctive
+  fingerprint of the frozen checker (matches proofs/FROZEN-BPLUS2.md).
+
 ## Preservation note
 
 All verification checkers referenced by the frozen statements are present. The
