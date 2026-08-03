@@ -479,16 +479,24 @@ says. Projected cost at the observed (decelerating) rate: well over 10 hours.
 Recorded as measured; anything not stated as finished did not finish, and no
 number below is projected.
 
-* **n = 11 lifting holdout** (`work/lift.c`, three preregistered `geng` residue
-  classes). Class `3/1024` **complete**: 364,859 graphs, 363,207 nonbipartite,
-  `LIFT-A_fail = 0`, `LIFT-A-ALL_fail = 0`, **`LIFT-P_fail = 19`**,
-  `LIFT-P-ALL_fail = 924`, **`SV_fail = 19`**, `consistency_fail = 0`, max
-  minimum-OCT count 43, best-`T` slack histogram
-  `{0: 120, 1: 4391, 2: 105978, 3: 151245, 4: 67928, 5: 33229, 6: 316}`.
-  Class `2/1024` **complete**: 897,009 graphs, 894,575 nonbipartite,
-  `LIFT-A_fail = 0`, `LIFT-A-ALL_fail = 0`, `LIFT-P_fail = 0`,
-  `LIFT-P-ALL_fail = 966`, `SV_fail = 0`, `consistency_fail = 0`. Class
-  `1/1024` — **RUNNING**.
+* **n = 11 lifting holdout** (`work/lift.c`, the three preregistered `geng`
+  residue classes) — **COMPLETE**. Totals over 2,051,196 graphs, 2,045,943 of
+  them nonbipartite:
+
+  | statement | failures |
+  |---|---|
+  | LIFT-A | **0** |
+  | LIFT-A-ALL | **0** |
+  | LIFT-P | **19** — FALSIFIED |
+  | LIFT-P-ALL | 2,948 |
+  | SV | **19** — FALSIFIED |
+  | internal consistency | 0 |
+
+  Maximum number of minimum OCTs on one graph: 102. Best-`T` slack histogram
+  `{0: 5093, 1: 12236, 2: 263027, 3: 1037146, 4: 612909, 5: 107691, 6: 7841}` —
+  minimum slack still 0, so LIFT-A remains attained at n = 11. All 19 SV and all
+  19 LIFT-P failures lie in class `3/1024`; classes `1/1024` (789,328 graphs) and
+  `2/1024` (897,009 graphs) are clean for both.
 * **n = 11 SV census** (`verification/phase0.c` mode `run2`, the project's own
   frozen engine, over the same three classes). Class `3/1024` **complete**:
   `graphs=363207 violations=19 p_drop_bugs=0`, independently matching

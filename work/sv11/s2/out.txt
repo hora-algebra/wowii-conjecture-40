@@ -10,3 +10,4 @@
 [run2] 500000 graphs viol=0
 [run2] 550000 graphs viol=0
 [run2] 600000 graphs viol=0
+[run2] 650000 graphs viol=0
