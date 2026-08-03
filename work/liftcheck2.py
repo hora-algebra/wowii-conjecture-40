@@ -15,9 +15,10 @@ sys.path.insert(0, ".")
 from liftclass import (parse_g6, is_bip, max_bip, max_forest, path_cover)
 
 
-def run(n):
-    gs = subprocess.run(["geng", "-c", "-q", str(n)],
-                        capture_output=True, text=True).stdout.split()
+def run(n, gs=None):
+    if gs is None:
+        gs = subprocess.run(["geng", "-c", "-q", str(n)],
+                            capture_output=True, text=True).stdout.split()
     tot = nonbip = 0
     fA = fAall = fP = fPall = fSV = 0
     maxOCT = 0
@@ -86,4 +87,8 @@ def run(n):
 
 
 if __name__ == "__main__":
-    run(int(sys.argv[1]) if len(sys.argv) > 1 else 7)
+    if len(sys.argv) > 1 and sys.argv[1] == "-":
+        gs = sys.stdin.read().split()
+        run(len(gs) and (ord(gs[0][0]) - 63), gs)
+    else:
+        run(int(sys.argv[1]) if len(sys.argv) > 1 else 7)

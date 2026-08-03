@@ -313,7 +313,10 @@ Minimum slack is 0, i.e. the inequality is attained.
 
 *Dual engine.* `work/liftcheck2.py` is an independently written pure-Python
 implementation of the five frozen statements. It agrees with `lift.c`
-field-for-field — including the complete slack histograms — at n = 6, 7, 8.
+field-for-field — including the complete slack histograms — exhaustively at
+n = 6, 7, 8, and on spread samples of 2,929 graphs at n = 10 (every 4,000th
+graph of the full enumeration) and 280 graphs at n = 11 (residue class
+`5/1024`, deliberately disjoint from the holdout classes 1, 2, 3).
 
 Two things the scan says beyond "no counterexample":
 
