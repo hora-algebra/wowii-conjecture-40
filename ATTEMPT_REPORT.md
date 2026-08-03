@@ -326,6 +326,11 @@ Frozen statements: **LIFT-A** (∃ minimum OCT `T`: `ell(G) >= 2 tau(G-T) + |T| 
 | 8 | 11,117 | 10,935 | 0 | 0 | 0 | 16 | 0 |
 | 9 | 261,080 | 260,350 | 0 | 0 | 0 | 150 | 0 |
 | **10** | **11,716,571** | **11,712,539** | **0** | **0** | **0** | 2,130 | **0** |
+| 11 (holdout, 3 of 1024 `geng` classes) | 2,051,196 | 2,045,943 | **0** | **0** | **19** ✗ | 2,948 | **19** ✗ |
+
+The `n = 11` row is the preregistered structured holdout of `PREREG-LIFT-N11.md`
+— *not* exhaustive verification at that order — and it is where SV and LIFT-P
+die (§R7). LIFT-A and LIFT-A-ALL survive it.
 
 Every statement above was frozen in `PREREG-LIFT.md` and the checker hashed and
 committed **before the first sweep**, so the whole range `3 <= n <= 10` is a
