@@ -118,3 +118,20 @@ the same routines as `phase0.c`, and the identity
 
 sha256 of the frozen checker is recorded in `work/LIFT-SHA256.txt`, written
 before the first sweep.
+
+
+---
+
+## Post-run addendum (2026-08-03, after the sweep completed)
+
+Recorded here, below the frozen section, so the preregistration above is not
+edited. Results: LIFT-A, LIFT-A-ALL, LIFT-P and SV had **zero** failures over
+every connected graph with `3 <= n <= 10` (11,716,571 graphs at n = 10; shard
+counts sum exactly to the known total; 11,712,539 of them nonbipartite, matching
+the paper's SV census). LIFT-P-ALL is **FALSIFIED**: 3 / 16 / 150 / 2,130
+failures at n = 7 / 8 / 9 / 10, first witness recorded in
+`work/lift-witness-n9.txt`. Best-`T` slack histogram at n = 10:
+`{0: 52303, 1: 333485, 2: 1311405, 3: 3227682, 4: 3852977, 5: 2614879, 6: 317201, 7: 2607}`.
+Maximum number of minimum OCTs on one graph: 105. `work/liftcheck2.py`, an
+independently written engine, reproduces every field including the slack
+histograms at n = 6, 7, 8.

@@ -354,8 +354,22 @@ which is strictly stronger than the conjecture on that class.
 bipartite graphs with `n <= 10` (0 violations, 169 tight). Coverage of L2
 measured on all connected nonbipartite graphs with `3 <= n <= 8`: **11,170 /
 11,859 = 94.2%** satisfy `p(G) <= 2 max_T c_e(G-T) - 1`, so the proved class is
-not a curiosity. The residual 5.8% is where the lifting inequality is actually
-hard.
+not a curiosity.
+
+**And the uncovered part is not the extremal part.** Cross-tabulating L2
+coverage against the best-`T` slack over all connected nonbipartite graphs with
+`3 <= n <= 8`:
+
+| best-`T` slack | 0 | 1 | 2 | 3 | 4 | 5 |
+|---|---|---|---|---|---|---|
+| L2-covered | 217 | 666 | 2,773 | 3,978 | 3,255 | 281 |
+| L2-uncovered | **0** | 43 | 249 | 199 | 198 | 0 |
+
+**Every graph at which LIFT-A is tight lies inside the proved class**; every
+uncovered graph has slack at least 1. So the proof obligation that remains has a
+unit of slack to spend, which is a materially easier target than the general
+statement. Smallest uncovered instance: `DC{` (n = 5, `o = 1`, `p = 2`,
+`max_T c_e = 1`, slack 1).
 
 ### R7. The aborted n = 12 Lemma-B holdout (ATTACK.md target 5)
 
@@ -422,11 +436,15 @@ finish.
    `work/lift.c` is already written, hashed and gold-tested. This is the
    cheapest well-posed prospective test available in the project right now, and
    target 4 is the only reduction gap that Lemmas A and B do not touch.
-2. **Attack the residual 5.8%.** L2 proves LIFT-A whenever
+2. **Attack the residual 5.8%, using the slack.** L2 proves LIFT-A whenever
    `p(G) <= 2 c_e(G-T) - 1`. Everything hard about the general-to-bipartite step
    lives in the complement — connected nonbipartite `G` with large path-cover
-   number whose minimum OCTs leave few edge-containing components. Characterize
-   that family first; it is small and structured, and `work/lift.c` can list it.
+   number whose minimum OCTs leave few edge-containing components. The
+   cross-tabulation above says that complement contains **no tight instance**:
+   every uncovered graph has slack `>= 1`. So the remaining obligation is
+   `ell(G) >= 2 tau(G-T) + |T| + 2` on a family where the extremal cases have
+   already been removed — a strictly easier-looking target than LIFT-A itself.
+   Characterize that family first; it is small and `work/lift.c` can list it.
 3. **Push `work/larealize.py` to `|S| = 4, 5`.** The factorisation makes the
    Lemma-A° counterexample space searchable for the first time. `|S| <= 3` is
    clean; the interesting regime (`P ∩ U != ∅`, longer forced cycles) starts at
