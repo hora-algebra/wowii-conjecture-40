@@ -1,0 +1,13 @@
+# paper.tex build record (redacted public export)
+
+Engine: Tectonic 0.17.0
+Command: tectonic paper.tex
+Date: 2026-08-03
+
+## Result: SUCCESS (exit 0)
+- Output: paper.pdf (164K), 14 pages
+- Undefined references: 0
+- Errors: 0; warnings cosmetic only (overfull/underfull boxes).
+
+## Packages (all standard TeX Live)
+article, geometry, amsmath, amssymb, amsthm, mathtools, hyperref.

@@ -1,0 +1,1 @@
+shard=170 count=5162788 violations=0 min_slack=0 lowslack=34094 status=DONE start=1785687397 finish=1785689962

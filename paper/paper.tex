@@ -1,0 +1,989 @@
+\documentclass[11pt]{article}
+
+\usepackage[margin=1in]{geometry}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{amsthm}
+\usepackage{mathtools}
+\usepackage[colorlinks=true,linkcolor=blue,citecolor=blue,urlcolor=blue]{hyperref}
+
+\theoremstyle{plain}
+\newtheorem{theorem}{Theorem}[section]
+\newtheorem{conjecture}[theorem]{Conjecture}
+\newtheorem{lemma}[theorem]{Lemma}
+\newtheorem{proposition}[theorem]{Proposition}
+\newtheorem{corollary}[theorem]{Corollary}
+\theoremstyle{definition}
+\newtheorem{definition}[theorem]{Definition}
+\newtheorem{remark}[theorem]{Remark}
+\newtheorem{problem}[theorem]{Open Problem}
+
+\DeclareMathOperator{\pcov}{p}
+\newcommand{\FVS}{\tau}
+\newcommand{\OCT}{o}
+\newcommand{\lf}{\ell}
+
+\title{The Graffiti.pc conjecture $f(G)\ge\lceil (p(G)+b(G)+1)/2\rceil$:
+an equivalent deficiency form, a reduction of the bipartite case to two
+finite lemmas, and exhaustive verification to $n=11$}
+
+\author{Chris Ozols}
+\date{August 2026}
+
+\begin{document}
+\maketitle
+
+\begin{abstract}
+Let $G$ be a connected graph on $n\ge 2$ vertices. Write $f(G)$ for the maximum
+order of an induced forest, $b(G)$ for the maximum order of an induced bipartite
+subgraph, and $p(G)$ for the minimum number of vertex-disjoint paths covering
+$V(G)$. Conjecture~40 of the \emph{Written on the Wall~II} (Graffiti.pc)
+collection asserts $f(G)\ge\lceil(p(G)+b(G)+1)/2\rceil$. Introducing the
+complementary parameters $\FVS=n-f$ (decycling number), $\OCT=n-b$ (odd-cycle
+transversal number), and $\lf=n-p$ (number of edges in a maximum spanning linear
+forest), we prove the conjecture is equivalent to the linear inequality
+$\lf+\OCT\ge 2\FVS+1$. For bipartite $G$ this reads $\lf\ge2\FVS+1$; we reduce
+this bipartite case, via an incidence-selection flow model, to two explicitly
+stated lemmas (Lemma~A on forced cores and Lemma~B on cycle-erasing descent),
+proving all of the surrounding structure (a generalized Hall criterion, a rooted
+forest extension bound, a repaired residual-augmentation flow theorem, and a
+descent argument) and leaving exactly those two lemmas open. On the general
+side we prove, conditional on the bipartite case, the coefficient-two bound
+$\lf+2\OCT\ge2\FVS+1$, and we isolate a single-vertex reduction property
+(\emph{SV}) which, together with the bipartite case, implies the full
+conjecture. Finally we report exhaustive computational verification: the
+conjecture holds for all $1{,}006{,}700{,}565$ connected graphs on $11$
+vertices (and all connected graphs on $\le 10$ vertices), with zero violations,
+under a preregistered dual-engine protocol; SV holds for every connected
+nonbipartite graph on $\le 10$ vertices.
+\end{abstract}
+
+\section{Introduction}\label{sec:intro}
+
+For a finite simple graph $G=(V,E)$ on $n=|V|$ vertices, let
+\[
+f(G)=\text{max.\ order of an induced forest},\quad
+b(G)=\text{max.\ order of an induced bipartite subgraph},
+\]
+and let $p(G)$ be the \emph{path cover number}: the minimum number of
+vertex-disjoint simple paths (isolated vertices allowed as trivial paths) whose
+vertex sets partition $V$. The following appears as Conjecture~40 in DeLavi\~na's
+\emph{Written on the Wall~II} (WOWII), the conjecture stream of the Graffiti.pc
+system.
+
+\begin{conjecture}[WOWII \#40]\label{conj:main}
+For every connected graph $G$ on $n\ge2$ vertices,
+\[
+f(G)\ \ge\ \left\lceil \frac{p(G)+b(G)+1}{2}\right\rceil .
+\]
+\end{conjecture}
+
+The specialization $p(G)=1$ (graphs with a Hamiltonian path) was highlighted
+early: there the bound reads $f\ge\lceil(b+2)/2\rceil=\lfloor b/2\rfloor+1$.
+The conjecture is recorded as open on the maintained WOWII list (last updated
+2026-07-23) and is carried, classified research-open, in the Lean formalization
+repository \texttt{google-deepmind/formal-conjectures} as
+\texttt{GraphConjecture40}. A search of the standard combinatorics literature at
+the time of writing located no proof, counterexample, or implying theorem
+(MathSciNet and zbMATH were not searched; this is a search report, not a
+nonexistence claim). The closest related work is the Hall-type path-cover
+condition of Lavrov and Vandenbussche~\cite{LV2024} and the adjacent super-cyclic
+literature; see Section~\ref{sec:related}.
+
+\paragraph{Results.} This paper contributes four things.
+\begin{enumerate}
+\item[(i)] \textbf{An equivalent deficiency form}
+(Section~\ref{sec:deficiency}). With $\FVS=n-f$, $\OCT=n-b$, $\lf=n-p$,
+Conjecture~\ref{conj:main} is equivalent to
+$\lf(G)+\OCT(G)\ge 2\FVS(G)+1$.
+We give the exact equality analysis, including a closed margin formula
+$\mu=n_r-n_{r-1}$ for traceable complete multipartite graphs.
+\item[(ii)] \textbf{A reduction of the bipartite case}
+(Sections~\ref{sec:bipartite}--\ref{sec:openlemmas}). For bipartite $G$ the
+target is $\lf\ge2\FVS+1$. Through an incidence-selection model we prove a
+generalized Hall criterion, a rooted forest extension bound, a repaired
+residual-augmentation flow theorem, and a descent argument, and thereby reduce
+the bipartite case to exactly two lemmas, both stated precisely and both open.
+\item[(iii)] \textbf{A conditional general bound and a single-vertex reduction}
+(Section~\ref{sec:general}). Conditional on the bipartite case we prove the
+coefficient-two bound $\lf+2\OCT\ge2\FVS+1$, and we prove that a single-vertex
+property (SV) together with the bipartite case implies the full conjecture.
+\item[(iv)] \textbf{Exhaustive verification to $n=11$}
+(Section~\ref{sec:computation}). Under a preregistered, hash-frozen, dual-engine
+protocol, Conjecture~\ref{conj:main} holds for every connected graph on $\le11$
+vertices ($1{,}006{,}700{,}565$ graphs at $n=11$), with zero violations; SV holds
+for every connected nonbipartite graph on $\le10$ vertices.
+\end{enumerate}
+
+Two lemmas in the bipartite reduction remain open; the general-to-bipartite step
+at coefficient one remains open. The paper states exactly what is proved, what is
+conditional, and what is verified only computationally.
+
+\section{The deficiency form}\label{sec:deficiency}
+
+Throughout, $G$ is connected with $n\ge2$ vertices. Define the three
+\emph{deficiency parameters}
+\[
+\FVS(G)=n-f(G),\qquad \OCT(G)=n-b(G),\qquad \lf(G)=n-p(G).
+\]
+Here $\FVS$ is the \emph{decycling number} (minimum size of a feedback vertex
+set: deleting a maximum induced forest leaves a minimum FVS), $\OCT$ is the
+\emph{odd-cycle transversal number} (deleting a maximum induced bipartite
+subgraph leaves a minimum odd-cycle transversal), and $\lf$ is the maximum number
+of edges in a spanning \emph{linear forest} (a disjoint union of paths): a path
+cover by $p$ paths has exactly $n-p$ edges, so maximizing edges is minimizing
+paths.
+
+\begin{theorem}[Equivalence]\label{thm:equiv}
+For every connected graph $G$ on $n\ge2$ vertices,
+\[
+f(G)\ge\left\lceil\frac{p(G)+b(G)+1}{2}\right\rceil
+\quad\Longleftrightarrow\quad
+\lf(G)+\OCT(G)\ \ge\ 2\FVS(G)+1 .
+\]
+In particular, for bipartite $G$ (where $\OCT=0$) the conjecture is
+$\lf(G)\ge2\FVS(G)+1$.
+\end{theorem}
+
+\begin{proof}
+The ceiling inequality $f\ge\lceil(p+b+1)/2\rceil$ is equivalent, over the
+integers, to $2f\ge p+b+1$: indeed $f\ge\lceil m/2\rceil$ iff $2f\ge m$ for any
+integer $m$, since $2f$ is even and $\lceil m/2\rceil$ is the least integer $t$
+with $2t\ge m$. Substitute $f=n-\FVS$, $b=n-\OCT$, $p=n-\lf$:
+\[
+2(n-\FVS)\ \ge\ (n-\lf)+(n-\OCT)+1
+\iff -2\FVS \ge -\lf-\OCT+1
+\iff \lf+\OCT\ \ge\ 2\FVS+1. \qedhere
+\]
+\end{proof}
+
+We verified Theorem~\ref{thm:equiv} numerically on all $995$ connected graphs
+with $2\le n\le7$ (checker \texttt{phase0.c}, Section~\ref{sec:computation}):
+the two sides agreed in every case.
+
+\paragraph{Margin and tightness.} Define the \emph{linear margin}
+\[
+\mu(G)\ :=\ \lf(G)+\OCT(G)-\bigl(2\FVS(G)+1\bigr).
+\]
+Conjecture~\ref{conj:main} is the assertion $\mu(G)\ge0$. We call $G$
+\emph{linear-tight} when $\mu(G)=0$. One must not conflate linear tightness with
+equality in the original ceiling statement: because of the parity of the ceiling,
+equality $f=\lceil(p+b+1)/2\rceil$ holds precisely when $\mu(G)\in\{0,1\}$. Thus
+``ceiling-equality'' is the union of the linear-tight shell $\mu=0$ and the
+neighboring shell $\mu=1$.
+
+\begin{proposition}[Equality families]\label{prop:equality}
+Let $G=K_{n_1,\dots,n_r}$ be complete multipartite with $r\ge2$ parts ordered
+$n_1\le\dots\le n_r$ and $n=\sum_i n_i$. Then
+\[
+p(G)=\max(1,\,2n_r-n),\qquad
+\mu(G)=
+\begin{cases}
+n_r-n_{r-1}, & p=1\ \ (\text{i.e. } 2n_r\le n+1),\\[2pt]
+(n-n_r)-n_{r-1}+1, & p>1\ \ (\text{i.e. } 2n_r> n+1).
+\end{cases}
+\]
+Consequently $G$ is linear-tight $(\mu=0)$ iff it is traceable and its two
+largest parts are equal $(n_{r-1}=n_r)$; this includes $K_n$ and $K_{a,a}$. And
+$\mu=1$ for every $K_{a,b}$ with $a<b$ and for every star $K_{1,m}$ with $m\ge2$.
+Separately, $C_3$, $C_4$, and $K_2$ are linear-tight.
+\end{proposition}
+
+\begin{proof}
+An induced subgraph of $K_{n_1,\dots,n_r}$ is again complete multipartite, hence
+a forest iff it is edgeless or a star; the largest induced forest is one vertex
+plus a largest part, so $f=n_r+1$ and $\FVS=n-n_r-1$. An induced subgraph is
+bipartite iff at most two parts are nonempty, so $b=n_r+n_{r-1}$ and
+$\OCT=n-n_r-n_{r-1}$. A complete multipartite graph is traceable iff the largest
+part does not exceed the rest by more than one, i.e.\ $2n_r\le n+1$; otherwise the
+$2n_r-n$ excess vertices of the largest part each start a new path, so
+$p=\max(1,2n_r-n)$.
+
+If $p=1$ then $\lf=n-1$ and
+\[
+\mu=(n-1)+(n-n_r-n_{r-1})-\bigl(2(n-n_r-1)+1\bigr)=n_r-n_{r-1}.
+\]
+If $p>1$ then $\lf=n-p=n-(2n_r-n)=2(n-n_r)$ and
+\[
+\mu=2(n-n_r)+(n-n_r-n_{r-1})-\bigl(2(n-n_r-1)+1\bigr)=(n-n_r)-n_{r-1}+1.
+\]
+The two formulas agree on the boundary $2n_r=n+1$. For $K_{a,b}$ with $a<b$: if
+$b=a+1$ (traceable) the first formula gives $\mu=b-a=1$; if $b\ge a+2$ the second
+gives $\mu=(a+b-b)-a+1=1$; so every $K_{a,b}$ with $a<b$ has $\mu=1$. For a star
+$K_{1,m}$ ($m\ge2$), $n_r=m,n_{r-1}=1,n=m+1$, and the $p>1$ formula gives
+$\mu=(m+1-m)-1+1=1$ (matching $p=m-1$). For linear tightness: in the $p>1$ regime
+$(n-n_r)-n_{r-1}+1\ge1$ because $n_{r-1}\le n-n_r$ (the second-largest part is at
+most the sum of all non-largest parts), so $\mu=0$ forces $p=1$ and then
+$n_{r-1}=n_r$; conversely $p=1$ with $n_{r-1}=n_r$ gives $\mu=0$. Finally direct
+evaluation gives $\mu=0$ for $K_2$ ($\lf=1,\OCT=0,\FVS=0$), $C_3$ ($2,1,1$), and
+$C_4$ ($3,0,1$).
+\end{proof}
+
+These formulas locate the extremal graphs of the deficiency form: the traceable
+complete multipartite graphs with equal top two parts are exactly linear-tight,
+and the whole complete bipartite family $K_{a,b}$ ($a\ne b$) together with the
+stars sits on the neighboring $\mu=1$ shell. They cross-check against the gold
+invariants of Section~\ref{sec:computation}: $K_{10}\,(f,b,p)=(2,2,1)$,
+$K_{5,5}=(6,10,1)$, $K_{1,9}=(10,10,8)$, $C_{10}=(9,10,1)$.
+
+\section{The bipartite case: reduction to two lemmas}\label{sec:bipartite}
+
+Fix a connected nontrivial bipartite graph $G$ with bipartition $V=L\cup R$. The
+target is $\lf(G)\ge2\FVS(G)+1$. If $\FVS(G)=0$ then $G$ is a nontrivial forest,
+has an edge, and that edge (with all other vertices as trivial paths) is a
+spanning linear forest of $\ge1=2\FVS+1$ edges; so assume $\FVS\ge1$.
+
+\subsection{The incidence-selection model}\label{sub:model}
+Let $S$ be a minimum feedback vertex set, $|S|=\FVS$. Then $H:=G-S$ is a forest
+(deleting an FVS destroys all cycles). For a vertex set $X$ we write $G[H\cup X]$
+for the subgraph induced on $H\cup X$. We build a capacitated selection problem
+on the $S$--$H$ incidences.
+
+\begin{definition}[Selection model]\label{def:selection}
+Fix an edge $e=(x,y)$ of $H$ (its endpoints lie in opposite bipartition classes).
+Each $s\in S$ has \emph{demand} $2$. Each $h\in H$ has \emph{capacity} $c(h)=2$,
+except $c(x)=c(y)=1$. A \emph{feasible selection} $J$ assigns to each $s\in S$
+two distinct $S$--$H$ incidences at $s$ so that each $h\in H$ receives at most
+$c(h)$ selected incidences. A \emph{selected cycle} of $J$ is a cyclic component
+of the incidence graph $J$.
+\end{definition}
+
+The point of the model is the following counting fact, proved in
+Section~\ref{sub:descent}: an \emph{acyclic} feasible selection $J$ (with
+$J\cup\{e\}$ acyclic) yields a spanning linear forest of $G$ with exactly
+$2|S|+1$ edges, hence $\lf\ge2\FVS+1$. So the bipartite target reduces to the
+existence of an acyclic feasible selection for some fixed edge $e$.
+
+We record the canonical semantics of a cycle-erasing move once, and use it
+throughout.
+
+\begin{definition}[CES move]\label{def:CES}
+A toggle from a feasible selection $J$ to a feasible selection $J'$ is
+\emph{cycle-erasing (CES)} for a designated selected cycle $C$ of $J$ when
+(i) $C$ is not a selected cycle of $J'$, and (ii) every selected cycle of $J'$
+was already a selected cycle of $J$. This is a semantic condition (compare the
+selected-cycle sets before and after); it implies a strict decrease in the number
+of selected cycles. CES is \emph{not} defined merely as ``fewer selected
+cycles''; a strict decrease alone would already suffice for termination of the
+descent (Section~\ref{sub:descent}), but the stronger no-new-cycle form is what
+the mechanism produces.
+\end{definition}
+
+\subsection{Hereditary tightness and the Hall criterion}\label{sub:hall}
+
+\begin{lemma}[Hereditary FVS tightness]\label{lem:C2}
+For every $X\subseteq S$, $\ \FVS\!\left(G[H\cup X]\right)=|X|$.
+\end{lemma}
+
+\begin{proof}
+$X$ is an FVS of $G[H\cup X]$ (deleting it leaves $H$, a forest), so
+$\FVS(G[H\cup X])\le|X|$. Conversely, suppose $D$ is an FVS of $G[H\cup X]$ with
+$|D|<|X|$. Then $(S\setminus X)\cup D$ is an FVS of $G$: deleting it leaves a
+subgraph of $G[H\cup X]-D$, which is a forest. Its size is
+$|S|-|X|+|D|<|S|$, contradicting minimality of $S$. Hence
+$\FVS(G[H\cup X])=|X|$.
+\end{proof}
+
+Encode feasibility as a flow. Build a network $N$ with a source $\sigma$; arcs
+$\sigma\to s$ of capacity $2$ for each $s\in S$; an arc $s\to h$ of capacity $1$
+for each incidence; and arcs $h\to\text{sink}$ of capacity $c(h)$. An integral
+flow saturating every $\sigma\to s$ is exactly a feasible selection. For
+$X\subseteq S$ put
+\[
+\rho(X)=\sum_{h\in H}\min\bigl(c(h),\deg_X(h)\bigr),\qquad
+\delta(X)=\rho(X)-2|X|,
+\]
+where $\deg_X(h)$ is the number of neighbours of $h$ in $X$.
+
+\begin{lemma}[Generalized Hall criterion]\label{lem:C5}
+A feasible selection exists iff $\rho(X)\ge2|X|$ for every $X\subseteq S$.
+\end{lemma}
+
+\begin{proof}
+Consider any $\sigma$--sink cut $(A,B)$ with $\sigma\in A$, $\text{sink}\in B$,
+and set $X=S\cap A$. The forward capacity is: source arcs $\sigma\to s$ for
+$s\in S\cap B$ cost $2$ each, total $2(|S|-|X|)$; an incidence arc $s\to h$ with
+$s\in A,h\in B$ can be forward only for $s\in X$, cost $1$; a sink arc
+$h\to\text{sink}$ with $h\in A$ costs $c(h)$. For each $h$, its contribution is
+minimized by placing it on the cheaper side, giving
+$\min(c(h),\deg_X(h))$. Hence the cheapest cut with a given $X$ has capacity
+$2(|S|-|X|)+\rho(X)=2|S|+\delta(X)$, and the global minimum cut is
+$2|S|+\min_X\delta(X)$. By max-flow/min-cut the maximum flow equals
+$\min(2|S|,\,2|S|+\min_X\delta(X))$, which is $2|S|$ (a feasible selection) iff
+$\min_X\delta(X)\ge0$.
+\end{proof}
+
+An incidence $a=(s,h)$ is \emph{forced} if it belongs to every feasible
+selection; the \emph{forced core} is the graph of all forced incidences.
+
+\begin{lemma}[Forced $\iff$ tight-set exposed, F1]\label{lem:F1}
+Fix a feasible selection. An incidence $a=(s,h)$ is forced iff some
+$\rho$-tight set $X$ (i.e.\ $\delta(X)=0$) \emph{exposes} it: $s\in X$ and
+$\deg_X(h)\le c(h)$.
+\end{lemma}
+
+\begin{proof}
+Deleting the arc $a$ from $N$ lowers $\rho(X)$ by exactly one iff $s\in X$ and
+$\deg_X(h)\le c(h)$. If $a$ is forced then $N-a$ has no feasible flow, so by
+Lemma~\ref{lem:C5} some $X$ has $\rho_{N-a}(X)<2|X|$; since $\rho(X)\ge2|X|$
+held, $X$ was tight and $a$ lowered it, so $X$ exposes $a$. Conversely, if a
+tight $X$ exposes $a$, then in $N-a$ we have $\rho_{N-a}(X)=2|X|-1<2|X|$, so no
+feasible selection omits $a$.
+\end{proof}
+
+\begin{lemma}[Tight-set lattice]\label{lem:C6}
+$\delta$ is submodular and nonnegative on subsets of $S$; hence if $X,Y$ are
+tight so are $X\cap Y$ and $X\cup Y$.
+\end{lemma}
+
+\begin{proof}
+Each map $X\mapsto\min(c(h),\deg_X(h))$ is submodular, being the composition of
+the concave nondecreasing function $t\mapsto\min(c(h),t)$ with the modular map
+$X\mapsto\deg_X(h)$; hence $\rho$ and $\delta(X)=\rho(X)-2|X|$ are submodular, and
+feasibility gives $\delta\ge0$. If
+$\delta(X)=\delta(Y)=0$ then
+$0\le\delta(X\cap Y)+\delta(X\cup Y)\le\delta(X)+\delta(Y)=0$, forcing both to
+vanish.
+\end{proof}
+
+\subsection{Feasibility for every fixed edge}\label{sub:C5b}
+We show a feasible selection actually exists---for \emph{every} choice of the
+distinguished edge $e$. This uses a rooted forest bound of independent interest.
+
+\begin{lemma}[Rooted forest extension]\label{lem:C5b}
+Let $G$ be bipartite, $H$ an induced forest, and $X$ an independent set contained
+in one bipartition class. Fix an edge $e=ab$ of $H$; give $a,b$ capacity $1$ and
+every other $H$-vertex capacity $2$, and put
+$\rho_e(X)=\sum_{h}\min(c_e(h),\deg_X(h))$. Then
+\[
+\FVS\!\left(G[H\cup X]\right)\ \le\ \left\lfloor \rho_e(X)/2\right\rfloor .
+\]
+\end{lemma}
+
+\begin{proof}
+Let $r$ be the endpoint of $e$ in the bipartition class opposite $X$; the other
+endpoint lies in $X$'s class and so has no $X$-neighbour. Thus $r$ is the only
+$e$-endpoint that can have $X$-neighbours. Induct on
+$k=\#\{h\in H\setminus\{r\}:\deg_X(h)\ge2\}$.
+
+\emph{Step $(k>0)$.} Pick $h\in H\setminus\{r\}$ with $\deg_X(h)\ge2$; then $h$
+is neither endpoint of $e$, so $c_e(h)=2$. Put $K=G[H\cup X]$, $K'=K-h$. Then
+$H-h$ is a forest containing $e$, so the lemma applies to $K'$, and deleting $h$
+lowers $\rho_e$ by $\min(2,\deg_X(h))=2$. If $D$ is an FVS of $K'$ then
+$D\cup\{h\}$ is an FVS of $K$, so
+$\FVS(K)\le1+\lfloor(\rho_e^{K}(X)-2)/2\rfloor=\lfloor\rho_e^{K}(X)/2\rfloor$.
+
+\emph{Base $(k=0)$.} Every $h\in H\setminus\{r\}$ has $\le1$ $X$-neighbour.
+\emph{Case 1} ($\deg_X(r)\le1$): every $h$ has $\le1$ $X$-neighbour, so
+$\rho_e(X)$ equals the number of $X$--$H$ incidences. Let $D=\{x\in X:\deg_H(x)
+\ge2\}$; each contributes $\ge2$ incidences, so $2|D|\le\rho_e(X)$. In $K-D$ every
+surviving $X$-vertex has degree $\le1$; adjoining leaves to the forest $H$ keeps
+it a forest, so $K-D$ is a forest and
+$\FVS(K)\le|D|\le\lfloor\rho_e(X)/2\rfloor$.
+\emph{Case 2} ($\deg_X(r)\ge2$): let $m$ be the number of $X$-to-$(H\setminus
+\{r\})$ incidences; each non-root $H$-vertex contributes $\le1$ and $r$
+contributes $c_e(r)=1$, so $\rho_e(X)=m+1$. Let $Q=\{x\in X:\deg_{H-r}(x)\ge2\}$,
+$q=|Q|$, so $2q\le m$. If $m\ge2q+1$, take $D=Q\cup\{r\}$: after deleting $r$,
+each $x\notin Q$ has $\le1$ remaining $H$-neighbour, so $K-D$ is a forest and
+$|D|=q+1\le\lfloor(m+1)/2\rfloor=\lfloor\rho_e(X)/2\rfloor$. If $m=2q$, take
+$D=Q$: every $x\in Q$ has exactly two non-root incidences and every $x\notin Q$
+none, so surviving $X$-vertices have degree $\le1$ (only possibly to $r$) and
+$K-D$ is a forest, with $|D|=q=\lfloor(2q+1)/2\rfloor=\lfloor\rho_e(X)/2\rfloor$.
+\end{proof}
+
+\begin{corollary}[Initial feasibility for every $e$]\label{cor:feasible}
+For every $X\subseteq S$ and every fixed edge $e\in E(H)$, $\rho_e(X)\ge2|X|$;
+hence a feasible selection exists for every distinguished edge $e$.
+\end{corollary}
+
+\begin{proof}
+Split $X$ into $X_L=X\cap L$ and $X_R=X\cap R$, each independent. Every $h\in
+H\cap L$ has neighbours only in $X_R$ and every $h\in H\cap R$ only in $X_L$, so
+the supports are disjoint and $\rho_e(X)=\rho_e(X_L)+\rho_e(X_R)$. If
+$\rho_e(X)<2|X|$ then one side, say $X_L$, has $\rho_e(X_L)<2|X_L|$; then
+Lemma~\ref{lem:C5b} gives
+$\FVS(G[H\cup X_L])\le\lfloor\rho_e(X_L)/2\rfloor<|X_L|$, contradicting
+hereditary tightness (Lemma~\ref{lem:C2}). Thus $\rho_e(X)\ge2|X|$ for all
+$X\subseteq S$, and Lemma~\ref{lem:C5} gives feasibility.
+\end{proof}
+
+\subsection{Parity and residual augmentation}\label{sub:C4}
+
+\begin{lemma}[Fixed-edge parity]\label{lem:C3}
+The fixed edge $e=(x,y)$ lies on no selected cycle, and $J\cup\{e\}$ is acyclic
+iff $J$ is.
+\end{lemma}
+
+\begin{proof}
+If $J\cup\{e\}$ had a cycle through $e$, deleting $e$ leaves an $x$--$y$ path of
+$S$--$H$ incidence edges, which alternates $H,S,H,\dots$ and so has even length.
+But $x,y$ are adjacent in bipartite $G$, hence in opposite classes, so every
+$x$--$y$ path has odd length --- a contradiction.
+\end{proof}
+
+The next theorem is the corrected engine of the descent. (An earlier
+symmetric-difference sketch was superseded; the argument below is a direct
+max-flow augmenting-path proof.)
+
+\begin{theorem}[Residual augmentation]\label{thm:C4}
+Let $J$ be a feasible selection and $a=(s,h)$ a selected incidence. Delete the arc
+$a$ from $N$ entirely; call the result $N-a$. Then a feasible selection omitting
+$a$ exists iff $N-a$ admits a flow of value $2|S|$ iff there is a simple residual
+$\sigma$--sink augmenting path in $N-a$. Consequently $a$ is avoidable iff it is
+avoidable by a single residual augmentation.
+\end{theorem}
+
+\begin{proof}
+$J$ is a value-$2|S|$ integral flow in $N$. Form $J-a$ by deleting one complete
+unit-flow path $\sigma\to s\to h\to\text{sink}$ (the unit routed through $a$):
+the flow on $\sigma\to s$ drops from $2$ to $1$; the arc $a$ is absent from
+$N-a$; the flow on $h\to\text{sink}$ drops by $1$; all other arc flows are
+unchanged. Conservation is preserved at $s$ (inflow and outflow both drop by $1$)
+and at $h$ (likewise); every other vertex is untouched. So $J-a$ is a valid
+integral flow of value $2|S|-1$ in $N-a$, in which $\sigma\to s$ is the only
+unsaturated source arc.
+
+A feasible selection omitting $a$ is a value-$2|S|$ flow in $N-a$ (it saturates
+every $\sigma\to s$ and never uses $a$). Conversely, by the augmenting-path
+theorem applied to $J-a$, the network $N-a$ admits a larger (value-$2|S|$) flow
+iff there is a simple residual $\sigma$--sink path from the deficient $s$;
+augmenting along it saturates $\sigma\to s$ and yields a feasible selection. Its
+incidence portion (delete the source/sink arcs) is exactly an alternating
+augmenting path from $s$ to an $H$-vertex of residual capacity. The released arc
+$a$ is absent from $N-a$, so no residual path can re-add it.
+\end{proof}
+
+\begin{corollary}\label{cor:noR2x}
+There is no incidence that is globally avoidable yet admits no single residual
+augmentation avoiding it; ``avoidable'' and ``one-move avoidable'' coincide.
+\end{corollary}
+
+\subsection{Descent, and the reduction to two lemmas}\label{sub:descent}
+
+\begin{lemma}[Descent]\label{lem:C8}
+If, from every feasible selection with a selected cycle, some CES toggle exists,
+then repeatedly applying CES toggles terminates in an acyclic feasible selection.
+\end{lemma}
+
+\begin{proof}
+A CES toggle destroys the target cycle and creates none, so it strictly lowers
+the (nonnegative integer) number of selected cycles. A strictly decreasing
+sequence of nonnegative integers terminates; the terminal selection is acyclic.
+\end{proof}
+
+We now name the two properties that a CES toggle needs, and package the whole
+bipartite case. Write $F2$ for the statement that an acyclic feasible selection
+exists for some fixed edge $e$.
+
+\begin{theorem}[Reduction of the bipartite case]\label{thm:F2}
+Suppose the following two lemmas hold for all connected nontrivial bipartite
+graphs.
+\begin{itemize}
+\item[\textbf{A.}] (Forced core acyclic.) In the model of
+Definition~\ref{def:selection}, the forced core contains no cycle.
+\item[\textbf{B.}] (Cycle-erasing descent.) Every selected cycle that contains an
+avoidable (non-forced) incidence admits a CES toggle.
+\end{itemize}
+Then every connected nontrivial bipartite graph satisfies $\lf\ge2\FVS+1$, i.e.
+Conjecture~\ref{conj:main} holds in the bipartite case.
+\end{theorem}
+
+\begin{proof}
+Take $\FVS\ge1$ (the $\FVS=0$ case was handled at the start of
+Section~\ref{sec:bipartite}). We first check $E(H)\ne\varnothing$, so a fixed
+edge exists. If $E(H)=\varnothing$, take $X=\{s\}$ for any $s\in S$: then
+$G[H\cup\{s\}]$ has edges only at $s$ (a star forest), so
+$\FVS(G[H\cup\{s\}])=0$, contradicting hereditary tightness
+(Lemma~\ref{lem:C2}), which gives $1$. So fix $e\in E(H)$.
+
+By Corollary~\ref{cor:feasible} a feasible selection exists. By Lemma~A the
+forced core is acyclic, so every selected cycle contains an avoidable incidence:
+forced incidences belong to every feasible selection, so a selected cycle all of
+whose incidences were forced would be a cycle of the forced core, contradicting
+acyclicity. Hence Lemma~B applies to every selected cycle and supplies a CES
+toggle, and the descent (Lemma~\ref{lem:C8}) terminates in a feasible selection
+$J$ with no selected cycle. By Lemma~\ref{lem:C3}, $J\cup\{e\}$ is acyclic. Now $J\cup\{e\}$ has maximum degree $2$: every $s\in S$ has selected
+degree $2$; every $h\in H$ has degree $\le c(h)\le2$; and $x,y$ keep degree
+$\le2$ because $c(x)=c(y)=1$ leaves one unit for the edge $e$. An acyclic graph
+of maximum degree $2$ is a disjoint union of paths, i.e.\ a linear forest. It has
+$2|S|$ incidence edges plus the edge $e$, and it spans $S\cup H=V$; every $s$ has
+degree $2$, every internal vertex degree $\le2$. Hence it is a spanning linear
+forest with $2|S|+1$ edges, so $\lf\ge2|S|+1=2\FVS+1$.
+\end{proof}
+
+\begin{remark}
+Theorem~\ref{thm:F2} isolates the open content precisely. All of
+Sections~\ref{sub:hall}--\ref{sub:descent} --- the Hall criterion, the F1
+characterization, the tight-set lattice, the rooted forest bound and feasibility
+for every $e$, fixed-edge parity, the residual-augmentation flow theorem, and the
+descent --- are proved unconditionally. What remains for the bipartite case is
+exactly Lemma~A and Lemma~B.
+\end{remark}
+
+\section{The two open lemmas}\label{sec:openlemmas}
+
+We state the two lemmas in the strongest proved-adjacent forms and record the
+footholds that constrain any proof.
+
+\subsection{Lemma A: the forced core is a forest}
+
+It is essential that Lemma~A use hereditary tightness, not merely Hall
+feasibility. The abstract even-cycle system ($S_i$ adjacent to $H_i,H_{i+1}$,
+demand $2$, capacity $2$) is Hall-feasible yet its unique feasible selection is
+the whole cycle, so its forced core is a cycle; there
+$\FVS(G[H\cup S])=1<|S|$, i.e.\ hereditary tightness fails. Thus Lemma~A is
+exactly the implication
+\[
+\text{hereditary FVS tightness for all }X\subseteq S
+\ \Longrightarrow\
+\text{forced core acyclic,}
+\]
+and this implication is open in general. We state the lemma without a
+connectedness hypothesis, since none of the footholds uses it and the
+disconnected form implies the connected one.
+
+\begin{problem}[Lemma A$^{\circ}$]\label{prob:A}
+Let $G$ be a finite simple bipartite graph, \emph{not necessarily connected},
+$S$ a minimum FVS, $H=G-S$, and $e$ a fixed edge of $H$ with capacities as in
+Definition~\ref{def:selection}. Prove that the forced incidence core is acyclic.
+\end{problem}
+
+A connected instance is a special case, so Lemma~A$^{\circ}$ implies the
+connected Lemma~A used in Theorem~\ref{thm:F2}.
+
+The following foothold reduces the problem to cycles with an external neighbour.
+
+\begin{lemma}[Closed-neighbourhood subcase, A-I]\label{lem:Aone}
+Suppose the forced core has a cycle $F$ with $S$-side $P$ and $H$-side $Q$
+($|P|=|Q|=m$). If $N_H(P)\subseteq Q$, then hereditary tightness is contradicted;
+hence no such $F$ exists.
+\end{lemma}
+
+\begin{proof}
+In $G[H\cup P]$ pick any $q_0\in Q$ and set $D=Q\setminus\{q_0\}$, $|D|=m-1$. Any
+cycle of $G[H\cup P]-D$ lies in $H-D$ (impossible, an induced subgraph of the
+forest $H$) or passes through some $s\in P$. The cycle $F$ alternates $S$- and
+$H$-vertices, while the bipartition classes alternate along every edge; hence all
+$S$-positions of the even cycle $F$ lie in one class, so $P$ is contained in one
+bipartition class. Therefore $s$ has no neighbours in $P$, and $P$--$(S\setminus P)$ edges are absent from
+$G[H\cup P]$; with $N_H(s)\subseteq Q$, deleting $Q\setminus\{q_0\}$ leaves each
+$s\in P$ of degree $\le1$, hence on no cycle. So $D$ is an FVS of size $m-1$,
+giving $\FVS(G[H\cup P])\le m-1<m$, contradicting Lemma~\ref{lem:C2}.
+\end{proof}
+
+Two saturation facts follow from tightness; both are used to pin down the
+canonical carriers.
+
+\begin{lemma}[Tight-set saturation]\label{lem:sat}
+For a tight $X$ ($\rho(X)=2|X|$), every feasible $J$ and every $h\in H$ have
+$\mathrm{load}^J_X(h)=\min(c(h),\deg_X(h))$, where $\mathrm{load}^J_X(h)$ counts
+selected $X$--$h$ incidences.
+\end{lemma}
+
+\begin{proof}
+Termwise $\mathrm{load}^J_X(h)\le\min(c(h),\deg_X(h))$, while
+\[
+\sum_h\mathrm{load}^J_X(h)=2|X|=\rho(X)=\sum_h\min\bigl(c(h),\deg_X(h)\bigr);
+\]
+equal sums of termwise-dominated quantities force equality in every term.
+\end{proof}
+
+\begin{lemma}[Common tight carrier]\label{lem:carrier}
+For $s$ on a forced cycle, the two forced incidences at $s$ share a single
+inclusion-minimal tight exposing set $A_s$, and $A_s$ is the unique minimum tight
+set containing $s$.
+\end{lemma}
+
+\begin{proof}
+Let $X^-,X^+$ be inclusion-minimal tight sets exposing the two forced incidences
+$f^-,f^+$ at $s$; these exist by finiteness (Lemma~\ref{lem:F1} gives some tight
+exposer, and a smallest one exists). By
+Lemma~\ref{lem:C6}, $X^-\cap X^+$ is tight; it contains $s$ and, having
+coordinatewise degree $\le$ that of each exposer, still exposes both, so
+minimality gives $X^-\cap X^+=X^-=X^+=:A_s$. For any tight $Y\ni s$, $A_s\cap Y$
+is tight, contains $s$, and exposes a forced incidence at $s$, so
+$A_s\cap Y=A_s$, i.e.\ $A_s\subseteq Y$.
+\end{proof}
+
+\begin{lemma}[Punctured tightness]\label{lem:punct}
+Let $B_s=A_s\setminus\{s\}$. Then $B_s$ is tight; the only $H$-neighbours $v$ of
+$s$ with $\deg_{A_s}(v)\le c(v)$ are the two forced ends $q^-,q^+$; and every
+other $H$-neighbour $h$ of $s$ has $\deg_{A_s}(h)\ge c(h)+1$.
+\end{lemma}
+
+\begin{proof}
+Removing $s$ lowers $\min(c(v),\deg_{A_s}(v))$ by one exactly at the neighbours
+$v$ with $\deg_{A_s}(v)\le c(v)$; let $k$ be their number. The forced ends
+$q^-,q^+$ are two such vertices, so $k\ge2$; and
+$\rho(B_s)=\rho(A_s)-k=2|A_s|-k$, so $\delta(B_s)=2-k\ge0$ gives $k\le2$. Hence
+$k=2$, $\delta(B_s)=0$, the two are exactly $q^-,q^+$, and every other
+$H$-neighbour is oversubscribed.
+\end{proof}
+
+\begin{lemma}[Single-blocker subcase]\label{lem:blocker}
+Let $h$ be an external $H$-neighbour of $s$ with $c(h)=2$ and
+$U_h=N_G(h)\cap B_s$. If every $u\in U_h$ has at most one $H$-neighbour other
+than $h$, then $\FVS(G[H\cup U_h])\le1<|U_h|$, a contradiction.
+\end{lemma}
+
+\begin{proof}
+By Lemma~\ref{lem:punct}, $\deg_{A_s}(h)\ge c(h)+1=3$; since $s\in N(h)$, the
+remaining neighbours give $|U_h|=|N(h)\cap B_s|\ge2$. All of $U_h$ share the
+neighbour $h$, so lie in one bipartition class and induce no edges among
+themselves. In $G[H\cup U_h]-h$ each $u\in U_h$ then has degree $\le1$ and lies on
+no cycle, and $H-h$ is a forest; so $\{h\}$ is an FVS, giving
+$\FVS(G[H\cup U_h])\le1<2\le|U_h|$, contradicting hereditary tightness.
+\end{proof}
+
+Finally, a normalization that lets one assume $S$ equals the union of carriers.
+
+\begin{lemma}[$T_F$ normalization]\label{lem:TF}
+Suppose a Lemma-A$^{\circ}$ instance has a forced-core cycle $F$ with $S$-side
+$P$. Put $T_F=\bigcup_{s\in P}A_s$ and restrict to $G'=G[H\cup T_F]$, $S'=T_F$
+(same $H$, edge $e$, capacities). Then $G'-S'=H$; $S'$ is a minimum FVS of $G'$;
+hereditary tightness holds for every $X\subseteq T_F$; the restricted system is
+feasible; every $A_s$ stays tight and exposes both forced edges at $s$; and every
+edge of $F$ remains forced in $G'$. Hence a minimal counterexample to
+Lemma~A$^{\circ}$ may be assumed to satisfy $S=T_F$.
+\end{lemma}
+
+\begin{proof}
+(i) For every $X\subseteq T_F$, the induced subgraphs $G'[H\cup X]$ and
+$G[H\cup X]$ are literally the same graph (both are induced on $H\cup X$ in $G$),
+so $\FVS(G'[H\cup X])=\FVS(G[H\cup X])=|X|$ verbatim from Lemma~\ref{lem:C2}
+applied to $G$; hereditary tightness holds on all $X\subseteq T_F$.
+(ii) Taking $X=T_F$ gives $\FVS(G')=|T_F|$; and $T_F$ is an FVS of $G'$ (deleting
+it leaves $H$, a forest), hence a minimum FVS.
+(iii) The quantity $\rho$ is intrinsic to $(X,H,\text{capacities},\ X\text{-to-}
+H\text{ edges})$, all unchanged in $G'$; so the Hall inequality $\rho(X)\ge2|X|$
+for all $X\subseteq S$ restricts to all $X\subseteq T_F$, and Lemma~\ref{lem:C5}
+gives feasibility of the restricted system.
+(iv) Forcedness is \emph{not} monotone under restriction: removing the demand of
+$S$-vertices outside $T_F$ can create new feasible selections. Instead, each
+$F$-edge is re-forced via Lemma~\ref{lem:F1}: its carrier $A_s\subseteq T_F$ is
+still tight (same $\rho$ value) and still exposes it (same degrees and
+capacities), so no feasible selection of $G'$ omits it, and $F$ remains in the
+forced core of $G'$.
+Connectedness may be lost under restriction --- which is exactly why
+Lemma~A$^{\circ}$ is stated without it.
+\end{proof}
+
+\paragraph{Warning witnesses.} Three certified instances (found and independently
+recomputed) bracket the false localizations and show why the remaining case is
+genuinely open. Each eliminates a tempting shortcut. None of them is a
+counterexample to Lemma~A$^{\circ}$: each is an instance in which hereditary
+tightness \emph{fails} at a specific location (so its forced cycle is permitted),
+and each is used only to refute a proposed rule for \emph{where} that violation
+must sit --- not to exhibit a hereditarily tight instance with a forced cycle,
+which is exactly what Lemma~A$^{\circ}$ forbids.
+
+\begin{itemize}
+\item \textbf{O-56} (capacity $2$, acyclic quotient). Here the hereditary
+violation sits inside $B_s$ and a \emph{single} external $H$-vertex blocks it:
+this is exactly the single-blocker subcase of Lemma~\ref{lem:blocker}
+($A_s=\{0,2,3\}$, $B_s=\{2,3\}$ tight, forced ends at $\{4,5\}$, external
+neighbour $6$ with $\deg_{A_s}(6)=3$; the incidences $2\!\sim\!\{6,7\}$,
+$3\!\sim\!\{6,8\}$). It shows the subcase is nonempty but does not by itself close
+the general case.
+\item \textbf{O-63} (capacity $2$, cyclic quotient). Here every vertex of $U_h$
+has incidence-degree $3$, the violation is the \emph{entire} $B_s=\{u,a,b\}$, and
+the blocker $\{h,w\}$ has size $2$. This refutes both ``every $B_s$-vertex has
+incidence-degree $2$'' and ``incidence-degree $\ge3$ forces a private cycle'':
+the blocking set can exceed a single external vertex, and high degree alone does
+not force a cycle in the forest quotient.
+\item \textbf{O-64} (capacity $1$). Explicitly: $S=\{s,t,u\}$; $H$ is the tree
+$q_1\!-\!r\!-\!q_2$ together with $q_1\!-\!y$, $y\!-\!h$, $y\!-\!w$; fixed edge
+$e=(h,y)$ with $c(h)=c(y)=1$; adjacencies $s\!\sim\!q_1,q_2,h$, $t\!\sim\!q_1,q_2$,
+$u\!\sim\!h,w$. The unique feasible selection sends $s,t\to\{q_1,q_2\}$ and
+$u\to\{h,w\}$, so $u$ saturates the capacity-$1$ vertex $h$, $s$ is pushed off
+$h$, and $s\!-\!q_1\!-\!t\!-\!q_2\!-\!s$ is a forced cycle. Here the carrier
+puncture $B_s=\{u\}$ is Hall-tight yet $\FVS(G[H\cup B_s])=1=|B_s|$: it carries
+\emph{no} hereditary violation. The first violation sits on the cycle's own
+$S$-side $P=\{s,t\}$ ($\FVS(G[H\cup P])=1<2$). This refutes $B_s$-localization
+and shows that capacity-$1$ and capacity-$2$ external neighbours are separate
+branches; neither $P$ nor $B_s$ is a universal localizer.
+\end{itemize}
+
+The remaining open target is to derive, from the carrier family
+$\{A_s:s\in P\}$, their punctures $B_s$, the external-neighbour structure, and the
+augmented forest quotient, either a hereditarily violating subset of
+$P\cup\bigcup_sA_s$ or a feasible exchange avoiding a forced-cycle edge. The
+witnesses show the violating set need not be $P$, $B_s$, or $T_F$; no single
+localization is available.
+
+Computationally, Lemma~A holds on every instance up to $n=10$ (an exhaustive
+forced-core scan over $n=7,\dots,10$ found no cyclic forced core; the forced core
+was always a forest).\footnote{An $n=11$ run over $994{,}607$ instances reported
+zero cyclic cores and maximum forced-path length $8$; that run is recorded in a
+preserved intermediate report, incompletely ledgered, and not independently
+reproducible from a completion artifact. We therefore do not claim exhaustive
+$n=11$ verification of Lemma~A.}
+
+\subsection{Lemma B: cycle-erasing descent}
+
+Lemma~B asks that a CES toggle exist for every selected cycle that has an
+avoidable incidence (Lemma~A guarantees every selected cycle is of this kind).
+The natural metric refinement is formulated through residual augmenting paths.
+For such a cycle $C$ let $d_0(C)$ be the minimum length of a residual augmenting
+path over the avoidable edges of $C$, and $d_{\mathrm{CES}}(C)$ the minimum length
+over CES residual paths.
+
+\begin{problem}[Lemma B]\label{prob:B}
+Prove that every selected cycle containing an avoidable incidence admits a CES
+toggle; equivalently, $d_{\mathrm{CES}}(C)<\infty$ for every such cycle $C$.
+\end{problem}
+
+A shortest-path-only formulation of Lemma~B (that some globally shortest residual
+augmenting path is already CES) held exhaustively through $n=10$ but was
+falsified at $n=11$ by a sealed holdout (six $4$-cycle witnesses at which a
+shortest bad path destroys $C$ but creates one crossing cycle, the cycle-erasing
+reroute appearing only at length $d_0+2$). Two refinements survive those exact
+witnesses and are supported \emph{in sample only}: the metric bound
+$d_{\mathrm{CES}}(C)\le d_0(C)+2$, and a terminal-slide mechanism producing the
+CES move by a two-edge extension of a shortest path; at $n=11$ the gap
+distribution over the $8{,}202{,}633$ selected cycles was $\{0:8{,}202{,}627,\,
+2:6\}$. These are refinements of an open lemma, not theorems; a prospective
+$n=12$ holdout was aborted without a verdict. We record the following conditional
+step, whose hypotheses the terminal-slide mechanism is meant to supply.
+
+\begin{proposition}[Terminal-slide criterion]\label{prop:B1}
+Let $a=(s,h)$ be an avoidable incidence, $Q_0$ a simple residual augmenting path
+from the release ending at an $H$-terminal $t$, and $J_0=\mathrm{toggle}(Q_0)$
+feasible, with final added edge $(u,t)$. Suppose (H1) $C$ is not a cycle of
+$J_0$; (H2) $J_0$ has exactly one cycle $Z$ not already present; (H3) $(u,t)$
+lies on $Z$; (H4) $(u,h)$ is an unselected incidence with $u\ne s$ and
+$\deg_{J_0-(u,t)}(h)<c(h)$; (H5) $u$ and $h$ lie in different components of
+$J_0-(u,t)$. Then $J^+=J_0-(u,t)+(u,h)$ is feasible, still omits $a$, and is CES
+for $C$.
+\end{proposition}
+
+\begin{proof}
+Feasibility is termwise: $t$ loses one incidence; $u$ swaps $(u,t)$ for $(u,h)$,
+keeping selected degree $2$; $h$ gains one incidence but $\deg_{J_0-(u,t)}(h)
+<c(h)$ by (H4); all other vertices are unchanged. Since $(u,h)\ne a$, the released
+$a$ stays unselected. For cycles: by (H2)--(H3), $Z$ is the only new cycle and
+$(u,t)\in Z$, so $J_0-(u,t)$ has only cycles already present in the pre-toggle
+selection; adding $(u,h)$ across two different components (H5) creates no cycle.
+Hence $J^+$ destroys $C$ and adds no new cycle: it is CES.
+\end{proof}
+
+The open content of Lemma~B is to prove that, for every positive-gap cycle, a
+shortest residual path exists whose terminal configuration satisfies
+(H1)--(H5)---an argument that must invoke residual shortest-path structure and
+hereditary tightness rather than any single empirical normal form.
+
+\section{Toward the general case}\label{sec:general}
+
+We turn to $\OCT>0$. Two monotonicities are immediate.
+
+\begin{lemma}\label{lem:mono}
+For any vertex set $T$: $\lf(G)\ge\lf(G-T)$ and $\FVS(G-T)\ge\FVS(G)-|T|$. In
+particular for a minimum odd-cycle transversal $T$ with $B=G-T$ bipartite,
+$\lf(G)\ge\lf(B)$ and $\FVS(B)\ge\FVS(G)-\OCT$.
+\end{lemma}
+
+\begin{proof}
+A spanning linear forest of $G-T$ extends to one of $G$ by adjoining the vertices
+of $T$ as trivial paths, so $\lf(G)\ge\lf(G-T)$. Deleting $|T|$ vertices lowers
+the minimum FVS by at most $|T|$, so $\FVS(G-T)\ge\FVS(G)-|T|$.
+\end{proof}
+
+\begin{lemma}[Edge in the maximum bipartite subgraph]\label{lem:edge}
+If $G$ is connected and nontrivial, a maximum induced bipartite subgraph
+$B$ has an edge; more generally $b(G)\ge\alpha(G)+1$ where $\alpha$ is the
+independence number.
+\end{lemma}
+
+\begin{proof}
+If $B$ were edgeless then $b(G)=\alpha(G)$. Take a maximum independent set $I$;
+since $G$ is connected and nontrivial there is a vertex $v\notin I$ with a
+neighbour in $I$, and $I\cup\{v\}$ induces a star, which is bipartite, of size
+$|I|+1>b(G)$, contradicting maximality.
+\end{proof}
+
+\begin{theorem}[Conditional coefficient-two bound]\label{thm:B5}
+Assume the bipartite case of Conjecture~\ref{conj:main}
+($\lf(B)\ge2\FVS(B)+1$ for every connected nontrivial bipartite $B$). Then for
+every connected nontrivial graph $G$,
+\[
+\lf(G)+2\,\OCT(G)\ \ge\ 2\,\FVS(G)+1 .
+\]
+\end{theorem}
+
+\begin{proof}
+Let $T$ be a minimum odd-cycle transversal, $|T|=\OCT$, and $B=G-T$ a maximum
+induced bipartite subgraph. By Lemma~\ref{lem:mono}, $\lf(G)\ge\lf(B)$ and
+$\FVS(B)\ge\FVS(G)-\OCT$. Applying the bipartite case componentwise to $B$ (an
+edgeless component has $\lf=0=2\FVS$),
+$\lf(B)\ge2\FVS(B)+c_e$, where $c_e$ is the number of components of $B$ with an
+edge. By Lemma~\ref{lem:edge}, $c_e\ge1$. Hence
+\[
+\lf(G)\ge\lf(B)\ge2\FVS(B)+c_e\ge2(\FVS(G)-\OCT)+1,
+\]
+so $\lf(G)+2\OCT\ge2\FVS(G)+1$.
+\end{proof}
+
+Theorem~\ref{thm:B5} has coefficient $2$ on $\OCT$; the target has coefficient
+$1$. We isolate a single-vertex property that closes this gap.
+
+\begin{definition}[SV]\label{def:SV}
+Say SV holds if for every connected nonbipartite finite simple graph $G$ there is
+a vertex $t$ lying in some minimum odd-cycle transversal of $G$ with
+$p(G)\le p(G-t)$, equivalently $\lf(G)\ge\lf(G-t)+1$.
+\end{definition}
+
+Note $t$ lies in a minimum odd-cycle transversal iff $\OCT(G-t)=\OCT(G)-1$.
+
+\begin{theorem}[Single-vertex reduction]\label{thm:SV}
+If SV holds and the bipartite case of Conjecture~\ref{conj:main} holds, then
+$\lf(G)+\OCT(G)\ge2\FVS(G)+1$ for every connected nontrivial $G$; i.e.\
+Conjecture~\ref{conj:main} holds in full.
+\end{theorem}
+
+\begin{proof}
+Strong induction on $|V(G)|$. If $G$ is bipartite, $\OCT(G)=0$ and the bipartite
+case gives $\lf(G)\ge2\FVS(G)+1=2\FVS(G)+\OCT(G)+1$. Otherwise $G$ is connected
+nonbipartite; take $t$ as in SV, so $\OCT(G-t)=\OCT(G)-1$ and
+$\lf(G)\ge\lf(G-t)+1$. Also $\FVS(G-t)\ge\FVS(G)-1$. The parameters $\lf,\OCT,
+\FVS$ are additive over connected components, and to each edge-containing
+component $K_i$ of $G-t$ apply either the induction hypothesis (if nonbipartite,
+$|K_i|<|G|$) or the bipartite case (if bipartite); both give
+$\lf(K_i)+\OCT(K_i)\ge2\FVS(K_i)+1$. Isolated components contribute $0$. Summing
+over the $c_+(G-t)$ edge-containing components,
+\[
+\lf(G-t)+\OCT(G-t)\ \ge\ 2\FVS(G-t)+c_+(G-t).
+\]
+Finally $c_+(G-t)\ge1$: $G$ has an odd cycle $C$; if $t\notin C$ then $C$
+survives, and if $t\in C$ then $C-t$ is a path with an edge, so $G-t$ has an edge.
+Combining,
+\[
+\lf(G)+\OCT(G)\ \ge\ (\lf(G-t)+1)+(\OCT(G-t)+1)
+\ \ge\ (2\FVS(G-t)+c_+)+2
+\ \ge\ 2(\FVS(G)-1)+1+2 = 2\FVS(G)+1. \qedhere
+\]
+\end{proof}
+
+SV is a sufficient route, not a necessary one: a failure of SV would not refute
+Conjecture~\ref{conj:main}. Computationally, SV holds for every connected
+nonbipartite graph on $\le10$ vertices (Section~\ref{sec:computation}).
+
+\section{Computational verification}\label{sec:computation}
+
+\paragraph{Methodology.} All computational claims here come from a preregistered
+protocol. A single exact checker \texttt{phase0.c} computes $f$ (maximum induced
+forest, by a subset scan with union-find acyclicity test), $b$ (maximum induced
+bipartite subgraph, by a subset scan with a $2$-colouring test), and $p$ (minimum
+path cover $=n-$ maximum spanning linear forest, by a Hamiltonicity/DP bitmask)
+exactly for $n\le11$. The checker source was frozen and SHA-256 hashed before any
+run; a gold suite (invariants on $K_{10}$, $K_{5,5}$, $K_{1,9}$, complete
+multipartite families, $C_{10}$, and others) and a $995$-graph regression over
+$n\le7$ passed before launch. Graph enumeration used \texttt{nauty geng -c}
+\cite{nauty}.
+Every low-slack graph was re-checked by a second, independently coded engine
+(\texttt{phase0\_verify2.py}, a pure-Python bitmask implementation sharing no code
+with the C checker). Any bound violation would halt the run with the graph and
+witness sets; none occurred.
+
+\paragraph{Direct verification of Conjecture~\ref{conj:main}.}
+\begin{itemize}
+\item $2\le n\le10$: every connected graph was enumerated, with $0$ violations at
+every order. The connected-graph counts matched the known values exactly: $n=2$
+through $7$ give $1,2,6,21,112,853$ (total $995$, the regression layer); $n=8$
+gives $11{,}117$; $n=9$ gives $261{,}080$; $n=10$ gives $11{,}716{,}571$. The
+layers $n=8,9$ were run under the same re-frozen checker as $n=11$ (re-golded
+before use), so the whole range sits under one dual-engine protocol. At $n=10$
+the minimum slack is $0$, with $115{,}154$ low-slack graphs (slack $\le1$) of
+which $4{,}960$ meet the bound with equality ($2f=p+b+1$); all low-slack graphs
+of every order $n\le10$, plus a $10{,}005$-graph sample at $n=10$, were re-verified
+by the second engine with $0$ violations. (Checker \texttt{phase0.c}, freeze
+hashes \texttt{9f5cc322} for the original $n\le10$ runs and \texttt{bc7f614d} for
+the re-frozen $n=8,9$ and $n=11$ runs.)
+\item $n=11$: all $1{,}006{,}700{,}565$ connected graphs on $11$ vertices were
+enumerated, sharded into $192$ residue classes whose counts sum to exactly
+$1{,}006{,}700{,}565$; there were $0$ violations, minimum slack $0$, and
+$3{,}853{,}461$ low-slack graphs, of which $96{,}949$ meet the bound with
+equality (and $3{,}756{,}512$ have slack $1$). All $3{,}853{,}461$ low-slack
+graphs plus a $9{,}968$-graph sample --- $3{,}863{,}429$ graphs in all --- were
+re-verified by the second engine, with $0$ violations. (Checker
+\texttt{phase0.c}, re-freeze hash \texttt{bc7f614d}; wall time $18.1$ hours on an
+$8$-core machine.)
+\end{itemize}
+Thus Conjecture~\ref{conj:main} holds, with no exceptions, for every connected
+graph on at most $11$ vertices.
+
+\paragraph{Verification of SV.} The single-vertex property was checked directly:
+for each connected nonbipartite $G$ the eligible set $\{t:\OCT(G-t)=\OCT(G)-1\}$
+was computed and tested for a vertex with $p(G)\le p(G-t)$. SV held for all
+$272{,}209$ connected nonbipartite graphs with $3\le n\le9$, and for all
+$11{,}712{,}539$ connected nonbipartite graphs on $n=10$; $0$ violations in every
+case.
+
+\paragraph{Status of the lemma-level runs.} Lemma~A (forced-core acyclicity) was
+verified exhaustively for $n\le10$ (no cyclic forced core). Lemma~B's
+shortest-only form was verified exhaustively through $n\le10$ and \emph{falsified}
+at $n=11$ by a sealed holdout (six witnesses), after which the surviving metric
+and terminal-slide refinements were supported only in sample (Section~\ref{sec:openlemmas});
+a prospective $n=12$ holdout was aborted without a verdict.
+
+\section{Related work}\label{sec:related}
+
+The nearest neighbour is the work of Lavrov and Vandenbussche~\cite{LV2024}. They
+do not characterize path covers; they \emph{conjecture} a Hall-type sufficient
+condition under which one side $X$ of a bipartite graph can be covered by at most
+$\Lambda\text{-def}(G)$ vertex-disjoint paths, and they \emph{prove} the
+conjecture for forests, for graphs of maximum degree $3$, and for regular graphs
+of high girth. Their $\Lambda$-deficiency and the demand-$2$ deficiency
+$\delta_2$ of our incidence model (Section~\ref{sub:model}) are related. Taking
+the model with \emph{all capacities $2$} (no capacity-$1$ pair), write, for a
+vertex set $S$, $\mathrm{supp}(S)$ for the number of $H$-vertices with at least
+one neighbour in $S$, and $\Lambda(S)$ for the number with at least two; then the
+two deficiencies satisfy
+\[
+\delta_2(S)\ +\ \Lambda\text{-def}(S)\ =\ \mathrm{supp}(S)\ -\ |S|.
+\]\footnote{This identity is stated here as the bridge between the two deficiency
+measures; it is not derived from the proof documents of this project and we do
+not claim it as one of the results verified here.}
+The obstacle to transferring their machinery directly is that
+$\Lambda\text{-def}$ is neither submodular nor supermodular, so the tight-set
+lattice (Lemma~\ref{lem:C6}) that drives our carrier analysis has no counterpart
+on their side. Separately, the parameters $f=n-\FVS$ and the decycling number $\FVS$ sit
+in the large induced-forest / feedback-vertex-set literature, and $b=n-\OCT$ with
+$\OCT$ in the odd-cycle-transversal literature; the novelty of the deficiency
+form (Theorem~\ref{thm:equiv}) is that it couples all three of $\FVS,\OCT$, and
+the linear-forest parameter $\lf$ in a single inequality.
+
+\section{Data availability}\label{sec:data}
+
+The frozen checker \texttt{phase0.c}, the independent verifier
+\texttt{phase0\_verify2.py}, the per-shard enumeration counts, the second-engine
+re-verification logs, and the compressed low-slack witness sets are archived with
+the manuscript. \emph{[Repository URL and Zenodo DOI to be inserted.]}
+
+\section*{Acknowledgments}
+
+The mathematics and the computations in this paper were developed with AI
+assistance (Claude models); all results were independently cross-checked
+computationally.
+
+\begin{thebibliography}{9}
+\bibitem{LV2024}
+M.~Lavrov and J.~Vandenbussche,
+\emph{A Hall-type condition for path covers in bipartite graphs},
+Electronic Journal of Combinatorics \textbf{31}(3) (2024), \#P3.1.
+\href{https://doi.org/10.37236/12462}{doi:10.37236/12462}.
+\bibitem{WOWII}
+E.~DeLavi\~na, \emph{Written on the Wall~II} (Graffiti.pc conjectures),
+Conjecture~40. Maintained open-problems list,
+\url{http://cms.dt.uh.edu/faculty/delavinae/research/wowII/} (last updated
+2026-07-23; accessed 2026-08-02).
+\bibitem{FC}
+Google DeepMind, \emph{formal-conjectures} (Lean), \texttt{GraphConjecture40}.
+\url{https://github.com/google-deepmind/formal-conjectures},
+file \texttt{FormalConjectures/Wowii/GraphConjecture40.lean} (accessed 2026-08-02).
+\bibitem{nauty}
+B.~D.~McKay and A.~Piperno, \emph{Practical graph isomorphism, II},
+J.~Symbolic Comput.\ \textbf{60} (2014), 94--112.
+\href{https://doi.org/10.1016/j.jsc.2013.09.003}{doi:10.1016/j.jsc.2013.09.003}.
+\end{thebibliography}
+
+\end{document}
