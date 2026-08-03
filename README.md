@@ -31,6 +31,8 @@ f(G) >= ceil( (p(G) + b(G) + 1) / 2 ).
 
 ## What is open
 
+*AI or human and want to attack the open lemmas? Start at [ATTACK.md](ATTACK.md).*
+
 - **Lemma A** (the forced core is acyclic) and **Lemma B** (a cycle-erasing
   toggle always exists) — the bipartite case rests on these two.
 - The general-to-bipartite step at **coefficient one** (`ell + o >= 2*tau + 1`).

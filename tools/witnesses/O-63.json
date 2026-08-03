@@ -1,0 +1,36 @@
+{
+  "id": "O-63",
+  "source": "ledgers/RESULT_RECORD.md entry O-63 (independently verified)",
+  "refutes": "Two degree/private-cycle localizations for Lemma A: (1) 'every vertex of the punctured carrier B_s has incidence-degree 2' is FALSE (here all of B_s has incidence-degree 3); (2) 'a U_h-vertex of incidence-degree >= 3 has a private cycle avoiding h' is FALSE unless the augmented forest quotient M_h is cyclic. The inclusion-minimal violation is the FULL B_s with a size-2 blocker, not a single external vertex.",
+  "model": "bipartite incidence-selection (paper section 3): demand 2 per s; c(h)=2 except c=1 on the endpoints of e.",
+  "capacity_case": 2,
+  "quotient": "cyclic",
+  "vertices": {
+    "S": ["s", "t", "u", "a", "b"],
+    "forced_cycle_S_side": ["s", "t"],
+    "H": ["r", "x", "q1", "q2", "h", "w", "z", "y"]
+  },
+  "bipartition": {
+    "L": ["s", "t", "u", "a", "b", "r", "x"],
+    "R": ["q1", "q2", "h", "w", "z", "y"]
+  },
+  "incidence_edges_S_H": [["s","q1"],["s","q2"],["s","h"],["t","q1"],["t","q2"],
+    ["u","h"],["u","w"],["u","z"],["a","h"],["a","w"],["a","z"],["b","h"],["b","w"],["b","z"]],
+  "H_forest_edges": [["r","q1"],["r","q2"],["r","h"],["r","w"],["r","z"],["q1","x"],["x","y"]],
+  "distinguished_edge": ["x", "y"],
+  "capacities": {"default": 2, "c1_vertices": ["x", "y"], "note": "x,y have no S-incidences"},
+  "feasible_selections": {"count": 6,
+    "note": "u,a,b saturate h,w,z (total demand 6 = total capacity 6), so s cannot use h; t is rigid on q1,q2"},
+  "forced_cycle": {"vertices": ["s", "q1", "t", "q2"], "edges": [["s","q1"],["t","q1"],["s","q2"],["t","q2"]]},
+  "carrier": {"A_s": ["s", "u", "a", "b"], "rho": 8, "tight": true,
+    "note": "A_s is the minimum tight set containing s"},
+  "puncture": {"B_s": ["u", "a", "b"], "rho": 6, "tight": true},
+  "U_h": {"set": ["u", "a", "b"], "all_incidence_degree": 3},
+  "hereditary_tightness": {
+    "singletons_tau": {"{u}": 1, "{a}": 1, "{b}": 1},
+    "all_pairs_tau": 2,
+    "first_inclusion_minimal_violation": {"set": ["u", "a", "b"], "tau": 2, "size": 3,
+      "blocker": ["h", "w"], "blocker_alt": ["h", "z"], "note": "full punctured carrier B_s; size-2 blocker"}
+  },
+  "M_h_B_s": "cyclic (H-h is one component; each of u,a,b has BOTH non-h neighbours w,z in it -> parallel edges -> cycle)"
+}

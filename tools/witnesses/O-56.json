@@ -1,0 +1,37 @@
+{
+  "id": "O-56",
+  "source": "ledgers/RESULT_RECORD.md entry O-56 (independently certified)",
+  "refutes": "P-localization for Lemma A: the claim that the hereditary FVS-tightness violation must lie on the forced cycle's own S-side P (or inside G[H u P]). Here the violation is disjoint from P. Also the acyclic-quotient / single-external-blocker subcase (blocker size 1).",
+  "model": "bipartite incidence-selection (paper section 3): each s in S has demand 2; c(h)=2 except c=1 on the two endpoints of the distinguished edge e; a selected cycle is a cyclic component of the incidence graph.",
+  "capacity_case": 2,
+  "quotient": "acyclic",
+  "vertices": {
+    "S": [0, 1, 2, 3],
+    "P_cycle_S_side": [0, 1],
+    "auxiliaries": [2, 3],
+    "H": [4, 5, 6, 7, 8, 9, 10, 11, 12, 13]
+  },
+  "bipartition": {
+    "class0": [0, 1, 2, 3, 9, 10, 12, 13],
+    "class1": [4, 5, 6, 7, 8, 11]
+  },
+  "incidence_edges_S_H": [[0,4],[0,5],[0,6],[1,4],[1,5],[1,6],[2,6],[2,7],[3,6],[3,8]],
+  "H_forest_edges": [[9,4],[9,5],[4,10],[10,11],[6,12],[12,7],[6,13],[13,8]],
+  "distinguished_edge": [10, 11],
+  "capacities": {"default": 2, "c1_vertices": [10, 11], "note": "10,11 have no S-incidences"},
+  "feasible_selections": {
+    "count": 1,
+    "unique": {"0": [4,5], "1": [4,5], "2": [6,7], "3": [6,8]}
+  },
+  "forced_core_edges": [[0,4],[0,5],[0,6],[1,4],[1,5],[1,6],[2,6],[2,7],[3,6],[3,8]],
+  "forced_cycle": {"vertices": [0,4,1,5], "edges": [[0,4],[1,4],[0,5],[1,5]],
+    "reason": "a0,a1 (={2,3}) saturate the shared vertex 6, so s0,s1 cannot use 6 and are pushed onto {4,5}"},
+  "canonical_exposing_sets": {"(0,4)": [0,2,3], "(0,5)": [0,2,3], "(1,4)": [1,2,3], "(1,5)": [1,2,3]},
+  "T_F": [0, 1, 2, 3],
+  "hereditary_tightness": {
+    "all_singletons_tight": true,
+    "all_pairs_tight_except": [[2,3]],
+    "first_inclusion_minimal_violation": {"set": [2,3], "tau": 1, "size": 2, "FVS_witness": [6],
+      "location": "the pair of auxiliary forcers, DISJOINT from P={0,1}, inside T_F"}
+  }
+}
