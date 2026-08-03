@@ -517,11 +517,20 @@ finish.
 
 ## Recommended next angle
 
-1. **Freeze LIFT-A-ALL and run an n = 10/11 sealed holdout.** It survived
-   `n <= 9` exhaustively and is strictly stronger than the target statement;
-   `work/lift.c` is already written, hashed and gold-tested. This is the
-   cheapest well-posed prospective test available in the project right now, and
-   target 4 is the only reduction gap that Lemmas A and B do not touch.
+0. **Repair or replace paper Theorem 5.5.** SV is false, so the single-vertex
+   reduction is dead as written. The witnesses say precisely where: `o(G) = 1`
+   with a *unique* minimum OCT, which makes SV's existential quantifier vacuous.
+   Either add a hypothesis excluding that case and prove SV under it (then handle
+   unique-OCT graphs separately), or abandon the single-vertex framing. Section
+   5 of the paper needs an erratum either way; `SV-FALSIFIED.md` is written to be
+   liftable into one.
+1. **Push LIFT-A-ALL to a bigger n = 11 holdout, and then n = 12.** It is now the
+   *only* surviving route through the general-to-bipartite gap: LIFT-P died with
+   SV on the same witnesses, and LIFT-A-ALL survived them with slack 4. It has 0
+   failures over all 11,716,571 connected graphs `n <= 10` plus the preregistered
+   n = 11 classes. `work/lift.c` is frozen, hashed, gold-tested and dual-engined;
+   full n = 11 is about 185 CPU-hours at the measured rate, i.e. a day on eight
+   cores, and is the single highest-value computation left in the project.
 2. **Attack the residual 5.8%, using the slack.** L2 proves LIFT-A whenever
    `p(G) <= 2 c_e(G-T) - 1`. Everything hard about the general-to-bipartite step
    lives in the complement — connected nonbipartite `G` with large path-cover
