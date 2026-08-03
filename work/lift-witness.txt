@@ -1,1 +1,1 @@
-LIFT-P-ALL-FAIL(first) I????B_fw n=10 o=1 p=6
+LIFT-P-ALL-FAIL(first) G??FC{ n=8 o=1 p=4
