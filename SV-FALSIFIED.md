@@ -17,7 +17,7 @@ conjecture) is now known to rest on a false hypothesis.
 
 ## The statement
 
-**SV** (paper Definition 5.3). For every connected nonbipartite finite simple
+**SV** (paper Definition 5.4). For every connected nonbipartite finite simple
 graph `G` there is a vertex `t` lying in some minimum odd-cycle transversal of
 `G` with `p(G) <= p(G-t)`, equivalently `ell(G) >= ell(G-t) + 1`.
 A vertex `t` lies in some minimum OCT iff `o(G-t) = o(G) - 1`; call such a `t`
@@ -108,7 +108,7 @@ published hashes first (`shasum -a 256 -c verification/SHA256SUMS.txt` →
 3. **`verification/phase0_verify2.py` — the project's frozen *second* engine**,
    the independently coded pure-Python bitmask implementation used to re-check
    every low-slack graph in the paper. Driving its own `f_forest`, `b_bip` and
-   `p_cover` primitives directly from Definition 5.3:
+   `p_cover` primitives directly from Definition 5.4:
    ```
    'J???FAWdVD?'  f=9 b=10 p=3  o=1  eligible(t,p(G-t))=[(0, 2)]  SV=FAILS
    'J???FAWdUD_'  f=9 b=10 p=3  o=1  eligible(t,p(G-t))=[(0, 2)]  SV=FAILS
@@ -124,7 +124,7 @@ published hashes first (`shasum -a 256 -c verification/SHA256SUMS.txt` →
 
 SV holds for **every** connected nonbipartite graph on at most 10 vertices. That
 is the paper's result, and this run reproduced it independently with an engine
-written from Definition 5.3: 0 SV failures over all 272,209 connected
+written from Definition 5.4: 0 SV failures over all 272,209 connected
 nonbipartite graphs with `3 <= n <= 9` and all 11,712,539 on `n = 10` — both
 census counts matching the paper's exactly. So **11 is the minimum order of an
 SV counterexample.**

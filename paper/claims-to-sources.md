@@ -76,7 +76,7 @@ cites a ledger entry and, where relevant, a checker hash.
 | Lemma A n=11..14 | 994,607 / 10,970,519 / 141,887,501 / 2,391,365,507 scoped instances; 0 cyclic cores (aggregate 2,545,218,134) | attempt `ATTEMPT_REPORT.md` R1/R2, `work/fcore.c` SHA `598bb06f...`; VERIFY-1 `VERIFY_REPORT.md` rows 13--18, `verify_independent/forced_core.c` SHA `25ce6906...` |
 | F2 n=8..13 | 2,186 / 13,003 / 116,216 / 994,607 / 10,970,519 / 141,887,501 scoped instances (aggregate 153,984,032); 0 F2-ALL and F2-SOME failures | attempt `ATTEMPT_REPORT.md` R3, `work/f2.c` SHA `e528a4ae...`; VERIFY-1 `VERIFY_REPORT.md` rows 20--24, `verify_independent/f2.c` SHA `fd55562b...` |
 | Census scope | every minimum FVS with tau≥2, every H-edge; tau≤1 omitted as trivial | VERIFY-1 `VERIFY_REPORT.md` discrepancy note 1; corrected v2 prose |
-| Checker hashes printed in §6 | phase0 `17db663b...`; attempt lift/fcore/f2 `c0cc2dd3...` / `598bb06f...` / `e528a4ae...`; VERIFY lift/fcore/f2 `af5e7cbf...` / `25ce6906...` / `fd55562b...` | `verification/SHA256SUMS.txt`; attempt `work/*-SHA256.txt`; hashes of committed VERIFY-1 sources |
+| Checker hashes printed in §6 | phase0 `17db663b...`; attempt frozen lift/fcore/f2 `c0cc2dd3...` / `598bb06f...` / `e528a4ae...`; VERIFY lift/fcore/f2 `af5e7cbf...` / `25ce6906...` / `fd55562b...`; v2 comment-only fcore/f2 copies `989f5a68...` / `40798ae0...` | `verification/SHA256SUMS.txt`; attempt commit/hash files; v2 `work/*-SHA256.txt`; hashes of committed VERIFY-1 sources |
 | Lemma B falsification / gap dist | shortest-only false at n=11 (6 witnesses); gap {0: 8,202,627 ; 2: 6} | PROOFS.md E; FROZEN-BPLUS2.md |
 
 ## Provenance flags (honesty)

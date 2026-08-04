@@ -6,11 +6,13 @@
  * scanned directly in this project.  This program tests the STRONGER
  * universally-quantified form
  *
- *   F2-ALL : for EVERY minimum FVS S and EVERY fixed edge e of H = G - S,
- *            an acyclic feasible selection exists,
+ *   F2-ALL : for every minimum FVS S with tau >= 2 and every fixed edge e of
+ *            H = G - S, an acyclic feasible selection exists,
  *
  * which is exactly what Lemma A + Lemma B would deliver, and reports the
  * existential form F2-SOME (some e works) separately.
+ * The tau <= 1 layer is omitted as trivial: an incidence cycle requires two
+ * S-vertices, and at tau <= 1 every feasible selection is acyclic.
  *
  * Method.  In a feasible selection every s has selected degree exactly 2, so
  * suppressing s (replacing the path h - s - h' by the edge {h,h'}) is a

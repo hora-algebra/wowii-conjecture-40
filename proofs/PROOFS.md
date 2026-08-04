@@ -315,9 +315,10 @@ exposing carrier A_s via F1 (A_s subseteq T_F stays Hall-tight and exposing in t
 restricted flow network, so F1 gives forcedness afresh). Connectedness MAY be lost under
 restriction — which is exactly why Lemma A° is stated without it. Canonicity of A_s is not
 required for bare validity, but is retained because it yields the SMALLEST normalized set
-T_F and is used by the downstream carrier lemmas. STATUS of the frozen witnesses: O-56 and
-O-63 are already normalized (S = T_F); O-64 lies OUTSIDE the hereditary-tightness class
-(its S is not a minimum FVS), so the normalization does not apply to it. []
+T_F and is used by the downstream carrier lemmas. STATUS of the frozen witnesses: all
+three are OUTSIDE the hereditary-tightness class (their S is not a minimum FVS), so the
+normalization lemma does not apply to any of them. Set-theoretically, all three happen to
+satisfy S = T_F. []
 
 LEMMA A-I (closed-H-neighbourhood subcase) — PROVED.
 Suppose the forced core has a cycle F with S-side P and H-side Q (|P|=|Q|=m, each h in

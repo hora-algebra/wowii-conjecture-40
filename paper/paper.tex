@@ -981,7 +981,8 @@ $T$.
 LIFT-P is false on the SV witness: its minimum transversal is uniquely
 $T=\{0\}$ and $p(G)=3>2=p(G-T)$.  Thus the path-cover lift dies with SV.
 LIFT-A and even LIFT-A-ALL survive; their slack
-$\lf(G)-[2\FVS(G-T)+|T|+1]$ is $4$ on this witness.  Moreover, LIFT-A together
+$\lf(G)-[2\FVS(G-T)+|T|+1]$ is $4$ on each of the three certified SV
+witnesses.  Moreover, LIFT-A together
 with the bipartite case implies the full conjecture, since
 $\FVS(G-T)\ge\FVS(G)-|T|$ gives
 \[
@@ -1123,7 +1124,7 @@ $n=11$, classes $1,2,3/1024$ & 2,051,196 & 2,045,943 & 0 & 0 & 5,093
 statements, controls, and source hashes before its sweeps.  VERIFY-1 then used
 an adversarial re-verification protocol: the independent checkers and proof
 derivations were written from the paper's definitions before the attempt code
-was read.  The full source hashes are:
+was read.  The hashes of the exact sources used for the reported runs are:
 
 \begin{center}
 \scriptsize
@@ -1145,6 +1146,15 @@ attempt \texttt{work/f2.c} &
 VERIFY-1 F2 engine &
 \texttt{fd55562bb3dbbe6531f8da8171ea2a1d9c820f0d1a047719d67cb2d5c63c4171}
 \end{tabular}
+\end{center}
+
+The v2 copies of \texttt{work/fcore.c} and \texttt{work/f2.c} change only their
+census-scope comments; the executed logic is unchanged.  Their respective
+SHA-256 values are
+\begin{center}
+\scriptsize\ttfamily
+989f5a686ba33e5da95e9c2011cae847bd4570430b13e7244b5ae4d9b4b54bf5\\
+40798ae0823628d230c9e226bead849ed01f223f482bae99de1b8f6b0c6ef46f
 \end{center}
 
 The attempt's forced-core engine uses the residual-flow characterization;

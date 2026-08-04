@@ -14,9 +14,12 @@
  * Model (paper Definition 3.1): G bipartite, S a MINIMUM feedback vertex set,
  * H = G - S (a forest), e = (x,y) a fixed edge of H.  Each s in S has demand 2;
  * c(h) = 2 except c(x) = c(y) = 1.  An instance is a triple (G, S, e); the scan
- * ranges over every minimum FVS and every H-edge, exactly as forced_core.py.
+ * Census scope: every minimum FVS with tau >= 2, every H-edge; the tau <= 1
+ * layer is omitted as trivial -- an incidence cycle requires two S-vertices,
+ * and at tau <= 1 every feasible selection is acyclic. This exactly matches
+ * forced_core.py.
  *
- * Usage:  fcore gold | fcore run        (graph6 on stdin; use geng -bc -q N)
+ * Usage:  fcore pos | fcore run         (graph6 on stdin; use geng -bc -q N)
  */
 #include <stdio.h>
 #include <stdlib.h>

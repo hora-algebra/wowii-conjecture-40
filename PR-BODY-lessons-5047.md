@@ -11,7 +11,7 @@ branch `attempt/2026-08-03-claude-opus-5-5047` (2026-08-03, Claude Opus 5
 
 ## Headline
 
-**SV (paper Definition 5.3; ATTACK.md open item 3) is FALSIFIED.** The minimum
+**SV (paper Definition 5.4; ATTACK.md open item 3) is FALSIFIED.** The minimum
 order of a counterexample is 11. Two hand-checkable witnesses are certified in
 `SV-FALSIFIED.md` on the attempt branch — `J???FAWdVD?` (15 edges) and
 `J???FBObs\?` (16 edges) — each with `f=9, b=10, p=3`, a **unique** minimum
@@ -27,15 +27,16 @@ J???FAWdVD? oG=1 pG=3 elig=1 minGain=-1
 J???FBObs\? oG=1 pG=3 elig=1 minGain=-1
 ```
 
-`n = 11` is minimal: SV was re-verified independently from Definition 5.3 with
+`n = 11` is minimal: SV was re-verified independently from Definition 5.4 with
 0 failures over all 272,209 connected nonbipartite graphs with `n <= 9` and all
 11,712,539 at `n = 10`, both census counts matching the paper exactly.
 
 **Conjecture 40 is not affected** — the paper states that a failure of SV would
 not refute it, and both witnesses satisfy it with slack 4. What this closes is
 the route: Theorem 5.5 (SV + bipartite case ⇒ full conjecture) now rests on a
-false hypothesis, and §5 needs an erratum. The other route through the same gap,
-the lifting inequality, survives on these very witnesses.
+false hypothesis. Version 2 records this as a new result, not an erratum; the
+other route through the same gap, the lifting inequality, survives on these
+very witnesses.
 
 ## Also in the entry
 
@@ -48,6 +49,14 @@ the lifting inequality, survives on these very witnesses.
   graphs `n <= 10` plus a preregistered `n = 11` holdout; LIFT-P falsified by the
   same SV witnesses.
 * One new proved lemma (carrier–cycle separation) and three recorded dead ends.
+
+## VERIFY-1 addendum
+
+The same Lessons branch now appends a second entry for the independent
+adversarial audit (`verify/2026-08-f522`). It records the three source
+discrepancies found there — the `tau >= 2` census scope, the two extra edges in
+the O-56 JSON export, and the Definition 5.3 → 5.4 citation correction — plus
+the rule to preserve every claimed census list with a hash.
 
 ## One deviation, ruled on by the operator
 
