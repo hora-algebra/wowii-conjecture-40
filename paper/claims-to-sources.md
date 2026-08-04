@@ -33,16 +33,22 @@ cites a ledger entry and, where relevant, a checker hash.
 | Lem 4.3 (Tight-set saturation) | `load=min(c,deg_X)` | PROOFS.md D (PROVED) |
 | Lem 4.4 (Common tight carrier) | unique min tight set `A_s` | PROOFS.md D (PROVED) |
 | Lem 4.5 (Punctured tightness) | `B_s=A_s\{s}` tight; k=2 | PROOFS.md D (PROVED) |
-| Lem 4.6 (Single-blocker subcase) | independent `U_h` ⇒ contradiction | PROOFS.md D (PROVED) |
-| Lem 4.7 (`T_F` normalization) | WLOG `S=T_F`; forcedness re-derived via F1 | PROOFS.md D (T_F NORMALIZATION, PROVED, accepted in review) |
+| Lem 4.6 (Carrier-cycle separation, CS) | conclusions (a)--(d) for the whole carrier family | `LEMMA-A-CARRIER.md` §1.1 (proved); `verify_independent/BLIND_PROOFS.md` (independent derivation and comparison) |
+| Lem 4.7 (Single-blocker subcase) | independent `U_h` ⇒ contradiction | PROOFS.md D (PROVED) |
+| Lem 4.8 (`T_F` normalization) | WLOG `S=T_F`; forcedness re-derived via F1 | PROOFS.md D (T_F NORMALIZATION, PROVED, accepted in review) |
 | Witnesses O-56 / O-63 / O-64 | kill B_s-/P-/degree localizations; O-64 explicit graph | PROOFS.md D; LEMMA-A-CHALLENGE.md §witnesses; RESULT_RECORD O-56/O-63/O-64 |
-| Open Problem 4.8 (Lemma B) | CES toggle always exists | PROOFS.md E; FROZEN-BPLUS2.md |
+| Open Problem 4.9 (Lemma B) | CES toggle always exists | PROOFS.md E; FROZEN-BPLUS2.md |
 | Prop 4.10 (Terminal-slide criterion, B1) | (H1)-(H5) ⇒ `J+` CES | PROOFS.md E (B1, PROVED conditional lemma) |
 | Lem 5.1 (monotonicities) | `ell(G)>=ell(G-T)`, `tau(G-T)>=tau(G)-|T|` | PROOFS.md B5 (i),(ii) |
 | Lem 5.2 (edge lemma) | `b >= alpha+1` | PROOFS.md B5 (iv) |
 | Thm 5.3 (conditional coeff-2) | `ell+2o >= 2tau+1` given bipartite theorem | PROOFS.md B5 (PROVED conditional); GENERAL-TO-BIPARTITE.md |
 | Def 5.4 (SV) | single-vertex property | GENERAL-TO-BIPARTITE.md |
 | Thm 5.5 (Single-vertex reduction) | SV + bipartite ⇒ full conjecture (induction) | GENERAL-TO-BIPARTITE.md (PROVED as an implication) |
+| Def 5.6 (LIFT-A / LIFT-A-ALL / LIFT-P / LIFT-P-ALL) | minimum-OCT lifting statements | `PREREG-LIFT.md` (frozen before sweep); `ATTEMPT_REPORT.md` R6 |
+| LIFT-A implies the full conjecture given the bipartite case | `ell(G) >= 2tau(G-T)+|T|+1` and vertex-deletion monotonicity | `PREREG-LIFT.md` recorded implications; `ATTEMPT_REPORT.md` R6 |
+| Lem 5.7 (L1) | bipartite `f(B) >= ceil(n_B/2)+c_e(B)` | `ATTEMPT_REPORT.md` R6 (proved); `verify_independent/BLIND_PROOFS.md` (independent derivation, no gap) |
+| Lem 5.8 (L2) | `p(G) <= 2c_e(G-T)-1` implies LIFT-A | `ATTEMPT_REPORT.md` R6 (proved); `verify_independent/BLIND_PROOFS.md` (independent derivation, no gap) |
+| Traceable corollary | L2 applies when `p(G)=1` | `ATTEMPT_REPORT.md` R6; paper Lemma 5.2 supplies `c_e>=1` |
 
 ## Numbers (all with ledger source; checker hashes noted)
 
@@ -59,7 +65,18 @@ cites a ledger entry and, where relevant, a checker hash.
 | SV n≤9 | 272,209 connected nonbipartite, 0 violations | PHASE0_RECORD RUN 2 RESULT |
 | SV n=10 | 11,712,539 connected nonbipartite, 0 violations | PHASE0_RECORD STRETCH RUN 2 n=10 RESULT |
 | Lemma A exhaustive n≤10 | forced core acyclic, 0 cyclic (n=7..10) | RESULT_RECORD O-44 (forced_core.py) |
-| Lemma A n=11 (footnote only) | 994,607 instances, 0 cyclic cores, max forced-path 8 | PROOFS.md D / LEMMA-A-CHALLENGE.md — **report provenance, incompletely ledgered, NOT independently reproducible**; body claims only n≤10 |
+| SV witness 1 | graph6 `J???FAWdVD?`; `f=9,b=10,p=3,o=1`, eligible `{0}`, `p(G-0)=2`, slack 4 | attempt `SV-FALSIFIED.md`; `ATTEMPT_REPORT.md` R7; VERIFY-1 `VERIFY_REPORT.md` rows 2, 5, 31 |
+| SV minimality and residue check | 272,209 nonbipartite through n=9 and 11,712,539 at n=10, 0 failures; class `3/1024` at n=11 has 363,207 nonbipartite and 19 failures | attempt `ATTEMPT_REPORT.md` R6/R7; VERIFY-1 `VERIFY_REPORT.md` rows 6--8 |
+| LIFT full n≤9 | 273,191 connected / 272,209 nonbipartite; 0 LIFT-A and LIFT-A-ALL failures | attempt `ATTEMPT_REPORT.md` R6; VERIFY-1 `VERIFY_REPORT.md` row 26 |
+| LIFT n=10 full census | 11,716,571 connected / 11,712,539 nonbipartite; 0 LIFT-A and LIFT-A-ALL failures; 52,303 tight | attempt `ATTEMPT_REPORT.md` R6; release closure `verification/v2-lift-census/README.md`; VERIFY-1 engine SHA `af5e7cbf...` |
+| LIFT n=11 preregistered holdout | classes 1,2,3/1024: 2,051,196 connected / 2,045,943 nonbipartite; 0 A/ALL, 19 SV and LIFT-P failures, 5,093 tight | attempt `PREREG-LIFT-N11.md`; `ATTEMPT_REPORT.md` R6/R7 and jobs table |
+| LIFT tightness cross-tab n≤8 | covered `217/666/2773/3978/3255/281`; uncovered `0/43/249/199/198/0` | attempt `ATTEMPT_REPORT.md` R6; proofs independently audited in `verify_independent/BLIND_PROOFS.md` |
+| LIFT tight lists | n=9: 2,494, SHA `6078480935...`; n=10: 52,303, SHA `9fe71fb1c...` | VERIFY-1 `VERIFY_REPORT.md` row 27; release closure `verification/v2-lift-census/SHA256SUMS.txt` |
+| Connected-bipartite anchors n=11..14 | 25,598 / 212,780 / 2,241,730 / 31,193,324 | independent `geng -c -b`; VERIFY-1 `VERIFY_REPORT.md` rows 9--12; OEIS A005142 |
+| Lemma A n=11..14 | 994,607 / 10,970,519 / 141,887,501 / 2,391,365,507 scoped instances; 0 cyclic cores (aggregate 2,545,218,134) | attempt `ATTEMPT_REPORT.md` R1/R2, `work/fcore.c` SHA `598bb06f...`; VERIFY-1 `VERIFY_REPORT.md` rows 13--18, `verify_independent/forced_core.c` SHA `25ce6906...` |
+| F2 n=8..13 | 2,186 / 13,003 / 116,216 / 994,607 / 10,970,519 / 141,887,501 scoped instances (aggregate 153,984,032); 0 F2-ALL and F2-SOME failures | attempt `ATTEMPT_REPORT.md` R3, `work/f2.c` SHA `e528a4ae...`; VERIFY-1 `VERIFY_REPORT.md` rows 20--24, `verify_independent/f2.c` SHA `fd55562b...` |
+| Census scope | every minimum FVS with tau≥2, every H-edge; tau≤1 omitted as trivial | VERIFY-1 `VERIFY_REPORT.md` discrepancy note 1; corrected v2 prose |
+| Checker hashes printed in §6 | phase0 `17db663b...`; attempt frozen lift/fcore/f2 `c0cc2dd3...` / `598bb06f...` / `e528a4ae...`; VERIFY lift/fcore/f2 `af5e7cbf...` / `25ce6906...` / `fd55562b...`; v2 comment-only fcore/f2 copies `989f5a68...` / `40798ae0...` | `verification/SHA256SUMS.txt`; attempt commit/hash files; v2 `work/*-SHA256.txt`; hashes of committed VERIFY-1 sources |
 | Lemma B falsification / gap dist | shortest-only false at n=11 (6 witnesses); gap {0: 8,202,627 ; 2: 6} | PROOFS.md E; FROZEN-BPLUS2.md |
 
 ## Provenance flags (honesty)
@@ -69,8 +86,9 @@ cites a ledger entry and, where relevant, a checker hash.
  framing. It is **NOT** present in or derived from the repo proof documents;
  stated in the paper (with a footnote) as the bridge to [LV2024], not claimed as
  a verified result of this project.
-- **Lemma A at n=11**: body states exhaustive verification only for n≤10; the
- n=11 figure appears solely in a footnote with its non-reproducible provenance.
+- **Lemma A census scope**: v2 states the implemented nontrivial universe
+ exactly: every minimum FVS with `tau>=2`, every `H`-edge. The omitted
+ `tau<=1` layer is structurally incapable of an incidence cycle.
 - **B-PLUS-2 / terminal-slide**: presented as in-sample-supported refinements of
  an OPEN lemma (two sentences), not as theorems. O-68 branch content, A1/U1
  forensics (one sentence), internal protocol/role narration, and frozen-motif
@@ -85,7 +103,7 @@ cites a ledger entry and, where relevant, a checker hash.
  (`FormalConjectures/WrittenOnTheWallII/GraphConjecture40.lean`) are confirmed;
  the nauty citation (McKay–Piperno, J. Symbolic Comput. 60 (2014) 94–112,
  doi:10.1016/j.jsc.2013.09.003) is standard. Data availability: repository
- `https://github.com/cozuya/wowii-conjecture-40` (release `v1.0`), archived at
+ `https://github.com/cozuya/wowii-conjecture-40` (release `v2.0`), archived at
  doi:10.5281/zenodo.21778700.
 
 ## Review revision round (R1–R13) — resolution

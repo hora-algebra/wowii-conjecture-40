@@ -1,0 +1,8 @@
+=== F2 DIRECT SCAN ===
+graphs = 2241730
+(G,S) pairs with tau>=2 = 18504983
+instances (G,S,e) = 141887501
+F2-ALL failures (instances with NO acyclic feasible selection) = 0
+F2-SOME failures ((G,S) with no working e at all) = 0
+runtime_sec = 84.93
+( geng -bc -q 13 | ./f2 run; )  88.22s user 0.42s system 96% cpu 1:31.73 total

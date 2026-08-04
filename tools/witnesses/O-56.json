@@ -1,4 +1,5 @@
 {
+  "correction_note": "corrected 2026-08: an earlier export listed two non-forced edges; certified by three engines.",
   "id": "O-56",
   "source": "ledgers/RESULT_RECORD.md entry O-56 (independently certified)",
   "refutes": "P-localization for Lemma A: the claim that the hereditary FVS-tightness violation must lie on the forced cycle's own S-side P (or inside G[H u P]). Here the violation is disjoint from P. Also the acyclic-quotient / single-external-blocker subcase (blocker size 1).",
@@ -23,7 +24,7 @@
     "count": 1,
     "unique": {"0": [4,5], "1": [4,5], "2": [6,7], "3": [6,8]}
   },
-  "forced_core_edges": [[0,4],[0,5],[0,6],[1,4],[1,5],[1,6],[2,6],[2,7],[3,6],[3,8]],
+  "forced_core_edges": [[0,4],[0,5],[1,4],[1,5],[2,6],[2,7],[3,6],[3,8]],
   "forced_cycle": {"vertices": [0,4,1,5], "edges": [[0,4],[1,4],[0,5],[1,5]],
     "reason": "a0,a1 (={2,3}) saturate the shared vertex 6, so s0,s1 cannot use 6 and are pushed onto {4,5}"},
   "canonical_exposing_sets": {"(0,4)": [0,2,3], "(0,5)": [0,2,3], "(1,4)": [1,2,3], "(1,5)": [1,2,3]},

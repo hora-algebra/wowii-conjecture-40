@@ -1,0 +1,8 @@
+FCORE_PROGRESS graphs=1000000 instances=66164346 cyclic=0 infeasible=0
+FCORE_PROGRESS graphs=2000000 instances=131488253 cyclic=0 infeasible=0
+FCORE_PROGRESS graphs=3000000 instances=232680692 cyclic=0 infeasible=0
+FCORE_PROGRESS graphs=4000000 instances=296599408 cyclic=0 infeasible=0
+FCORE_PROGRESS graphs=5000000 instances=377070902 cyclic=0 infeasible=0
+FCORE_PROGRESS graphs=6000000 instances=464924648 cyclic=0 infeasible=0
+FCORE_PROGRESS graphs=7000000 instances=573109750 cyclic=0 infeasible=0
+FCORE_SUMMARY graphs=7873722 min_fvs=80949341 instances=658469062 cyclic=0 infeasible=0

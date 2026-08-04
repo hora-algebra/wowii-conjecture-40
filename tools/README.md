@@ -20,6 +20,11 @@ python3 forced_core.py 10        # Lemma A forced-core scan, connected bipartite
 Each checker enumerates connected bipartite graphs with `geng -bc -q N` and
 writes a result file to the current directory.
 
+The Lemma-A/F2 census scope is every minimum FVS with `tau >= 2`, every
+`H`-edge; the `tau <= 1` layer is omitted as trivial — an incidence cycle
+requires two `S`-vertices, and at `tau <= 1` every feasible selection is
+acyclic.
+
 ## Checkers (what each verifies)
 
 | tool | checks | input | output | frozen statement / ledger |

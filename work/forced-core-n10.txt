@@ -1,0 +1,8 @@
+=== FORCED-CORE (Lemma A) n=10 ===
+instances = 116216
+CYCLIC forced core (= all-R3 cycle exists = Lemma A FAILS) = 0
+instances with empty forced core = 57017
+non-forest forced cores = 0
+max forced-core path length (edges) over acyclic cores = 8
+forced-core path-length histogram = {1: 127, 2: 55734, 3: 10, 4: 3170, 6: 150, 8: 8}
+forced-core component-size histogram = {0: 57017, 2: 271, 3: 68426, 4: 10, 5: 3194, 7: 150, 9: 8}

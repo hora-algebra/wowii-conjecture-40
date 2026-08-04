@@ -49,8 +49,9 @@ be Hall-tight, so union/intersection with P need not preserve tightness.
  hereditary tightness holds on every X subseteq T_F, and every F-edge remains forced (its
  forcedness RE-DERIVED via F1 from the same tight carrier A_s — NOT assumed monotone under
  restriction; restriction may add feasible selections and may disconnect G, hence A°).
- => a minimal counterexample may be assumed S = T_F. (O-56, O-63 already normalized; O-64
- is outside the hereditary-tightness class, so unaffected.)
+ => a minimal counterexample may be assumed S = T_F. All three frozen witnesses lie
+ outside the hereditary-tightness class, so the normalization lemma applies to none of
+ them; set-theoretically, all three happen to satisfy S = T_F.
 
 ## Proved footholds (all in PROOFS.md D, verified computationally)
 - LEMMA A-I: if N_H(P) subseteq Q (cycle's S-side has all H-neighbours on the cycle),
