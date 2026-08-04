@@ -651,6 +651,7 @@ under the $T_F$ normalization this says $N_S(q)\subseteq P$;
 Every $B_s$ and every $A_s$ is tight.  Since tight sets are closed under union,
 both $U=\bigcup_{s\in P}B_s$ and
 $T=P\cup U=\bigcup_{s\in P}A_s$ are tight.
+Each $q_i$ has two forced incidences on $F$, so its capacity is $c(q_i)=2$.
 
 Fix $s\in P\setminus U$.  If $Y\supseteq U$ and $s\notin Y$, then
 \[
@@ -786,17 +787,18 @@ $n$ & connected bipartite graphs & instances $(G,S,e)$ & cyclic forced cores\\
 11 & 25,598 & 994,607 & 0\\
 12 & 212,780 & 10,970,519 & 0\\
 13 & 2,241,730 & 141,887,501 & 0\\
-14 & 31,193,324 & 2,391,365,507 & 0
+14 & 31,193,324 & 2,391,365,507 & 0\\
 \end{tabular}
 \end{center}
+\medskip
 
 The $n=11$ layer, previously retained only as an incompletely ledgered run, was
-re-run reproducibly.  Two algorithmically independent engines agree through
-$n=11$: the published enumeration--intersection checker and a new flow-based
-forcedness checker.  The flow engine then performed the full runs through
-$n=14$.  Both engines detect cyclic forced cores on the three warning
-witnesses.  Their frozen source hashes and exact universes are recorded in
-Section~\ref{sec:computation}.
+re-run reproducibly with the published checker.  The attempt's new flow-based
+forcedness engine and VERIFY-1's independent enumeration--intersection engine
+then each performed the full censuses at $n=11,12,13,14$, with identical
+instance and zero-failure counts.  Both detect cyclic forced cores on the three
+warning witnesses.  Their frozen source hashes and exact universes are recorded
+in Section~\ref{sec:computation}.
 
 The sufficient conclusion needed by Theorem~\ref{thm:F2} was also checked
 directly.  For each enumerated instance the checker searched for an acyclic
@@ -954,7 +956,9 @@ The implication in Theorem~\ref{thm:SV} remains valid, but its hypothesis is
 false.  The smallest witness found has graph6 string
 \texttt{J???FAWdVD?} and edge set
 \[
-\{07,08,09,0\,10,17,1\,10,27,2\,10,38,39,48,59,6\,10,79,8\,10\}.
+\{0\!-!7,0\!-!8,0\!-!9,0\!-!10,1\!-!7,1\!-!10,
+2\!-!7,2\!-!10,3\!-!8,3\!-!9,4\!-!8,5\!-!9,
+6\!-!10,7\!-!9,8\!-!10\}.
 \]
 It has $f=9$, $b=10$, $p=3$, and $\OCT=1$.  The triangles
 $0$--$7$--$9$--$0$ and $0$--$8$--$10$--$0$ meet only at $0$, while $G-0$ is
@@ -1256,9 +1260,10 @@ proved on the L2 class and independently re-verified through order $10$.
 
 \section*{Acknowledgments}
 
-The mathematics and the computations in this paper were developed with AI
-assistance (Claude models); all results were independently cross-checked
-computationally.
+The mathematics and computations in this paper were developed with AI
+assistance (Claude and OpenAI models).  The new numerical claims were
+independently adversarially reverified, and L1, L2, and Lemma~\ref{lem:CS} were blindly
+rederived before proof comparison.
 
 \begin{thebibliography}{9}
 \bibitem{LV2024}
