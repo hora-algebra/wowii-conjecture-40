@@ -1,0 +1,5 @@
+# compiled checkers (rebuild with: cc -O2 -o <name> <name>.c)
+lift
+fcore
+f2
+*.dSYM/

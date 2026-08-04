@@ -1,0 +1,3 @@
+LIFT-P-ALL-FAIL(first) J???FB_e?n? n=11 o=1 p=3
+LIFT-P-FAIL(first) J???FBObs\? n=11 o=1 p=3 nOCT=1
+SV-FAIL(first) J???FBObs\? n=11 o=1 p=3

@@ -1,0 +1,12 @@
+=== FORCED-CORE (Lemma A, flow engine) ===
+graphs = 2241730
+instances = 141887501
+CYCLIC forced core (= Lemma A FAILS) = 0
+instances with empty forced core = 78408419
+non-forest forced cores = 0
+infeasible (G,S,e) skipped = 0
+max forced-core path length (edges) over acyclic cores = 10
+forced-core path-length histogram = {1: 54666, 2: 61275499, 3: 3539, 4: 2061660, 5: 78, 6: 81381, 8: 2211, 10: 48}
+forced-core component-size histogram = {0: 78408419, 2: 127818, 3: 72426152, 4: 3539, 5: 2066827, 6: 78, 7: 81381, 9: 2211, 11: 48}
+runtime_sec = 114.63
+( geng -bc -q 13 | ./fcore run; )  117.94s user 0.39s system 102% cpu 1:55.64 total

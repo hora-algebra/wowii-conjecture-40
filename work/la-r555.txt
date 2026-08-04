@@ -1,0 +1,29 @@
+[random 20000 seed 555 steiner=1] abstract systems = 20000
+    completions = 732016
+    ctrl_completions = 233924
+    ctrl_minFVS_hits = 50944
+    ctrl_systems = 300
+    cyclic_systems = 682
+    located = 3000
+    role:mixed = 575
+    role:subset-of-P = 1839
+    role:subset-of-P/subset-of-U/subset-of-B_s0 = 27
+    role:subset-of-P/subset-of-U/subset-of-B_s1 = 80
+    role:subset-of-P/subset-of-U/subset-of-B_s2 = 272
+    role:subset-of-P/subset-of-U/subset-of-B_s3 = 141
+    role:subset-of-P/subset-of-U/subset-of-B_s4 = 10
+    role:subset-of-U/subset-of-B_s0 = 19
+    role:subset-of-U/subset-of-B_s1 = 4
+    role:subset-of-U/subset-of-B_s2 = 19
+    role:subset-of-U/subset-of-B_s3 = 14
+    seen = 732016
+    systems_hitting_completion_cap = 5
+    tau_deficit_1 = 428288
+    tau_deficit_2 = 249476
+    tau_deficit_3 = 52694
+    tau_deficit_4 = 1558
+    viol_size:1 = 1963
+    viol_size:2 = 1035
+    viol_size:3 = 2
+    no counterexample: every forest completion of every cyclic system had tau(G) < |S|
+python3 larealize.py random 20000 555 1  41.24s user 0.15s system 99% cpu 41.660 total
