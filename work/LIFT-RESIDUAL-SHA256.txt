@@ -1,0 +1,1 @@
+78b7a981b113b627b77fcefff483d3d39b288145748ab0fcad30aadbcc507bb6  work/lift_residual.py
