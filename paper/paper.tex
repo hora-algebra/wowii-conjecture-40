@@ -24,11 +24,12 @@
 \newcommand{\lf}{\ell}
 
 \title{The Graffiti.pc conjecture $f(G)\ge\lceil (p(G)+b(G)+1)/2\rceil$:
-an equivalent deficiency form, a reduction of the bipartite case to two
-finite lemmas, and exhaustive verification to $n=11$}
+an equivalent deficiency form, finite reductions, and computational
+verification}
 
 \author{Chris Ozols}
-\date{August 2026\\[4pt]\normalsize Preprint. DOI: 10.5281/zenodo.21778700.}
+\date{August 2026\\[4pt]\normalsize Version 2 preprint. DOI:
+10.5281/zenodo.21778700.}
 
 \begin{document}
 \maketitle
@@ -42,20 +43,22 @@ collection asserts $f(G)\ge\lceil(p(G)+b(G)+1)/2\rceil$. Introducing the
 complementary parameters $\FVS=n-f$ (decycling number), $\OCT=n-b$ (odd-cycle
 transversal number), and $\lf=n-p$ (number of edges in a maximum spanning linear
 forest), we prove the conjecture is equivalent to the linear inequality
-$\lf+\OCT\ge 2\FVS+1$. For bipartite $G$ this reads $\lf\ge2\FVS+1$; we reduce
-this bipartite case, via an incidence-selection flow model, to two explicitly
-stated lemmas (Lemma~A on forced cores and Lemma~B on cycle-erasing descent),
-proving all of the surrounding structure (a generalized Hall criterion, a rooted
-forest extension bound, a repaired residual-augmentation flow theorem, and a
-descent argument) and leaving exactly those two lemmas open. On the general
-side we prove, conditional on the bipartite case, the coefficient-two bound
-$\lf+2\OCT\ge2\FVS+1$, and we isolate a single-vertex reduction property
-(\emph{SV}) which, together with the bipartite case, implies the full
-conjecture. Finally we report exhaustive computational verification: the
-conjecture holds for all $1{,}006{,}700{,}565$ connected graphs on $11$
-vertices (and all connected graphs on $\le 10$ vertices), with zero violations,
-under a preregistered dual-engine protocol; SV holds for every connected
-nonbipartite graph on $\le 10$ vertices.
+$\lf+\OCT\ge 2\FVS+1$. For bipartite $G$ this reads $\lf\ge2\FVS+1$; an
+incidence-selection flow model reduces this case to two explicitly stated open
+lemmas on forced cores and cycle-erasing descent. We prove the surrounding
+structure and a carrier--cycle separation lemma. On the general side we prove,
+conditional on the bipartite case, $\lf+2\OCT\ge2\FVS+1$. We also show that the
+single-vertex reduction property SV, left open in version~1, is false: its
+minimum counterexamples have order $11$, including a graph with a unique
+minimum odd-cycle transversal whose deletion lowers the path-cover number.
+The associated path-cover lifting property also fails. The alternative lifting
+inequality $\lf(G)\ge2\FVS(G-T)+|T|+1$ survives exhaustive verification through
+$n=10$ (even for every minimum $T$); we prove it whenever
+$p(G)\le2c_e(G-T)-1$. Finally, under frozen and independently adversarially
+reverified protocols, the original conjecture holds for every connected graph
+on at most $11$ vertices, Lemma~A has no counterexample in
+$2{,}391{,}365{,}507$ nontrivial instances through $n=14$, and the stronger
+fixed-edge selection property F2 holds through $n=13$.
 \end{abstract}
 
 \section{Introduction}\label{sec:intro}
@@ -102,17 +105,22 @@ $\mu=n_r-n_{r-1}$ for traceable complete multipartite graphs.
 (Sections~\ref{sec:bipartite}--\ref{sec:openlemmas}). For bipartite $G$ the
 target is $\lf\ge2\FVS+1$. Through an incidence-selection model we prove a
 generalized Hall criterion, a rooted forest extension bound, a repaired
-residual-augmentation flow theorem, and a descent argument, and thereby reduce
-the bipartite case to exactly two lemmas, both stated precisely and both open.
-\item[(iii)] \textbf{A conditional general bound and a single-vertex reduction}
+residual-augmentation flow theorem, a descent argument, and a first
+carrier-family lemma. The two general lemmas remain open; computationally,
+Lemma~A survives through $n=14$ and the direct property F2 through $n=13$.
+\item[(iii)] \textbf{The general-case gap and its surviving route}
 (Section~\ref{sec:general}). Conditional on the bipartite case we prove the
-coefficient-two bound $\lf+2\OCT\ge2\FVS+1$, and we prove that a single-vertex
-property (SV) together with the bipartite case implies the full conjecture.
+coefficient-two bound $\lf+2\OCT\ge2\FVS+1$. The single-vertex property SV is
+false, with minimum counterexamples at $n=11$, so its implication theorem has a
+false hypothesis. The path-cover lifting property fails with it. The alternative
+lifting inequality survives, including its universal minimum-OCT form, and we
+prove it on a structured class containing every tight instance through $n=8$.
 \item[(iv)] \textbf{Exhaustive verification to $n=11$}
 (Section~\ref{sec:computation}). Under a preregistered, hash-frozen, dual-engine
 protocol, Conjecture~\ref{conj:main} holds for every connected graph on $\le11$
-vertices ($1{,}006{,}700{,}565$ graphs at $n=11$), with zero violations; SV holds
-for every connected nonbipartite graph on $\le10$ vertices.
+vertices ($1{,}006{,}700{,}565$ graphs at $n=11$), with zero violations. The new
+lemma-level and lifting computations were independently rerun from the paper's
+definitions under an adversarial verification protocol.
 \end{enumerate}
 
 Two lemmas in the bipartite reduction remain open; the general-to-bipartite step
@@ -620,6 +628,60 @@ $k=2$, $\delta(B_s)=0$, the two are exactly $q^-,q^+$, and every other
 $H$-neighbour is oversubscribed.
 \end{proof}
 
+The first use of the carrier family as a whole gives a separation between a
+forced cycle and the punctures that support it.
+
+\begin{lemma}[Carrier--cycle separation (CS)]\label{lem:CS}
+Suppose the forced core contains the alternating cycle
+$F=s_1q_1s_2q_2\cdots s_mq_ms_1$.  Put
+$P=\{s_1,\ldots,s_m\}$, $Q=\{q_1,\ldots,q_m\}$, and
+$U=\bigcup_{s\in P}B_s$.  Then:
+\begin{enumerate}
+\item[(a)] if $s\in P\setminus U$, each of its two forced ends $q$ satisfies
+$\deg_U(q)\le c(q)-1=1$;
+\item[(b)] if consecutive $s_i,s_{i+1}$ both lie in $P\setminus U$, then
+$\deg_U(q_i)=0$;
+\item[(c)] if $P\cap U=\varnothing$, then $\deg_U(q)=0$ for every $q\in Q$;
+under the $T_F$ normalization this says $N_S(q)\subseteq P$;
+\item[(d)] $U\cup R$ is tight for every $R\subseteq P\setminus U$.
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+Every $B_s$ and every $A_s$ is tight.  Since tight sets are closed under union,
+both $U=\bigcup_{s\in P}B_s$ and
+$T=P\cup U=\bigcup_{s\in P}A_s$ are tight.
+
+Fix $s\in P\setminus U$.  If $Y\supseteq U$ and $s\notin Y$, then
+\[
+ \rho(Y\cup\{s\})-\rho(Y)
+ =\bigl|\{h\in N_H(s):\deg_Y(h)<c(h)\}\bigr|.
+\]
+For every neighbour $h$ other than the two forced ends,
+Lemma~\ref{lem:punct} gives $\deg_{A_s}(h)\ge c(h)+1$, hence
+$\deg_{B_s}(h)\ge c(h)$; such a neighbour contributes nothing.  Thus the
+marginal is at most $2$, with equality precisely when both forced ends remain
+unsaturated.
+
+Order $P\setminus U=\{p_1,\ldots,p_r\}$ arbitrarily and add these vertices to
+$U$ in that order.  The marginals telescope to
+\[
+ \rho(T)-\rho(U)=2|T|-2|U|=2r.
+\]
+Submodularity makes each marginal at most the corresponding single-vertex
+marginal above, hence at most $2$.  All are therefore exactly $2$.  Because the
+order was arbitrary, every $U\cup R$ is tight, proving (d), and taking one
+vertex first shows that both forced ends of every $s\in P\setminus U$ have
+$\deg_U(q)<c(q)=2$, proving (a).
+
+Now take consecutive $s_i,s_{i+1}\in P\setminus U$ first in the order.  The
+second marginal is $2$, so the shared end $q_i$ must still contribute after
+$s_i$ is added.  If $d=\deg_U(q_i)$, this contribution equals
+$\min(2,d+2)-\min(2,d+1)$, which is $1$ only when $d=0$.  This proves (b).
+If $P\cap U=\varnothing$, every consecutive pair qualifies, so (b) applies to
+every $q_i$, proving (c).
+\end{proof}
+
 \begin{lemma}[Single-blocker subcase]\label{lem:blocker}
 Let $h$ be an external $H$-neighbour of $s$ with $c(h)=2$ and
 $U_h=N_G(h)\cap B_s$. If every $u\in U_h$ has at most one $H$-neighbour other
@@ -711,13 +773,38 @@ $P\cup\bigcup_sA_s$ or a feasible exchange avoiding a forced-cycle edge. The
 witnesses show the violating set need not be $P$, $B_s$, or $T_F$; no single
 localization is available.
 
-Computationally, Lemma~A holds on every instance up to $n=10$ (an exhaustive
-forced-core scan over $n=7,\dots,10$ found no cyclic forced core; the forced core
-was always a forest).\footnote{An $n=11$ run over $994{,}607$ instances reported
-zero cyclic cores and maximum forced-path length $8$; that run is recorded in a
-preserved intermediate report, incompletely ledgered, and not independently
-reproducible from a completion artifact. We therefore do not claim exhaustive
-$n=11$ verification of Lemma~A.}
+Computationally, Lemma~A now holds on every enumerated instance through
+$n=14$.  The census scope is every minimum FVS with
+$\tau(G)=\FVS(G)\ge2$, every $H$-edge; the $\tau\le1$ layer is omitted as
+trivial---an incidence cycle requires two $S$-vertices, and at $\tau\le1$ every
+feasible selection is acyclic.
+
+\begin{center}
+\begin{tabular}{r|r|r|r}
+$n$ & connected bipartite graphs & instances $(G,S,e)$ & cyclic forced cores\\
+\hline
+11 & 25,598 & 994,607 & 0\\
+12 & 212,780 & 10,970,519 & 0\\
+13 & 2,241,730 & 141,887,501 & 0\\
+14 & 31,193,324 & 2,391,365,507 & 0
+\end{tabular}
+\end{center}
+
+The $n=11$ layer, previously retained only as an incompletely ledgered run, was
+re-run reproducibly.  Two algorithmically independent engines agree through
+$n=11$: the published enumeration--intersection checker and a new flow-based
+forcedness checker.  The flow engine then performed the full runs through
+$n=14$.  Both engines detect cyclic forced cores on the three warning
+witnesses.  Their frozen source hashes and exact universes are recorded in
+Section~\ref{sec:computation}.
+
+The sufficient conclusion needed by Theorem~\ref{thm:F2} was also checked
+directly.  For each enumerated instance the checker searched for an acyclic
+feasible selection, both universally (for every fixed $e$) and existentially
+(for some $e$).  At $n=8,9,10,11,12,13$ the respective instance counts were
+$2,186$, $13,003$, $116,216$, $994,607$, $10,970,519$, and $141,887,501$;
+both failure counts were zero at every order.  The three warning witnesses are
+positive controls: none admits an acyclic feasible selection.
 
 \subsection{Lemma B: cycle-erasing descent}
 
@@ -863,9 +950,109 @@ Combining,
 \]
 \end{proof}
 
-SV is a sufficient route, not a necessary one: a failure of SV would not refute
-Conjecture~\ref{conj:main}. Computationally, SV holds for every connected
-nonbipartite graph on $\le10$ vertices (Section~\ref{sec:computation}).
+The implication in Theorem~\ref{thm:SV} remains valid, but its hypothesis is
+false.  The smallest witness found has graph6 string
+\texttt{J???FAWdVD?} and edge set
+\[
+\{07,08,09,0\,10,17,1\,10,27,2\,10,38,39,48,59,6\,10,79,8\,10\}.
+\]
+It has $f=9$, $b=10$, $p=3$, and $\OCT=1$.  The triangles
+$0$--$7$--$9$--$0$ and $0$--$8$--$10$--$0$ meet only at $0$, while $G-0$ is
+bipartite.  Thus $\{0\}$ is the unique minimum odd-cycle transversal, but
+$p(G-0)=2<3=p(G)$, so the sole eligible vertex fails SV.  A fresh exhaustive
+check found no failure among all $272,209$ connected nonbipartite graphs on at
+most $9$ vertices or all $11,712,539$ at order $10$.  Hence the minimum order
+of an SV counterexample is $11$.  SV was only a sufficient route, so this does
+not refute Conjecture~\ref{conj:main}.
+
+The surviving lifting route can be stated directly.  For a minimum odd-cycle
+transversal $T$, put $B=G-T$.
+
+\begin{definition}[Lifting statements]\label{def:lift}
+LIFT-A says that for some minimum $T$,
+\[
+ \lf(G)\ge 2\FVS(G-T)+|T|+1;
+\]
+LIFT-A-ALL requires this for every minimum $T$.  LIFT-P says that for some
+minimum $T$, $p(G)\le p(G-T)$, and LIFT-P-ALL again requires every minimum
+$T$.
+\end{definition}
+
+LIFT-P is false on the SV witness: its minimum transversal is uniquely
+$T=\{0\}$ and $p(G)=3>2=p(G-T)$.  Thus the path-cover lift dies with SV.
+LIFT-A and even LIFT-A-ALL survive; their slack
+$\lf(G)-[2\FVS(G-T)+|T|+1]$ is $4$ on this witness.  Moreover, LIFT-A together
+with the bipartite case implies the full conjecture, since
+$\FVS(G-T)\ge\FVS(G)-|T|$ gives
+\[
+ \lf(G)\ge2\FVS(G-T)+|T|+1
+ \ge2\FVS(G)-|T|+1.
+\]
+
+The following two lemmas prove LIFT-A on a structured class.
+
+\begin{lemma}[L1]\label{lem:L1}
+If $B$ is bipartite on $n_B$ vertices and has $c_e(B)$ edge-containing
+components, then
+\[
+ f(B)\ge \left\lceil\frac{n_B}{2}\right\rceil+c_e(B),
+ \qquad
+ \FVS(B)\le \left\lfloor\frac{n_B}{2}\right\rfloor-c_e(B).
+\]
+\end{lemma}
+
+\begin{proof}
+In each edge-containing component, take the larger bipartition class and one
+vertex of the other class.  The induced subgraph is a star together with
+isolated vertices, hence a forest, and has at least
+$\lceil n_i/2\rceil+1$ vertices.  Take every isolated vertex of $B$ as well.
+The componentwise union is an induced forest, and summing the ceilings gives
+the stated bound.  The equivalent FVS bound follows from $\FVS(B)=n_B-f(B)$.
+\end{proof}
+
+\begin{lemma}[L2]\label{lem:L2}
+Let $G$ be connected and nonbipartite.  If some minimum odd-cycle transversal
+$T$ satisfies
+\[
+ p(G)\le2c_e(G-T)-1,
+\]
+then LIFT-A holds for $G$ with that $T$.
+\end{lemma}
+
+\begin{proof}
+Write $B=G-T$ and $c_e=c_e(B)$.  Lemma~\ref{lem:L1} gives
+\[
+ 2\FVS(B)+|T|+1
+ \le2\left\lfloor\frac{|B|}{2}\right\rfloor-2c_e+|T|+1
+ \le |V(G)|+1-2c_e
+ \le |V(G)|-p(G)=\lf(G).
+\]
+\end{proof}
+
+In particular, every traceable connected nonbipartite graph satisfies LIFT-A:
+$p(G)=1$, while Lemma~\ref{lem:edge} ensures $c_e(G-T)\ge1$.  Consequently the
+conjecture holds on this class.  Exhaustively over connected nonbipartite graphs
+with $3\le n\le8$, the tightness cross-tabulation is:
+
+\begin{center}
+\begin{tabular}{l|rrrrrr}
+best LIFT-A slack & 0 & 1 & 2 & 3 & 4 & 5\\
+\hline
+L2-covered   & 217 & 666 & 2,773 & 3,978 & 3,255 & 281\\
+L2-uncovered & 0   & 43  & 249   & 199   & 198   & 0
+\end{tabular}
+\end{center}
+
+Thus every LIFT-A-tight graph in this universe lies in the proved class; every
+uncovered graph has slack at least one.  The computational evidence for the
+surviving lift is also exact through order $10$: LIFT-A and LIFT-A-ALL have
+zero failures on every connected graph with $3\le n\le10$.  At $n=10$ this is
+all $11,716,571$ connected graphs, and $52,303$ nonbipartite graphs are tight.
+An independent full census reproduced both zero failure counts and the same
+tight list.  A preregistered $n=11$ holdout comprising residue classes
+$1,2,3\pmod{1024}$ contained $2,051,196$ connected graphs
+($2,045,943$ nonbipartite): LIFT-A and LIFT-A-ALL again had zero failures,
+while SV and LIFT-P each had $19$.
 
 \section{Computational verification}\label{sec:computation}
 
@@ -911,19 +1098,107 @@ $8$-core machine.)
 Thus Conjecture~\ref{conj:main} holds, with no exceptions, for every connected
 graph on at most $11$ vertices.
 
-\paragraph{Verification of SV.} The single-vertex property was checked directly:
-for each connected nonbipartite $G$ the eligible set $\{t:\OCT(G-t)=\OCT(G)-1\}$
-was computed and tested for a vertex with $p(G)\le p(G-t)$. SV held for all
-$272{,}209$ connected nonbipartite graphs with $3\le n\le9$, and for all
-$11{,}712{,}539$ connected nonbipartite graphs on $n=10$; $0$ violations in every
-case.
+\paragraph{SV and the lifting census.} For each connected nonbipartite $G$, the
+eligible set $\{t:\OCT(G-t)=\OCT(G)-1\}$ was computed and tested directly.
+There were no failures among the $272,209$ graphs through $n=9$ or the
+$11,712,539$ graphs at $n=10$.  In the preregistered class
+$3\pmod{1024}$ at $n=11$, both the lifting engine and the published frozen SV
+checker found exactly $19$ failures among $363,207$ connected nonbipartite
+graphs; the explicit witnesses were then checked independently from the
+definitions.  The larger three-class lifting holdout and the completed release
+census are summarized below.
 
-\paragraph{Status of the lemma-level runs.} Lemma~A (forced-core acyclicity) was
-verified exhaustively for $n\le10$ (no cyclic forced core). Lemma~B's
-shortest-only form was verified exhaustively through $n\le10$ and \emph{falsified}
-at $n=11$ by a sealed holdout (six witnesses), after which the surviving metric
-and terminal-slide refinements were supported only in sample (Section~\ref{sec:openlemmas});
-a prospective $n=12$ holdout was aborted without a verdict.
+\begin{center}
+\scriptsize
+\begin{tabular}{l|r|r|r|r|r}
+universe & connected & nonbipartite & LIFT-A fail & LIFT-A-ALL fail & tight\\
+\hline
+$3\le n\le9$ (full) & 273,191 & 272,209 & 0 & 0 & 2,494 at $n=9$\\
+$n=10$ (full) & 11,716,571 & 11,712,539 & 0 & 0 & 52,303\\
+$n=11$, classes $1,2,3/1024$ & 2,051,196 & 2,045,943 & 0 & 0 & 5,093
+\end{tabular}
+\end{center}
+
+\paragraph{Independent computational protocols.} The attempt fixed its
+statements, controls, and source hashes before its sweeps.  VERIFY-1 then used
+an adversarial re-verification protocol: the independent checkers and proof
+derivations were written from the paper's definitions before the attempt code
+was read.  The full source hashes are:
+
+\begin{center}
+\scriptsize
+\begin{tabular}{p{0.25\linewidth}|p{0.67\linewidth}}
+engine & SHA-256\\
+\hline
+published \texttt{verification/phase0.c} &
+\texttt{17db663be9cd4d1e9adb1524b2717fb90c379fc53ba56066a5d3bcf275c8dac6}\\
+attempt \texttt{work/lift.c} &
+\texttt{c0cc2dd315144a0c9c64c875234e193fd8f700e01949ea6668964220a4d01c5e}\\
+VERIFY-1 lifting engine &
+\texttt{af5e7cbf5b886357fba68f1ecca01ef22caf925c8b0fe6f75f2295495bdc95cd}\\
+attempt \texttt{work/fcore.c} &
+\texttt{598bb06f358e21ae47f0e1443029ea3c3b07c8bd2d6b2d5eb8189319ab463a7c}\\
+VERIFY-1 forced-core engine &
+\texttt{25ce6906a24452d2959314f1ef3c3425259fe3bd76f64207c02cbe97404dd5ed}\\
+attempt \texttt{work/f2.c} &
+\texttt{e528a4ae58ece0489c50a11e6f4a3ff229e3a24383ec856d3a0877994549b458}\\
+VERIFY-1 F2 engine &
+\texttt{fd55562bb3dbbe6531f8da8171ea2a1d9c820f0d1a047719d67cb2d5c63c4171}
+\end{tabular}
+\end{center}
+
+The attempt's forced-core engine uses the residual-flow characterization;
+VERIFY-1 instead intersects independently enumerated feasible selections.  Its
+F2 checker is likewise independent.  The resulting universes agree exactly:
+
+\begin{center}
+\begin{tabular}{l|l|r|r}
+claim & orders & instances checked & failures\\
+\hline
+SV minimality & $3\le n\le10$ & 11,984,748 nonbipartite graphs & 0\\
+SV witness class & $n=11$, $3/1024$ & 363,207 nonbipartite graphs & 19\\
+Lemma A & $11\le n\le14$ & 2,545,218,134 $(G,S,e)$ & 0 cyclic cores\\
+F2-ALL and F2-SOME & $8\le n\le13$ & 153,984,032 $(G,S,e)$ & 0 / 0\\
+LIFT-A and LIFT-A-ALL & $3\le n\le10$ & 11,984,748 nonbipartite graphs & 0 / 0
+\end{tabular}
+\end{center}
+
+For the Lemma-A and F2 censuses, the precise scope is every minimum FVS with
+$\tau\ge2$, every $H$-edge; the $\tau\le1$ layer is omitted as trivial---an
+incidence cycle requires two $S$-vertices, and at $\tau\le1$ every feasible
+selection is acyclic.  Positive controls were run first: all three warning
+witnesses have cyclic forced cores and none has an acyclic feasible selection.
+
+As enumeration anchors, independent \texttt{geng -c -b} counts matched OEIS
+A005142~\cite{OEIS} at every new order:
+
+\begin{center}
+\begin{tabular}{r|r|r|r}
+$n$ & connected bipartite graphs & Lemma-A instances & cyclic cores\\
+\hline
+11 & 25,598 & 994,607 & 0\\
+12 & 212,780 & 10,970,519 & 0\\
+13 & 2,241,730 & 141,887,501 & 0\\
+14 & 31,193,324 & 2,391,365,507 & 0
+\end{tabular}
+\end{center}
+
+The independently regenerated tight-graph lists have $2,494$ records at $n=9$
+and $52,303$ at $n=10$.  Their respective SHA-256 values are
+\begin{center}
+\scriptsize\ttfamily
+6078480935bf84787a02b5ee580eb13e039583419929013916379f97c3cd5abc\\
+9fe71fb1c6675b06f59901060898304509b5179358be9967188cd88a25566a69
+\end{center}
+
+\paragraph{Status of the lemma-level runs.} Lemma~A has no cyclic forced core
+in the full census through $n=14$, and the stronger direct selection property
+F2-ALL has no failure through $n=13$.  Lemma~B's shortest-only form was verified
+exhaustively through $n\le10$ and \emph{falsified} at $n=11$ by a sealed holdout
+(six witnesses), after which the surviving metric and terminal-slide
+refinements were supported only in sample
+(Section~\ref{sec:openlemmas}); a prospective $n=12$ holdout was aborted
+without a verdict.
 
 \section{Related work}\label{sec:related}
 
@@ -954,11 +1229,20 @@ the linear-forest parameter $\lf$ in a single inequality.
 
 \section{Data availability}\label{sec:data}
 
-The frozen checker \texttt{phase0.c}, the independent verifier
-\texttt{phase0\_verify2.py}, the per-shard enumeration counts, the second-engine
-re-verification logs, and the compressed low-slack witness sets are available in
-the repository \url{https://github.com/cozuya/wowii-conjecture-40} (release tag
-\texttt{v1.0}) and archived at \href{https://doi.org/10.5281/zenodo.21778700}{doi:10.5281/zenodo.21778700}.
+The frozen checkers, independent VERIFY-1 engines, per-shard enumeration logs,
+SV certificates, and hashed LIFT-A-tight graph lists are available in the
+repository at \url{https://github.com/cozuya/wowii-conjecture-40}, under release
+tag \texttt{v2.0}, and in the versioned archive at
+\url{https://doi.org/10.5281/zenodo.21778700}.
+
+\section*{Changes from version 1}
+
+Version 2 strengthens the record; it is not an erratum, and version 1 contains
+no false statement.  SV, posed open and verified only through order $10$ in
+version 1, is now resolved as false with minimum counterexamples at order $11$.
+The Lemma-A census is reproducible and extended through order $14$, F2 is
+verified directly through order $13$, and the surviving lifting inequality is
+proved on the L2 class and independently re-verified through order $10$.
 
 \section*{Acknowledgments}
 
@@ -986,6 +1270,10 @@ file \texttt{FormalConjectures/WrittenOnTheWallII/GraphConjecture40.lean}
 B.~D.~McKay and A.~Piperno, \emph{Practical graph isomorphism, II},
 J.~Symbolic Comput.\ \textbf{60} (2014), 94--112.
 \href{https://doi.org/10.1016/j.jsc.2013.09.003}{doi:10.1016/j.jsc.2013.09.003}.
+\bibitem{OEIS}
+OEIS Foundation Inc., \emph{The On-Line Encyclopedia of Integer Sequences},
+Sequence A005142, number of connected bipartite graphs with $n$ vertices,
+\url{https://oeis.org/A005142} (accessed 2026-08-03).
 \end{thebibliography}
 
 \end{document}
