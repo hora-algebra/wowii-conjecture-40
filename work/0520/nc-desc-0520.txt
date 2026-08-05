@@ -1,0 +1,8 @@
+POST-HOC DESCRIPTIVE (exhaustive 3 5, cyclic systems only)
+  cyclic_systems = 798
+  clean_q = 1602
+  dirty_q = 18
+  chords_at_dirty = 18
+  AIplus_hyp = 528
+  AIplus_ok = 528
+  AIplus_BROKEN = 0

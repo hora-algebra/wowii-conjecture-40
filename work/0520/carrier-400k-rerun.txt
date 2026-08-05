@@ -1,0 +1,2 @@
+[random 400000 seed 777] systems scanned = 400000; systems with a CYCLIC forced core = 13245; claim failures = 0
+    negative controls (must be > 0 to show the harness can fail): {'CTRL-PDIS': 6727, 'CTRL-DEG2': 3271}

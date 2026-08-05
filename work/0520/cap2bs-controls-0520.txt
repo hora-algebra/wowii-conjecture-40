@@ -1,0 +1,6 @@
+CAP2-BS controls: tau(G[H u B_s]) <= |B_s|-1 ?   guard = every non-end H-neighbour of s has c=2
+  O-56: s=1 B_s=['2', '3'] non-end nbrs=['6'] caps=[2] guard=True tau=1 |B_s|-1=1 -> CAP2-BS holds
+  O-56: s=0 B_s=['2', '3'] non-end nbrs=['6'] caps=[2] guard=True tau=1 |B_s|-1=1 -> CAP2-BS holds
+  O-63: s=s B_s=['a', 'b', 'u'] non-end nbrs=['h'] caps=[2] guard=True tau=2 |B_s|-1=2 -> CAP2-BS holds
+  O-64: s=s B_s=['u'] non-end nbrs=['h'] caps=[1] guard=False tau=1 |B_s|-1=0 -> CAP2-BS FAILS  <== NOGUARD control FIRES
+  ADJ-1: s=s2 B_s=['s0', 's1'] non-end nbrs=['0'] caps=[2] guard=True tau=0 |B_s|-1=1 -> CAP2-BS holds

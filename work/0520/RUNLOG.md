@@ -44,3 +44,39 @@ post-push existence proofs"), and it is present in the base of this branch.
 eval_L1_holdout.py, experiment_b_dual.py, experiment_b.py, forced_core.py,
 inv_b.py, inv40_a.py, inv40_b.py, mine_n10.py, README.md, witnesses/O-56.json,
 witnesses/O-63.json, witnesses/O-64.json).
+
+## Step 1 — gauntlet: COMPLETED (GAUNTLET.md rewritten on this branch)
+
+Engine anchored before use: `ANCHOR systems=115774 cyclic=798 pdis=18` (exact
+match to `carrier.py` and b17e). Witnesses re-derived independently: feasible
+selection counts 1 / 6 / 1, forced cycles, carrier tables, violation structure.
+Two metadata scope defects recorded (O-63 minimality scope; O-56 `refutes` field).
+
+## Step 3 target 1 — results (append-only)
+
+* PREREG-NC.md frozen at commit `2510e2b` BEFORE any scan, with the NC proof
+  written out in it.
+* Gold test: O-56 / O-63 / O-64 / ADJ-1 all PASS; ADJ-1 fires all three negative
+  controls (NC-ALL, CHORD-ALL, PDIS).
+* Targets: exhaustive 3 5 → 798 cyclic, 0 failures, controls 18/18/18, 43.3 s;
+  random 20000 seed 1 → 656 cyclic, 0 failures, controls 332/332/332, 10.4 s;
+  random 400000 seed 777 → 13,245 cyclic, 0 failures, controls 6727/6695/6727,
+  200.4 s. Total 14,699 cyclic systems, 0 failures.
+* Post-run hash check of all four frozen artefacts: unchanged.
+* NC, CE, A-I+ graded MATHEMATICALLY PROVED + COMPUTATIONALLY VERIFIED.
+* CAP2-BS: exploratory only (sizing runs preceded preregistration); scan graded
+  ABORTED-NO-VERDICT because its negative control cannot fire inside the
+  universe. CAP2-BS itself stays CONJECTURAL; PROOFS.md's parked status unchanged.
+
+## TOOLING discrepancy (reported, not absorbed)
+
+`LEMMA-A-CARRIER.md` §1.3 random rows do not reproduce from `work/carrier.py`
+at its preregistered hash `d11b0bca...`. Rerun: `random 20000 1` → 656 / PDIS
+332 / DEG2 157 (published 547 / 251 / 142); `random 400000 777` → 13,245 / 6,727
+/ 3,271 (published 11,097 / 4,931 / 2,643). `engine0520` agrees with the frozen
+tool system-by-system (symmetric difference 0 on the 20,000-system population).
+The `exhaustive 3 5` row reproduces exactly, so CP's evidence is unaffected.
+
+## Wrap-up
+
+No jobs left running. Nothing pushed; push URLs disabled in this clone.

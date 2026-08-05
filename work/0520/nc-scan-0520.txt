@@ -1,0 +1,12 @@
+### TARGET 1
+[exhaustive k<=3 p<=5] systems=115774 cyclic=798 claim_failures=0
+    negative controls (each MUST be > 0): {'NC-ALL': 18, 'CHORD-ALL': 18, 'PDIS': 18}
+python3 nc0520.py exhaustive 3 5  9.41s user 0.05s system 21% cpu 43.308 total
+### TARGET 2
+[random 20000 seed 1] systems=20000 cyclic=656 claim_failures=0
+    negative controls (each MUST be > 0): {'NC-ALL': 332, 'CHORD-ALL': 332, 'PDIS': 332}
+python3 nc0520.py random 20000 1  2.26s user 0.03s system 21% cpu 10.417 total
+### TARGET 3
+[random 400000 seed 777] systems=400000 cyclic=13245 claim_failures=0
+    negative controls (each MUST be > 0): {'NC-ALL': 6727, 'CHORD-ALL': 6695, 'PDIS': 6727}
+python3 nc0520.py random 400000 777  44.86s user 0.22s system 22% cpu 3:20.42 total
