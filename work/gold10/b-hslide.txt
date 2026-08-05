@@ -1,0 +1,7 @@
+=== B-PLUS-2 / B-TERMINAL-SLIDE / B-H-SLIDE HOLDOUT (n=10) ===
+cycle_components = 448577; positive-gap (A1-failing) = 0
+no-CES-at-<=d0+2 failures = 0
+B-PLUS-2 failures (gap>2) = 0
+B-TERMINAL-SLIDE failures = 0
+B-H-SLIDE failures = 0
+gap histogram = {0: 448577}; max gap = 0

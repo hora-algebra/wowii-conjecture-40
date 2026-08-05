@@ -1,0 +1,8 @@
+g 500/4032 cyc=6338 gappos=0 fB2=0 fTS=0 fHS=0 fNO=0 maxgap=0
+g 1000/4032 cyc=13668 gappos=0 fB2=0 fTS=0 fHS=0 fNO=0 maxgap=0
+g 1500/4032 cyc=23486 gappos=0 fB2=0 fTS=0 fHS=0 fNO=0 maxgap=0
+g 2000/4032 cyc=76547 gappos=0 fB2=0 fTS=0 fHS=0 fNO=0 maxgap=0
+g 2500/4032 cyc=175179 gappos=0 fB2=0 fTS=0 fHS=0 fNO=0 maxgap=0
+g 3000/4032 cyc=187105 gappos=0 fB2=0 fTS=0 fHS=0 fNO=0 maxgap=0
+g 3500/4032 cyc=246932 gappos=0 fB2=0 fTS=0 fHS=0 fNO=0 maxgap=0
+g 4000/4032 cyc=439460 gappos=0 fB2=0 fTS=0 fHS=0 fNO=0 maxgap=0

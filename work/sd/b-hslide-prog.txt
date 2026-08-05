@@ -1,0 +1,1 @@
+g 500/730 cyc=5151 gappos=0 fB2=0 fTS=0 fHS=0 fNO=0 maxgap=0
