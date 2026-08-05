@@ -1,0 +1,23 @@
+{
+  "id": "ACYCLIC-CONTROL",
+  "source": "hand control for the independent witness verifier",
+  "refutes": "nothing; must have forced-core cycle rank zero",
+  "vertices": {
+    "S": ["a", "b"],
+    "H": [0, 1, 2, 3, "x", "y"]
+  },
+  "incidence_edges_S_H": [
+    ["a", 0], ["a", 1],
+    ["b", 2], ["b", 3]
+  ],
+  "H_forest_edges": [["x", "y"]],
+  "distinguished_edge": ["x", "y"],
+  "capacities": {"default": 2, "c1_vertices": ["x", "y"]},
+  "feasible_selections": {
+    "count": 1,
+    "unique": {
+      "a": [0, 1],
+      "b": [2, 3]
+    }
+  }
+}

@@ -1,0 +1,8 @@
+7fe9f98569bb4bebb980b69dbb734993b82f4d5c499ad1efa3dab90a2f4d7222  work/b17e/carrier_poset.py
+d11b0bca3a4ac437b4811ce588e660fe2e382ccd725e017fbadd2919e195696a  work/carrier.py
+TARGET systems=115774 cyclic=798 pdis=18 CP_fail=0 ADJ_fail=18
+FIRST_ADJ_FAIL {"A": {"s0": ["s0"], "s1": ["s1"], "s2": ["s0", "s1", "s2"]}, "H": [0, 1, 2], "P": ["s0", "s1", "s2"], "P_minus_U": ["s2"], "S": ["s0", "s1", "s2"], "U": ["s0", "s1"], "arcs": [["s2", "s0"], ["s2", "s1"]], "cap": {"0": 2, "1": 2, "2": 2}, "nbH": {"s0": [0, 1], "s1": [0, 2], "s2": [0, 1, 2]}}
+real 4.21
+user 4.18
+sys 0.02
+
