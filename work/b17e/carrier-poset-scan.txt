@@ -5,4 +5,3 @@ FIRST_ADJ_FAIL {"A": {"s0": ["s0"], "s1": ["s1"], "s2": ["s0", "s1", "s2"]}, "H"
 real 4.21
 user 4.18
 sys 0.02
-
