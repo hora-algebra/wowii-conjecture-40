@@ -1,0 +1,5 @@
+  (2,8) systems=2030 cyclic=0 NC=0 NCM=0 CPR=0 PT=0 AIPhyp=0 AIP=0 ctrl=0/0/0
+  (3,7) systems=3571260 cyclic=0 NC=0 NCM=0 CPR=0 PT=0 AIPhyp=0 AIP=0 ctrl=0/0/0
+  (6,4) systems=12286281 cyclic=0 NC=0 NCM=0 CPR=0 PT=0 AIPhyp=0 AIP=0 ctrl=0/0/0
+[SWEEP k+p<=10] systems=15859571 cyclic=0 NC_fail=0 NCM_fail=0 CPR_fail=0 PT_fail=0 AIP_hyp=0 AIP_fail=0
+    controls: NC-ALL=0 CHORD-ALL=0 PDIS=0

@@ -1,0 +1,4 @@
+  (4,6) systems=2948880 cyclic=52055 NC=0 NCM=0 CPR=0 PT=0 AIPhyp=30995 AIP=0 ctrl=960/960/960
+  (5,5) systems=1147190 cyclic=10892 NC=0 NCM=0 CPR=0 PT=0 AIPhyp=9732 AIP=0 ctrl=8070/7890/8070
+[SWEEP k+p<=10] systems=4096070 cyclic=62947 NC_fail=0 NCM_fail=0 CPR_fail=0 PT_fail=0 AIP_hyp=40727 AIP_fail=0
+    controls: NC-ALL=9030 CHORD-ALL=8850 PDIS=9030

@@ -1,0 +1,2 @@
+[n=9] graphs=730 tau2_instances=13003 taulo_instances=5170 infeasible=0 cyclic=0 xchecked=27
+[n=10] graphs=4032 tau2_instances=116216 taulo_instances=19589 infeasible=0 cyclic=0 xchecked=236

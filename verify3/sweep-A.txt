@@ -1,0 +1,18 @@
+  (2,3) systems=52 cyclic=0 NC=0 NCM=0 CPR=0 PT=0 AIPhyp=0 AIP=0 ctrl=0/0/0
+  (2,4) systems=441 cyclic=0 NC=0 NCM=0 CPR=0 PT=0 AIPhyp=0 AIP=0 ctrl=0/0/0
+  (2,5) systems=1870 cyclic=0 NC=0 NCM=0 CPR=0 PT=0 AIPhyp=0 AIP=0 ctrl=0/0/0
+  (2,6) systems=4160 cyclic=0 NC=0 NCM=0 CPR=0 PT=0 AIPhyp=0 AIP=0 ctrl=0/0/0
+  (2,7) systems=4620 cyclic=0 NC=0 NCM=0 CPR=0 PT=0 AIPhyp=0 AIP=0 ctrl=0/0/0
+  (3,3) systems=244 cyclic=24 NC=0 NCM=0 CPR=0 PT=0 AIPhyp=24 AIP=0 ctrl=18/18/18
+  (3,4) systems=7567 cyclic=414 NC=0 NCM=0 CPR=0 PT=0 AIPhyp=144 AIP=0 ctrl=0/0/0
+  (3,5) systems=105600 cyclic=360 NC=0 NCM=0 CPR=0 PT=0 AIPhyp=360 AIP=0 ctrl=0/0/0
+  (3,6) systems=799200 cyclic=315 NC=0 NCM=0 CPR=0 PT=0 AIPhyp=315 AIP=0 ctrl=0/0/0
+  (4,3) systems=1012 cyclic=0 NC=0 NCM=0 CPR=0 PT=0 AIPhyp=0 AIP=0 ctrl=0/0/0
+  (4,4) systems=95361 cyclic=2934 NC=0 NCM=0 CPR=0 PT=0 AIPhyp=2952 AIP=0 ctrl=2304/2304/2304
+  (4,5) systems=3519670 cyclic=165000 NC=0 NCM=0 CPR=0 PT=0 AIPhyp=44400 AIP=0 ctrl=47520/45360/47520
+  (5,3) systems=4084 cyclic=0 NC=0 NCM=0 CPR=0 PT=0 AIPhyp=0 AIP=0 ctrl=0/0/0
+  (5,4) systems=1098727 cyclic=0 NC=0 NCM=0 CPR=0 PT=0 AIPhyp=0 AIP=0 ctrl=0/0/0
+  (6,3) systems=16372 cyclic=0 NC=0 NCM=0 CPR=0 PT=0 AIPhyp=0 AIP=0 ctrl=0/0/0
+  (7,3) systems=65524 cyclic=0 NC=0 NCM=0 CPR=0 PT=0 AIPhyp=0 AIP=0 ctrl=0/0/0
+[SWEEP k+p<=10] systems=5724504 cyclic=169047 NC_fail=0 NCM_fail=0 CPR_fail=0 PT_fail=0 AIP_hyp=48195 AIP_fail=0
+    controls: NC-ALL=49842 CHORD-ALL=47682 PDIS=49842
