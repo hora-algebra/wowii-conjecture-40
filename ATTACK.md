@@ -1,26 +1,47 @@
-# Attack protocol for the open remainder of WOWII Conjecture 40
+# Attack protocol for the open remainder of WOWII Conjecture 40 (v3)
 
-This repository is a sealed research artifact (main branch, tags v1.0/v1.1)
-plus this protocol. If you are an AI agent: follow this file exactly. Do not
-modify main, with one exception: appending to `attempts/LESSONS.md` via pull
-request per Step 5. Everything you do happens on your own attempt branch.
+This repository is a sealed research artifact (main branch, tags
+v1.0/v1.1/v2.0) plus this protocol. If you are an AI agent: follow this file
+exactly. Do not modify main, with one exception: appending to
+`attempts/LESSONS.md` via pull request per Step 5. Everything you do happens
+on your own attempt branch.
 
-## What is open (see paper.pdf for exact statements)
+## Status of the main statements (see paper.pdf v2 for exact statements)
 1. LEMMA A° (paper §4.1): in the incidence model, under hereditary FVS
    tightness, the forced core contains no cycle. OPEN. Verified exhaustively
-   n ≤ 10.
+   n ≤ 14 (2,391,365,507 instances at n = 14 alone, zero cyclic cores;
+   dual-engine, hashes in paper §6).
 2. LEMMA B (paper §4.2): every selected cycle containing an avoidable
    incidence admits a CES toggle. OPEN. A shortest-path-only version is
    FALSIFIED (n=11, six witnesses); the metric refinement dCES ≤ d0+2 and the
-   terminal-slide mechanism are in-sample-supported only.
-3. SV (paper §5): every connected nonbipartite G has a vertex t in some
-   minimum OCT with p(G) ≤ p(G−t). OPEN. Verified n ≤ 10.
-4. The lifting inequality: for some minimum OCT T,
-   ℓ(G) ≥ 2τ(G−T) + |T| + 1. OPEN, sufficient for the general case given
-   the bipartite case.
-Proving A and B closes the bipartite case. Proving SV (or the lifting
-inequality) plus the bipartite case closes the conjecture. Falsifying any of
-them, with a verified witness, is equally a success outcome.
+   terminal-slide mechanism are in-sample-supported only. The frozen n=12
+   B-PLUS-2 structured holdout (proofs/FROZEN-BPLUS2.md) is intact and
+   reusable.
+3. F2 (the statement Theorem 3.13 actually needs: some fixed edge admits an
+   acyclic feasible selection): verified directly through n = 13 in the
+   stronger F2-ALL form, zero failures. OPEN in general.
+4. SV (paper §5): FALSIFIED, minimum order 11. Certified witnesses and the
+   unique-singleton-OCT mechanism are in SV-FALSIFIED.md on main. Do not
+   attack or revive it; Theorem 5.5 rests on a false hypothesis. LIFT-P is
+   FALSIFIED by the same witnesses.
+5. The lifting inequality LIFT-A (for some minimum OCT T,
+   ℓ(G) ≥ 2τ(G−T) + |T| + 1) and its universal form LIFT-A-ALL: OPEN, with
+   zero failures over every connected graph n ≤ 10 plus the preregistered
+   n = 11 classes. This is the SURVIVING route to the general case given the
+   bipartite case. Proved sufficient coverage: L1/L2 (branch
+   attempt/2026-08-03-claude-opus-5-5047), L3/L4/L5
+   (attempt/2026-08-04-codex-a7c3), L6/L7
+   (attempt/2026-08-04-claude-fable-5-0eb8). OBSTRUCTION: the CX(m) family
+   (L5-CONDITION-FALSIFIED.md on the fable branch; first member
+   CX11 = `J??FF?^FuE?`, n = 11, unique minimum OCT) defeats every
+   minimum-OCT threshold computable from per-component class sizes and
+   full-side forest-extension invariants — no such threshold can be
+   universal. Any new sufficient condition must read deeper structure:
+   partial-side forests / hub deletions in 2-connected dense blocks, or the
+   apex's stitching into the path cover.
+Proving A and B closes the bipartite case. Proving LIFT-A (or LIFT-A-ALL)
+plus the bipartite case closes the conjecture. Falsifying any open statement
+above, with a verified witness, is equally a success outcome.
 
 ## Step 0 — freshness check (every run, before anything else)
 Check, in order: (a) open issues and pull requests on this repository;
@@ -42,12 +63,13 @@ Fetch and read the accumulated knowledge before any new work:
 git fetch origin 'refs/heads/attempt/*:refs/remotes/origin/attempt/*'
 ```
 
-Read `attempts/LESSONS.md` on main, and `ATTEMPT_REPORT.md` on every
-`origin/attempt/*` branch. Treat [FALSIFIED] and [DEAD END] entries as
-binding — re-attacking one requires first refuting, in writing in your
-report, the recorded reason it died. Treat [CONJECTURAL LEAD] entries as
-candidate starting points alongside Step 3. If there are no attempt branches
-and `attempts/LESSONS.md` is empty, you are the first attempt; proceed.
+`attempts/LESSONS.md` on main is now POPULATED — entries from
+attempt/2026-08-03-claude-opus-5-5047, attempt/2026-08-04-codex-a7c3, and
+attempt/2026-08-04-claude-fable-5-0eb8 — and BINDING. Read it, and
+`ATTEMPT_REPORT.md` on every `origin/attempt/*` branch. Treat [FALSIFIED]
+and [DEAD END] entries as binding — re-attacking one requires first
+refuting, in writing in your report, the recorded reason it died. Treat
+[CONJECTURAL LEAD] entries as candidate starting points alongside Step 3.
 
 ## Step 1 — comprehension gauntlet (mandatory before any new mathematics)
 Write GAUNTLET.md on your branch containing, in your own words with full
@@ -70,29 +92,36 @@ correctly, STOP and report that; do not proceed to new work.
   fresh preregistered scan (freeze + hash the checker first, gold-test it,
   then run). A prose proof with no oracle contact counts as NOTHING. This
   project's documented death pattern is: plausible pattern, holds n ≤ 10,
-  frozen, killed at n = 11 by a sealed holdout. Assume your first three
-  ideas are that pattern.
+  frozen, killed at n = 11 by a sealed holdout. It has now fired three
+  times (Lemma B shortest-path form; SV/LIFT-P; the L5/L6 lifting
+  conditions). Assume your first three ideas are that pattern.
 - Do not modify frozen statements, ledgers, or anything on main.
   Append-only ledger discipline applies to your own branch records.
-- Known dead ends (do not re-walk; ledgers have the forensics): shortest-
-  path-only Lemma B (A1/U1, falsified); B_s/P/T_F universal localizations
-  for Lemma A (witness-refuted); the O68 motif branch (permanently frozen).
+- Known dead ends (do not re-walk; ledgers and LESSONS.md have the
+  forensics): shortest-path-only Lemma B (A1/U1, falsified); B_s/P/T_F
+  universal localizations for Lemma A (witness-refuted); the O68 motif
+  branch (permanently frozen); SV and LIFT-P (falsified at n=11);
+  class-size / full-side forest-extension lifting thresholds
+  (CX(m)-refuted).
 
 ## Step 3 — targets, in suggested order
 1. Lemma A via the T_F-normalized carrier attack: by paper Lemma 4.7 assume
    S = T_F (every S-vertex inside a cycle-edge carrier); combine the carrier
    lattice, punctured tightness, and the augmented forest quotient on
-   normalized instances. This angle was banked, never spent.
+   normalized instances. Banked; still unspent beyond Lemma CS.
 2. Lemma B via scheduled descent: instead of proving every local move safe,
    construct an ORDER of cycle-erasures with one-step lookahead under which
    each erasure is CES by construction (cf. the cycle-merge scheduling of
    Lavrov–Vandenbussche, EJC 31(3) #P3.1, adapted to exact demand and the
-   capacity-1 pair). Also banked, never spent.
-3. SV: prove it, or extend verification to n = 11 (preregistered).
-4. The lifting inequality: prove it for some structured class, or hunt
-   counterexamples to it (a counterexample redirects the gap work — report
-   it as a result, it does not touch the conjecture).
-5. Resume the frozen n=12 B-PLUS-2 structured holdout exactly per
+   capacity-1 pair). Banked, never spent.
+3. Exact LIFT-A on unique-minimum-OCT graphs, via partial-side/hub-deletion
+   forest bounds for 2-connected dense bipartite blocks — the CX(m)
+   obstruction lives exactly there, and both SV and the lifting conditions
+   died at unique singleton OCTs. Enumerate excess-0 components
+   (PREREG-E1.md sense) at n = 11, 12 FIRST, and preregister any proposed
+   threshold against that population before writing a line of prose about
+   it.
+4. Resume the frozen n=12 B-PLUS-2 structured holdout exactly per
    proofs/FROZEN-BPLUS2.md with the hashed checkers in tools/.
 Any verified movement on any target is a successful run.
 
@@ -110,6 +139,12 @@ google-deepmind/formal-conjectures definitions, that is the gold standard.
 - Branch: `attempt/YYYY-MM-DD-<model-name>-<4 random hex chars>`. The
   4-hex-character uniqueness suffix is mandatory — concurrent attempts exist.
   Never commit to main. Never force-push. Commit freely on your branch.
+- Stopping rule: declare a soft time budget at the start of the run and
+  record it in your report. Prefer COMPLETING one preregistered run over
+  launching the next. At wrap-up, finish only jobs projected to end within
+  15 minutes; mark everything else ABORTED-NO-VERDICT with checkpointed,
+  resumable state on disk. An aborted run honestly labeled is not a
+  failure; an unlabeled one is.
 - End EVERY run — success, failure, or timeout — by writing
   ATTEMPT_REPORT.md at your branch root:
     model/harness and date; step-0 and step-0.5 findings; gauntlet outcome;
