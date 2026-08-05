@@ -1,1 +1,4 @@
 sd_scan n=12 shard 0/32 ces=real DONE cyc=6778624 selJ=6613679 A1allfail=28 SDSHORTfail=28 SDCOUNTfail=28 SDP2fail=0 SD2STEPfail=0/28 SD2DESCfail=0 lemA=0 capped=0
+sd_scan n=12 shard 8/32 ces=real DONE cyc=7089882 selJ=6914788 A1allfail=48 SDSHORTfail=48 SDCOUNTfail=48 SDP2fail=0 SD2STEPfail=0/48 SD2DESCfail=0 lemA=0 capped=0
+sd_scan n=12 shard 16/32 ces=real DONE cyc=6951602 selJ=6778377 A1allfail=62 SDSHORTfail=36 SDCOUNTfail=36 SDP2fail=0 SD2STEPfail=0/62 SD2DESCfail=0 lemA=0 capped=0
+sd_scan n=12 shard 24/32 ces=real DONE cyc=7488239 selJ=7264362 A1allfail=48 SDSHORTfail=48 SDCOUNTfail=48 SDP2fail=0 SD2STEPfail=0/48 SD2DESCfail=0 lemA=0 capped=0

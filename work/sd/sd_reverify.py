@@ -197,7 +197,15 @@ def report(w):
 
 
 if __name__ == "__main__":
-    agg = json.load(open('sd-n11-AGGREGATE.json'))
-    out = [report(w) for w in agg['witnesses']['SD-SHORT']]
-    json.dump(out, open('sd-reverify.json', 'w'), indent=1)
+    src = sys.argv[1] if len(sys.argv) > 1 else 'sd-n11-AGGREGATE.json'
+    lim = int(sys.argv[2]) if len(sys.argv) > 2 else 10**9
+    agg = json.load(open(src))
+    ws = agg['witnesses']['SD-SHORT']
+    # deterministic evenly-spaced sample, so the choice cannot be cherry-picked
+    step = max(1, len(ws) // lim)
+    sample = ws[::step][:lim]
+    print(f"# re-verifying {len(sample)} of {len(ws)} recorded SD-SHORT failures"
+          f" from {src} (every {step}th)")
+    out = [report(w) for w in sample]
+    json.dump(out, open(src.replace('AGGREGATE', 'REVERIFY'), 'w'), indent=1)
     print("\nsummary:", json.dumps(out, indent=1))

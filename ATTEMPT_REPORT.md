@@ -241,11 +241,66 @@ the slide edge, and imposes no (H4)/(H5) geometry). It states the whole descent
 in minimum-length steps and replaces the (H1)–(H5) package with the single
 slogan "A1 does not fail twice in a row".
 
-### 8. n = 12 prospective holdout — see the status line at the end of this report
+### 8. n = 12 prospective holdout — COMPLETED EXHAUSTIVELY
 
-Preregistered in `PREREG-SD2.md` (frozen with checker hash before launch), full
-universe of 212,780 connected bipartite graphs, 32 shards, verdict reported over
-completed shards only.
+Preregistered in `PREREG-SD2.md`, frozen with checker hash `9caa7805…` before
+launch. **All 32 shards ran to completion**, i.e. all 212,780 connected bipartite
+graphs on 12 vertices, every minimum FVS with `|S| >= 2`, every `e in E(H)`, every
+feasible selection with a selected cycle. Wall time about 2 h 25 min on 8 cores.
+This also **completes the n = 12 Lemma-B holdout that was aborted at ~49% on
+2026-07-31 with no verdict** — though see the scope caveat below, which is why it
+does not close out the frozen B-PLUS-2 statement in its universal form.
+
+| quantity | n = 11 | **n = 12** |
+|---|---|---|
+| connected bipartite graphs | 25,598 | 212,780 |
+| cycle components | 8,202,633 | **228,810,295** |
+| cyclic feasible selections | 8,071,822 | 222,898,018 |
+| selections with 2 selected cycles | 130,811 | 5,912,277 |
+| **A1 failures** (positive-gap cycles) | 6 | **1,380** |
+| **SD-SHORT failures** | 6 | **1,184** |
+| SD-COUNT-SHORT failures | 6 | 1,184 |
+| **SD-PLUS-2 failures** | 0 | **0** |
+| **SD-2STEP failures / probed** | 0 / 6 | **0 / 1,380** |
+| **SD-2STEP-DESCENT failures** | 0 | **0** |
+| Lemma-A violations (all-forced cycles) | 0 | **0** |
+| path-enumeration cap hits | 0 | 0 |
+
+**SD-SHORT: FALSIFIED again at n = 12, but no longer for the n = 11 reason.**
+The profile is now `(1,0): 1,184` and `(2,1): 196` — at n = 12, 196 of the 1,380
+A1-failing cycles *do* sit in a two-cycle selection whose other cycle is A1-good,
+so cycle-choice scheduling rescues 14.2% of them. It is not enough: 1,184
+selections still have no A1-good cycle at all. So the n = 11 finding ("scheduling
+by cycle is vacuous") was an artefact of the small sample; the correct statement
+is that cycle-choice scheduling *helps but does not suffice*.
+
+**SD-2STEP-DESCENT survived its first prospective test, at scale.** 1,380
+independent non-trivial instances, 230x the six that suggested it, zero failures.
+It is the only statement in this report that both (a) closes the bipartite case
+by claim 1 and (b) has prospective, out-of-sample support.
+
+**Uniformity worth recording:** every A1-failing cycle in the preserved records
+(1,310 of the 1,380, the per-shard witness caps) is a 4-cycle with `d0 = 3` — the
+same fingerprint as all six at n = 11. Not one A1 failure at any order has
+`d0 != 3`.
+
+**Independent re-verification (PREREG-SD2.md §4.2).** Eight evenly-spaced (every
+146th) recorded n = 12 SD-SHORT failures were re-derived by
+`work/sd/sd_reverify.py` — fresh code, no residual BFS/DAG/path machinery, working
+in the symmetric-difference metric. All eight confirm: `H` a forest,
+`tau(G) = |S| = 4` so `S` **is** a minimum FVS, hereditary FVS tightness for every
+`X ⊆ S`, exactly one selected 4-cycle, `m_min = 4` hence `d0 = 3`, **zero** CES
+minimisers, first CES at `m = 6` hence gap exactly 2, and **26/26** minimising
+first steps followed by a minimising CES second step.
+
+**Scope caveat — what this run does NOT settle.** The counter graded is
+SD-PLUS-2, the `exists`-cycle form. The frozen **B-PLUS-2 in its universal
+(`for all`-cycle) form is NOT graded at n = 12 by this run**: the checker stops
+searching `<= d0 + 2` repairs for a selection once any one of its cycles is
+covered, so up to 196 A1-failing cycles — exactly those co-occurring with an
+A1-good cycle — had their `<= d0 + 2` repair left unchecked. Grading the universal
+form needs a re-run of the same cost (~2.5 h), which did not fit this run's
+budget. It is the cheapest high-value job for the next attempt.
 
 ---
 
@@ -306,14 +361,20 @@ completed shards only.
 
 ## Recommended next angle
 
-1. **Prove or kill SD-2STEP-DESCENT** ("A1 never fails twice in a row along
-   minimising steps"). If the n = 12 holdout supports it, this is a cleaner
-   proof obligation than B-TERMINAL-SLIDE: no path lengthening, no terminal-slide
-   geometry, and the whole descent runs on minimum-length steps. The natural
-   proof route is the B4 sub-programme (lex-optimal shortest paths, directed
-   residual chords in `D_a`), applied not to `J` but to the *successor* `J0`:
-   the new cycle `Z` is one-added-edge and terminal, which is a much more
-   constrained object than a general selected cycle.
+1. **Prove SD-2STEP-DESCENT** ("A1 never fails twice in a row along minimising
+   steps"). It survived n = 12 exhaustively on 1,380 out-of-sample instances, it
+   closes the bipartite case on its own (claim 1, no Lemma A), and it is a proved
+   weakening of B-TERMINAL-SLIDE — so it is strictly the easiest live target in
+   the Lemma-B programme. The natural proof route is the B4 sub-programme
+   (lex-optimal shortest paths, directed residual chords in `D_a`) applied not to
+   `J` but to the *successor* `J0`: `J0`'s new cycle `Z` is one-added-edge and
+   terminal, and empirically `d0(J0) = 1` every time, which is a far more
+   constrained object than a general selected cycle. Proving "`d0(J0) = 1`
+   whenever `C` fails A1" would essentially finish it.
+1b. **Cheapest high-value computation:** re-grade n = 12 for B-PLUS-2 in its
+   universal form (~2.5 h on 8 cores with `work/sd/sd_scan2.py` modified to search
+   `<= d0 + 2` repairs per cycle rather than per selection). That would finally
+   close out the holdout aborted on 2026-07-31.
 2. **Re-target the "scheduling" idea from cycles to moves.** Any future statement
    of the scheduled-descent shape must quantify over an order of *toggles*; an
    order of *cycle-erasures* is provably empty where it is needed (n <= 11).
@@ -332,14 +393,16 @@ completed shards only.
 ## LESSONS FOR FUTURE ATTEMPTS
 
 ## 2026-08-05 — Claude Opus 5 (1M context) / Claude Code CLI — attempt/2026-08-05-claude-opus-5-4d7a
-- [MATHEMATICALLY PROVED] Theorem 3.13's hypotheses can be weakened from `A and B` to the single statement **SD** ("every feasible selection with a selected cycle has SOME cycle admitting a CES toggle"): SD is verbatim the Descent Lemma's hypothesis, so SD implies F2 and the bipartite case with **no Lemma A at all**. `A and B` imply SD, so SD is strictly weaker. Prove SD, and the entire `P`/`B_s`/`T_F` localization programme becomes unnecessary. (`PREREG-SD.md` §1.)
-- [FALSIFIED] **SD-SHORT** — the `exists`-cycle weakening of A1 ("some cycle of `J` is erased by a residual path of length `d0`") — is FALSE, minimal order 11, 6 failures, killed by the same three graphs that killed A1: `J??FErWxDw?` `S={0,2,3,4}` `e=(5,10)`; `J?B@eQo]Fo?` `S={6,7,8,10}` `e=(0,5)`; `J?B@eOtq`i_` `S={0,1,6,10}` `e=(4,9)`, two selections each. Certificates in `work/sd/sd-n11-AGGREGATE.json` on this branch. Preregistered before any run and before any n=11 witness was inspected.
-- [FALSIFIED] **SD-COUNT-SHORT** (some minimum-length toggle strictly lowers the selected-cycle count) is FALSE at n = 11 on the same six selections.
-- [DEAD END] **Scheduling by choice of cycle cannot repair A1.** Every A1-failing cycle at n <= 11 lies in a selection with exactly ONE selected cycle (recorded profile `(|cyc(J)|, #A1-good) = (1,0)`, 6/6), so an "order of cycle-erasures" has length 1 there. ATTACK.md v3 target 2 must order **toggles**, not cycles. This is not rarity: 130,811 two-cycle selections exist at n = 11.
-- [FALSIFIED] **ONE-CYCLE** ("no feasible selection has two selected cycles") holds for every connected bipartite graph with n <= 9 and is FALSE at **n = 10** (5,269 two-cycle selections of 443,308 cyclic ones; 130,811 of 8,071,822 at n = 11). The maximum number of selected cycles ever observed is **2** — no selection with three exists at any n <= 11. Formulated in-sample at n <= 9 and killed one order later.
-- [COMPUTATIONALLY VERIFIED] **SD-PLUS-2** (some cycle of `J` admits a CES residual path of length `<= d0 + 2`) has 0 failures over all connected bipartite graphs n <= 11 (8,202,633 cycle components at n = 11). It is weaker than B-PLUS-2 and suffices for the bipartite case, but its evidence is not independent of B-PLUS-2's.
-- [CONJECTURAL LEAD] **SD-2STEP-DESCENT**: "A1 failures are never consecutive along minimising steps" — if a cycle fails A1, some minimum-length toggle lands on a `J0` with `|cyc(J0)| <= |cyc(J)|` that admits a CES minimum-length toggle. Holds 6/6 cycles and 20/20 shortest bad paths at n = 11 (IN SAMPLE — formulated after seeing them). It states the whole descent in minimum-length steps and replaces B1's (H1)–(H5) package with "A1 does not fail twice in a row". [MATHEMATICALLY PROVED] It is a strict WEAKENING, not a new mechanism: B-TERMINAL-SLIDE plus B1's (H1)–(H3) implies it, because `toggle(J,a,Q0+[u,t']) = J0 - (t,u) + (u,t')` is, seen from `J0`, a residual augmentation of length 1 — the minimum possible — releasing an incidence of `J0`'s new cycle `Z`, and (H1)+(H2) give `|cyc(J0)| = |cyc(J)|`; verified concretely at all 20 n=11 bad shortest paths (`d0(J0) = 1`, `|cyc(J0)| = |cyc(J)| = 1`). So its n<=11 support is NOT independent of B-TERMINAL-SLIDE's; its entire value is that it is weaker and so can survive at n=12 where B-TERMINAL-SLIDE dies. Preregistered with checker hash in `PREREG-SD2.md`.
-- [COMPUTATIONALLY VERIFIED] Independent re-verification of all six A1/SD-SHORT witnesses in the symmetric-difference metric (`m(J,J') = |J Δ J'| = d + 1`), by code sharing nothing with the residual-DAG engine: `S` **is** a minimum FVS and hereditary FVS tightness holds for every `X ⊆ S` in all six (they are legitimate instances, unlike O-56/63/64); exactly one selected 4-cycle; `d0 = 3`; zero CES minimisers; first CES at gap exactly 2.
-- [TOOLING] Union-find **with path compression inside a backtracking enumeration is wrong** — the only sound O(1) undo is restoring the single parent entry the union wrote, and compression mutates others. It over-counted cycles by 17 at n = 8 / 180 at n = 9 before the published anchors (2,584 / 24,195) caught it. Any backtracking enumerator in this project should anchor against a published count before its first new run.
-- [TOOLING] New checkers on `attempt/2026-08-05-claude-opus-5-4d7a`: `work/sd/sd_scan.py` `227cf118…`, `work/sd/sd_scan2.py` `9caa7805…` (v1 + SD-2STEP probe; reproduces v1 field-for-field at n = 9, 11), `work/sd/wit_verify.py` `99cdfd46…` (witness recomputation, no shared code with `tools/`), `work/sd/sd_reverify.py`, `work/sd/onecycle_scan.py`. Negative controls fire (`--ces=never` at n = 9 → A1-ALL failures = 24,195 = every cycle component); the frozen `comps`/`ncyc` were separately controlled to return 2, 1, 0 on hand-built selections before "one cycle per selection" was believed.
-- [TOOLING] The full n <= 11 Lemma-B cycle universe costs about 5 minutes on 8 cores in Python when sharded by graph index, not hours; n = 12 is roughly 18x that. Cost is no longer a reason to leave the n = 12 holdout aborted.
+- [MATHEMATICALLY PROVED] Theorem 3.13's hypotheses can be weakened from `A and B` to the single statement **SD** ("every feasible selection with a selected cycle has SOME cycle admitting a CES toggle"). SD is verbatim the Descent Lemma's hypothesis, so SD implies F2 and the bipartite case with **no Lemma A at all**; `A and B` imply SD, so SD is strictly weaker. Anything that proves SD retires the entire `P`/`B_s`/`T_F` localization programme that O-56/O-63/O-64 have been killing one strategy at a time. (`PREREG-SD.md` §1.)
+- [FALSIFIED] **SD-SHORT** (the `exists`-cycle weakening of A1: some cycle of `J` is erased by a residual path of length `d0`) is FALSE, minimal order **11**, 6 failures, on the same three graphs that killed A1: ``J??FErWxDw?`` `S={0,2,3,4}` `e=(5,10)`; ``J?B@eQo]Fo?`` `S={6,7,8,10}` `e=(0,5)`; ``J?B@eOtq`i_`` `S={0,1,6,10}` `e=(4,9)`, two selections each. Preregistered before any run and before any n=11 witness was inspected. Still false at n=12 with **1,184** failures. Certificates: `work/sd/sd-n11-AGGREGATE.json`, `sd-n12-AGGREGATE.json`.
+- [FALSIFIED] **SD-COUNT-SHORT** (some minimum-length toggle strictly lowers the selected-cycle count) is FALSE at n=11 (6) and n=12 (1,184), same selections.
+- [CONJECTURAL LEAD — the main result of this run] **SD-2STEP-DESCENT: "A1 failures are never consecutive along minimising steps."** If a selected cycle of `J` fails A1, some minimum-length toggle lands on a `J0` with `|cyc(J0)| <= |cyc(J)|` that itself admits a CES minimum-length toggle; the composite strictly lowers `|cyc(J)|`, so by SD this closes the bipartite case **without Lemma A**. **0 failures over the 1,380 A1-failing cycles in the EXHAUSTIVE n=12 universe** (228,810,295 cycle components) — its first prospective test, 230x its in-sample support. Frozen with checker hash in `PREREG-SD2.md` before launch.
+- [MATHEMATICALLY PROVED] SD-2STEP-DESCENT is a strict **weakening** of B-TERMINAL-SLIDE, not a new mechanism: `toggle(J,a,Q0+[u,t']) = J0 - (t,u) + (u,t')`, which seen from `J0` is a residual augmentation of length **1** — the minimum possible — releasing an incidence of `J0`'s new cycle; with B1's (H1)+(H2), `|cyc(J0)| = |cyc(J)|`. So its evidence is not independent of B-TERMINAL-SLIDE's, and its entire value is being weaker. Confirmed concretely: `d0(J0) = 1` at all 20 n=11 bad shortest paths and at 26/26 in the independently re-verified n=12 sample.
+- [CONJECTURAL LEAD] Every A1-failing cycle ever found — 6 at n=11, 1,310 preserved of 1,380 at n=12 — is a **4-cycle with `d0 = 3`**, and its successor always has `d0(J0) = 1`. Proving "`C` fails A1 `=>` `d0(J0) = 1`" would essentially finish SD-2STEP-DESCENT. No A1 failure at any order has `d0 != 3`.
+- [DEAD END, corrected] Scheduling by **choice of cycle** cannot repair A1. At n<=11 it is outright vacuous (all 6 A1-failing cycles sit in selections with exactly ONE selected cycle, profile `(1,0)` 6/6). At n=12 it is no longer vacuous — 196 of 1,380 A1-failing cycles sit in a 2-cycle selection whose other cycle is A1-good — but it rescues only 14.2% and 1,184 selections still have no A1-good cycle. ATTACK.md v3 target 2 must therefore order **toggles**, not cycles. (The n=11-only reading, "cycle scheduling is vacuous", is a small-sample artefact; do not repeat it.)
+- [FALSIFIED] **ONE-CYCLE** ("no feasible selection has two selected cycles") holds for every connected bipartite graph with n<=9 and is FALSE at **n=10** (5,269 two-cycle selections of 443,308 cyclic ones; 130,811 at n=11; 5,912,277 at n=12). Formulated in-sample at n<=9 and killed one order later. NOTE: the observed maximum of **2** is a counting artefact, not evidence — three selected cycles need `|S|>=6` and feasibility forces `|H|>=|S|+1`, so three are impossible below **n=13**, which is the first real test.
+- [COMPUTATIONALLY VERIFIED] **SD-PLUS-2** (some cycle of `J` admits a CES residual path of length `<= d0+2`): **0 failures exhaustively through n=12**. Weaker than B-PLUS-2 and sufficient for the bipartite case by SD. CAVEAT: this run does **not** grade B-PLUS-2 in its universal (`for all`-cycle) form at n=12 — the checker stops searching once one cycle of a selection is covered, leaving up to 196 A1-failing cycles unchecked. Re-grading that is ~2.5 h on 8 cores and is the cheapest way to finally close the holdout aborted on 2026-07-31.
+- [COMPUTATIONALLY VERIFIED] The aborted n=12 Lemma-B holdout is now **run to completion** in the SD form: all 212,780 connected bipartite graphs, every minimum FVS, every fixed edge, every feasible selection — **228,810,295 cycle components**, 0 Lemma-A violations (no all-forced cycle), 0 path-cap hits. n=11 anchors reproduced exactly first (8,202,633 cycle components; A1 failures = 6).
+- [TOOLING] Union-find **with path compression inside a backtracking enumeration is wrong** — the only sound O(1) undo is restoring the single parent entry the union wrote, and compression mutates others. It over-counted cycles by 17 at n=8 and 180 at n=9 before the published anchors (2,584 / 24,195) caught it. Anchor every new enumerator against a published count before its first new run.
+- [TOOLING] New checkers on this branch, hashes committed before the runs they grade: `work/sd/sd_scan.py` `227cf118…`, `work/sd/sd_scan2.py` `9caa7805…` (v1 + the SD-2STEP probe; reproduces v1 field-for-field at n=9 and n=11 as its gold test), `work/sd/wit_verify.py` `99cdfd46…` (witness recomputation sharing no code with `tools/`), `work/sd/sd_reverify.py` (independent symmetric-difference engine, `m(J,J') = d+1`), `work/sd/onecycle_scan.py`. Negative controls fire: `--ces=never` at n=9 gives A1 failures = 24,195 = every cycle component and SD-SHORT failures = 24,195 = every cyclic selection; `--ces=always` gives 0 everywhere. Gap: the `--ces=never` mutant does not exercise the SD-COUNT-SHORT path.
+- [TOOLING] Cost is no longer a reason to leave a holdout aborted. Sharded by graph index in plain Python on 8 cores, the whole Lemma-B cycle universe takes ~5 min at n=11 and ~2 h 25 min at n=12 (228.8M cycle components). Growth is ~18x per order to n=11 and 27.9x from n=11 to n=12.
