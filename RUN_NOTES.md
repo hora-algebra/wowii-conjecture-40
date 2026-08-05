@@ -37,3 +37,15 @@
   SD-2STEP-DESCENT are computational evidence with their reported scopes; the
   n=12 universal B-PLUS-2 grade and the precise existential SAFE-EXISTS proof
   obligation remain to be audited before a new claim is chosen.
+- Provenance correction: VERIFY-2 independently confirms the n<=11
+  scheduled-descent anchors but labels n=12 `NOT CHECKED`; the prospective
+  exhaustive n=12 survival is recorded by 4d7a.
+
+## Primary continuation
+
+- Preregistered SAFE-2-EXISTS, the post-hoc SUCCESSOR-ONE mechanism audit, and
+  the universal per-cycle B-TERMINAL-SLIDE/B-PLUS-2 continuation in
+  `PREREG-SAFE-EXISTS.md`.
+- The universal B-PLUS-2 verdict will be inferred only from explicit
+  terminal-slide certificates for every A1-bad cycle. A terminal-slide failure
+  leaves B-PLUS-2 unresolved until a generic bounded-path recheck.
