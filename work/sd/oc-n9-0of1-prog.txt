@@ -1,0 +1,2 @@
+g 0/730 cyclicJ=0 cycles=0 maxcyc=0 ge2=0
+g 500/730 cyclicJ=5177 cycles=5177 maxcyc=1 ge2=0

@@ -1,0 +1,15 @@
+g 0/212780 cyclicJ=0 cycles=0 maxcyc=0 ge2=0
+g 504/212780 cyclicJ=349 cycles=349 maxcyc=1 ge2=0
+g 1000/212780 cyclicJ=4317 cycles=4317 maxcyc=1 ge2=0
+g 1504/212780 cyclicJ=4974 cycles=4974 maxcyc=1 ge2=0
+g 2000/212780 cyclicJ=5337 cycles=5337 maxcyc=1 ge2=0
+g 2504/212780 cyclicJ=6129 cycles=6129 maxcyc=1 ge2=0
+g 3000/212780 cyclicJ=8247 cycles=8247 maxcyc=1 ge2=0
+g 3504/212780 cyclicJ=12980 cycles=12980 maxcyc=1 ge2=0
+g 4000/212780 cyclicJ=13955 cycles=13955 maxcyc=1 ge2=0
+g 4504/212780 cyclicJ=14264 cycles=14264 maxcyc=1 ge2=0
+g 5000/212780 cyclicJ=14836 cycles=14836 maxcyc=1 ge2=0
+g 5504/212780 cyclicJ=15933 cycles=15933 maxcyc=1 ge2=0
+g 6000/212780 cyclicJ=18583 cycles=18583 maxcyc=1 ge2=0
+g 6504/212780 cyclicJ=19438 cycles=19438 maxcyc=1 ge2=0
+g 7000/212780 cyclicJ=20855 cycles=20855 maxcyc=1 ge2=0

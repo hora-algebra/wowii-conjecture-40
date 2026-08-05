@@ -1,0 +1,16 @@
+{
+ "n": "8",
+ "shard": 0,
+ "nshards": 1,
+ "graphs": 182,
+ "feasible_selections": 20165,
+ "cyclic_selections": 2584,
+ "cycle_components": 2584,
+ "max_cycles": 1,
+ "ncyc_histogram": {
+  "0": 17581,
+  "1": 2584
+ },
+ "ONE_CYCLE_violations": 0,
+ "witnesses": []
+}

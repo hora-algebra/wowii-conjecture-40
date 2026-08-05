@@ -1,0 +1,9 @@
+g 0/4032 cyclicJ=0 cycles=0 maxcyc=0 ge2=0
+g 500/4032 cyclicJ=6338 cycles=6338 maxcyc=1 ge2=0
+g 1000/4032 cyclicJ=13694 cycles=13694 maxcyc=1 ge2=0
+g 1500/4032 cyclicJ=23486 cycles=23486 maxcyc=1 ge2=0
+g 2000/4032 cyclicJ=76571 cycles=76571 maxcyc=1 ge2=0
+g 2500/4032 cyclicJ=175183 cycles=175183 maxcyc=1 ge2=0
+g 3000/4032 cyclicJ=187150 cycles=187150 maxcyc=1 ge2=0
+g 3500/4032 cyclicJ=247191 cycles=247212 maxcyc=2 ge2=20
+g 4000/4032 cyclicJ=434490 cycles=439759 maxcyc=2 ge2=20

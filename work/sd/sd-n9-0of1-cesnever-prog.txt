@@ -1,0 +1,2 @@
+g 0/730 cyc=0 selJ=0 A1allfail=0 SDSHORTfail=0 SDCOUNTfail=0 SDP2fail=0 lemA=0 capped=0
+g 500/730 cyc=5177 selJ=5177 A1allfail=5177 SDSHORTfail=5177 SDCOUNTfail=0 SDP2fail=5177 lemA=0 capped=0

@@ -1,0 +1,20 @@
+{
+ "n": "9",
+ "shard": 0,
+ "nshards": 1,
+ "ces_mode": "always",
+ "graphs": 730,
+ "cycle_components": 24195,
+ "cyclic_selections": 24195,
+ "A1_ALL_failures": 0,
+ "SD_SHORT_failures": 0,
+ "SD_COUNT_SHORT_failures": 0,
+ "SD_PLUS_2_failures": 0,
+ "lemmaA_violations": 0,
+ "path_cap_hits": 0,
+ "ncyc_histogram": {
+  "1": 24195
+ },
+ "a1bad_profile": {},
+ "witnesses": {}
+}
