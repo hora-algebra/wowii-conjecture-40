@@ -1,0 +1,41 @@
+{
+  "id": "ADJ-1",
+  "source": "PREREG-CARRIER-POSET prospective exhaustive scan",
+  "refutes": "ADJ: two inclusion-maximal cycle carriers must be consecutive",
+  "vertices": {
+    "S": ["s0", "s1", "s2"],
+    "P_cycle_S_side": ["s0", "s1", "s2"],
+    "H": [0, 1, 2, "x", "y"]
+  },
+  "incidence_edges_S_H": [
+    ["s0", 0], ["s0", 1],
+    ["s1", 0], ["s1", 2],
+    ["s2", 0], ["s2", 1], ["s2", 2]
+  ],
+  "H_forest_edges": [["x", "y"]],
+  "distinguished_edge": ["x", "y"],
+  "capacities": {"default": 2, "c1_vertices": ["x", "y"]},
+  "feasible_selections": {
+    "count": 1,
+    "unique": {
+      "s0": [0, 1],
+      "s1": [0, 2],
+      "s2": [1, 2]
+    }
+  },
+  "forced_cycle": {
+    "vertices": ["s0", 0, "s1", 2, "s2", 1],
+    "edges": [
+      ["s0", 0], ["s1", 0],
+      ["s1", 2], ["s2", 2],
+      ["s2", 1], ["s0", 1]
+    ]
+  },
+  "expected_carriers": {
+    "A_s0": ["s0"],
+    "A_s1": ["s1"],
+    "A_s2": ["s0", "s1", "s2"],
+    "U": ["s0", "s1"],
+    "P_minus_U": ["s2"]
+  }
+}
