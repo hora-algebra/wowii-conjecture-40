@@ -210,16 +210,28 @@ non-trivial instances are the six discovery witnesses):** 6/6 A1-failing cycles
 pass both forms; independently, over all **20** shortest bad paths — matching the
 20 recorded in PROOFS.md §B3 — **20/20** are followed by a minimising CES step.
 
-**Honest deflation.** On these six witnesses the two-step composite reaches the
-*same* end state as the frozen B-TERMINAL-SLIDE: `toggle(J, a, Q0 + [u, t'])`
-equals `J0 - (u,t) + (u,h)`, so SD-2STEP is here a **re-factorisation** of the
-terminal slide into a `d0` step followed by a length-1 step, not an independent
-mechanism, and its n <= 11 evidence is not independent of B-TERMINAL-SLIDE's. The
-two statements are nonetheless logically distinct (SD-2STEP demands the second
-step be *minimising for `J0`* and allows it at any cycle of `J0`; B-TERMINAL-SLIDE
-demands a specific two-edge geometric extension), and they can diverge at n = 12.
-The value of SD-2STEP is proof-shape: it states the whole descent in minimum-length
-steps and replaces the (H1)–(H5) package with "A1 does not fail twice in a row".
+**Honest deflation — SD-2STEP-DESCENT is a WEAKENING of B-TERMINAL-SLIDE, not a
+new mechanism.** [MATHEMATICALLY PROVED, conditional] *B-TERMINAL-SLIDE together
+with hypotheses (H1)–(H3) of Proposition B1 implies SD-2STEP-DESCENT.* Proof: the
+slide is `Q+ = Q0 + [u, t']`, and by pure algebra
+`toggle(J, a, Q+) = J0 Δ {(t,u), (u,t')} = J0 - (t,u) + (u,t')` where
+`J0 = toggle(J, a, Q0)`. Viewed from `J0` that is a residual augmentation
+releasing `(t,u)` along a path of length **1**, and 1 is the minimum possible
+residual path length, so it is a *minimising step of `J0`*; `(t,u)` lies on `J0`'s
+new cycle `Z` by (H3). Under (H2) (only `C` destroyed, exactly one new cycle),
+`cyc(J0) = (cyc(J) \ {C}) u {Z}`, so `|cyc(J0)| = |cyc(J)|` and `Q+` being CES for
+`C` makes the second step CES for `Z` relative to `J0`. ∎
+
+[COMPUTATIONALLY VERIFIED] At all **20** n = 11 bad shortest paths,
+`d0(J0) = 1` and `|cyc(J0)| = |cyc(J)| = 1`, confirming the implication concretely.
+
+So SD-2STEP-DESCENT's n <= 11 support is **not independent** of B-TERMINAL-SLIDE's.
+Its value is entirely in being *weaker*: it can survive at n = 12 where
+B-TERMINAL-SLIDE dies (the converse implication does not hold — SD-2STEP-DESCENT
+permits the second step to release any incidence of any cycle of `J0`, not only
+the slide edge, and imposes no (H4)/(H5) geometry). It states the whole descent
+in minimum-length steps and replaces the (H1)–(H5) package with the single
+slogan "A1 does not fail twice in a row".
 
 ### 8. n = 12 prospective holdout — see the status line at the end of this report
 
@@ -318,7 +330,7 @@ completed shards only.
 - [DEAD END] **Scheduling by choice of cycle cannot repair A1.** Every A1-failing cycle at n <= 11 lies in a selection with exactly ONE selected cycle (recorded profile `(|cyc(J)|, #A1-good) = (1,0)`, 6/6), so an "order of cycle-erasures" has length 1 there. ATTACK.md v3 target 2 must order **toggles**, not cycles. This is not rarity: 130,811 two-cycle selections exist at n = 11.
 - [FALSIFIED] **ONE-CYCLE** ("no feasible selection has two selected cycles") holds for every connected bipartite graph with n <= 9 and is FALSE at **n = 10** (5,269 two-cycle selections of 443,308 cyclic ones; 130,811 of 8,071,822 at n = 11). The maximum number of selected cycles ever observed is **2** — no selection with three exists at any n <= 11. Formulated in-sample at n <= 9 and killed one order later.
 - [COMPUTATIONALLY VERIFIED] **SD-PLUS-2** (some cycle of `J` admits a CES residual path of length `<= d0 + 2`) has 0 failures over all connected bipartite graphs n <= 11 (8,202,633 cycle components at n = 11). It is weaker than B-PLUS-2 and suffices for the bipartite case, but its evidence is not independent of B-PLUS-2's.
-- [CONJECTURAL LEAD] **SD-2STEP-DESCENT**: "A1 failures are never consecutive along minimising steps" — if a cycle fails A1, some minimum-length toggle lands on a `J0` with `|cyc(J0)| <= |cyc(J)|` that admits a CES minimum-length toggle. Holds 6/6 cycles and 20/20 shortest bad paths at n = 11 (IN SAMPLE — formulated after seeing them). It states the whole descent in minimum-length steps and replaces B1's (H1)–(H5) package. CAVEAT: on those six the two-step composite reaches the *same* end state as B-TERMINAL-SLIDE (`toggle(J,a,Q0+[u,t']) = J0-(u,t)+(u,h)`), so it is a re-factorisation there, not independent evidence; the statements are logically distinct and may diverge at n = 12. Preregistered with checker hash in `PREREG-SD2.md`.
+- [CONJECTURAL LEAD] **SD-2STEP-DESCENT**: "A1 failures are never consecutive along minimising steps" — if a cycle fails A1, some minimum-length toggle lands on a `J0` with `|cyc(J0)| <= |cyc(J)|` that admits a CES minimum-length toggle. Holds 6/6 cycles and 20/20 shortest bad paths at n = 11 (IN SAMPLE — formulated after seeing them). It states the whole descent in minimum-length steps and replaces B1's (H1)–(H5) package with "A1 does not fail twice in a row". [MATHEMATICALLY PROVED] It is a strict WEAKENING, not a new mechanism: B-TERMINAL-SLIDE plus B1's (H1)–(H3) implies it, because `toggle(J,a,Q0+[u,t']) = J0 - (t,u) + (u,t')` is, seen from `J0`, a residual augmentation of length 1 — the minimum possible — releasing an incidence of `J0`'s new cycle `Z`, and (H1)+(H2) give `|cyc(J0)| = |cyc(J)|`; verified concretely at all 20 n=11 bad shortest paths (`d0(J0) = 1`, `|cyc(J0)| = |cyc(J)| = 1`). So its n<=11 support is NOT independent of B-TERMINAL-SLIDE's; its entire value is that it is weaker and so can survive at n=12 where B-TERMINAL-SLIDE dies. Preregistered with checker hash in `PREREG-SD2.md`.
 - [COMPUTATIONALLY VERIFIED] Independent re-verification of all six A1/SD-SHORT witnesses in the symmetric-difference metric (`m(J,J') = |J Δ J'| = d + 1`), by code sharing nothing with the residual-DAG engine: `S` **is** a minimum FVS and hereditary FVS tightness holds for every `X ⊆ S` in all six (they are legitimate instances, unlike O-56/63/64); exactly one selected 4-cycle; `d0 = 3`; zero CES minimisers; first CES at gap exactly 2.
 - [TOOLING] Union-find **with path compression inside a backtracking enumeration is wrong** — the only sound O(1) undo is restoring the single parent entry the union wrote, and compression mutates others. It over-counted cycles by 17 at n = 8 / 180 at n = 9 before the published anchors (2,584 / 24,195) caught it. Any backtracking enumerator in this project should anchor against a published count before its first new run.
 - [TOOLING] New checkers on `attempt/2026-08-05-claude-opus-5-4d7a`: `work/sd/sd_scan.py` `227cf118…`, `work/sd/sd_scan2.py` `9caa7805…` (v1 + SD-2STEP probe; reproduces v1 field-for-field at n = 9, 11), `work/sd/wit_verify.py` `99cdfd46…` (witness recomputation, no shared code with `tools/`), `work/sd/sd_reverify.py`, `work/sd/onecycle_scan.py`. Negative controls fire (`--ces=never` at n = 9 → A1-ALL failures = 24,195 = every cycle component); the frozen `comps`/`ncyc` were separately controlled to return 2, 1, 0 on hand-built selections before "one cycle per selection" was believed.
