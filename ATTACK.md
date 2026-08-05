@@ -1,4 +1,4 @@
-# Attack protocol for the open remainder of WOWII Conjecture 40 (v3)
+# Attack protocol for the open remainder of WOWII Conjecture 40 (v4)
 
 This repository is a sealed research artifact (main branch, tags
 v1.0/v1.1/v2.0) plus this protocol. If you are an AI agent: follow this file
@@ -11,12 +11,11 @@ on your own attempt branch.
    tightness, the forced core contains no cycle. OPEN. Verified exhaustively
    n ≤ 14 (2,391,365,507 instances at n = 14 alone, zero cyclic cores;
    dual-engine, hashes in paper §6).
-2. LEMMA B (paper §4.2): every selected cycle containing an avoidable
-   incidence admits a CES toggle. OPEN. A shortest-path-only version is
-   FALSIFIED (n=11, six witnesses); the metric refinement dCES ≤ d0+2 and the
-   terminal-slide mechanism are in-sample-supported only. The frozen n=12
-   B-PLUS-2 structured holdout (proofs/FROZEN-BPLUS2.md) is intact and
-   reusable.
+2. SAFE-EXISTS: the remaining existential safe-toggle/descent statement needed
+   to obtain F2 without a universal local toggle claim. OPEN. SD-SHORT is
+   FALSIFIED (n=11, six witnesses; 1,184 at n=12); SD-2STEP-DESCENT and
+   SD-PLUS-2 are computational evidence, not proofs. The completed n=12
+   scan is recorded on attempt/2026-08-05-claude-opus-5-4d7a.
 3. F2 (the statement Theorem 3.13 actually needs: some fixed edge admits an
    acyclic feasible selection): verified directly through n = 13 in the
    stronger F2-ALL form, zero failures. OPEN in general.
@@ -39,9 +38,9 @@ on your own attempt branch.
    universal. Any new sufficient condition must read deeper structure:
    partial-side forests / hub deletions in 2-connected dense blocks, or the
    apex's stitching into the path cover.
-Proving A and B closes the bipartite case. Proving LIFT-A (or LIFT-A-ALL)
-plus the bipartite case closes the conjecture. Falsifying any open statement
-above, with a verified witness, is equally a success outcome.
+Proving Lemma A and SAFE-EXISTS closes the bipartite case. Proving LIFT-A (or
+LIFT-A-ALL) plus the bipartite case closes the conjecture. Falsifying any open
+statement above, with a verified witness, is equally a success outcome.
 
 ## Step 0 — freshness check (every run, before anything else)
 Check, in order: (a) open issues and pull requests on this repository;
@@ -63,9 +62,7 @@ Fetch and read the accumulated knowledge before any new work:
 git fetch origin 'refs/heads/attempt/*:refs/remotes/origin/attempt/*'
 ```
 
-`attempts/LESSONS.md` on main is now POPULATED — entries from
-attempt/2026-08-03-claude-opus-5-5047, attempt/2026-08-04-codex-a7c3, and
-attempt/2026-08-04-claude-fable-5-0eb8 — and BINDING. Read it, and
+`attempts/LESSONS.md` on main is now POPULATED and BINDING. Read it, and
 `ATTEMPT_REPORT.md` on every `origin/attempt/*` branch. Treat [FALSIFIED]
 and [DEAD END] entries as binding — re-attacking one requires first
 refuting, in writing in your report, the recorded reason it died. Treat
@@ -105,15 +102,14 @@ correctly, STOP and report that; do not proceed to new work.
   (CX(m)-refuted).
 
 ## Step 3 — targets, in suggested order
-1. Lemma A via the T_F-normalized carrier attack: by paper Lemma 4.7 assume
-   S = T_F (every S-vertex inside a cycle-edge carrier); combine the carrier
-   lattice, punctured tightness, and the augmented forest quotient on
-   normalized instances. Banked; still unspent beyond Lemma CS.
-2. Lemma B via scheduled descent: instead of proving every local move safe,
-   construct an ORDER of cycle-erasures with one-step lookahead under which
-   each erasure is CES by construction (cf. the cycle-merge scheduling of
-   Lavrov–Vandenbussche, EJC 31(3) #P3.1, adapted to exact demand and the
-   capacity-1 pair). Banked, never spent.
+1. Lemma A via the carrier-poset endgame: use CP's inclusion-maximal carrier,
+   its two capacity holes, punctured tightness, and the augmented forest
+   quotient. ADJ is false, so do not assume adjacent maxima or a
+   puncture-free endpoint.
+2. SAFE-EXISTS via scheduled descent: attack the existential safe-toggle
+   statement, not SD-SHORT or scheduling by choice of cycle. Treat the
+   completed n=12 SD-2STEP/SD-PLUS-2 results as evidence with their stated
+   scope, not as a proof.
 3. Exact LIFT-A on unique-minimum-OCT graphs, via partial-side/hub-deletion
    forest bounds for 2-connected dense bipartite blocks — the CX(m)
    obstruction lives exactly there, and both SV and the lifting conditions
