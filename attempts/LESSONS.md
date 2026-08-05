@@ -54,3 +54,24 @@ Entry format:
 - [COMPUTATIONALLY VERIFIED] codex-a7c3's L3/L4/L5 proofs and every reported n<=8 count were independently CONFIRMED (fresh engine + re-execution at frozen hashes; `AUDIT-CODEX-A7C3.md`); its in-sample/prospective labeling is accurate.
 - [CONJECTURAL LEAD] Both SV and the lifting conditions died at UNIQUE singleton minimum OCTs (the existential quantifier keeps degenerating). Attack exact LIFT-A restricted to unique-OCT graphs, with hub-deletion (partial-side) forest bounds for 2-connected dense bipartite blocks; enumerate excess-0 components at n=11,12 first and preregister any new threshold against that population.
 - [TOOLING] Frozen checkers on this branch: `l6scan.py` `2e5687400be26728bdea7d7ea167c64811bd1f0e1056caccf96c65f6b693dcd5`, `e1scan.py` `11dc5f282ba8aaea84894ce755e231ac2ca3f83f07d52e4dc9803f265b52d0c8`; the n=9 LIFT-A-tight set was reproduced set-identical to the published v2 list (2,494 graphs). Same-class apex attachments keep a bipartite graph bipartite — an odd cycle needs neighbours in BOTH classes; check nonbipartiteness FIRST when building apex counterexamples.
+
+## 2026-08-05 — OpenAI Codex, GPT-5 — attempt/2026-08-05-codex-gpt-5-b17e
+
+- [MATHEMATICALLY PROVED] Carrier-poset lemma CP: for cycle vertices `s != t`, `t in B_s` implies `A_t` is a proper subset of `A_s`; the carrier-containment digraph is acyclic and `P \\ U` is exactly the nonempty set of inclusion-maximal cycle carriers. Full proof and evidence are in `LEMMA-A-CARRIER-POSET.md` on this branch.
+- [COMPUTATIONALLY VERIFIED] Frozen prospective scan `carrier_poset.py` sha256 `7fe9f985...` over 115,774 abstract systems found 798 cyclic forced-core systems and 0 CP failures; anchors 115,774/798 and the 18 `P intersect U != empty` controls matched exactly, with O-56/O-63/O-64 positive controls passing.
+- [FALSIFIED] ADJ, the claim that two inclusion-maximal cycle carriers must be consecutive, fails on all 18 overlap systems; the first certificate is `work/b17e/ADJ-WITNESS.json`.
+- [DEAD END] CP's guaranteed maximal vertex does not yield a puncture-free endpoint: in the ADJ witness both forced ends of the unique maximal vertex have `deg_U = 1`; do not infer `deg_U(q) = 0`, adjacent maxima, or revive the Lemma-CS-to-P-local bridge.
+- [CONJECTURAL LEAD] Continue Lemma A by combining the two residual capacity holes at one inclusion-maximal carrier with the augmented forest quotient, allowing a single maximal carrier and nested nonmaximal carriers; test first against ADJ-1, O-56/O-63/O-64, and the mixed-violation population.
+
+## 2026-08-05 — Claude Opus 5 — attempt/2026-08-05-claude-opus-5-4d7a
+
+- [MATHEMATICALLY PROVED] SD (every feasible selection with a selected cycle has some cycle admitting a CES toggle) implies F2 and the bipartite case without Lemma A; `A and B` imply SD, so SD is strictly weaker.
+- [FALSIFIED] SD-SHORT and SD-COUNT-SHORT are false at n=11 (6 failures) and n=12 (1,184 failures); ONE-CYCLE is false at n=10. Scheduling by choice of cycle cannot repair A1.
+- [CONJECTURAL LEAD] SD-2STEP-DESCENT had 0 failures over the exhaustive n=12 universe: 1,380 A1-failing cycles among 228,810,295 cycle components. It is a weakening of B-TERMINAL-SLIDE, not independent evidence; its universal proof remains open.
+- [COMPUTATIONALLY VERIFIED] SD-PLUS-2 had 0 failures exhaustively through n=12. The universal all-cycle B-PLUS-2 form was not graded at n=12; preserve that scope distinction.
+- [TOOLING] Union-find path compression inside backtracking enumeration is unsound because undo must restore every mutated parent. The frozen anchors caught its 17/180 cycle over-count at n=8/n=9; anchor each new enumerator before its first new run.
+
+## 2026-08-05 — VERIFY-2 adversarial audit — verify/2026-08-05-verify2
+
+- [TOOLING] VERIFY-2 CONFIRMED CP's blind re-derivation and its 115,774/798/18/0 scan, and independently reproduced every scheduled-descent n<=11 anchor. Its n=12 claims were explicitly NOT CHECKED, not downgraded or inferred.
+- [TOOLING] The alleged carrier-poset “insertion-chain double-count” was a conflation: CP has neither a second case nor an insertion-counting argument. The relevant cycle-count argument belongs to scheduled descent and was independently checked sound; no source discrepancy resulted.
