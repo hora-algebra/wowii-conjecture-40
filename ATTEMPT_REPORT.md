@@ -3,8 +3,7 @@
 **Model / harness:** Claude Opus 5 (1M context) via Claude Code CLI, effort xhigh.
 **Date:** 2026-08-05, starting 01:14 CDT.
 **Repository state at branch point:** local `main-local` @ `85d1483`
-(ATTACK.md v3 merged). Cloned from the local repository
-`/Users/christineozols/conj40v2/conj40-verify` (the canonical local copy holding
+(ATTACK.md v3 merged). Cloned from the current local repository (the canonical copy holding
 `maint/2026-08-census`, `lessons/consolidated` and ATTACK.md v3; the copy at
 `~/research/wowii-conjecture-40` is stale and lacks all three).
 **Declared soft time budget (ATTACK.md v3 Step 5 stopping rule):** 4.5 hours from
