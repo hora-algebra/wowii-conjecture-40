@@ -1,502 +1,349 @@
-# GAUNTLET — comprehension record
+# Comprehension gauntlet — attempt/2026-08-05-claude-opus-5-0520
 
-Branch `attempt/2026-08-03-claude-opus-5-5047`. Written per ATTACK.md Step 1,
-before any new mathematics. Everything below is in my own words with the
-derivations written out. Where I checked something against the oracle I say so
-and give the command; where I only reasoned, I say that too.
+ATTACK.md **v4** Step 1. Written from `proofs/PROOFS.md`, `LEMMA-A-CARRIER.md`,
+`LEMMA-A-CARRIER-POSET.md` and `tools/witnesses/*.json`, in my own words.
+Every computational statement below was recomputed by `work/0520/engine0520.py`
+and `work/0520/wit0520.py`, which share no predicate code with `work/carrier.py`,
+`work/carrier_poset.py` or `work/wcheck.py`. Engine anchor (before any use):
 
-Notation follows the paper: `G` bipartite with classes `L, R`; `S` a minimum
-FVS; `H = G - S` (a forest, because deleting an FVS destroys all cycles);
-`e = (x,y)` a fixed edge of `H`; each `s in S` has demand 2; each `h in H` has
-capacity `c(h) = 2` except `c(x) = c(y) = 1`. A *feasible selection* `J` gives
-each `s` two distinct `S`–`H` incidences respecting capacities. `tau = n - f`,
-`o = n - b`, `ell = n - p`.
-`rho(X) = sum_{h in H} min(c(h), deg_X(h))`, `delta(X) = rho(X) - 2|X|`.
+```
+ANCHOR systems=115774 cyclic=798 pdis=18      # matches carrier.py and b17e exactly
+```
 
----
+## Notation
 
-## (i) The reduction chain of Theorem 3.13 — how A + B give the bipartite case
+`G` bipartite. `S ⊆ V(G)` with `H = G − S` a forest. `e = (x,y)` a fixed edge of
+`H`; capacities `c(h) = 2` for all `h ∈ H` except `c(x) = c(y) = 1`. Each `s ∈ S`
+has **demand 2**: a *feasible selection* `J` picks, for every `s`, two distinct
+`H`-neighbours, subject to `load_J(h) ≤ c(h)`.
 
-Target: `ell(G) >= 2 tau(G) + 1` for every connected nontrivial bipartite `G`.
-(By Theorem 2.1 this is exactly Conjecture 40 restricted to bipartite `G`,
-because `o = 0` there.)
+Two different "tight"s, never to be conflated:
 
-**Step 0 — the case `tau = 0`.** Then `G` is a nontrivial connected forest, so
-it has an edge `uv`. Take `{uv}` together with every other vertex as a trivial
-one-vertex path: that is a spanning linear forest with `1 = 2*0 + 1` edges. Done
-without any of the machinery.
+* **Hall tightness.** `ρ(X) = Σ_{h∈H} min(c(h), deg_X(h))`, `δ(X) = ρ(X) − 2|X|`.
+  Feasibility ⟺ `δ(X) ≥ 0` for all `X ⊆ S` (C5). `X` is *tight* when `δ(X) = 0`.
+* **Hereditary FVS tightness.** `τ(G[H ∪ X]) = |X|` for every `X ⊆ S` (C2).
+  Equivalent to "`S` is a minimum FVS of `G`" (5047 §2.1: `⇐` is C2; `⇒` is
+  `X = S` plus the fact that `H` is a forest).
 
-So assume `tau >= 1` and fix a minimum FVS `S`, `|S| = tau >= 1`.
-
-**Step 1 — `E(H)` is nonempty, so a distinguished edge exists.**
-Suppose `E(H) = empty`. Pick any `s in S` and put `X = {s}`. In `G[H u {s}]`
-the only edges are the incidences at `s` (there are no `H`–`H` edges by
-assumption, and no other `S`-vertex is present), so `G[H u {s}]` is a star plus
-isolated vertices — a forest. Hence `tau(G[H u {s}]) = 0`. But hereditary FVS
-tightness (Lemma 3.3) gives `tau(G[H u {s}]) = |{s}| = 1`. Contradiction.
-So `E(H) != empty`; fix `e = (x,y) in E(H)`.
-
-*Role of hereditary tightness here:* it is the only thing that rules out
-`E(H) = empty`. Note it uses minimality of `S`, not just that `S` is an FVS.
-
-**Step 2 — a feasible selection exists for this `e`.**
-This is Corollary 3.8, and it is where the two nontrivial auxiliary results
-enter:
-
-  * Lemma 3.4 (generalized Hall): a feasible selection exists iff
-    `rho(X) >= 2|X|` for every `X subseteq S`. Proof is a min-cut computation:
-    for a source–sink cut `(A,B)` with `X = S ∩ A`, the forward capacity is
-    `2(|S|-|X|)` from the unsaturated source arcs, plus, for each `h`, the
-    cheaper of `c(h)` (put `h` in `A`, pay its sink arc) and `deg_X(h)` (put `h`
-    in `B`, pay the `X`-incidence arcs). So the cheapest cut with a given `X`
-    is `2|S| + delta(X)`, the global min cut is `2|S| + min_X delta(X)`, and
-    max-flow = `2|S|` iff `min_X delta(X) >= 0`.
-  * Lemma 3.7 (rooted forest extension): for `X` independent inside one
-    bipartition class, `tau(G[H u X]) <= floor(rho_e(X)/2)`.
-  * Hereditary tightness again: `tau(G[H u X]) = |X|`.
-
-  Combining: split an arbitrary `X subseteq S` as `X_L u X_R`. Every `h in H∩L`
-  has neighbours only in `X_R` and vice versa, so the two summands of `rho_e`
-  have disjoint supports and `rho_e(X) = rho_e(X_L) + rho_e(X_R)`. If
-  `rho_e(X) < 2|X|` then one side, say `X_L`, has `rho_e(X_L) < 2|X_L|`, and
-  Lemma 3.7 gives `tau(G[H u X_L]) <= floor(rho_e(X_L)/2) < |X_L|`,
-  contradicting hereditary tightness. Hence `rho_e(X) >= 2|X|` for all `X` and
-  every `e`, and Lemma 3.4 supplies a feasible selection.
-
-  *Quantifier note (PROOFS.md B3′).* Theorem 3.13 needs an acyclic feasible
-  selection for **some** `e`. Corollary 3.8 gives initial feasibility for
-  **every** `e` — strictly stronger than needed, and not to be confused with
-  the target quantifier.
-
-**Step 3 — Lemma A converts "forced core acyclic" into "every selected cycle
-has an avoidable incidence".**
-Call an incidence *forced* if it lies in every feasible selection, *avoidable*
-otherwise. Let `J` be a feasible selection and `C` a selected cycle of `J`
-(a cyclic component of the incidence graph `J`). If every incidence of `C` were
-forced, then `C` would be a cycle inside the forced core — contradicting
-Lemma A. So `C` contains an avoidable incidence.
-
-*Exact role of Lemma A:* it is used **only** to discharge the hypothesis of
-Lemma B. It is not used anywhere else in the chain. If Lemma B were stated
-unconditionally ("every selected cycle admits a CES toggle"), Lemma A would be
-redundant. Conversely Lemma A alone gives nothing about descent.
-
-**Step 4 — Lemma B supplies the descent step.** By Lemma B the cycle `C`
-admits a CES toggle: a passage to a feasible `J'` in which `C` is no longer a
-selected cycle and every selected cycle of `J'` was already one of `J`.
-
-**Step 5 — descent terminates (Lemma 3.12).** A CES toggle removes one selected
-cycle and creates none, so the number of selected cycles strictly decreases. It
-is a nonnegative integer, so after finitely many toggles we reach a feasible
-selection `J` with **no** selected cycle, i.e. `J` is acyclic as a graph.
-
-  *Slack in the hypothesis.* Definition 3.2 flags this explicitly: strict
-  decrease of the cycle count alone would already suffice for termination. The
-  semantic "creates no new cycle" form is what the mechanism produces, not what
-  the descent needs. So the true composite requirement is weaker than
-  Lemma A + Lemma B; it is `F2` (see the closing remark).
-
-**Step 6 — add the fixed edge back (Lemma 3.9, fixed-edge parity).**
-`J u {e}` is acyclic iff `J` is. Reason: a cycle of `J u {e}` through `e` would,
-on deleting `e`, leave an `x`–`y` path made of `S`–`H` incidences only. Such a
-path alternates `H, S, H, S, ...`, hence has even length. But `x, y` are
-adjacent in the bipartite graph `G`, so they lie in opposite classes, and every
-`x`–`y` path in `G` has odd length. Contradiction. (Consequence: `e` is never
-on a selected cycle, so the cycle bookkeeping can ignore it entirely.)
-
-**Step 7 — the degree count turns acyclicity into a linear forest.**
-In `J u {e}`: every `s in S` has degree exactly 2 (demand 2); every `h in H` has
-degree at most `c(h) <= 2`; and `x, y` have `c = 1`, so after adding `e` their
-degree is at most 2. An acyclic graph of maximum degree 2 is a disjoint union of
-paths, i.e. a linear forest. Its vertex set is `S u H = V(G)`, so it spans, and
-it has `2|S|` incidence edges plus `e`, i.e. `2|S| + 1` edges. Hence
-
-    ell(G) >= 2|S| + 1 = 2 tau(G) + 1.
-
-**Where each hypothesis is load-bearing.**
-
-| ingredient | used for |
-|---|---|
-| `S` an FVS | `H` is a forest |
-| `S` **minimum** | hereditary tightness (Lemma 3.3), hence Steps 1 and 2 |
-| bipartiteness | Step 2 (`rho` splits by class; Lemma 3.7 needs `X` in one class) and Step 6 (parity) |
-| Lemma 3.7 + 3.4 | Step 2, feasibility |
-| **Lemma A** | Step 3 only: gives Lemma B its hypothesis |
-| **Lemma B** | Step 4: the descent step |
-| capacities `c(x)=c(y)=1` | Step 7 only: leaves room for `e` at `x, y` |
-
-**Closing remark (what is really needed).** Unwinding Steps 3–5, all the
-bipartite theorem needs is
-
-> **F2.** For some `e in E(H)` there is an acyclic feasible selection.
-
-Lemma A + Lemma B + descent is one route to `F2`; it is a *sufficient*
-mechanism, not an equivalent reformulation.
-
-**A reformulation of F2 I will use later** (elementary, derived here; I have not
-seen it stated in the repo). In a feasible selection every `s` has degree
-exactly 2, so suppressing each `s` — replacing the path `h - s - h'` by the edge
-`{h, h'}` — is a homeomorphism of the incidence graph onto a multigraph `M` on
-the vertex set `H`. Suppressing degree-2 vertices preserves cycles, so:
-
-* selected cycles of `J` correspond exactly to cycles of `M` (a selected
-  4-cycle `s - h - s' - h' - s` becomes a pair of parallel edges);
-* `deg_M(h)` is exactly the load of `h`, so the capacity constraint says
-  `deg_M(h) <= c(h) <= 2`.
-
-Hence **F2 is equivalent to: choose, for each `s in S`, an unordered pair
-`sigma(s)` of distinct `H`-neighbours of `s`, so that the `|S|` chosen pairs are
-pairwise distinct and form a *linear forest* on the vertex set `H`, with `x` and
-`y` of degree at most 1.** Adding `e = xy` to that linear forest is then legal
-and acyclic by Step 6, and subdividing each chosen pair by its `s` recovers the
-spanning linear forest of `G` with `2|S| + 1` edges.
-
-Two immediate consequences of the reformulation, both used below:
-
-* *(cycle-count identity)* Let `d_1` be the number of `H`-vertices of load 1
-  and `C` the number of connected components of the graph formed by the selected
-  incidences (equivalently of `M`). Then the number of selected cycles is
-  `C - d_1/2`. (From `d_1 + 2 d_2 = 2|S|` and cycle rank
-  `= |E| - |V| + C`.) So acyclicity is exactly "`|S| + 1` or more distinct
-  `H`-vertices get used, in the right pattern".
-* *(matroid shape)* "Distinct pairs, one per `s`" is independence in a
-  transversal matroid on the candidate `H`-edges; "forest" is the graphic
-  matroid on `H`. Their intersection is tractable — but the extra degree bound
-  `deg <= 2` is **not** a matroid constraint (standard counterexample: on the
-  path `a-b-c-d` with `c(b) = c(c) = 1`, `{bc}` is maximal of size 1 while
-  `{ab, cd}` has size 2), which is exactly why F2 is not a two-matroid
-  intersection and why the descent is needed.
+`A_s` = the unique inclusion-minimum Hall-tight set containing `s` (canonical
+carrier); `B_s = A_s \ {s}`. For a forced-core cycle with `S`-side `P`,
+`U = ⋃_{s∈P} B_s` and `T_F = P ∪ U = ⋃_{s∈P} A_s`.
 
 ---
 
-## (ii) Why Hall feasibility alone cannot give Lemma A: the abstract even cycle
+## (i) The reduction chain of Theorem 3.13 — why A + B give the bipartite case
 
-**The system.** Fix `m >= 2`. Let `S = {s_1, ..., s_m}` and
-`H = {h_1, ..., h_m}` (indices mod `m`), with `s_i` adjacent to `h_i` and
-`h_{i+1}` and nothing else. Demands 2, all capacities 2 (this is the
-all-capacity-2 model; see the remark at the end of this section for why it is a
-legitimate special case).
+**Step 1 — algebraic normal form (B1).** With `τ = n − f`, `o = n − b`,
+`ℓ = n − pathCover`, Conjecture 40 (`f ≥ ⌈(p+b+1)/2⌉`) is equivalent to
+`ℓ + o ≥ 2τ + 1`. For bipartite `G`, `o = 0`, so the bipartite target is exactly
 
-**It is Hall feasible, and in fact every set is tight.** Each `h_j` has exactly
-two `S`-neighbours, `s_{j-1}` and `s_j`, so `deg_X(h_j) <= 2` for every
-`X subseteq S` and therefore `min(2, deg_X(h_j)) = deg_X(h_j)`. Summing,
+    ℓ(G) ≥ 2·τ(G) + 1.
 
-    rho(X) = sum_j deg_X(h_j) = sum_{s in X} deg_H(s) = 2|X|.
+**Step 2 — the model.** If `τ = 0` then `G` is a nontrivial forest, has an edge,
+and that single edge is already a spanning linear forest: `ℓ ≥ 1 = 2τ+1`. So
+assume `τ ≥ 1` and fix a **minimum** FVS `S ≠ ∅`; `H = G − S` is a forest (B2).
+`E(H) ≠ ∅`: otherwise, for any `s ∈ S`, `G[H ∪ {s}]` is a star forest, so
+`τ(G[H ∪ {s}]) = 0`, contradicting hereditary tightness `τ(G[H ∪ {s}]) = 1`.
+Fix `e ∈ E(H)` and give `e`'s endpoints capacity 1, everything else capacity 2.
 
-So `delta(X) = 0` for **every** `X subseteq S`: Hall's condition holds with
-equality everywhere, and the tight-set lattice (Lemma 3.6) is the full Boolean
-lattice. Nothing about submodularity or the flow structure is violated.
+**Step 3 — why an acyclic selection is exactly what is wanted.** A feasible
+selection `J` gives every `s ∈ S` degree exactly 2 and every `h ∈ H` degree
+`≤ c(h)`. If `J ∪ {e}` is acyclic then it is a forest in which every vertex has
+degree `≤ 2` — a **linear forest** — spanning `V(G)`, with
+`2|S| + 1` edges. Hence `ℓ ≥ 2|S| + 1 = 2τ + 1`. That is **F2**:
 
-**Its forced core is a cycle.** Each `s_i` has exactly two `H`-neighbours and
-demand 2, so it must select both. The unique feasible selection is therefore all
-`2m` incidences, and the forced core is the whole `2m`-cycle
-`s_1 h_2 s_2 h_3 ... s_m h_1 s_1`.
+> **F2.** There exist a fixed edge `e ∈ E(H)` and a feasible selection `J_e`
+> with `J_e ∪ {e}` acyclic.
 
-**Where it fails.** Realize the system as a graph with `H` independent
-(no `H`–`H` edges). Then `G[H u S]` *is* the `2m`-cycle, whose minimum FVS has
-size 1. So
+Quantifier discipline (B3'): F2 needs **one** `e`, not all `e`.
 
-    tau(G[H u S]) = 1 < m = |S|   for every m >= 2,
+**Step 4 — a feasible selection exists at all (C5b).** The Rooted Forest
+Extension Lemma gives `τ(G[H ∪ X]) ≤ ⌊ρ_e(X)/2⌋` for `X` independent inside one
+bipartition class. Split `X ⊆ S` as `X_L ∪ X_R`; the two Hall supports are
+disjoint, so `ρ_e(X) = ρ_e(X_L) + ρ_e(X_R)`. If `ρ_e(X) < 2|X|` then some side
+has `ρ_e(X_L) < 2|X_L|`, whence `τ(G[H ∪ X_L]) ≤ ⌊ρ_e(X_L)/2⌋ < |X_L|`,
+contradicting hereditary tightness. So Hall holds for every `X` and every `e`,
+and C5 produces a feasible selection **for every** `e`.
 
-i.e. hereditary FVS tightness fails at `X = S`, and equivalently `S` is not a
-minimum FVS of `G` (a single vertex is). The system is not a legal Lemma-A
-instance.
+**Step 5 — the descent, and the exact role of each lemma.**
 
-**Conclusion.** `rho >= 2|.|` (Hall), submodularity of `delta`, the tight-set
-lattice, and the F1 characterization "forced ⟺ tight-set exposed" are all
-present in this system, and they permit a cyclic forced core. Therefore
-Lemma A cannot be a consequence of the flow/Hall layer alone. Lemma A is
-**exactly** the implication
+* **Lemma 0 (C3).** `e` lies on no selected cycle: deleting `e` from a cycle
+  through it would leave an `x`–`y` path alternating `H,S,H,…`, of even length,
+  but `x,y` are adjacent in a bipartite graph, so every `x`–`y` path is odd.
+  Hence `J ∪ {e}` is acyclic ⟺ `J` is acyclic; the descent may ignore `e`.
+* **Lemma A** — *forced core acyclic*. An incidence is **forced** (R3) if it
+  lies in every feasible selection, **avoidable** otherwise. Lemma A says the
+  forced core contains no cycle. **Its only job in the chain is this:** any
+  selected cycle `C` of `J` therefore cannot consist entirely of forced
+  incidences, so `C` contains at least one *avoidable* incidence. That is
+  precisely the hypothesis Lemma B demands. Lemma A is used nowhere else.
+* **Lemma B** — *every selected cycle containing an avoidable incidence admits
+  a CES toggle*. CES is semantic: the move destroys `C` and creates no selected
+  cycle that was not already present. Lemma B's only job is to supply one
+  descent step.
+* **Lemma 1 / C4.** "Avoidable" is equivalent to "one-move avoidable": deleting
+  the arc `a` from the flow network `N` leaves a flow of value `2|S|−1`, and by
+  the augmenting-path theorem a value-`2|S|` flow exists in `N − a` iff a simple
+  residual augmenting path does. So the search for a toggle is local; the class
+  "globally avoidable but not one-move avoidable" is empty.
+* **Lemma 5 / C8 (descent).** A CES toggle strictly decreases the number of
+  selected cyclic components, a nonnegative integer; so iterating terminates at
+  an acyclic feasible selection, i.e. F2.
 
-    tau(G[H u X]) = |X| for every X subseteq S   ==>   forced core acyclic,
+**Chain.** `A` (every selected cycle has an avoidable incidence) `+ B` (such a
+cycle can be erased) `+ C8` (the count descends) `⇒ F2 ⇒ ℓ ≥ 2τ+1` (Step 3)
+`⇒` the bipartite case of Conjecture 40 (Step 1).
 
-and the hypothesis on the left is the only extra input available. This also
-tells you what a proof must look like: it must convert a forced cycle into an
-`X subseteq S` and an FVS of `G[H u X]` of size `< |X|` (or into a feasible
-exchange), i.e. it must touch the forest geometry of `H`, which `rho` cannot
-see. (`rho` depends only on the incidence degrees and capacities; the abstract
-even cycle and a hereditarily tight instance can have identical `rho` data and
-different `H`-forests.)
-
-*Remark on the all-capacity-2 model.* The abstract system has no
-capacity-1 pair. That is legitimate: Lemma A° is stated for possibly
-disconnected `G`, and in `G' = G ⊔ K_2` with `e` the `K_2` edge, the two
-capacity-1 vertices are the `K_2` endpoints, which carry no incidences, so the
-`G`-part of the system runs at all capacities 2. I checked the converse
-direction too, so that no one mistakes this for an untested gap: raising
-capacities only *enlarges* the feasible set, so
-`forced(all caps 2) subseteq forced(caps for e)` for every `e in E(H)`; hence
-acyclicity of the forced core for one `e` already implies it for all caps 2, and
-Lemma A° carries no content beyond the connected fixed-edge statement.
-
----
-
-## (iii) The three warning witnesses: what each kills, and by what mechanism
-
-I re-derived all three from their JSON certificates with freshly written code
-(`work/wcheck.py`, no shared code with `tools/`): bipartiteness, `H` a forest,
-the complete feasible-selection set by brute force, the forced core as the
-intersection of all feasible selections, its cycle rank by union–find, `rho` and
-all Hall-tight sets, the canonical carriers `A_s` (verified to be the unique
-minimum tight set containing `s`), the punctures `B_s`, and
-`tau(G[H u X])` for **every** `X subseteq S`. Every recorded value reproduced.
-
-Command:
-`cd work && python3 wcheck.py ../tools/witnesses/O-56.json ../tools/witnesses/O-63.json ../tools/witnesses/O-64.json`
-
-First, the fact that makes all three legal: **none of them is a counterexample
-to Lemma A°**, because in each one hereditary tightness fails. Measured:
-
-| witness | `tau(G[H u S])` | `|S|` | forced-core cycle rank |
-|---|---|---|---|
-| O-56 | 2 | 4 | 1 |
-| O-63 | 3 | 5 | 1 |
-| O-64 | 2 | 3 | 1 |
-
-So in each case `S` is *not* a minimum FVS of `G`, the Lemma-A hypothesis is
-absent, and the forced cycle is permitted. Each witness is used only to refute a
-proposed rule for *where* the hereditary violation must sit.
-
-### O-56 — kills P-localization; the acyclic-quotient / single-blocker normal form
-
-`S = {0,1,2,3}` with `P = {0,1}` and auxiliaries `{2,3}`;
-`H = {4,...,13}`; incidences `0,1 ~ 4,5,6`, `2 ~ 6,7`, `3 ~ 6,8`;
-`H`-forest `9-4, 9-5, 4-10, 10-11, 6-12, 12-7, 6-13, 13-8`; `e = (10,11)`
-(a pendant path, so `x = 10, y = 11` carry no incidences).
-
-*Mechanism of the forcing.* Vertices 2 and 3 each have exactly two
-`H`-neighbours, so they are rigid: `2 -> {6,7}`, `3 -> {6,8}`. Together they put
-load 2 on the capacity-2 vertex 6, saturating it. So 0 and 1 cannot use 6 and
-are pushed onto `{4,5}` — the unique feasible selection, whose forced core
-contains the 4-cycle `0-4-1-5-0`. (Verified: 1 feasible selection, all 4 cycle
-edges forced.)
-
-*What it kills.* Measured hereditary profile: `tau({0}) = tau({1}) = 1`,
-`tau({0,1}) = 2`. So **`P` and every subset of `P` is hereditarily tight**, and
-the inclusion-minimal violation is `X = {2,3}` with `tau = 1 < 2` (FVS `{6}`),
-which is **disjoint from `P`**. Therefore the route "a forced cycle with
-`S`-side `P` forces a small FVS inside `G[H u P]`" (the CVB / P-local bridge) is
-false: you cannot localize the contradiction to `P`.
-
-*Its positive content.* It is the single-blocker subcase of Lemma 4.6:
-the external `H`-neighbour of `0` is `h = 6` with `c(h) = 2`, the carrier is
-`A_0 = {0,2,3}` (verified minimum tight containing 0), the puncture
-`B_0 = {2,3}` is tight, and `U_h = N(6) ∩ B_0 = {2,3}`. Each of 2 and 3 has
-exactly one `H`-neighbour besides 6 (namely 7 and 8), so deleting 6 leaves every
-`U_h`-vertex of degree `<= 1` and `H - 6` a forest; `{6}` is an FVS of
-`G[H u U_h]` of size `1 < 2 = |U_h|`. The forest quotient `M_6(U_h)` is
-**acyclic**. This is exactly the shape of the proved subcase — it shows the
-subcase is nonempty, and it is also the instance from which the (false)
-degree-2 normal form below was generalized.
-
-### O-63 — kills the degree-2 normal form and "degree >= 3 ⇒ private cycle"
-
-`S = {s,t,u,a,b}`; `H = {r,x,q1,q2,h,w,z,y}`; `H`-tree
-`r-q1, r-q2, r-h, r-w, r-z, q1-x, x-y`; `e = (x,y)`; incidences
-`s ~ q1,q2,h`; `t ~ q1,q2`; `u,a,b ~ h,w,z`.
-
-*Mechanism of the forcing.* `u,a,b` have total demand 6 and their only outlets
-are `h,w,z` with total capacity 6, so `{u,a,b}` saturates all three. Hence `s`
-cannot use `h` and is pushed onto `{q1,q2}`; `t` is rigid on `{q1,q2}`. The
-4-cycle `s-q1-t-q2-s` is forced. (Verified: 6 feasible selections, all 4 cycle
-edges in the intersection.)
-
-*Carrier data (verified).* `A_s = {s,u,a,b}` (`rho = 8 = 2|A_s|`, and it is
-contained in every tight set containing `s`), `B_s = {u,a,b}` tight,
-`U_h = N(h) ∩ B_s = {u,a,b}`, and **every** vertex of `U_h` has incidence-degree
-3 (`h, w, z`).
-
-*What it kills.*
-1. "Every vertex of `B_s` has incidence-degree 2" — **false** here; all three
-   have degree 3. So the O-56 normal form is not universal, and the proof of the
-   single-blocker subcase (which needs `<= 1` non-`h` neighbour per `U_h`
-   vertex) does not apply.
-2. "A `U_h`-vertex of incidence-degree `>= 3` has a private cycle avoiding `h`"
-   — **false in general**, and this witness shows why the correct statement is
-   a *quotient* condition. `H - h` is a single component (`r` links
-   `q1, q2, w, z`, and `q1-x-y` hangs off it), so each of `u, a, b` has both of
-   its non-`h` neighbours (`w` and `z`) in the *same* component: the quotient
-   multigraph `M_h(U_h)` has parallel edges and is **cyclic**. Deleting `h`
-   alone does **not** leave a forest. The correct criterion is
-   `G[H u Y] - h` is a forest **iff** the (augmented) quotient
-   `Mhat_h(Y)` is acyclic; incidence-degree `>= 3` matters only when two of the
-   vertex's non-`h` neighbours share a component of `H - h`.
-3. Consequently the *blocker can exceed a single external vertex*: measured, the
-   inclusion-minimal hereditary violation is the **full** `B_s = {u,a,b}` with
-   `tau = 2 < 3` and blocker `{h,w}` (or `{h,z}`) of size 2. Every pair inside
-   `{u,a,b}` is tight (`tau = 2`); the violation appears only at size 3.
-
-So O-56 and O-63 together bracket the capacity-2 branch: the violation *can* sit
-inside `B_s`, but neither the degree hypothesis nor the blocker size of the
-O-56 normal form survives.
-
-### O-64 — kills `B_s`-localization; capacity-1 is a separate branch
-
-`S = {s,t,u}`; `H = {q1,q2,r,y,h,w}`; `H`-tree `q1-r, r-q2, q1-y, y-h, y-w`;
-`e = (h,y)` so `c(h) = c(y) = 1`; incidences `s ~ q1,q2,h`; `t ~ q1,q2`;
-`u ~ h,w`.
-
-*Mechanism of the forcing.* `u` has exactly two `H`-neighbours, so it is rigid:
-`u -> {h,w}`. That puts load 1 on `h`, whose capacity is **1** (it is an
-endpoint of the fixed edge). So `h` is saturated by a single user, `s` is pushed
-off `h` onto `{q1,q2}`, `t` is rigid there, and `s-q1-t-q2-s` is forced.
-(Verified: exactly 1 feasible selection.)
-
-*What it kills.* Measured: `A_s = {s,u}`, `B_s = {u}`, `B_s` is Hall-tight, and
-
-    tau(G[H u B_s]) = 1 = |B_s| ,
-
-because `u` closes its own cycle `u-h-y-w-u` in `G[H u {u}]`, which needs one
-vertex of its own. So `B_s` carries **no** hereditary violation, no subset of
-`B_s` does, and (verified: the feasible selection is unique) there is **no**
-feasible exchange avoiding a forced cycle edge. The first hereditary violation
-is on the cycle's own `S`-side: `tau(G[H u P]) = 1 < 2` for `P = {s,t}`
-(delete `q1`).
-
-Hence:
-* the "Punctured-Carrier Lemma" (violation always inside `B_s`) is **false**;
-* the sharper `tau(G[H u B_s]) = |B_s| - 1` and even
-  `tau(G[H u B_s]) <= |B_s| - 1` are **false** in the capacity-1 branch;
-* combined with O-56 (violation in `B_s`, `P` clean) and O-64 (violation on `P`,
-  `B_s` clean), **neither `P` nor `B_s` is a universal localizer**;
-* the saturation bookkeeping must be stated carefully: tight-set saturation only
-  gives `load_B(v) = min(c(v), deg_B(v))`, so a `v` with `deg_B(v) < c(v)` need
-  not be saturated. Here `w` is adjacent to `B_s` with `deg_{B_s}(w) = 1 < 2 =
-  c(w)`, and is indeed not saturated. Only the *oversubscribed* external `h`
-  (`deg_{A_s}(h) >= c(h)+1`) is guaranteed saturated.
-
-### Summary of the localization landscape
-
-| witness | capacity branch | quotient `M_h(B_s)` | inclusion-minimal violation | blocker |
-|---|---|---|---|---|
-| O-56 | 2 | acyclic | `{2,3} ⊆ B_s`, disjoint from `P` | `{6}`, size 1 |
-| O-63 | 2 | cyclic | the full `B_s = {u,a,b}` | `{h,w}`, size 2 |
-| O-64 | 1 | — | `P = {s,t}`; `B_s` clean | `{q1}` |
-
-Any proposed Lemma-A argument must survive all three rows. In particular the
-open target may not assume the violating set is `P`, is `B_s`, or is `T_F`
-itself; only "some subset of `P u ⋃_s A_s`" is licensed.
-
-*One documentation discrepancy I found while checking.* PROOFS.md §D, in the
-`T_F`-normalization paragraph, says "O-56 and O-63 are already normalized
-(`S = T_F`); O-64 lies OUTSIDE the hereditary-tightness class (its `S` is not a
-minimum FVS), so the normalization does not apply to it." The measured values
-say that **all three** lie outside the hereditary-tightness class
-(`tau(G[H u S]) < |S|` in each — see the table above; necessarily so, since a
-hereditarily tight instance with a forced cycle is exactly what Lemma A° forbids),
-and that **all three** satisfy `S = T_F` (O-64: `A_s = {s,u}`, `A_t = {t}`,
-union `= {s,t,u} = S`). So the sentence's implicature that O-56/O-63 are inside
-the class is wrong; the `S = T_F` observation is purely set-theoretic and holds
-in all three. No mathematical claim depends on this.
+**Status note carried from ATTACK.md v4 and branch `…-4d7a`.** `A + B` is *a*
+route, not the only one: **SD** ("every feasible selection possessing a selected
+cycle has *some* cycle admitting a CES toggle") already implies F2 through C8
+with **no** use of Lemma A, and `A ∧ B ⇒ SD`, so SD is strictly weaker. That is
+why v4 lists SAFE-EXISTS, not Lemma B, as open item 2. Lemma A remains
+independently interesting and is this run's target.
 
 ---
 
-## (iv) The `T_F` normalization (Lemma 4.7): statement, proof, and what it licenses
+## (ii) Why Hall feasibility alone cannot yield Lemma A
 
-**Setup.** Suppose a Lemma-A° instance `(G, S, H, e)` has a forced-core cycle
-`F` with `S`-side `P`. For each `s in P` let `A_s` be its canonical carrier: the
-unique inclusion-minimal Hall-tight set containing `s` (Lemma 4.4 — the two
-forced incidences at `s` have inclusion-minimal tight exposers `X^-`, `X^+`;
-`X^- ∩ X^+` is tight by the lattice, contains `s`, and still exposes both
-because its degrees are coordinatewise no larger, so minimality forces
-`X^- = X^+ = A_s`; and for any tight `Y ∋ s`, `A_s ∩ Y` is tight, contains `s`
-and exposes a forced incidence at `s`, so `A_s ⊆ Y`). Put
+**The abstract even-cycle system.** Take `S = {s_0,…,s_{m−1}}`,
+`H = {h_0,…,h_{m−1}}`, incidences `s_i ~ h_i, h_{i+1}` (indices mod `m`), all
+capacities 2, demand 2.
 
-    T_F = ⋃_{s in P} A_s ,   G' = G[H u T_F],   S' = T_F ,
+*Feasible and rigid.* Each `s_i` has exactly two incidences, so every feasible
+selection must take both: the selection is unique and **every** incidence is
+forced. Each `h_j` is used by `s_{j−1}` and `s_j`, i.e. load `2 = c(h_j)`.
 
-keeping the same `H`, the same distinguished edge `e`, and the same capacities.
+*Hall holds — with room to spare.* For any `X ⊆ S`, `Σ_h deg_X(h) = 2|X|` and
+`deg_X(h) ≤ 2 = c(h)` for every `h`, so every term of `ρ` is `min(c,deg)=deg`
+and `ρ(X) = 2|X|`. Thus `δ(X) = 0` for **every** subset: the system is feasible
+and *every* set is Hall-tight.
 
-**Statement.** Then: (a) `G' - S' = H`; (b) `S'` is a minimum FVS of `G'`;
-(c) hereditary tightness holds for every `X ⊆ T_F` in `G'`; (d) the restricted
-system is feasible; (e) every `A_s` is still Hall-tight in `G'` and still
-exposes both forced incidences at `s`; (f) every edge of `F` is still forced in
-`G'`. Consequently a minimal counterexample to Lemma A° may be assumed to
-satisfy `S = T_F`.
+*Yet the forced core is a cycle.* The incidence graph is the `2m`-cycle
+`s_0 h_1 s_1 h_2 … s_{m−1} h_0 s_0`, entirely forced.
+
+*What fails is hereditary FVS tightness.* Realise `H` as an edgeless forest
+(supply the fixed edge `e` by a separate incidence-free `K_2`, legitimate since
+Problem 4.1 is stated without connectedness). Then `G[H ∪ S]` **is** that
+`2m`-cycle, so `τ(G[H ∪ S]) = 1`, while `|S| = m`. For `m ≥ 2`,
+`τ(G[H ∪ S]) = 1 < m`: `S` is not a minimum FVS.
+
+Recomputed with `engine0520` for `m = 2,3,4,5`:
+
+```
+m=2: forced=4/4 cyclic_components=1 (len 4) min_delta=0 every_subset_tight=True tau=1 |S|=2
+m=3: forced=6/6 cyclic_components=1 (len 6) min_delta=0 every_subset_tight=True tau=1 |S|=3
+m=4: forced=8/8 cyclic_components=1 (len 8) min_delta=0 every_subset_tight=True tau=1 |S|=4
+m=5: forced=10/10 cyclic_components=1 (len 10) min_delta=0 every_subset_tight=True tau=1 |S|=5
+```
+
+**Conclusion.** Feasibility, submodularity, the tight-set lattice, F1 and the
+carriers are *all* properties of the Hall layer, and the even-cycle system
+satisfies every one of them while carrying a cyclic forced core. So no argument
+living purely on that layer can prove Lemma A. Lemma A is exactly the
+implication
+
+    hereditary FVS tightness for every X ⊆ S   ⇒   forced core acyclic,
+
+and the hypothesis is *essential*, not decorative.
+
+**A sharper form of the same obstruction (my own, elementary, MATHEMATICALLY
+PROVED).** It is not merely that `ρ` is *insufficient*; `ρ`-counting can never
+even produce the contradiction. Let `X ⊆ S` be independent inside one
+bipartition class, so C5b applies: `τ(G[H ∪ X]) ≤ ⌊ρ_e(X)/2⌋`. If `X` is
+Hall-tight then `ρ_e(X) = 2|X|` and the bound reads `τ(G[H ∪ X]) ≤ |X|` —
+exactly what hereditary tightness asserts, so no contradiction. If `X` is not
+tight the bound is weaker still (`ρ_e(X) ≥ 2|X|+1`). Hence **no hereditary
+violation can ever be certified by the `ρ` value of a set alone**; a violation
+must be exhibited by an explicit small FVS, i.e. by the *forest geometry* of
+`H` — which is precisely what the augmented quotient `M̂_h` encodes and what `ρ`
+is blind to. This is why the surviving footholds (single-blocker subcase,
+`M̂_h`-acyclicity) are all geometric, and it is the reason the `P`-local bridge
+`τ(G[H ∪ P]) ≤ m−1` cannot be obtained by counting: `δ(P) ≥ 0` forbids it.
+
+---
+
+## (iii) The three frozen witnesses: what each kills, and how
+
+All facts below were **recomputed** from the raw JSON data (vertices,
+incidences, forest edges, capacities) by `work/0520/wit0520.py`; no derived
+field of the JSON was trusted. All three satisfy `τ(G[H ∪ S]) < |S|`, i.e.
+**none of them is a hereditary-tightness instance** — they refute *proof
+strategies*, never Lemma A itself.
+
+### O-56 — kills `P`-localization; is the single-blocker subcase
+
+`S = {0,1,2,3}`, `P = {0,1}`, auxiliaries `{2,3}`; `H` a forest on `4..13`;
+`c(10) = c(11) = 1`.
+
+*Mechanism of the forced cycle.* `2 ~ {6,7}` and `3 ~ {6,8}`; vertex `7` is the
+only other neighbour of `2` and `8` the only other neighbour of `3`, so both
+auxiliaries must use `6`. That fills `c(6) = 2`. Now `0` and `1` are incident to
+`{4,5,6}` but `6` is full, so each must take **both** `4` and `5`, and
+`load(4) = load(5) = 2` exactly. The selection is unique; recomputed:
+**1 feasible selection, 8 forced incidences**, forced core containing the
+4-cycle `0−4−1−5−0`.
+
+*What it refutes.* The inclusion-minimal hereditary violation is `X = {2,3}`
+with `τ(G[H ∪ {2,3}]) = 1 < 2` (delete `6`) — and `{2,3} ∩ P = ∅`. So the
+claim "the violation lies on the cycle's own `S`-side `P`" is **false**.
+Recomputed: minimal violating sets `{2,3}` (`τ=1<2`), `{0,1,2}`, `{0,1,3}`.
+
+*Carriers.* `A_0 = {0,2,3}`, `A_1 = {1,2,3}`, `B_0 = B_1 = {2,3} = U`,
+`P ∩ U = ∅`, `deg_U(4) = deg_U(5) = 0`. So O-56 sits in the clean CS(c) regime.
+
+*Its positive role.* It is an instance of the **proved** single-blocker subcase:
+`h = 6` is an external `H`-neighbour of `0`, `U_6 = N(6) ∩ B_0 = {2,3}`, and
+each of `2,3` has exactly one `H`-neighbour besides `6`; so `M̂_6(U_6)` is
+acyclic, `G[H ∪ U_6] − 6` is a forest, and `τ ≤ 1 < 2 = |U_6|`. (The `refutes`
+field of `O-56.json` also names "the acyclic-quotient / single-external-blocker
+subcase (blocker size 1)". Read literally that is wrong — the subcase is PROVED
+in PROOFS.md and O-56 *satisfies* it. I record it as a **wording defect in the
+witness metadata**, consistent with VERIFY-1's finding that this file needed
+correction; nothing mathematical turns on it.)
+
+### O-63 — kills the degree-2 and "degree ≥ 3 ⇒ private cycle" localizations
+
+`S = {s,t,u,a,b}`, `P = {s,t}`, `H = {r,x,q1,q2,h,w,z,y}`, `c(x)=c(y)=1`.
+
+*Mechanism.* `u,a,b` are each incident to exactly `{h,w,z}`; their total demand
+is 6 and `c(h)+c(w)+c(z) = 6`, so `h,w,z` are saturated by `{u,a,b}` in every
+feasible selection. Hence `s` can never use `h`, and `s`, like `t`, is confined
+to `{q1,q2}`: the 4-cycle `s−q1−t−q2−s` is forced. Recomputed: **6 feasible
+selections**, 4 forced incidences, exactly that cycle.
+
+*What it refutes.* `A_s = {s,u,a,b}`, `B_s = {u,a,b}`, and every vertex of `B_s`
+has incidence-degree **3**, not 2 — killing "every `B_s`-vertex has
+incidence-degree 2". And although `u,a,b` all have degree ≥ 3, none has a
+*private* cycle avoiding `h`: both non-`h` neighbours `w,z` lie in the **same**
+component of `H − h` (the star at `r`), so the quotient `M̂_h(B_s)` has parallel
+edges and is cyclic. The violation needs the **whole** `B_s` and a **size-2**
+blocker: `τ(G[H ∪ {u,a,b}]) = 2 < 3`, blocker `{h,w}` or `{h,z}`. So
+"incidence-degree ≥ 3 ⇒ private cycle" is **false**; only `M̂_h`-cyclicity
+decides.
+
+*Scope correction, independently reproduced.* `O-63.json` calls `{u,a,b}` the
+"first inclusion-minimal violation". My complete subset scan finds **six**
+strictly smaller global violations — `{a,s}, {a,t}, {b,s}, {b,t}, {s,u}, {t,u}`,
+each with `τ = 1 < 2`. The JSON statement is correct only *within* `B_s`
+(where every proper subset is tight). This independently confirms the b17e
+`[TOOLING]` lesson; the strategies O-63 kills are unaffected.
+
+*Carriers.* `A_t = {t}`, `B_t = ∅`, so `A_s` and `A_t` are **incomparable** —
+both inclusion-maximal, `P \ U = {s,t}`, `U = {u,a,b}`, `deg_U(q1)=deg_U(q2)=0`.
+
+### O-64 — kills `B_s`-localization (capacity-1 branch)
+
+`S = {s,t,u}`, `P = {s,t}`, `H`-tree `q1−r−q2`, `q1−y`, `y−h`, `y−w`;
+`e = (h,y)`, so `c(h) = c(y) = 1`.
+
+*Mechanism.* `u ~ {h,w}` only, so `u` must take both; `u` therefore saturates
+the **capacity-1** vertex `h`. That pushes `s` off `h`, leaving `s` (and `t`)
+confined to `{q1,q2}`: the forced 4-cycle `s−q1−t−q2−s`. Recomputed: **1
+feasible selection**, 6 forced incidences, that cycle. Note there is *no*
+feasible exchange at all here.
+
+*What it refutes.* `A_s = {s,u}`, `B_s = {u}`, and `B_s` is Hall-tight — but
+`τ(G[H ∪ B_s]) = 1 = |B_s|`: the puncture carries **no** hereditary violation
+(the cycle `u−h−y−w−u` needs its own vertex). No `Y ⊆ B_s` helps. The violation
+is instead on `P` itself: `τ(G[H ∪ {s,t}]) = 1 < 2` (delete `q1`). Recomputed:
+the unique inclusion-minimal violating set is `{s,t} = P`.
+So **`B_s`-localization is false**, the sharper `τ(G[H ∪ B_s]) ≤ |B_s| − 1` is
+false, and capacity-1 versus capacity-2 external neighbours are genuinely
+separate branches.
+
+**Joint content.** O-56 puts the violation strictly off `P`; O-64 puts it
+strictly on `P` with `B_s` clean. So neither `P` nor `B_s` — nor, since
+`T_F = S` in all three, `T_F` — is a universal localizer. 5047's `larealize.py`
+population strengthens this: in 39% of sampled near-misses the inclusion-minimal
+violating set lies inside *neither* `P` nor *any* single `B_s`.
+
+---
+
+## (iv) The `T_F` normalization (paper Lemma 4.7): statement, proof, licence
+
+**Statement.** Let a Lemma-A° instance (`G` bipartite, not necessarily
+connected; `S` a **minimum** FVS; `H = G − S` a forest; fixed edge `e ∈ E(H)`
+with the usual capacities) have a forced-core cycle `F` with `S`-side `P`. Put
+`T_F = ⋃_{s∈P} A_s` and restrict to
+
+    G' = G[H ∪ T_F],   S' = T_F,   same H, same e, same capacities.
+
+Then (a) `G' − S' = H`; (b) `S'` is a minimum FVS of `G'`; (c) hereditary FVS
+tightness holds for every `X ⊆ T_F`; (d) the restricted system is feasible;
+(e) every `A_s` is still Hall-tight in `G'` and still exposes both forced
+`F`-edges at `s`; (f) every edge of `F` is still **forced** in `G'`; (g) hence
+the forced core of `G'` still contains `F`. **Therefore a minimal counterexample
+to Lemma A° may be assumed to satisfy `S = T_F`.**
 
 **Proof.**
 
-(a) `G'` is induced on `H u T_F` and `T_F ⊆ S`, so removing `S' = T_F` leaves
-exactly `H`, which is a forest.
+(a) Deleting `S \ T_F` from `G` and then `T_F` leaves `H` unchanged, since
+`H = G − S` and no `H`-vertex is removed.
 
-(c) For `X ⊆ T_F`, `G'[H u X]` and `G[H u X]` are literally the same graph:
-both are the subgraph of `G` induced on `H u X`. So
-`tau(G'[H u X]) = tau(G[H u X]) = |X|`, verbatim from Lemma 3.3 applied to `G`.
+(b) and (c). `H` is a forest, so `T_F` is an FVS of `G'` and
+`τ(G') ≤ |T_F|`. For the reverse, note that hereditary tightness in `G`
+(available because `S` is a minimum FVS, C2) gives `τ(G[H ∪ X]) = |X|` for
+**every** `X ⊆ S`, in particular for every `X ⊆ T_F`; and `G'[H ∪ X] = G[H ∪ X]`
+because `X ⊆ T_F` and the induced subgraph does not see the deleted vertices.
+So `τ(G'[H ∪ X]) = |X|` for every `X ⊆ T_F` — which is (c), and with `X = T_F`
+also (b).
 
-(b) Take `X = T_F` in (c): `tau(G') = tau(G'[H u T_F]) = |T_F|`. And `T_F` is an
-FVS of `G'` (deleting it leaves `H`). So it is a minimum FVS.
+(d) `X ⊆ T_F ⊆ S` implies `δ_{G'}(X) = δ_G(X) ≥ 0` (the deleted `S`-vertices
+never appear in `ρ(X)`, which depends only on `X`'s own incidences and on the
+capacities). By C5, `G'` is feasible.
 
-(d) `rho` is a function of the data `(X, H, capacities, X-to-H edges)` only, all
-of which are unchanged in `G'`. So the Hall inequality `rho(X) >= 2|X|`, which
-holds for all `X ⊆ S`, restricts to all `X ⊆ T_F`; Lemma 3.4 gives feasibility.
-(Alternatively: (c) plus Corollary 3.8 applied to `G'` directly.)
+(e) `A_s ⊆ T_F` by construction, and `ρ`, `δ` are computed from `A_s`'s own
+incidences, so `A_s` is still tight in `G'`; likewise `deg_{A_s}(q) ≤ c(q)` at
+each of the two forced ends `q` is unchanged, so `A_s` still *exposes* both.
 
-(e) Tightness of `A_s` (`rho(A_s) = 2|A_s|`) and the exposure condition
-(`s in A_s`, `deg_{A_s}(q) <= c(q)`) are statements about the same unchanged
-data, so they persist.
+(f) **This is the step that must not be done by monotonicity.** Restriction can
+*create* new feasible selections — removing `S`-vertices outside `T_F` frees
+capacity — so forcedness is **not** monotone under restriction and may not be
+inherited. Instead, forcedness is re-established from scratch: by F1 (C5), an
+incidence `a = (s,q)` is forced **iff** some Hall-tight set exposes it. By (e),
+`A_s` is tight in `G'` and exposes both forced `F`-edges at `s`. Applying F1 in
+the *restricted* network gives forcedness of each `F`-edge afresh in `G'`.
 
-(f) **This is the step that needs care, and it is the reason the lemma is not
-trivial.** Forcedness is *not* monotone under restriction: deleting the demand
-of `S`-vertices outside `T_F` frees capacity and can create new feasible
-selections, so an incidence forced in `G` need not be forced in `G'`. Instead
-forcedness is re-derived from scratch: by F1 (Lemma 3.5), an incidence is forced
-iff some tight set exposes it; by (e) the set `A_s ⊆ T_F` is still tight in `G'`
-and still exposes the two `F`-incidences at `s`; so F1, applied inside `G'`,
-gives their forcedness afresh. Hence `F` is still in the forced core of `G'`.
-∎
+(g) Immediate from (f): every edge of `F` is forced in `G'`, so `F` lies in the
+forced core of `G'`.
 
-**Two things the lemma costs.**
-* Connectedness may be lost: `G[H u T_F]` need not be connected. This is exactly
-  why the open problem is stated as Lemma A° (no connectedness hypothesis) —
-  the normalization is only usable if the disconnected form is the target. And
-  A° implies the connected Lemma A used in Theorem 3.13, since a connected
-  instance is a special case.
-* Canonicity of `A_s` is not needed for bare validity (any tight exposing set
-  would do in (e)/(f)), but the minimal choice gives the smallest `T_F`, and the
-  downstream carrier lemmas (punctured tightness, `U_h` structure) are stated
-  for the canonical `A_s`.
+Connectedness may be destroyed by the restriction — which is exactly why the
+statement is set in the **disconnected** Lemma A°. That is legitimate: A° implies
+the connected version needed by F2 (a connected instance is an A° instance), and
+raising all capacities to 2 only enlarges the feasible set, so
+`forced(all caps 2) ⊆ forced(caps for e)` and the all-caps-2 abstract systems are
+covered rather than being an untested gap.
 
-**What it licenses, precisely.** In a minimal counterexample one may assume
+**What the normalization licenses.**
 
-    S = T_F = ⋃_{s in P} A_s ,
+1. **`S = P ∪ U`.** Every `S`-vertex is either on the cycle or inside some
+   puncture. There are no "irrelevant" auxiliaries: every auxiliary is part of
+   the forcing machinery. This is what makes the carrier family the *whole*
+   object of study rather than one carrier at a time.
+2. **The smallest such set.** Canonicity of `A_s` is not needed for validity but
+   gives the inclusion-minimum normalized set, which is what the downstream
+   carrier lemmas (CS, CP) consume.
+3. **A bounded search space.** The abstract layer `(S, H-vertices, incidences,
+   capacities)` decides feasibility, forcedness and the carriers, while the
+   `H`-forest edges decide minimum-FVS-ness. Since hereditary tightness for all
+   `X ⊆ S` ⟺ `S` is a minimum FVS, the counterexample hunt **factorises**, which
+   is what `larealize.py` exploits.
 
-i.e. **every `S`-vertex lies inside the carrier of some cycle vertex**. There is
-no "outer" part of `S` that merely creates congestion from a distance: every
-`S`-vertex is certified to participate in the tight set responsible for some
-forced cycle edge. In that normalized instance `S` itself is a union of tight
-sets, hence tight by the lattice (Lemma 3.6), so `rho(S) = 2|S|` and
-`delta ≡ 0` on a lattice containing `S`, every `A_s`, and every `B_s`.
-
-**What it does *not* license.** It does not say the hereditary violation lies in
-`T_F` in any *proper* sense — after normalization `T_F = S`, so "the violation
-lies in `T_F`" is just "the violation lies in `S`", which is the whole of
-Lemma A. The normalization removes irrelevant `S`-vertices; it does not locate
-the violation. (This is consistent with the witnesses: all three already satisfy
-`S = T_F`, and their violations sit in three different places.)
-
-**Punctured tightness, for the record** (Lemma 4.5, used in (iii)): with
-`B_s = A_s \ {s}`, removing `s` lowers `min(c(v), deg_{A_s}(v))` by 1 exactly at
-those `H`-neighbours `v` of `s` with `deg_{A_s}(v) <= c(v)`; let `k` be their
-number. The two forced ends `q^-, q^+` qualify, so `k >= 2`; and
-`rho(B_s) = rho(A_s) - k = 2|A_s| - k` gives `delta(B_s) = 2 - k >= 0`, so
-`k <= 2`. Hence `k = 2`, `B_s` is tight, the only non-oversubscribed
-`H`-neighbours of `s` are `q^-` and `q^+`, and every other `H`-neighbour `h`
-satisfies `deg_{A_s}(h) >= c(h) + 1` (so `deg_{B_s}(h) >= c(h)`).
+**What it does not license.** `T_F` is *not* a universal localizer of the
+hereditary violation: all three frozen witnesses satisfy `S = T_F`
+set-theoretically and none of them puts the violation in a common place. And
+because all three fail hereditary tightness, **the normalization lemma does not
+even apply to them** — they constrain strategies, not the normalized class.
 
 ---
 
-## Oracle contact made while writing this
+## Gauntlet outcome
 
-All commands run from a clean clone at commit `0617d7a`, `tools/` hashes
-verified against `tools/SHA256SUMS.txt` (17/17 OK) before use.
-
-| check | command | result |
-|---|---|---|
-| gold: A1 at n=7 | `python3 a1_verify.py 7` | `A1 = 143/143, fail = 0` — matches tools/README |
-| gold: B-PLUS-2 at n=9 | `python3 b_hslide.py 9` | `cyc = 24195`, gap hist `{0: 24195}`, 0 failures — matches |
-| gold: B-PLUS-2 at n=10 | `python3 b_hslide.py 10` | `cyc = 448577`, gap hist `{0: 448577}`, 0 failures — matches |
-| Lemma A at n=8 | `python3 forced_core.py 8` | inst 2186, cyclic cores 0, maxpath 6 |
-| Lemma A at n=9 | `python3 forced_core.py 9` | inst 13003, cyclic cores 0, maxpath 6 |
-| Lemma A at n=10 | `python3 forced_core.py 10` | inst 116216, cyclic cores 0, maxpath 8 — matches ledger O-44 |
-| three witnesses | `python3 work/wcheck.py …` | every recorded value reproduced with independent code |
-
-Gauntlet outcome: **completed**.
+**COMPLETED.** All four parts derived; every computational assertion recomputed
+by an independently written engine that reproduces the published anchors
+(`115774 / 798 / 18`) and the three witnesses' feasible-selection counts
+(`1 / 6 / 1`), forced-core cycles, carrier tables and violation structure. Two
+metadata scope defects were found and are reported above (O-63's
+"inclusion-minimal" phrasing — independently confirming b17e's lesson — and
+O-56's `refutes` field naming a subcase it in fact satisfies). Neither affects
+any mathematical verdict. Proceeding to Step 3 target 1.
