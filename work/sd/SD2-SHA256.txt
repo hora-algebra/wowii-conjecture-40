@@ -1,0 +1,2 @@
+9caa780519cadfd1d8c8fca2231fdb1aeb3eff032bd8d78b738c4140fbc0163b  work/sd/sd_scan2.py
+3d322721312fe01bf073bd47b695bf9268a960be524c469d6c4f010b6f0d6a8f  PREREG-SD2.md

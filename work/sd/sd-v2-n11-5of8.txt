@@ -1,0 +1,24 @@
+{
+ "n": "11",
+ "shard": 5,
+ "nshards": 8,
+ "ces_mode": "real",
+ "graphs": 25598,
+ "cycle_components": 1037364,
+ "cyclic_selections": 1020406,
+ "A1_ALL_failures": 0,
+ "SD_SHORT_failures": 0,
+ "SD_COUNT_SHORT_failures": 0,
+ "SD_PLUS_2_failures": 0,
+ "lemmaA_violations": 0,
+ "path_cap_hits": 0,
+ "SD_2STEP_failures": 0,
+ "SD_2STEP_probed": 0,
+ "SD_2STEP_DESCENT_failures": 0,
+ "ncyc_histogram": {
+  "1": 1003448,
+  "2": 16958
+ },
+ "a1bad_profile": {},
+ "witnesses": {}
+}
