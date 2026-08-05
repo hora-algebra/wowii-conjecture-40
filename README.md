@@ -26,17 +26,32 @@ f(G) >= ceil( (p(G) + b(G) + 1) / 2 ).
   residual-augmentation flow theorem, and a descent argument.
 - **Conditional general bound.** Conditional on the bipartite case,
   `ell + 2*o >= 2*tau + 1` (coefficient two).
-- **Single-vertex reduction.** A single-vertex property (SV), together with the
-  bipartite case, implies the full conjecture.
+- **Historical single-vertex reduction.** SV would have implied the full
+  conjecture with the bipartite case, but SV is now falsified.
+
+## Results since v2.0
+
+- **SV is FALSIFIED at minimal order 11.** Certified minimal witnesses show
+  that the paper's single-vertex route cannot prove the conjecture; the
+  conjecture itself is untouched by those witnesses.
+- **Lemma A is COMPUTATIONALLY VERIFIED through n = 14** (including
+  2,391,365,507 instances at n = 14, with zero cyclic forced cores), and
+  **F2-ALL is COMPUTATIONALLY VERIFIED through n = 13**. Neither finite
+  verification is a general proof.
+- **Lifting inequality progress and obstruction.** Structured sufficient
+  LIFT-A classes L1--L7 are proved and their stated finite scans are clean,
+  but the CX(m) family obstructs every threshold based only on component class
+  sizes and full-side forest-extension invariants. Coefficient-one lifting
+  remains open.
 
 ## What is open
 
 *AI or human and want to attack the open lemmas? Start at [ATTACK.md](ATTACK.md).*
 
-- **Lemma A** (the forced core is acyclic) and **Lemma B** (a cycle-erasing
-  toggle always exists) — the bipartite case rests on these two.
+- **Lemma A**, at the carrier-poset endgame.
+- **SAFE-EXISTS**, the remaining existential safe-toggle/descent statement for
+  the bipartite reduction.
 - The general-to-bipartite step at **coefficient one** (`ell + o >= 2*tau + 1`).
-- **SV** itself (it is sufficient, not known to be necessary).
 
 ## What is verified computationally
 
@@ -44,10 +59,9 @@ f(G) >= ceil( (p(G) + b(G) + 1) / 2 ).
   (1,006,700,565 graphs at `n = 11`), with **zero violations**, under a
   preregistered, hash-frozen, dual-engine protocol (an exact C checker plus an
   independently coded second engine on every low-slack graph).
-- The SV property holds for **all connected nonbipartite graphs on `n <= 10`**.
-- Lemma A was verified exhaustively for `n <= 10`; a shortest-path-only form of
-  Lemma B was verified through `n <= 10` and **falsified at `n = 11`** (its
-  surviving refinements are supported in sample only). These lemmas remain open.
+- SV holds through `n <= 10` and is **falsified at minimal order `n = 11`**.
+- Lemma A and F2 are additionally summarized in “Results since v2.0”; the
+  underlying branch reports preserve checker hashes, witnesses, and scope.
 
 ## Where each claim lives
 
@@ -75,9 +89,10 @@ re-checked by the independent engine `phase0_verify2.py`. See
 
 ## Data availability and citation
 
-This repository (release tag `v1.0`) is archived at
+Release tag `v1.0` is archived at
 **https://doi.org/10.5281/zenodo.21778700**. Source:
-https://github.com/cozuya/wowii-conjecture-40.
+https://github.com/cozuya/wowii-conjecture-40. The `v2.0` data/release bundle is
+pending Zenodo versioning.
 
 ## License
 
