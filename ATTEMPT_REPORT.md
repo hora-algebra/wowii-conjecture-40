@@ -18,18 +18,14 @@ OPEN.
 ## Setup and branch discipline
 
 The starting checkout in the prompt was a verification branch, not the right
-attack base. The older repository at
-`/Users/christineozols/research/wowii-conjecture-40` did not contain the fresh
-maintenance census branch. I therefore cloned locally from
-`/Users/christineozols/conj40v2/conj40-verify`, which exposed the complete local
-ref set: post-maintenance `main-local`, all three attempt branches,
+attack base. An older local checkout did not contain the fresh maintenance
+census branch. I therefore cloned from the current local repository, which
+exposed the complete local ref set: post-maintenance `main-local`, all three attempt branches,
 `lessons/consolidated`, and `maint/2026-08-census`.
 
 Fresh clone:
 
-```
-/Users/christineozols/conj40v2/conj40-attack-codex-20260805-b17e
-```
+`attempt/2026-08-05-codex-gpt-5-b17e`
 
 The required fetch
 
