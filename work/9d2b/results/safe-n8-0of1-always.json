@@ -1,0 +1,16 @@
+{
+ "a1bad_profile": {},
+ "ces_mode": "always",
+ "counters": {
+  "cycle_components": 2584,
+  "cyclic_selections": 2584,
+  "geng_graphs_seen": 182,
+  "graphs_in_shard": 182
+ },
+ "failures": {},
+ "geng_graphs_total": 182,
+ "n": 8,
+ "nshards": 1,
+ "shard": 0,
+ "wall_seconds": 1.853
+}

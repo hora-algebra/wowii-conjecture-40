@@ -1,0 +1,24 @@
+{
+ "bad_first_steps": 3924,
+ "failure_counts": {
+  "hard_successor_one_failures": 0,
+  "safe_2_exists_local_failures": 0,
+  "sd_2step_all_failures": 0,
+  "successor_one_all_failures": 0,
+  "terminal_slide_failures": 0
+ },
+ "failures": [],
+ "invalid_replays": 0,
+ "missing_by_shard": {
+  "11": 8,
+  "13": 4,
+  "14": 4,
+  "16": 12,
+  "25": 6,
+  "4": 10
+ },
+ "missing_records": 44,
+ "profile_1_0": 1184,
+ "saved_records": 1140,
+ "source_commit": "5cb5bb9a29718562d4d25a6902fd693f0a4677f4"
+}

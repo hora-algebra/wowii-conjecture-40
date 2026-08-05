@@ -1,0 +1,23 @@
+{
+  "shards": 8,
+  "graphs_total": [
+    25598
+  ],
+  "graphs_in_shards": 25598,
+  "cycle_components": 8202633,
+  "cyclic_selections": 8071822,
+  "a1_failures": 6,
+  "bad_first_steps": 20,
+  "sd_short_failures": 6,
+  "bplus2_certified_bad_cycles": 6,
+  "terminal_slide_failures": 0,
+  "h_slide_failures": 0,
+  "sd_2step_all_failures": 0,
+  "safe_2_exists_local_failures": 0,
+  "successor_one_all_failures": 0,
+  "successor_one_descent_failures": 0,
+  "lemmaA_violations": 0,
+  "path_cap_hits": 0,
+  "sum_cpu_wall_s": 11909.310999999998,
+  "max_shard_wall_s": 1568.821
+}

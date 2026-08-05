@@ -1,0 +1,580 @@
+{
+ "bplus2_failures": 0,
+ "cycles_graded": 6,
+ "d0_histogram": {
+  "3": 6
+ },
+ "dces_histogram": {
+  "5": 6
+ },
+ "invalid": 0,
+ "mode": "replay11",
+ "records": 6,
+ "rows": [
+  {
+   "analysis": {
+    "avoidable": true,
+    "best_path": {
+     "path": [
+      3,
+      10,
+      2,
+      9,
+      0,
+      8
+     ],
+     "released": [
+      3,
+      8
+     ]
+    },
+    "bplus2": true,
+    "d0": 3,
+    "dces_bounded": 5,
+    "infeasible_candidates": 0,
+    "paths_tested": 8
+   },
+   "record": {
+    "J": [
+     [
+      0,
+      6
+     ],
+     [
+      0,
+      9
+     ],
+     [
+      2,
+      6
+     ],
+     [
+      2,
+      10
+     ],
+     [
+      3,
+      7
+     ],
+     [
+      3,
+      8
+     ],
+     [
+      4,
+      7
+     ],
+     [
+      4,
+      8
+     ]
+    ],
+    "S": [
+     0,
+     2,
+     3,
+     4
+    ],
+    "a1_good": 0,
+    "bad": [
+     [
+      [
+       3,
+       4,
+       7,
+       8
+      ],
+      3,
+      "no-shortest-CES"
+     ]
+    ],
+    "cycles": [
+     [
+      3,
+      4,
+      7,
+      8
+     ]
+    ],
+    "e": [
+     5,
+     10
+    ],
+    "g6": "J??FErWxDw?",
+    "ncyc": 1
+   },
+   "valid": true
+  },
+  {
+   "analysis": {
+    "avoidable": true,
+    "best_path": {
+     "path": [
+      3,
+      10,
+      2,
+      6,
+      0,
+      8
+     ],
+     "released": [
+      3,
+      8
+     ]
+    },
+    "bplus2": true,
+    "d0": 3,
+    "dces_bounded": 5,
+    "infeasible_candidates": 0,
+    "paths_tested": 8
+   },
+   "record": {
+    "J": [
+     [
+      0,
+      6
+     ],
+     [
+      0,
+      9
+     ],
+     [
+      2,
+      9
+     ],
+     [
+      2,
+      10
+     ],
+     [
+      3,
+      7
+     ],
+     [
+      3,
+      8
+     ],
+     [
+      4,
+      7
+     ],
+     [
+      4,
+      8
+     ]
+    ],
+    "S": [
+     0,
+     2,
+     3,
+     4
+    ],
+    "a1_good": 0,
+    "bad": [
+     [
+      [
+       3,
+       4,
+       7,
+       8
+      ],
+      3,
+      "no-shortest-CES"
+     ]
+    ],
+    "cycles": [
+     [
+      3,
+      4,
+      7,
+      8
+     ]
+    ],
+    "e": [
+     5,
+     10
+    ],
+    "g6": "J??FErWxDw?",
+    "ncyc": 1
+   },
+   "valid": true
+  },
+  {
+   "analysis": {
+    "avoidable": true,
+    "best_path": {
+     "path": [
+      8,
+      0,
+      7,
+      4,
+      10,
+      3
+     ],
+     "released": [
+      3,
+      8
+     ]
+    },
+    "bplus2": true,
+    "d0": 3,
+    "dces_bounded": 5,
+    "infeasible_candidates": 0,
+    "paths_tested": 4
+   },
+   "record": {
+    "J": [
+     [
+      0,
+      7
+     ],
+     [
+      1,
+      7
+     ],
+     [
+      1,
+      10
+     ],
+     [
+      2,
+      6
+     ],
+     [
+      2,
+      8
+     ],
+     [
+      3,
+      6
+     ],
+     [
+      3,
+      8
+     ],
+     [
+      4,
+      10
+     ]
+    ],
+    "S": [
+     6,
+     7,
+     8,
+     10
+    ],
+    "a1_good": 0,
+    "bad": [
+     [
+      [
+       2,
+       3,
+       6,
+       8
+      ],
+      3,
+      "no-shortest-CES"
+     ]
+    ],
+    "cycles": [
+     [
+      2,
+      3,
+      6,
+      8
+     ]
+    ],
+    "e": [
+     0,
+     5
+    ],
+    "g6": "J?B@eQo]Fo?",
+    "ncyc": 1
+   },
+   "valid": true
+  },
+  {
+   "analysis": {
+    "avoidable": true,
+    "best_path": {
+     "path": [
+      8,
+      0,
+      7,
+      1,
+      10,
+      3
+     ],
+     "released": [
+      3,
+      8
+     ]
+    },
+    "bplus2": true,
+    "d0": 3,
+    "dces_bounded": 5,
+    "infeasible_candidates": 0,
+    "paths_tested": 4
+   },
+   "record": {
+    "J": [
+     [
+      0,
+      7
+     ],
+     [
+      1,
+      10
+     ],
+     [
+      2,
+      6
+     ],
+     [
+      2,
+      8
+     ],
+     [
+      3,
+      6
+     ],
+     [
+      3,
+      8
+     ],
+     [
+      4,
+      7
+     ],
+     [
+      4,
+      10
+     ]
+    ],
+    "S": [
+     6,
+     7,
+     8,
+     10
+    ],
+    "a1_good": 0,
+    "bad": [
+     [
+      [
+       2,
+       3,
+       6,
+       8
+      ],
+      3,
+      "no-shortest-CES"
+     ]
+    ],
+    "cycles": [
+     [
+      2,
+      3,
+      6,
+      8
+     ]
+    ],
+    "e": [
+     0,
+     5
+    ],
+    "g6": "J?B@eQo]Fo?",
+    "ncyc": 1
+   },
+   "valid": true
+  },
+  {
+   "analysis": {
+    "avoidable": true,
+    "best_path": {
+     "path": [
+      0,
+      9,
+      6,
+      3,
+      10,
+      7
+     ],
+     "released": [
+      0,
+      7
+     ]
+    },
+    "bplus2": true,
+    "d0": 3,
+    "dces_bounded": 5,
+    "infeasible_candidates": 0,
+    "paths_tested": 8
+   },
+   "record": {
+    "J": [
+     [
+      0,
+      5
+     ],
+     [
+      0,
+      7
+     ],
+     [
+      1,
+      5
+     ],
+     [
+      1,
+      7
+     ],
+     [
+      2,
+      6
+     ],
+     [
+      2,
+      10
+     ],
+     [
+      3,
+      10
+     ],
+     [
+      6,
+      9
+     ]
+    ],
+    "S": [
+     0,
+     1,
+     6,
+     10
+    ],
+    "a1_good": 0,
+    "bad": [
+     [
+      [
+       0,
+       1,
+       5,
+       7
+      ],
+      3,
+      "no-shortest-CES"
+     ]
+    ],
+    "cycles": [
+     [
+      0,
+      1,
+      5,
+      7
+     ]
+    ],
+    "e": [
+     4,
+     9
+    ],
+    "g6": "J?B@eOtq`i_",
+    "ncyc": 1
+   },
+   "valid": true
+  },
+  {
+   "analysis": {
+    "avoidable": true,
+    "best_path": {
+     "path": [
+      0,
+      9,
+      6,
+      2,
+      10,
+      7
+     ],
+     "released": [
+      0,
+      7
+     ]
+    },
+    "bplus2": true,
+    "d0": 3,
+    "dces_bounded": 5,
+    "infeasible_candidates": 0,
+    "paths_tested": 8
+   },
+   "record": {
+    "J": [
+     [
+      0,
+      5
+     ],
+     [
+      0,
+      7
+     ],
+     [
+      1,
+      5
+     ],
+     [
+      1,
+      7
+     ],
+     [
+      2,
+      10
+     ],
+     [
+      3,
+      6
+     ],
+     [
+      3,
+      10
+     ],
+     [
+      6,
+      9
+     ]
+    ],
+    "S": [
+     0,
+     1,
+     6,
+     10
+    ],
+    "a1_good": 0,
+    "bad": [
+     [
+      [
+       0,
+       1,
+       5,
+       7
+      ],
+      3,
+      "no-shortest-CES"
+     ]
+    ],
+    "cycles": [
+     [
+      0,
+      1,
+      5,
+      7
+     ]
+    ],
+    "e": [
+     4,
+     9
+    ],
+    "g6": "J?B@eOtq`i_",
+    "ncyc": 1
+   },
+   "valid": true
+  }
+ ],
+ "source_commit": "5cb5bb9a29718562d4d25a6902fd693f0a4677f4"
+}

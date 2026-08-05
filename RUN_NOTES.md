@@ -49,3 +49,26 @@
 - The universal B-PLUS-2 verdict will be inferred only from explicit
   terminal-slide certificates for every A1-bad cycle. A terminal-slide failure
   leaves B-PLUS-2 unresolved until a generic bounded-path recheck.
+
+## Execution outcome
+
+- Full n=11 gold test reproduced 25,598 graphs, 8,202,633 cycle components,
+  six A1 failures and 20 bad minimizing paths; all new predicates passed and
+  there were no caps.
+- The repaired n=12 replay validated all 170 retained `(2,1)` records. All 170
+  fail terminal-slide; 142 fail unrestricted successor-one; all 170 pass
+  SD-2STEP-DESCENT. The first witness was confirmed with VERIFY-2's independent
+  engine.
+- Generic bounded-path replay found `d0=3`, `dCES=5` for all 170. Exact tail
+  scans from the two certificate-cap boundary graphs covered 26 and 44 A1-bad
+  cycles, all B-PLUS-2-good. Replay/tail union covers all 196 universal-gap
+  cycles after accounting for 12 and 32 overlaps.
+- HARD-SUCCESSOR-ONE passed on all 1,140 retained `(1,0)` hard states and all
+  3,924 minimizing first paths; 44 capped-away source records remain ungraded
+  for this post-hoc strengthening.
+- Two initially launched full multi-cycle n=12 shard jobs and their two generic
+  replacements were stopped without output when shared-CPU timing made them
+  redundant. They are `ABORTED-NO-VERDICT`; exact cap-tail scans replaced them.
+- Two pre-data validator failures are retained as `*-v1-invalid.json` and
+  excluded from every verdict. Repairs changed only edge-orientation/profile
+  validation and were re-hashed and committed before rerun.

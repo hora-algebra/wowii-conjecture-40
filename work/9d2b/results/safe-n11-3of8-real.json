@@ -1,0 +1,22 @@
+{
+ "a1bad_profile": {
+  "1|0": 4
+ },
+ "ces_mode": "real",
+ "counters": {
+  "a1_failures": 4,
+  "bad_first_steps": 12,
+  "bplus2_certified_bad_cycles": 4,
+  "cycle_components": 1026791,
+  "cyclic_selections": 1010393,
+  "geng_graphs_seen": 25598,
+  "graphs_in_shard": 3200,
+  "sd_short_failures": 4
+ },
+ "failures": {},
+ "geng_graphs_total": 25598,
+ "n": 11,
+ "nshards": 8,
+ "shard": 3,
+ "wall_seconds": 1499.003
+}

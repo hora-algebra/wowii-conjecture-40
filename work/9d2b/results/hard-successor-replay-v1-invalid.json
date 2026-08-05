@@ -1,0 +1,3225 @@
+{
+ "bad_first_steps": 0,
+ "failure_counts": {
+  "hard_successor_one_failures": 1140,
+  "safe_2_exists_local_failures": 1140,
+  "sd_2step_all_failures": 1140,
+  "successor_one_all_failures": 1140,
+  "terminal_slide_failures": 1140
+ },
+ "failures": [
+  {
+   "record": {
+    "J": [
+     [
+      0,
+      8
+     ],
+     [
+      1,
+      8
+     ],
+     [
+      1,
+      11
+     ],
+     [
+      2,
+      7
+     ],
+     [
+      2,
+      9
+     ],
+     [
+      3,
+      7
+     ],
+     [
+      3,
+      9
+     ],
+     [
+      4,
+      11
+     ]
+    ],
+    "S": [
+     7,
+     8,
+     9,
+     11
+    ],
+    "a1_good": 0,
+    "bad": [
+     [
+      [
+       2,
+       3,
+       7,
+       9
+      ],
+      3,
+      "no-shortest-CES"
+     ]
+    ],
+    "cycles": [
+     [
+      2,
+      3,
+      7,
+      9
+     ]
+    ],
+    "e": [
+     0,
+     6
+    ],
+    "g6": "K??E@bGkBw^_",
+    "ncyc": 1
+   },
+   "validation": {
+    "cycles": false,
+    "feasible": true,
+    "fixed_edge": true,
+    "minimum_fvs_member": true,
+    "n12": true,
+    "one_bad_record": false,
+    "tau": true
+   }
+  },
+  {
+   "record": {
+    "J": [
+     [
+      0,
+      8
+     ],
+     [
+      1,
+      11
+     ],
+     [
+      2,
+      7
+     ],
+     [
+      2,
+      9
+     ],
+     [
+      3,
+      7
+     ],
+     [
+      3,
+      9
+     ],
+     [
+      4,
+      8
+     ],
+     [
+      4,
+      11
+     ]
+    ],
+    "S": [
+     7,
+     8,
+     9,
+     11
+    ],
+    "a1_good": 0,
+    "bad": [
+     [
+      [
+       2,
+       3,
+       7,
+       9
+      ],
+      3,
+      "no-shortest-CES"
+     ]
+    ],
+    "cycles": [
+     [
+      2,
+      3,
+      7,
+      9
+     ]
+    ],
+    "e": [
+     0,
+     6
+    ],
+    "g6": "K??E@bGkBw^_",
+    "ncyc": 1
+   },
+   "validation": {
+    "cycles": false,
+    "feasible": true,
+    "fixed_edge": true,
+    "minimum_fvs_member": true,
+    "n12": true,
+    "one_bad_record": false,
+    "tau": true
+   }
+  },
+  {
+   "record": {
+    "J": [
+     [
+      0,
+      6
+     ],
+     [
+      0,
+      8
+     ],
+     [
+      1,
+      6
+     ],
+     [
+      1,
+      8
+     ],
+     [
+      2,
+      7
+     ],
+     [
+      2,
+      11
+     ],
+     [
+      3,
+      11
+     ],
+     [
+      7,
+      9
+     ]
+    ],
+    "S": [
+     0,
+     1,
+     7,
+     11
+    ],
+    "a1_good": 0,
+    "bad": [
+     [
+      [
+       0,
+       1,
+       6,
+       8
+      ],
+      3,
+      "no-shortest-CES"
+     ]
+    ],
+    "cycles": [
+     [
+      0,
+      1,
+      6,
+      8
+     ]
+    ],
+    "e": [
+     4,
+     9
+    ],
+    "g6": "K??E@bGqPlEu",
+    "ncyc": 1
+   },
+   "validation": {
+    "cycles": false,
+    "feasible": true,
+    "fixed_edge": true,
+    "minimum_fvs_member": true,
+    "n12": true,
+    "one_bad_record": false,
+    "tau": true
+   }
+  },
+  {
+   "record": {
+    "J": [
+     [
+      0,
+      6
+     ],
+     [
+      0,
+      8
+     ],
+     [
+      1,
+      6
+     ],
+     [
+      1,
+      8
+     ],
+     [
+      2,
+      11
+     ],
+     [
+      3,
+      7
+     ],
+     [
+      3,
+      11
+     ],
+     [
+      7,
+      9
+     ]
+    ],
+    "S": [
+     0,
+     1,
+     7,
+     11
+    ],
+    "a1_good": 0,
+    "bad": [
+     [
+      [
+       0,
+       1,
+       6,
+       8
+      ],
+      3,
+      "no-shortest-CES"
+     ]
+    ],
+    "cycles": [
+     [
+      0,
+      1,
+      6,
+      8
+     ]
+    ],
+    "e": [
+     4,
+     9
+    ],
+    "g6": "K??E@bGqPlEu",
+    "ncyc": 1
+   },
+   "validation": {
+    "cycles": false,
+    "feasible": true,
+    "fixed_edge": true,
+    "minimum_fvs_member": true,
+    "n12": true,
+    "one_bad_record": false,
+    "tau": true
+   }
+  },
+  {
+   "record": {
+    "J": [
+     [
+      0,
+      6
+     ],
+     [
+      0,
+      8
+     ],
+     [
+      1,
+      6
+     ],
+     [
+      1,
+      8
+     ],
+     [
+      2,
+      9
+     ],
+     [
+      2,
+      11
+     ],
+     [
+      3,
+      11
+     ],
+     [
+      4,
+      9
+     ]
+    ],
+    "S": [
+     6,
+     8,
+     9,
+     11
+    ],
+    "a1_good": 0,
+    "bad": [
+     [
+      [
+       0,
+       1,
+       6,
+       8
+      ],
+      3,
+      "no-shortest-CES"
+     ]
+    ],
+    "cycles": [
+     [
+      0,
+      1,
+      6,
+      8
+     ]
+    ],
+    "e": [
+     4,
+     10
+    ],
+    "g6": "K??EDbGMEW^_",
+    "ncyc": 1
+   },
+   "validation": {
+    "cycles": false,
+    "feasible": true,
+    "fixed_edge": true,
+    "minimum_fvs_member": true,
+    "n12": true,
+    "one_bad_record": false,
+    "tau": true
+   }
+  },
+  {
+   "record": {
+    "J": [
+     [
+      0,
+      6
+     ],
+     [
+      0,
+      8
+     ],
+     [
+      1,
+      6
+     ],
+     [
+      1,
+      8
+     ],
+     [
+      2,
+      11
+     ],
+     [
+      3,
+      9
+     ],
+     [
+      3,
+      11
+     ],
+     [
+      4,
+      9
+     ]
+    ],
+    "S": [
+     6,
+     8,
+     9,
+     11
+    ],
+    "a1_good": 0,
+    "bad": [
+     [
+      [
+       0,
+       1,
+       6,
+       8
+      ],
+      3,
+      "no-shortest-CES"
+     ]
+    ],
+    "cycles": [
+     [
+      0,
+      1,
+      6,
+      8
+     ]
+    ],
+    "e": [
+     4,
+     10
+    ],
+    "g6": "K??EDbGMEW^_",
+    "ncyc": 1
+   },
+   "validation": {
+    "cycles": false,
+    "feasible": true,
+    "fixed_edge": true,
+    "minimum_fvs_member": true,
+    "n12": true,
+    "one_bad_record": false,
+    "tau": true
+   }
+  },
+  {
+   "record": {
+    "J": [
+     [
+      0,
+      6
+     ],
+     [
+      0,
+      8
+     ],
+     [
+      1,
+      8
+     ],
+     [
+      2,
+      7
+     ],
+     [
+      2,
+      9
+     ],
+     [
+      3,
+      7
+     ],
+     [
+      3,
+      9
+     ],
+     [
+      6,
+      11
+     ]
+    ],
+    "S": [
+     2,
+     3,
+     6,
+     8
+    ],
+    "a1_good": 0,
+    "bad": [
+     [
+      [
+       2,
+       3,
+       7,
+       9
+      ],
+      3,
+      "no-shortest-CES"
+     ]
+    ],
+    "cycles": [
+     [
+      2,
+      3,
+      7,
+      9
+     ]
+    ],
+    "e": [
+     4,
+     11
+    ],
+    "g6": "K??E@rCMMIFS",
+    "ncyc": 1
+   },
+   "validation": {
+    "cycles": false,
+    "feasible": true,
+    "fixed_edge": true,
+    "minimum_fvs_member": true,
+    "n12": true,
+    "one_bad_record": false,
+    "tau": true
+   }
+  },
+  {
+   "record": {
+    "J": [
+     [
+      0,
+      8
+     ],
+     [
+      1,
+      6
+     ],
+     [
+      1,
+      8
+     ],
+     [
+      2,
+      7
+     ],
+     [
+      2,
+      9
+     ],
+     [
+      3,
+      7
+     ],
+     [
+      3,
+      9
+     ],
+     [
+      6,
+      11
+     ]
+    ],
+    "S": [
+     2,
+     3,
+     6,
+     8
+    ],
+    "a1_good": 0,
+    "bad": [
+     [
+      [
+       2,
+       3,
+       7,
+       9
+      ],
+      3,
+      "no-shortest-CES"
+     ]
+    ],
+    "cycles": [
+     [
+      2,
+      3,
+      7,
+      9
+     ]
+    ],
+    "e": [
+     4,
+     11
+    ],
+    "g6": "K??E@rCMMIFS",
+    "ncyc": 1
+   },
+   "validation": {
+    "cycles": false,
+    "feasible": true,
+    "fixed_edge": true,
+    "minimum_fvs_member": true,
+    "n12": true,
+    "one_bad_record": false,
+    "tau": true
+   }
+  },
+  {
+   "record": {
+    "J": [
+     [
+      0,
+      6
+     ],
+     [
+      0,
+      8
+     ],
+     [
+      1,
+      8
+     ],
+     [
+      2,
+      7
+     ],
+     [
+      2,
+      9
+     ],
+     [
+      4,
+      7
+     ],
+     [
+      4,
+      9
+     ],
+     [
+      6,
+      11
+     ]
+    ],
+    "S": [
+     2,
+     4,
+     6,
+     8
+    ],
+    "a1_good": 0,
+    "bad": [
+     [
+      [
+       2,
+       4,
+       7,
+       9
+      ],
+      3,
+      "no-shortest-CES"
+     ]
+    ],
+    "cycles": [
+     [
+      2,
+      4,
+      7,
+      9
+     ]
+    ],
+    "e": [
+     3,
+     11
+    ],
+    "g6": "K??E@rCMMIFS",
+    "ncyc": 1
+   },
+   "validation": {
+    "cycles": false,
+    "feasible": true,
+    "fixed_edge": true,
+    "minimum_fvs_member": true,
+    "n12": true,
+    "one_bad_record": false,
+    "tau": true
+   }
+  },
+  {
+   "record": {
+    "J": [
+     [
+      0,
+      8
+     ],
+     [
+      1,
+      6
+     ],
+     [
+      1,
+      8
+     ],
+     [
+      2,
+      7
+     ],
+     [
+      2,
+      9
+     ],
+     [
+      4,
+      7
+     ],
+     [
+      4,
+      9
+     ],
+     [
+      6,
+      11
+     ]
+    ],
+    "S": [
+     2,
+     4,
+     6,
+     8
+    ],
+    "a1_good": 0,
+    "bad": [
+     [
+      [
+       2,
+       4,
+       7,
+       9
+      ],
+      3,
+      "no-shortest-CES"
+     ]
+    ],
+    "cycles": [
+     [
+      2,
+      4,
+      7,
+      9
+     ]
+    ],
+    "e": [
+     3,
+     11
+    ],
+    "g6": "K??E@rCMMIFS",
+    "ncyc": 1
+   },
+   "validation": {
+    "cycles": false,
+    "feasible": true,
+    "fixed_edge": true,
+    "minimum_fvs_member": true,
+    "n12": true,
+    "one_bad_record": false,
+    "tau": true
+   }
+  },
+  {
+   "record": {
+    "J": [
+     [
+      0,
+      6
+     ],
+     [
+      0,
+      8
+     ],
+     [
+      1,
+      8
+     ],
+     [
+      3,
+      7
+     ],
+     [
+      3,
+      9
+     ],
+     [
+      4,
+      7
+     ],
+     [
+      4,
+      9
+     ],
+     [
+      6,
+      11
+     ]
+    ],
+    "S": [
+     3,
+     4,
+     6,
+     8
+    ],
+    "a1_good": 0,
+    "bad": [
+     [
+      [
+       3,
+       4,
+       7,
+       9
+      ],
+      3,
+      "no-shortest-CES"
+     ]
+    ],
+    "cycles": [
+     [
+      3,
+      4,
+      7,
+      9
+     ]
+    ],
+    "e": [
+     2,
+     11
+    ],
+    "g6": "K??E@rCMMIFS",
+    "ncyc": 1
+   },
+   "validation": {
+    "cycles": false,
+    "feasible": true,
+    "fixed_edge": true,
+    "minimum_fvs_member": true,
+    "n12": true,
+    "one_bad_record": false,
+    "tau": true
+   }
+  },
+  {
+   "record": {
+    "J": [
+     [
+      0,
+      8
+     ],
+     [
+      1,
+      6
+     ],
+     [
+      1,
+      8
+     ],
+     [
+      3,
+      7
+     ],
+     [
+      3,
+      9
+     ],
+     [
+      4,
+      7
+     ],
+     [
+      4,
+      9
+     ],
+     [
+      6,
+      11
+     ]
+    ],
+    "S": [
+     3,
+     4,
+     6,
+     8
+    ],
+    "a1_good": 0,
+    "bad": [
+     [
+      [
+       3,
+       4,
+       7,
+       9
+      ],
+      3,
+      "no-shortest-CES"
+     ]
+    ],
+    "cycles": [
+     [
+      3,
+      4,
+      7,
+      9
+     ]
+    ],
+    "e": [
+     2,
+     11
+    ],
+    "g6": "K??E@rCMMIFS",
+    "ncyc": 1
+   },
+   "validation": {
+    "cycles": false,
+    "feasible": true,
+    "fixed_edge": true,
+    "minimum_fvs_member": true,
+    "n12": true,
+    "one_bad_record": false,
+    "tau": true
+   }
+  },
+  {
+   "record": {
+    "J": [
+     [
+      0,
+      6
+     ],
+     [
+      0,
+      9
+     ],
+     [
+      1,
+      6
+     ],
+     [
+      1,
+      9
+     ],
+     [
+      2,
+      7
+     ],
+     [
+      2,
+      11
+     ],
+     [
+      3,
+      11
+     ],
+     [
+      4,
+      7
+     ]
+    ],
+    "S": [
+     6,
+     7,
+     9,
+     11
+    ],
+    "a1_good": 0,
+    "bad": [
+     [
+      [
+       0,
+       1,
+       6,
+       9
+      ],
+      3,
+      "no-shortest-CES"
+     ]
+    ],
+    "cycles": [
+     [
+      0,
+      1,
+      6,
+      9
+     ]
+    ],
+    "e": [
+     4,
+     10
+    ],
+    "g6": "K??E@osqEW]_",
+    "ncyc": 1
+   },
+   "validation": {
+    "cycles": false,
+    "feasible": true,
+    "fixed_edge": true,
+    "minimum_fvs_member": true,
+    "n12": true,
+    "one_bad_record": false,
+    "tau": true
+   }
+  },
+  {
+   "record": {
+    "J": [
+     [
+      0,
+      6
+     ],
+     [
+      0,
+      9
+     ],
+     [
+      1,
+      6
+     ],
+     [
+      1,
+      9
+     ],
+     [
+      2,
+      11
+     ],
+     [
+      3,
+      7
+     ],
+     [
+      3,
+      11
+     ],
+     [
+      4,
+      7
+     ]
+    ],
+    "S": [
+     6,
+     7,
+     9,
+     11
+    ],
+    "a1_good": 0,
+    "bad": [
+     [
+      [
+       0,
+       1,
+       6,
+       9
+      ],
+      3,
+      "no-shortest-CES"
+     ]
+    ],
+    "cycles": [
+     [
+      0,
+      1,
+      6,
+      9
+     ]
+    ],
+    "e": [
+     4,
+     10
+    ],
+    "g6": "K??E@osqEW]_",
+    "ncyc": 1
+   },
+   "validation": {
+    "cycles": false,
+    "feasible": true,
+    "fixed_edge": true,
+    "minimum_fvs_member": true,
+    "n12": true,
+    "one_bad_record": false,
+    "tau": true
+   }
+  },
+  {
+   "record": {
+    "J": [
+     [
+      0,
+      6
+     ],
+     [
+      0,
+      7
+     ],
+     [
+      1,
+      6
+     ],
+     [
+      3,
+      7
+     ],
+     [
+      4,
+      9
+     ],
+     [
+      4,
+      10
+     ],
+     [
+      5,
+      9
+     ],
+     [
+      5,
+      10
+     ]
+    ],
+    "S": [
+     6,
+     7,
+     9,
+     10
+    ],
+    "a1_good": 0,
+    "bad": [
+     [
+      [
+       4,
+       5,
+       9,
+       10
+      ],
+      3,
+      "no-shortest-CES"
+     ]
+    ],
+    "cycles": [
+     [
+      4,
+      5,
+      9,
+      10
+     ]
+    ],
+    "e": [
+     3,
+     11
+    ],
+    "g6": "K??FEb_F?wR_",
+    "ncyc": 1
+   },
+   "validation": {
+    "cycles": false,
+    "feasible": true,
+    "fixed_edge": true,
+    "minimum_fvs_member": true,
+    "n12": true,
+    "one_bad_record": false,
+    "tau": true
+   }
+  },
+  {
+   "record": {
+    "J": [
+     [
+      0,
+      6
+     ],
+     [
+      1,
+      6
+     ],
+     [
+      1,
+      7
+     ],
+     [
+      3,
+      7
+     ],
+     [
+      4,
+      9
+     ],
+     [
+      4,
+      10
+     ],
+     [
+      5,
+      9
+     ],
+     [
+      5,
+      10
+     ]
+    ],
+    "S": [
+     6,
+     7,
+     9,
+     10
+    ],
+    "a1_good": 0,
+    "bad": [
+     [
+      [
+       4,
+       5,
+       9,
+       10
+      ],
+      3,
+      "no-shortest-CES"
+     ]
+    ],
+    "cycles": [
+     [
+      4,
+      5,
+      9,
+      10
+     ]
+    ],
+    "e": [
+     3,
+     11
+    ],
+    "g6": "K??FEb_F?wR_",
+    "ncyc": 1
+   },
+   "validation": {
+    "cycles": false,
+    "feasible": true,
+    "fixed_edge": true,
+    "minimum_fvs_member": true,
+    "n12": true,
+    "one_bad_record": false,
+    "tau": true
+   }
+  },
+  {
+   "record": {
+    "J": [
+     [
+      0,
+      7
+     ],
+     [
+      0,
+      8
+     ],
+     [
+      1,
+      8
+     ],
+     [
+      3,
+      7
+     ],
+     [
+      4,
+      9
+     ],
+     [
+      4,
+      10
+     ],
+     [
+      5,
+      9
+     ],
+     [
+      5,
+      10
+     ]
+    ],
+    "S": [
+     7,
+     8,
+     9,
+     10
+    ],
+    "a1_good": 0,
+    "bad": [
+     [
+      [
+       4,
+       5,
+       9,
+       10
+      ],
+      3,
+      "no-shortest-CES"
+     ]
+    ],
+    "cycles": [
+     [
+      4,
+      5,
+      9,
+      10
+     ]
+    ],
+    "e": [
+     3,
+     11
+    ],
+    "g6": "K??FEb_F?wR_",
+    "ncyc": 1
+   },
+   "validation": {
+    "cycles": false,
+    "feasible": true,
+    "fixed_edge": true,
+    "minimum_fvs_member": true,
+    "n12": true,
+    "one_bad_record": false,
+    "tau": true
+   }
+  },
+  {
+   "record": {
+    "J": [
+     [
+      0,
+      8
+     ],
+     [
+      1,
+      7
+     ],
+     [
+      1,
+      8
+     ],
+     [
+      3,
+      7
+     ],
+     [
+      4,
+      9
+     ],
+     [
+      4,
+      10
+     ],
+     [
+      5,
+      9
+     ],
+     [
+      5,
+      10
+     ]
+    ],
+    "S": [
+     7,
+     8,
+     9,
+     10
+    ],
+    "a1_good": 0,
+    "bad": [
+     [
+      [
+       4,
+       5,
+       9,
+       10
+      ],
+      3,
+      "no-shortest-CES"
+     ]
+    ],
+    "cycles": [
+     [
+      4,
+      5,
+      9,
+      10
+     ]
+    ],
+    "e": [
+     3,
+     11
+    ],
+    "g6": "K??FEb_F?wR_",
+    "ncyc": 1
+   },
+   "validation": {
+    "cycles": false,
+    "feasible": true,
+    "fixed_edge": true,
+    "minimum_fvs_member": true,
+    "n12": true,
+    "one_bad_record": false,
+    "tau": true
+   }
+  },
+  {
+   "record": {
+    "J": [
+     [
+      0,
+      6
+     ],
+     [
+      0,
+      8
+     ],
+     [
+      1,
+      6
+     ],
+     [
+      1,
+      7
+     ],
+     [
+      4,
+      10
+     ],
+     [
+      4,
+      11
+     ],
+     [
+      5,
+      10
+     ],
+     [
+      5,
+      11
+     ]
+    ],
+    "S": [
+     0,
+     1,
+     4,
+     5
+    ],
+    "a1_good": 0,
+    "bad": [
+     [
+      [
+       4,
+       5,
+       10,
+       11
+      ],
+      3,
+      "no-shortest-CES"
+     ]
+    ],
+    "cycles": [
+     [
+      4,
+      5,
+      10,
+      11
+     ]
+    ],
+    "e": [
+     2,
+     8
+    ],
+    "g6": "K??FEag[?wJ_",
+    "ncyc": 1
+   },
+   "validation": {
+    "cycles": false,
+    "feasible": true,
+    "fixed_edge": true,
+    "minimum_fvs_member": true,
+    "n12": true,
+    "one_bad_record": false,
+    "tau": true
+   }
+  },
+  {
+   "record": {
+    "J": [
+     [
+      0,
+      7
+     ],
+     [
+      0,
+      8
+     ],
+     [
+      1,
+      6
+     ],
+     [
+      1,
+      7
+     ],
+     [
+      4,
+      10
+     ],
+     [
+      4,
+      11
+     ],
+     [
+      5,
+      10
+     ],
+     [
+      5,
+      11
+     ]
+    ],
+    "S": [
+     0,
+     1,
+     4,
+     5
+    ],
+    "a1_good": 0,
+    "bad": [
+     [
+      [
+       4,
+       5,
+       10,
+       11
+      ],
+      3,
+      "no-shortest-CES"
+     ]
+    ],
+    "cycles": [
+     [
+      4,
+      5,
+      10,
+      11
+     ]
+    ],
+    "e": [
+     2,
+     8
+    ],
+    "g6": "K??FEag[?wJ_",
+    "ncyc": 1
+   },
+   "validation": {
+    "cycles": false,
+    "feasible": true,
+    "fixed_edge": true,
+    "minimum_fvs_member": true,
+    "n12": true,
+    "one_bad_record": false,
+    "tau": true
+   }
+  },
+  {
+   "record": {
+    "J": [
+     [
+      1,
+      6
+     ],
+     [
+      1,
+      9
+     ],
+     [
+      2,
+      6
+     ],
+     [
+      2,
+      8
+     ],
+     [
+      4,
+      10
+     ],
+     [
+      4,
+      11
+     ],
+     [
+      5,
+      10
+     ],
+     [
+      5,
+      11
+     ]
+    ],
+    "S": [
+     1,
+     2,
+     4,
+     5
+    ],
+    "a1_good": 0,
+    "bad": [
+     [
+      [
+       4,
+       5,
+       10,
+       11
+      ],
+      3,
+      "no-shortest-CES"
+     ]
+    ],
+    "cycles": [
+     [
+      4,
+      5,
+      10,
+      11
+     ]
+    ],
+    "e": [
+     0,
+     8
+    ],
+    "g6": "K??FEag[?wJ_",
+    "ncyc": 1
+   },
+   "validation": {
+    "cycles": false,
+    "feasible": true,
+    "fixed_edge": true,
+    "minimum_fvs_member": true,
+    "n12": true,
+    "one_bad_record": false,
+    "tau": true
+   }
+  },
+  {
+   "record": {
+    "J": [
+     [
+      1,
+      6
+     ],
+     [
+      1,
+      9
+     ],
+     [
+      2,
+      8
+     ],
+     [
+      2,
+      9
+     ],
+     [
+      4,
+      10
+     ],
+     [
+      4,
+      11
+     ],
+     [
+      5,
+      10
+     ],
+     [
+      5,
+      11
+     ]
+    ],
+    "S": [
+     1,
+     2,
+     4,
+     5
+    ],
+    "a1_good": 0,
+    "bad": [
+     [
+      [
+       4,
+       5,
+       10,
+       11
+      ],
+      3,
+      "no-shortest-CES"
+     ]
+    ],
+    "cycles": [
+     [
+      4,
+      5,
+      10,
+      11
+     ]
+    ],
+    "e": [
+     0,
+     8
+    ],
+    "g6": "K??FEag[?wJ_",
+    "ncyc": 1
+   },
+   "validation": {
+    "cycles": false,
+    "feasible": true,
+    "fixed_edge": true,
+    "minimum_fvs_member": true,
+    "n12": true,
+    "one_bad_record": false,
+    "tau": true
+   }
+  },
+  {
+   "record": {
+    "J": [
+     [
+      1,
+      6
+     ],
+     [
+      1,
+      8
+     ],
+     [
+      2,
+      6
+     ],
+     [
+      2,
+      8
+     ],
+     [
+      3,
+      7
+     ],
+     [
+      3,
+      11
+     ],
+     [
+      4,
+      11
+     ],
+     [
+      7,
+      10
+     ]
+    ],
+    "S": [
+     1,
+     2,
+     7,
+     11
+    ],
+    "a1_good": 0,
+    "bad": [
+     [
+      [
+       1,
+       2,
+       6,
+       8
+      ],
+      3,
+      "no-shortest-CES"
+     ]
+    ],
+    "cycles": [
+     [
+      1,
+      2,
+      6,
+      8
+     ]
+    ],
+    "e": [
+     0,
+     10
+    ],
+    "g6": "K?AB?r_FfABp",
+    "ncyc": 1
+   },
+   "validation": {
+    "cycles": false,
+    "feasible": true,
+    "fixed_edge": true,
+    "minimum_fvs_member": true,
+    "n12": true,
+    "one_bad_record": false,
+    "tau": true
+   }
+  },
+  {
+   "record": {
+    "J": [
+     [
+      1,
+      6
+     ],
+     [
+      1,
+      8
+     ],
+     [
+      2,
+      6
+     ],
+     [
+      2,
+      8
+     ],
+     [
+      3,
+      11
+     ],
+     [
+      4,
+      7
+     ],
+     [
+      4,
+      11
+     ],
+     [
+      7,
+      10
+     ]
+    ],
+    "S": [
+     1,
+     2,
+     7,
+     11
+    ],
+    "a1_good": 0,
+    "bad": [
+     [
+      [
+       1,
+       2,
+       6,
+       8
+      ],
+      3,
+      "no-shortest-CES"
+     ]
+    ],
+    "cycles": [
+     [
+      1,
+      2,
+      6,
+      8
+     ]
+    ],
+    "e": [
+     0,
+     10
+    ],
+    "g6": "K?AB?r_FfABp",
+    "ncyc": 1
+   },
+   "validation": {
+    "cycles": false,
+    "feasible": true,
+    "fixed_edge": true,
+    "minimum_fvs_member": true,
+    "n12": true,
+    "one_bad_record": false,
+    "tau": true
+   }
+  },
+  {
+   "record": {
+    "J": [
+     [
+      1,
+      6
+     ],
+     [
+      1,
+      9
+     ],
+     [
+      2,
+      6
+     ],
+     [
+      2,
+      9
+     ],
+     [
+      3,
+      7
+     ],
+     [
+      3,
+      10
+     ],
+     [
+      4,
+      10
+     ],
+     [
+      7,
+      11
+     ]
+    ],
+    "S": [
+     1,
+     2,
+     7,
+     10
+    ],
+    "a1_good": 0,
+    "bad": [
+     [
+      [
+       1,
+       2,
+       6,
+       9
+      ],
+      3,
+      "no-shortest-CES"
+     ]
+    ],
+    "cycles": [
+     [
+      1,
+      2,
+      6,
+      9
+     ]
+    ],
+    "e": [
+     0,
+     11
+    ],
+    "g6": "K?AB?oYw?{{K",
+    "ncyc": 1
+   },
+   "validation": {
+    "cycles": false,
+    "feasible": true,
+    "fixed_edge": true,
+    "minimum_fvs_member": true,
+    "n12": true,
+    "one_bad_record": false,
+    "tau": true
+   }
+  },
+  {
+   "record": {
+    "J": [
+     [
+      1,
+      6
+     ],
+     [
+      1,
+      9
+     ],
+     [
+      2,
+      6
+     ],
+     [
+      2,
+      9
+     ],
+     [
+      3,
+      10
+     ],
+     [
+      4,
+      7
+     ],
+     [
+      4,
+      10
+     ],
+     [
+      7,
+      11
+     ]
+    ],
+    "S": [
+     1,
+     2,
+     7,
+     10
+    ],
+    "a1_good": 0,
+    "bad": [
+     [
+      [
+       1,
+       2,
+       6,
+       9
+      ],
+      3,
+      "no-shortest-CES"
+     ]
+    ],
+    "cycles": [
+     [
+      1,
+      2,
+      6,
+      9
+     ]
+    ],
+    "e": [
+     0,
+     11
+    ],
+    "g6": "K?AB?oYw?{{K",
+    "ncyc": 1
+   },
+   "validation": {
+    "cycles": false,
+    "feasible": true,
+    "fixed_edge": true,
+    "minimum_fvs_member": true,
+    "n12": true,
+    "one_bad_record": false,
+    "tau": true
+   }
+  },
+  {
+   "record": {
+    "J": [
+     [
+      1,
+      6
+     ],
+     [
+      1,
+      9
+     ],
+     [
+      2,
+      6
+     ],
+     [
+      2,
+      9
+     ],
+     [
+      3,
+      7
+     ],
+     [
+      3,
+      10
+     ],
+     [
+      4,
+      10
+     ],
+     [
+      7,
+      11
+     ]
+    ],
+    "S": [
+     1,
+     2,
+     7,
+     10
+    ],
+    "a1_good": 0,
+    "bad": [
+     [
+      [
+       1,
+       2,
+       6,
+       9
+      ],
+      3,
+      "no-shortest-CES"
+     ]
+    ],
+    "cycles": [
+     [
+      1,
+      2,
+      6,
+      9
+     ]
+    ],
+    "e": [
+     8,
+     11
+    ],
+    "g6": "K?AB?oYw?{{K",
+    "ncyc": 1
+   },
+   "validation": {
+    "cycles": false,
+    "feasible": true,
+    "fixed_edge": true,
+    "minimum_fvs_member": true,
+    "n12": true,
+    "one_bad_record": false,
+    "tau": true
+   }
+  },
+  {
+   "record": {
+    "J": [
+     [
+      1,
+      6
+     ],
+     [
+      1,
+      9
+     ],
+     [
+      2,
+      6
+     ],
+     [
+      2,
+      9
+     ],
+     [
+      3,
+      10
+     ],
+     [
+      4,
+      7
+     ],
+     [
+      4,
+      10
+     ],
+     [
+      7,
+      11
+     ]
+    ],
+    "S": [
+     1,
+     2,
+     7,
+     10
+    ],
+    "a1_good": 0,
+    "bad": [
+     [
+      [
+       1,
+       2,
+       6,
+       9
+      ],
+      3,
+      "no-shortest-CES"
+     ]
+    ],
+    "cycles": [
+     [
+      1,
+      2,
+      6,
+      9
+     ]
+    ],
+    "e": [
+     8,
+     11
+    ],
+    "g6": "K?AB?oYw?{{K",
+    "ncyc": 1
+   },
+   "validation": {
+    "cycles": false,
+    "feasible": true,
+    "fixed_edge": true,
+    "minimum_fvs_member": true,
+    "n12": true,
+    "one_bad_record": false,
+    "tau": true
+   }
+  },
+  {
+   "record": {
+    "J": [
+     [
+      0,
+      7
+     ],
+     [
+      0,
+      8
+     ],
+     [
+      2,
+      7
+     ],
+     [
+      2,
+      10
+     ],
+     [
+      3,
+      9
+     ],
+     [
+      3,
+      11
+     ],
+     [
+      4,
+      9
+     ],
+     [
+      4,
+      11
+     ]
+    ],
+    "S": [
+     0,
+     2,
+     3,
+     4
+    ],
+    "a1_good": 0,
+    "bad": [
+     [
+      [
+       3,
+       4,
+       9,
+       11
+      ],
+      3,
+      "no-shortest-CES"
+     ]
+    ],
+    "cycles": [
+     [
+      3,
+      4,
+      9,
+      11
+     ]
+    ],
+    "e": [
+     5,
+     10
+    ],
+    "g6": "K??EFB_f@wZ_",
+    "ncyc": 1
+   },
+   "validation": {
+    "cycles": false,
+    "feasible": true,
+    "fixed_edge": true,
+    "minimum_fvs_member": true,
+    "n12": true,
+    "one_bad_record": false,
+    "tau": true
+   }
+  },
+  {
+   "record": {
+    "J": [
+     [
+      0,
+      7
+     ],
+     [
+      0,
+      8
+     ],
+     [
+      2,
+      8
+     ],
+     [
+      2,
+      10
+     ],
+     [
+      3,
+      9
+     ],
+     [
+      3,
+      11
+     ],
+     [
+      4,
+      9
+     ],
+     [
+      4,
+      11
+     ]
+    ],
+    "S": [
+     0,
+     2,
+     3,
+     4
+    ],
+    "a1_good": 0,
+    "bad": [
+     [
+      [
+       3,
+       4,
+       9,
+       11
+      ],
+      3,
+      "no-shortest-CES"
+     ]
+    ],
+    "cycles": [
+     [
+      3,
+      4,
+      9,
+      11
+     ]
+    ],
+    "e": [
+     5,
+     10
+    ],
+    "g6": "K??EFB_f@wZ_",
+    "ncyc": 1
+   },
+   "validation": {
+    "cycles": false,
+    "feasible": true,
+    "fixed_edge": true,
+    "minimum_fvs_member": true,
+    "n12": true,
+    "one_bad_record": false,
+    "tau": true
+   }
+  },
+  {
+   "record": {
+    "J": [
+     [
+      0,
+      7
+     ],
+     [
+      0,
+      8
+     ],
+     [
+      2,
+      7
+     ],
+     [
+      2,
+      10
+     ],
+     [
+      3,
+      9
+     ],
+     [
+      3,
+      11
+     ],
+     [
+      5,
+      9
+     ],
+     [
+      5,
+      11
+     ]
+    ],
+    "S": [
+     0,
+     2,
+     3,
+     5
+    ],
+    "a1_good": 0,
+    "bad": [
+     [
+      [
+       3,
+       5,
+       9,
+       11
+      ],
+      3,
+      "no-shortest-CES"
+     ]
+    ],
+    "cycles": [
+     [
+      3,
+      5,
+      9,
+      11
+     ]
+    ],
+    "e": [
+     4,
+     10
+    ],
+    "g6": "K??EFB_f@wZ_",
+    "ncyc": 1
+   },
+   "validation": {
+    "cycles": false,
+    "feasible": true,
+    "fixed_edge": true,
+    "minimum_fvs_member": true,
+    "n12": true,
+    "one_bad_record": false,
+    "tau": true
+   }
+  },
+  {
+   "record": {
+    "J": [
+     [
+      0,
+      7
+     ],
+     [
+      0,
+      8
+     ],
+     [
+      2,
+      8
+     ],
+     [
+      2,
+      10
+     ],
+     [
+      3,
+      9
+     ],
+     [
+      3,
+      11
+     ],
+     [
+      5,
+      9
+     ],
+     [
+      5,
+      11
+     ]
+    ],
+    "S": [
+     0,
+     2,
+     3,
+     5
+    ],
+    "a1_good": 0,
+    "bad": [
+     [
+      [
+       3,
+       5,
+       9,
+       11
+      ],
+      3,
+      "no-shortest-CES"
+     ]
+    ],
+    "cycles": [
+     [
+      3,
+      5,
+      9,
+      11
+     ]
+    ],
+    "e": [
+     4,
+     10
+    ],
+    "g6": "K??EFB_f@wZ_",
+    "ncyc": 1
+   },
+   "validation": {
+    "cycles": false,
+    "feasible": true,
+    "fixed_edge": true,
+    "minimum_fvs_member": true,
+    "n12": true,
+    "one_bad_record": false,
+    "tau": true
+   }
+  },
+  {
+   "record": {
+    "J": [
+     [
+      0,
+      7
+     ],
+     [
+      0,
+      8
+     ],
+     [
+      2,
+      7
+     ],
+     [
+      2,
+      10
+     ],
+     [
+      4,
+      9
+     ],
+     [
+      4,
+      11
+     ],
+     [
+      5,
+      9
+     ],
+     [
+      5,
+      11
+     ]
+    ],
+    "S": [
+     0,
+     2,
+     4,
+     5
+    ],
+    "a1_good": 0,
+    "bad": [
+     [
+      [
+       4,
+       5,
+       9,
+       11
+      ],
+      3,
+      "no-shortest-CES"
+     ]
+    ],
+    "cycles": [
+     [
+      4,
+      5,
+      9,
+      11
+     ]
+    ],
+    "e": [
+     3,
+     10
+    ],
+    "g6": "K??EFB_f@wZ_",
+    "ncyc": 1
+   },
+   "validation": {
+    "cycles": false,
+    "feasible": true,
+    "fixed_edge": true,
+    "minimum_fvs_member": true,
+    "n12": true,
+    "one_bad_record": false,
+    "tau": true
+   }
+  },
+  {
+   "record": {
+    "J": [
+     [
+      0,
+      7
+     ],
+     [
+      0,
+      8
+     ],
+     [
+      2,
+      8
+     ],
+     [
+      2,
+      10
+     ],
+     [
+      4,
+      9
+     ],
+     [
+      4,
+      11
+     ],
+     [
+      5,
+      9
+     ],
+     [
+      5,
+      11
+     ]
+    ],
+    "S": [
+     0,
+     2,
+     4,
+     5
+    ],
+    "a1_good": 0,
+    "bad": [
+     [
+      [
+       4,
+       5,
+       9,
+       11
+      ],
+      3,
+      "no-shortest-CES"
+     ]
+    ],
+    "cycles": [
+     [
+      4,
+      5,
+      9,
+      11
+     ]
+    ],
+    "e": [
+     3,
+     10
+    ],
+    "g6": "K??EFB_f@wZ_",
+    "ncyc": 1
+   },
+   "validation": {
+    "cycles": false,
+    "feasible": true,
+    "fixed_edge": true,
+    "minimum_fvs_member": true,
+    "n12": true,
+    "one_bad_record": false,
+    "tau": true
+   }
+  },
+  {
+   "record": {
+    "J": [
+     [
+      0,
+      6
+     ],
+     [
+      0,
+      9
+     ],
+     [
+      1,
+      9
+     ],
+     [
+      2,
+      7
+     ],
+     [
+      2,
+      8
+     ],
+     [
+      3,
+      7
+     ],
+     [
+      3,
+      8
+     ],
+     [
+      6,
+      11
+     ]
+    ],
+    "S": [
+     2,
+     3,
+     6,
+     9
+    ],
+    "a1_good": 0,
+    "bad": [
+     [
+      [
+       2,
+       3,
+       7,
+       8
+      ],
+      3,
+      "no-shortest-CES"
+     ]
+    ],
+    "cycles": [
+     [
+      2,
+      3,
+      7,
+      8
+     ]
+    ],
+    "e": [
+     4,
+     11
+    ],
+    "g6": "K??E@owpEIFQ",
+    "ncyc": 1
+   },
+   "validation": {
+    "cycles": false,
+    "feasible": true,
+    "fixed_edge": true,
+    "minimum_fvs_member": true,
+    "n12": true,
+    "one_bad_record": false,
+    "tau": true
+   }
+  },
+  {
+   "record": {
+    "J": [
+     [
+      0,
+      9
+     ],
+     [
+      1,
+      6
+     ],
+     [
+      1,
+      9
+     ],
+     [
+      2,
+      7
+     ],
+     [
+      2,
+      8
+     ],
+     [
+      3,
+      7
+     ],
+     [
+      3,
+      8
+     ],
+     [
+      6,
+      11
+     ]
+    ],
+    "S": [
+     2,
+     3,
+     6,
+     9
+    ],
+    "a1_good": 0,
+    "bad": [
+     [
+      [
+       2,
+       3,
+       7,
+       8
+      ],
+      3,
+      "no-shortest-CES"
+     ]
+    ],
+    "cycles": [
+     [
+      2,
+      3,
+      7,
+      8
+     ]
+    ],
+    "e": [
+     4,
+     11
+    ],
+    "g6": "K??E@owpEIFQ",
+    "ncyc": 1
+   },
+   "validation": {
+    "cycles": false,
+    "feasible": true,
+    "fixed_edge": true,
+    "minimum_fvs_member": true,
+    "n12": true,
+    "one_bad_record": false,
+    "tau": true
+   }
+  },
+  {
+   "record": {
+    "J": [
+     [
+      0,
+      6
+     ],
+     [
+      0,
+      10
+     ],
+     [
+      1,
+      10
+     ],
+     [
+      2,
+      7
+     ],
+     [
+      2,
+      8
+     ],
+     [
+      3,
+      7
+     ],
+     [
+      3,
+      8
+     ],
+     [
+      6,
+      11
+     ]
+    ],
+    "S": [
+     2,
+     3,
+     6,
+     10
+    ],
+    "a1_good": 0,
+    "bad": [
+     [
+      [
+       2,
+       3,
+       7,
+       8
+      ],
+      3,
+      "no-shortest-CES"
+     ]
+    ],
+    "cycles": [
+     [
+      2,
+      3,
+      7,
+      8
+     ]
+    ],
+    "e": [
+     4,
+     11
+    ],
+    "g6": "K??E@owpEIFQ",
+    "ncyc": 1
+   },
+   "validation": {
+    "cycles": false,
+    "feasible": true,
+    "fixed_edge": true,
+    "minimum_fvs_member": true,
+    "n12": true,
+    "one_bad_record": false,
+    "tau": true
+   }
+  },
+  {
+   "record": {
+    "J": [
+     [
+      0,
+      10
+     ],
+     [
+      1,
+      6
+     ],
+     [
+      1,
+      10
+     ],
+     [
+      2,
+      7
+     ],
+     [
+      2,
+      8
+     ],
+     [
+      3,
+      7
+     ],
+     [
+      3,
+      8
+     ],
+     [
+      6,
+      11
+     ]
+    ],
+    "S": [
+     2,
+     3,
+     6,
+     10
+    ],
+    "a1_good": 0,
+    "bad": [
+     [
+      [
+       2,
+       3,
+       7,
+       8
+      ],
+      3,
+      "no-shortest-CES"
+     ]
+    ],
+    "cycles": [
+     [
+      2,
+      3,
+      7,
+      8
+     ]
+    ],
+    "e": [
+     4,
+     11
+    ],
+    "g6": "K??E@owpEIFQ",
+    "ncyc": 1
+   },
+   "validation": {
+    "cycles": false,
+    "feasible": true,
+    "fixed_edge": true,
+    "minimum_fvs_member": true,
+    "n12": true,
+    "one_bad_record": false,
+    "tau": true
+   }
+  },
+  {
+   "record": {
+    "J": [
+     [
+      0,
+      6
+     ],
+     [
+      0,
+      10
+     ],
+     [
+      1,
+      10
+     ],
+     [
+      2,
+      7
+     ],
+     [
+      2,
+      8
+     ],
+     [
+      3,
+      7
+     ],
+     [
+      3,
+      8
+     ],
+     [
+      6,
+      11
+     ]
+    ],
+    "S": [
+     2,
+     3,
+     6,
+     10
+    ],
+    "a1_good": 0,
+    "bad": [
+     [
+      [
+       2,
+       3,
+       7,
+       8
+      ],
+      3,
+      "no-shortest-CES"
+     ]
+    ],
+    "cycles": [
+     [
+      2,
+      3,
+      7,
+      8
+     ]
+    ],
+    "e": [
+     9,
+     11
+    ],
+    "g6": "K??E@owpEIFQ",
+    "ncyc": 1
+   },
+   "validation": {
+    "cycles": false,
+    "feasible": true,
+    "fixed_edge": true,
+    "minimum_fvs_member": true,
+    "n12": true,
+    "one_bad_record": false,
+    "tau": true
+   }
+  },
+  {
+   "record": {
+    "J": [
+     [
+      0,
+      10
+     ],
+     [
+      1,
+      6
+     ],
+     [
+      1,
+      10
+     ],
+     [
+      2,
+      7
+     ],
+     [
+      2,
+      8
+     ],
+     [
+      3,
+      7
+     ],
+     [
+      3,
+      8
+     ],
+     [
+      6,
+      11
+     ]
+    ],
+    "S": [
+     2,
+     3,
+     6,
+     10
+    ],
+    "a1_good": 0,
+    "bad": [
+     [
+      [
+       2,
+       3,
+       7,
+       8
+      ],
+      3,
+      "no-shortest-CES"
+     ]
+    ],
+    "cycles": [
+     [
+      2,
+      3,
+      7,
+      8
+     ]
+    ],
+    "e": [
+     9,
+     11
+    ],
+    "g6": "K??E@owpEIFQ",
+    "ncyc": 1
+   },
+   "validation": {
+    "cycles": false,
+    "feasible": true,
+    "fixed_edge": true,
+    "minimum_fvs_member": true,
+    "n12": true,
+    "one_bad_record": false,
+    "tau": true
+   }
+  }
+ ],
+ "invalid_replays": 1140,
+ "missing_by_shard": {
+  "11": 8,
+  "13": 4,
+  "14": 4,
+  "16": 12,
+  "25": 6,
+  "4": 10
+ },
+ "missing_records": 44,
+ "profile_1_0": 1184,
+ "saved_records": 1140,
+ "source_commit": "5cb5bb9a29718562d4d25a6902fd693f0a4677f4"
+}

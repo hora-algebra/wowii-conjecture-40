@@ -1,654 +1,299 @@
-# ATTEMPT REPORT
-
-**Branch** `attempt/2026-08-03-claude-opus-5-5047`
-**Model / harness** Claude Opus 5 (1M context), Claude Code CLI, macOS 8-core
-(6P+2E), Python 3.9.6, clang -O2, `nauty` `geng` from Homebrew.
-**Date** 2026-08-03. Clone at `main` = `0617d7a`, tags v1.0/v1.1.
-**Outcome in one line** — **SV (ATTACK.md open item 3) is FALSIFIED at n = 11**
-with certified 11-vertex witnesses, triple-checked including by the project's own
-frozen `phase0 run2`; n = 11 is minimal. Alongside that: Lemma A at n = 11 is now
-reproducible and dual-engine and is verified exhaustively at n = 12 and n = 13;
-F2 (the statement the bipartite case actually needs) is verified directly for the
-first time through n = 13; the lifting inequality (target 4, previously
-untouched) is preregistered, exhaustively scanned to n = 10 plus a prospective
-n = 11 holdout, and **proved for a structured class**; and one new lemma on the
-banked carrier-family angle is proved. No proof or counterexample for Lemma A or
-Lemma B.
-
-### Headline: SV is false
-
-`SV-FALSIFIED.md` on this branch carries the full certificate. Smallest witness
-found, 11 vertices and 15 edges, graph6 `J???FAWdVD?`:
-
-```
-E = 0-7, 0-8, 0-9, 0-10, 1-7, 1-10, 2-7, 2-10, 3-8, 3-9, 4-8, 5-9, 6-10, 7-9, 8-10
-```
-
-`0-7-9-0` and `0-8-10-0` are triangles meeting only at `0`, so no single vertex
-other than `0` is an odd-cycle transversal, and `G - 0` is bipartite: the minimum
-OCT is the **unique** set `{0}`, so SV's existential quantifier has exactly one
-candidate. And `p(G) = 3 > 2 = p(G - 0)`. SV fails.
-
-The project's own frozen engine, with its SV gold suite passing, agrees:
-`J???FAWdVD? oG=1 pG=3 elig=1 minGain=-1`. So does an independently written
-Python engine. `n = 11` is minimal: SV was re-verified here, with an engine
-written from Definition 5.4, on all 272,209 connected nonbipartite graphs with
-`n <= 9` and all 11,712,539 at `n = 10` — 0 failures, both census counts matching
-the paper exactly.
-
-Conjecture 40 is **untouched** — the paper says explicitly that a failure of SV
-would not refute it, and both witnesses satisfy it with slack 4. What dies is the
-route: Theorem 5.5 (SV + bipartite case ⇒ full conjecture) now rests on a false
-hypothesis. The other route through the same gap, the lifting inequality, is
-unharmed — LIFT-A and even LIFT-A-ALL hold on these very witnesses.
-
----
-
-## Step 0 — freshness check (network available)
-
-| source | checked | finding |
-|---|---|---|
-| (a) issues / PRs on `cozuya/wowii-conjecture-40` | `gh issue list --state all --json`, `gh pr list --state all --json` | `[]` and `[]` — none, ever |
-| (b) MathOverflow 513887 | fetched with `curl` and parsed (WebFetch is blocked for mathoverflow.net in this harness) | title *"Can the forced edges of an exact-demand capacitated selection in a bipartite incidence model form a cycle, given hereditary FVS tightness?"*, asked **2026-08-03 19:18:25Z (today)**, `answerCount = 0`, 0 comments |
-| (c) WOWII open list | `curl http://cms.uhd.edu/faculty/delavinae/research/wowII/open.html` | Conjecture 40 still carries the status letter **O** (open). The only dated annotation is DeLaViña's 2004-03-06 remark that `f(G) >= b(G)/2 + 1`, settling the path-cover-number-1 case. No status change. |
-| (d) arXiv / web | arXiv API queries `all:"Graffiti.pc"`, `all:"decycling number" AND all:"odd cycle transversal"`, `all:"forest number" AND all:"path cover number"`, `abs:"conjecture 40" AND abs:"graph"`; two web searches | Nothing on Conjecture 40 or on Lemmas A/B/SV. One recent hit: *"The 2-Domination Number and the Upper Median Degree: A Proof of Graffiti.pc Conjecture 387"* (arXiv, 2026-07-28) — different conjecture, unrelated. A `formal-conjectures` PR disproving **WOWII 103** — different conjecture. |
-
-Nothing has been resolved by others; the run's job is unchanged.
-
-## Step 0.5 — prior attempts
-
-`git fetch origin 'refs/heads/attempt/*:refs/remotes/origin/attempt/*'` brought
-nothing; `git ls-remote --heads origin` lists exactly `refs/heads/main` and
-`refs/heads/release/v1.1`. `attempts/LESSONS.md` ends with "(No entries yet.)".
-**I am the first post-v1.1 attempt.** There are no `[FALSIFIED]` or `[DEAD END]`
-entries to refute; the binding prior knowledge is ATTACK.md Step 2 plus the
-ledgers, which I read in full (`ledgers/RESULT_RECORD.md` O-1 … O-84,
-`ledgers/PHASE0_RECORD.md`, `proofs/PROOFS.md`, both challenge sheets).
-
-## Step 1 — gauntlet
-
-**Completed.** `GAUNTLET.md` on this branch covers (i) the Theorem 3.13
-reduction chain with the exact role of every ingredient and a table of what is
-load-bearing where, (ii) the abstract even-cycle system with the computation
-`rho(X) = 2|X|` for *every* `X` and `tau(G[H u S]) = 1 < m`, (iii) all three
-witnesses with the mechanism of the forcing and the exact localization each
-kills, (iv) the `T_F` normalization with proof and a precise statement of what
-it does and does not license.
-
-Two by-products of writing it:
-
-* Every witness value was re-derived with independently written code
-  (`work/wcheck.py`: fresh feasibility, forced core, `rho`, all Hall-tight
-  sets, carriers, punctures, and `tau(G[H u X])` for **every** `X ⊆ S`). All
-  recorded values reproduced.
-* **Documentation discrepancy.** `proofs/PROOFS.md` §D says "O-56 and O-63 are
-  already normalized (`S = T_F`); O-64 lies OUTSIDE the hereditary-tightness
-  class (its `S` is not a minimum FVS), so the normalization does not apply to
-  it." Measured: `tau(G[H u S])` vs `|S|` is 2 vs 4 (O-56), 3 vs 5 (O-63), 2 vs
-  3 (O-64) — **all three** are outside the class (necessarily, since a
-  hereditarily tight instance with a forced cycle is what Lemma A° forbids), and
-  **all three** satisfy `S = T_F` (O-64: `A_s = {s,u}`, `A_t = {t}`). The
-  sentence's implicature is wrong; no mathematical claim depends on it.
-
-## Step 4 — oracle contact and gold tests
-
-`shasum -a 256 -c tools/SHA256SUMS.txt` → **17/17 OK** before any use.
-Gold reproductions against `tools/README.md`:
-
-| gold | expected | got |
-|---|---|---|
-| `a1_verify.py 7` | `A1 = 143/143`, 0 failures | identical |
-| `b_hslide.py 9` | 24,195 cycles, gap `{0: 24195}`, 0 failures | identical |
-| `b_hslide.py 10` | 448,577 cycles, gap `{0: 448577}`, 0 failures | identical |
-| `forced_core.py 10` | ledger O-44: max path 8, hist `{1:127,2:55734,3:10,4:3170,6:150,8:8}` | identical |
-
-Every new checker I wrote carries a **positive control** — an instance where it
-must report failure — so that a clean run is evidence rather than an artefact.
-
----
-
-## Results
-
-### R1. Lemma A at n = 11 is now a reproducible, hash-verified run
-
-Paper §4.1, footnote: *"An n=11 run over 994,607 instances reported zero cyclic
-cores and maximum forced-path length 8; that run is recorded in a preserved
-intermediate report, incompletely ledgered, and not independently reproducible
-from a completion artifact. We therefore do not claim exhaustive n=11
-verification of Lemma A."* `proofs/PROOFS.md` §D and
-`proofs/LEMMA-A-CHALLENGE.md` carry the same caveat.
-
-Re-ran the shipped, hash-verified checker:
-
-```
-cd tools && python3 forced_core.py 11
-```
-```
-instances = 994607
-CYCLIC forced core (= all-R3 cycle exists = Lemma A FAILS) = 0
-instances with empty forced core = 514372
-non-forest forced cores = 0
-max forced-core path length (edges) over acyclic cores = 8
-forced-core path-length histogram = {1: 740, 2: 457749, 3: 52, 4: 20732, 6: 930, 8: 32}
-forced-core component-size histogram = {0: 514372, 2: 1529, 3: 549874, 4: 52, 5: 20826, 7: 930, 9: 32}
-```
-414 s wall. Instance count and max path length match the footnote exactly, and
-the run is reproducible from `tools/` at the published hashes
-(`forced_core.py` `ba8b0ba5…`, plus `inv_b.py`, `experiment_b.py`,
-`eval_frozen.py`, `eval_L1_holdout.py`, all `OK` against `SHA256SUMS.txt`).
-
-**Status: COMPUTATIONALLY VERIFIED.** Universe: all 25,598 connected bipartite
-graphs on 11 vertices. The census scope is every minimum FVS with `tau >= 2`,
-every `H`-edge; the `tau <= 1` layer is omitted as trivial — an incidence cycle
-requires two `S`-vertices, and at `tau <= 1` every feasible selection is
-acyclic. This gives 994,607 instances.
-
-### R2. An independent second engine, and Lemma A exhaustively to n = 14
-
-`work/fcore.c` (sha256 `598bb06f…`) decides forcedness by the **flow**
-characterization (paper Theorem 3.10: release the incidence and ask for a
-residual augmentation) rather than by intersecting every feasible selection.
-Algorithmically distinct; no shared code.
-
-*Cross-validation.* Field-for-field identical to `forced_core.py` at
-n = 8, 9, 10, 11 on every reported quantity — instances, empty cores, cyclic
-cores, non-forest cores, max forced-path length, and both histograms.
-Two independent engines now certify Lemma A over the whole `n <= 11` universe.
-
-*Positive control.* On the three warning witnesses (not reachable from `geng`,
-so supplied explicitly) the engine reports cycle rank 1 and forced-core sizes
-8 / 4 / 6 — matching `work/wcheck.py`. So it can and does detect a cyclic core.
-
-*New frontier.*
-
-| n | connected bipartite graphs | instances `(G,S,e)` | cyclic forced cores | max forced path | runtime |
-|---|---|---|---|---|---|
-| 11 | 25,598 | 994,607 | **0** | 8 | 0.4 s |
-| 12 | 212,780 | 10,970,519 | **0** | 10 | 6.6 s |
-| 13 | 2,241,730 | 141,887,501 | **0** | 10 | 115 s |
-| **14** | **31,193,324** | **2,391,365,507** | **0** | 12 | 3,105 s |
-
-`infeasible (G,S,e) skipped = 0` at every order — an empirical confirmation of
-Corollary 3.8 (a feasible selection exists for every distinguished edge) over
-**2.55 billion** instances.
-
-The n = 14 layer alone is 2,391,365,507 instances — more than 2,400 times the
-n = 11 universe that the paper could not fully ledger — and it is clean. The
-maximum forced-core path length grows 8 (n=11) → 10 (n=12, 13) → 12 (n=14),
-roughly `n - 2`, which is worth knowing: forced cores get long, they just never
-close.
-
-**Status: COMPUTATIONALLY VERIFIED**, universe as tabulated. Previous published
-frontier: exhaustive n ≤ 10 plus the unreproducible n = 11 report.
-
-### R3. F2 verified directly, for the first time, through n = 13
-
-Theorem 3.13 needs only
-
-> **F2.** for some `e in E(H)` there is an acyclic feasible selection,
-
-and Lemma A + Lemma B + descent is a *route* to F2, not an equivalent of it. F2
-itself is not scanned anywhere in the repository. `work/f2.c` (sha256
-`e528a4ae…`) tests the stronger universal form **F2-ALL** directly, by searching
-for the acyclic selection. The census scope is every minimum FVS with
-`tau >= 2`, every `H`-edge; the `tau <= 1` layer is omitted as trivial — an
-incidence cycle requires two `S`-vertices, and at `tau <= 1` every feasible
-selection is acyclic.
-
-The search uses a reformulation derived in `GAUNTLET.md`: since every `s` has
-selected degree exactly 2, suppressing the `s` vertices carries a feasible
-selection to a multigraph on `H` with one edge per `s` and `deg(h) <= c(h)`, and
-selected cycles become cycles of that multigraph. So an acyclic feasible
-selection is exactly a **linear forest on `H` with `|S|` edges admitting a
-system of distinct representatives into `S`**; the program backtracks over that
-with incremental union-find, most-constrained `s` first.
-
-| n | instances | F2-ALL failures | F2-SOME failures | runtime |
-|---|---|---|---|---|
-| 8 | 2,186 | 0 | 0 | <0.01 s |
-| 9 | 13,003 | 0 | 0 | 0.01 s |
-| 10 | 116,216 | 0 | 0 | 0.03 s |
-| 11 | 994,607 | 0 | 0 | 0.28 s |
-| 12 | 10,970,519 | 0 | 0 | 4.3 s |
-| 13 | 141,887,501 | **0** | **0** | 85 s |
-
-Instance counts agree exactly with `fcore` at every order (independent
-enumeration). Positive control: on O-56, O-63, O-64 the search correctly finds
-**no** acyclic feasible selection.
-
-**Status: COMPUTATIONALLY VERIFIED.** At `n <= 10` this was already implied by
-Lemma A + A1/U1; at `n = 11` it was implied only modulo the unreproducible
-Lemma-A run; at `n = 12, 13` it is new, and everywhere it is now *direct*
-rather than inferred through the descent.
-
-### R4. A new proved lemma on the banked carrier-family angle
-
-ATTACK.md Step 3 target 1 records the `T_F`-normalized carrier attack as
-"banked, never spent". `LEMMA-A-CARRIER.md` §1 spends part of it.
-
-> **Lemma CS (carrier–cycle separation).** Let the forced core contain a cycle
-> `F = s_1 q_1 … s_m q_m` with `S`-side `P` and `H`-side `Q`, and put
-> `U = ⋃_{s in P} B_s` where `B_s = A_s \ {s}` is the punctured carrier. Then
-> (a) every `s in P \ U` has `deg_U(q) <= c(q) - 1 = 1` at both of its forced
-> ends; (b) if `s_i, s_{i+1}` are consecutive on `F` and both lie in `P \ U`
-> then `deg_U(q_i) = 0`; (c) hence if `P ∩ U = ∅` then no vertex of any
-> puncture is adjacent to any vertex of `Q`; (d) `U u R` is tight for every
-> `R ⊆ P \ U`.
-
-Proof (in `LEMMA-A-CARRIER.md` §1.1) is four short steps: `U` and `T_F = P u U`
-are tight by the lattice; the marginal of adding one `s in P \ U` to `U` is at
-most 2 because punctured tightness saturates every non-forced-end neighbour
-inside `B_s ⊆ U`; the telescoping sum `rho(T_F) - rho(U) = 2|P \ U|` then forces
-every marginal to be exactly 2; and applying that to two consecutive cycle
-vertices pins the shared end at `deg_U = 0`.
-
-This is the first statement that uses the whole family `{A_s : s in P}` at once
-rather than one carrier at a time. Only the Hall layer is used — feasibility,
-submodularity, the tight-set lattice, the canonical carrier, punctured tightness
-— so hereditary FVS tightness is not needed and the lemma holds on the three
-witnesses too.
-
-**Status: MATHEMATICALLY PROVED, not Lean-formalized.** Checked by
-`work/carrier.py` on abstract systems with a cyclic forced core: 798 (exhaustive
-`|S| <= 3, |H| <= 5`), 547 and 11,097 (random) — **0 failures**, with two
-negative controls firing (`CTRL-DEG2`, the O-63-refuted degree hypothesis:
-2,643 fires; `CTRL-PDIS`: `P ∩ U != ∅` in 4,931 of 11,097 cases).
-
-That last number is itself a scope warning worth recording: `P ∩ U != ∅` about
-**44%** of the time, so the clean corollary (c) is not generically available.
-
-### R5. A factorised falsification search for Lemma A°
-
-`LEMMA-A-CARRIER.md` §2. The enabling observation is one line:
-
-> hereditary FVS tightness for every `X ⊆ S` **is equivalent to** "`S` is a
-> minimum FVS of `G`" (`<=` is Lemma 3.3; `=>` is `X = S`).
-
-Consequently a Lemma-A° counterexample is a bipartite `G` (connectedness not
-required) with a *minimum* FVS `S` and a cyclic forced core — and the two halves
-depend on **disjoint data**: cyclicity of the forced core depends only on the
-abstract system `(S, H-vertices, incidences, capacities)`, while
-minimum-FVS-ness depends, for fixed incidences, only on the `H`-forest edges.
-So the search factorises into two independent enumerations. Every previous
-search in the repository (O-52…O-56, O-68…O-82) varied both at once on a single
-hand-built skeleton, which is why it could only produce one instance at a time.
-
-`work/larealize.py` runs it: stage 1 enumerates abstract systems with a cyclic
-forced core; stage 2 enumerates, for each, every proper 2-colouring and every
-bipartite-legal `H`-forest completion (including up to three incidence-free
-extra `H`-vertices), and computes `tau(G)`.
-
-| run | cyclic systems | forest completions | with `tau(G) = |S|` |
-|---|---|---|---|
-| `exhaustive 3 4`, 0 / 1 / 2 / 3 Steiner | 438 | 732 / 6,768 / 77,976 / 1,070,160 | **0 / 0 / 0 / 0** |
-| `exhaustive 3 5`, 2 Steiner | 798 | 590,796 | **0** |
-| `random 20000 seed 555`, 1 Steiner (`|S| <= 5`, `|H| <= 6`) | 682 | 732,016 | **0** |
-
-Counting the three non-nested universes, **2,392,972 forest completions of
-systems with a cyclic forced core, zero counterexamples**. Five random systems
-hit the declared 50,000-completions-per-system cap; that is reported rather than
-silently dropped.
-
-**Positive control** (essential): the same completion loop on *acyclic*-core
-systems reaches `tau(G) = |S|` in 3,968 of 55,846 completions (7.1%) in the
-exhaustive run and 50,944 of 233,924 (21.8%) in the random run, so the loop
-demonstrably can produce genuine minimum-FVS instances.
-
-**Status: COMPUTATIONALLY VERIFIED** (universe: abstract systems with `|S| <= 3`,
-`|H| <= 5`, up to 3 incidence-free extra `H`-vertices, plus a random `|S| <= 5`,
-`|H| <= 6` layer; all bipartite-legal forest completions). Not a proof, and the
-universe is small — but it is the
-first search of the counterexample space that is exhaustive in *both*
-coordinates and is calibrated.
-
-*Localization data.* Each miss yields the inclusion-minimal violating `X ⊆ S`,
-which is exactly what the open target asks about and of which the repository had
-three hand-built points. Over a spread sample of 876 completions: `X ⊆ P` in
-504, `X` inside some `B_s` in 27, and **`X` "mixed" — inside neither `P` nor any
-single `B_s` — in 345 (39%)**. The witnesses showed no *single* one of `P`,
-`B_s`, `T_F` is universal; this says a large fraction of cases escape *all* of
-the proposed localizations at once.
-
-### R6. The lifting inequality (ATTACK.md target 4) — preregistered scan and a proved class
-
-Nothing in `ledgers/` or `proofs/` records any computation on target 4. I
-preregistered it before writing any checker: `PREREG-LIFT.md` fixes the
-statements, the universe, the decision rules and the gold suite;
-`work/LIFT-SHA256.txt` records `lift.c` = `c0cc2dd315144a0c9c64c875234e193fd8f700e01949ea6668964220a4d01c5e`;
-both were committed (`5e93527`) **before** the first sweep. The checker reuses
-the exact invariant primitives of the frozen `verification/phase0.c`, and its
-gold suite reproduces phase0's `(f,b,p)` golds (`K_10`, `K_{5,5}`, `K_{1,9}`,
-`C_10`, `K_{2,2,2}`, `K_{1,1,1,3}`) plus six lifting-specific golds
-(`K_3`, `K_4`, `K_5`, `C_5`, `C_7`, bowtie), all PASS.
-
-Frozen statements: **LIFT-A** (∃ minimum OCT `T`: `ell(G) >= 2 tau(G-T) + |T| + 1`),
-**LIFT-A-ALL** (same for every minimum `T`), **LIFT-P** (∃ `T`: `p(G) <= p(G-T)`),
-**LIFT-P-ALL**, and **SV** as a cross-check.
-
-| n | connected graphs | nonbipartite | LIFT-A fail | LIFT-A-ALL fail | LIFT-P fail | LIFT-P-ALL fail | SV fail |
-|---|---|---|---|---|---|---|---|
-| 3–6 | 141 | 115 | 0 | 0 | 0 | 0 | 0 |
-| 7 | 853 | 809 | 0 | 0 | 0 | 3 | 0 |
-| 8 | 11,117 | 10,935 | 0 | 0 | 0 | 16 | 0 |
-| 9 | 261,080 | 260,350 | 0 | 0 | 0 | 150 | 0 |
-| **10** | **11,716,571** | **11,712,539** | **0** | **0** | **0** | 2,130 | **0** |
-| 11 (holdout, 3 of 1024 `geng` classes) | 2,051,196 | 2,045,943 | **0** | **0** | **19** ✗ | 2,948 | **19** ✗ |
-
-The `n = 11` row is the preregistered structured holdout of `PREREG-LIFT-N11.md`
-— *not* exhaustive verification at that order — and it is where SV and LIFT-P
-die (§R7). LIFT-A and LIFT-A-ALL survive it.
-
-Every statement above was frozen in `PREREG-LIFT.md` and the checker hashed and
-committed **before the first sweep**, so the whole range `3 <= n <= 10` is a
-prospective test, not a fit.
-
-Two accounting checks the preregistration required, both passing: the n = 10
-shard counts (four `geng` residue classes) sum to exactly **11,716,571**, the
-known number of connected graphs on 10 vertices; and the nonbipartite count is
-exactly **11,712,539**, which is the same number the paper reports for its SV
-verification at n = 10 — an independent reproduction of that census. The
-nonbipartite counts for `3 <= n <= 9` sum to `1 + 3 + 16 + 95 + 809 + 10,935 +
-260,350 = ` **272,209**, again exactly the paper's figure for its `n <= 9` SV
-verification. So both SV censuses are reproduced, with 0 failures, by a checker
-written from Definition 5.4 rather than from `phase0.c`'s `run2`.
-
-n = 10 wall time 1,334–1,526 s per shard at ~2,000 graphs/s, four shards.
-Best-`T` slack histogram over all 11,712,539 nonbipartite graphs:
-`{0: 52,303, 1: 333,485, 2: 1,311,405, 3: 3,227,682, 4: 3,852,977, 5: 2,614,879, 6: 317,201, 7: 2,607}`.
-Minimum slack is 0, i.e. the inequality is attained.
-
-*Dual engine.* `work/liftcheck2.py` is an independently written pure-Python
-implementation of the five frozen statements. It agrees with `lift.c`
-field-for-field — including the complete slack histograms — exhaustively at
-n = 6, 7, 8, and on spread samples of 2,929 graphs at n = 10 (every 4,000th
-graph of the full enumeration) and 280 graphs at n = 11 (residue class
-`5/1024`, deliberately disjoint from the holdout classes 1, 2, 3).
-
-Two things the scan says beyond "no counterexample":
-
-* **LIFT-A-ALL** holds — the inequality is true for *every* minimum OCT, not
-  just some, throughout the scanned range. That is a stronger statement than the
-  target and worth freezing for a future holdout.
-* **LIFT-P-ALL is FALSIFIED** from n = 7 (first witness `H???FA^`, n=9 entry in
-  `work/lift-witness-n9.txt`): the path-cover form genuinely needs its
-  existential quantifier over minimum OCTs.
-* the best-`T` slack `max_T [ell - 2 tau(G-T) - |T| - 1]` is 0 for 2,494 graphs
-  at n = 9 and 52,303 at n = 10, so the inequality is tight on a substantial
-  family — it is a sharp statement, not a slack one.
-
-**A structured class, proved.** ATTACK.md target 4 also asks for a proof on a
-structured class.
-
-> **L1.** For bipartite `B` on `n_B` vertices with `c_e` edge-containing
-> components, `f(B) >= ceil(n_B/2) + c_e`, i.e. `tau(B) <= floor(n_B/2) - c_e`.
-> *Proof.* In each component take the larger bipartition class (independent, so
-> a forest, of size `>= ceil(n_i/2)`); if that component has an edge, add one
-> vertex of the other class — the induced subgraph is a star plus isolated
-> vertices, still a forest. Union over components. ∎
->
-> **L2.** If some minimum OCT `T` of a connected nonbipartite `G` satisfies
-> `p(G) <= 2 c_e(G-T) - 1`, then LIFT-A holds at `G` with that `T`.
-> *Proof.* `2 tau(G-T) + |T| + 1 <= 2 floor(n_B/2) - 2c_e + o + 1 <= n + 1 - 2c_e
-> <= n - p(G) = ell(G)`. ∎
->
-> **Corollary.** LIFT-A holds for every **traceable** connected nonbipartite `G`
-> (`p = 1`, and `c_e >= 1` by paper Lemma 5.1). Since LIFT-A implies
-> `ell + o >= 2 tau + 1` unconditionally, this re-proves Conjecture 40 for
-> traceable graphs.
-
-*Provenance, stated plainly:* for a connected `B` the engine of L1 is
-DeLaViña's 2004 remark `f >= b/2 + 1` recorded on the WOWII page, which already
-settles Conjecture 40 for `p = 1`. What is new is applying it to `G - T` rather
-than to `G`, the `c_e` refinement, and the consequence for the *lifting* form —
-which is strictly stronger than the conjecture on that class.
-
-**Status: MATHEMATICALLY PROVED.** L1 checked exhaustively on all 7,049
-bipartite graphs with `n <= 10` (0 violations, 169 tight). Coverage of L2
-measured on all connected nonbipartite graphs with `3 <= n <= 8`: **11,170 /
-11,859 = 94.2%** satisfy `p(G) <= 2 max_T c_e(G-T) - 1`, so the proved class is
-not a curiosity.
-
-**And the uncovered part is not the extremal part.** Cross-tabulating L2
-coverage against the best-`T` slack over all connected nonbipartite graphs with
-`3 <= n <= 8`:
-
-| best-`T` slack | 0 | 1 | 2 | 3 | 4 | 5 |
-|---|---|---|---|---|---|---|
-| L2-covered | 217 | 666 | 2,773 | 3,978 | 3,255 | 281 |
-| L2-uncovered | **0** | 43 | 249 | 199 | 198 | 0 |
-
-**Every graph at which LIFT-A is tight lies inside the proved class**; every
-uncovered graph has slack at least 1. So the proof obligation that remains has a
-unit of slack to spend, which is a materially easier target than the general
-statement. Smallest uncovered instance: `DC{` (n = 5, `o = 1`, `p = 2`,
-`max_T c_e = 1`, slack 1).
-
-### R7. SV falsified at n = 11 (ATTACK.md open item 3, target 3)
-
-Full certificate in `SV-FALSIFIED.md`; summary in the headline above. Found by
-the preregistered n = 11 structured holdout (`PREREG-LIFT-N11.md`, frozen and
-committed in `74156fb` before the run), which carried SV as one of its five
-frozen statements and preregistered exactly this contingency: *"An SV failure at
-n = 11 is a **new** data point (the paper verifies SV only to n = 10) and must be
-reported as such, not treated as an engine bug."*
-
-Two witnesses are written out in full with hand-checkable structure:
-`J???FAWdVD?` (15 edges) and `J???FBObs\?` (16 edges). Both have
-`f = 9, b = 10, p = 3`, hence `tau = 2, o = 1, ell = 8`, a **unique** minimum OCT
-`{0}`, and `p(G-0) = 2`.
-
-*Mechanism, as a rule:* every witness has `o(G) = 1` **with a unique minimum
-OCT**. Then SV's existential quantifier is vacuous and the statement degenerates
-to the unconditional `p(G) <= p(G-t)` for that single vertex — which fails
-whenever the OCT vertex is a hub whose neighbours are all needed internally by an
-optimal path cover of `G - t`, so that restoring it costs a path.
-
-*Frequency:* not rare, but clustered. The frozen `phase0 run2` engine found 10
-violations in the first 20,000 graphs of residue class `3/1024` and 19 in that
-class overall, against 0 in classes `1/1024` and `2/1024` over the same prefix
-lengths — `geng`'s enumeration order groups them. `lift.c` independently reports
-`SV_fail = 19` for the whole of class `3/1024` (364,859 graphs), matching.
-Every witness has `o = 1`; none with `o >= 2` was seen.
-
-**LIFT-P dies with it.** For a graph whose minimum OCT is the unique singleton
-`{t}`, LIFT-P (`exists minimum OCT T : p(G) <= p(G-T)`) and SV are the *same*
-statement. So the same 19 graphs falsify **LIFT-P**, which was one of the five
-statements frozen in `PREREG-LIFT.md` and which had 0 failures over the entire
-`n <= 10` universe. `lift.c` reports `LIFT-P_fail = 19` on class `3/1024`,
-exactly matching `SV_fail`. This is the project's documented death pattern
-happening to my own frozen statement — holds through `n <= 10`, killed at
-`n = 11` — and it is the reason the preregistration was worth writing.
-
-**LIFT-A survives, and so does LIFT-A-ALL.** On the same witnesses the target
-statement has slack 4. Over the preregistered `n = 11` classes, LIFT-A and
-LIFT-A-ALL both report 0 failures. So of the two routes through the
-general-to-bipartite gap, the path-cover route (SV / LIFT-P) is now closed and
-the `tau`-based route (LIFT-A) is the one still standing.
-
-### R8. The aborted n = 12 Lemma-B holdout (ATTACK.md target 5)
-
-Resumed exactly per `proofs/FROZEN-BPLUS2.md` with the shipped frozen checker
-`tools/b_hslide.py` (`OK` against `SHA256SUMS.txt`; frozen-source hash
-`54e13cac…` published in FROZEN-BPLUS2.md). Holdout discipline observed more
-strictly than the original run, whose recorded deviation (O-45) was reading the
-failure counters mid-run: **I did not read `b-hslide-prog.txt` at any point**;
-liveness was monitored only via `ps` and the progress file's byte count (a
-graphs-processed proxy, which is what O-45's corrective explicitly permits).
-
-**Outcome: stopped by decision, NO VERDICT** — the same disposition as the
-original run (O-58). It ran ~1.5 hours and was at roughly 17,000 of 212,780
-graphs when the SV falsification landed; I stopped it to put its core on the SV
-census, which was by then clearly the higher-value use of the machine. No
-failure or gap counter was ever read, so the holdout's integrity is intact and
-the statements plus checker hash remain reusable exactly as FROZEN-BPLUS2.md
-says. Projected cost at the observed (decelerating) rate: well over 10 hours.
-
----
-
-## Jobs still running at report time
-
-Recorded as measured; anything not stated as finished did not finish, and no
-number below is projected.
-
-* **n = 11 lifting holdout** (`work/lift.c`, the three preregistered `geng`
-  residue classes) — **COMPLETE**. Totals over 2,051,196 graphs, 2,045,943 of
-  them nonbipartite:
-
-  | statement | failures |
-  |---|---|
-  | LIFT-A | **0** |
-  | LIFT-A-ALL | **0** |
-  | LIFT-P | **19** — FALSIFIED |
-  | LIFT-P-ALL | 2,948 |
-  | SV | **19** — FALSIFIED |
-  | internal consistency | 0 |
-
-  Maximum number of minimum OCTs on one graph: 102. Best-`T` slack histogram
-  `{0: 5093, 1: 12236, 2: 263027, 3: 1037146, 4: 612909, 5: 107691, 6: 7841}` —
-  minimum slack still 0, so LIFT-A remains attained at n = 11. All 19 SV and all
-  19 LIFT-P failures lie in class `3/1024`; classes `1/1024` (789,328 graphs) and
-  `2/1024` (897,009 graphs) are clean for both.
-* **n = 11 SV census** (`verification/phase0.c` mode `run2`, the project's own
-  frozen engine, over the same three classes; a redundant cross-check of the
-  SV column that `lift.c` already produced). Class `3/1024` **complete**:
-  `graphs=363207 violations=19 p_drop_bugs=0`, independently matching
-  `lift.c`'s `SV_fail = 19` on the same class. Classes `1/1024` and `2/1024` —
-  **NOT COMPLETED**. They reached 450,000 of 788,161 and 650,000 of 894,575
-  nonbipartite graphs with **0 violations**, then one shard was killed as
-  collateral when I stopped the polling wrappers around it and the other was
-  still grinding the dense tail of the enumeration, where `phase0 run2` slows by
-  roughly an order of magnitude. Reported as a prefix, not as a census.
-
-  Nothing in this report depends on it. The falsification rests on the four-engine
-  certificate for the individual witnesses, and the per-class SV counts come from
-  the **completed** `lift.c` holdout (`SV_fail = 19, 0, 0` on classes 3, 2, 1) —
-  this `phase0` run was only a redundant re-derivation of the same column with
-  the project's own engine, and on the one class it did finish it agreed exactly.
-* `fcore run` at n = 14 (Lemma A) — **COMPLETE**: 31,193,324 connected bipartite
-  graphs, 2,391,365,507 instances, **0 cyclic forced cores**, 0 infeasible,
-  max forced path 12, 3,105 s. Folded into R2 above.
-* `b_hslide.py 12` (the frozen n = 12 Lemma-B holdout) — **STOPPED BY DECISION,
-  NO VERDICT** (see R8).
-
----
-
-## Propagation status (ATTACK.md Step 5)
-
-Both branches exist **locally only**; nothing has been pushed and no pull
-request has been opened. Pushing to a public repository is an outward-facing
-action, so it waits on the operator's explicit go-ahead.
-
-* `attempt/2026-08-03-claude-opus-5-5047` — this attempt, 14 commits.
-* `lessons/5047` — branched off `main`, one commit appending this report's
-  LESSONS section verbatim to `attempts/LESSONS.md`. Intended PR title:
-  `Lessons: attempt/2026-08-03-claude-opus-5-5047`.
-
-One deviation, flagged and then **ruled on by the operator (2026-08-03,
-permitted)**: the lessons commit also deletes the placeholder line
-`(No entries yet.)` from `attempts/LESSONS.md`. ATTACK.md says that file may be
-changed "only by appending"; the ruling is that a placeholder is not an entry,
-the file's own rule scopes append-only to entries ("never edit or delete a prior
-entry"), and leaving the placeholder above a real entry would make the file
-self-contradictory. No prior entry is touched. The ruling is recorded in
-`PR-BODY-lessons-5047.md`, which holds the prepared pull-request body.
-
----
-
-## Dead ends hit, and why
-
-* **Turning Lemma CS into a Lemma-A contradiction.** The natural next move is to
-  build an FVS of `G` of size `|S| - 1` as `(Q \ {q_j}) u U`. That needs
-  `Q \ {q_j}` to be an FVS of `G[H u P]`, i.e. `tau(G[H u P]) <= |P| - 1` — the
-  P-local bridge, refuted as a route by O-55/O-56. Lemma CS constrains `U` near
-  `Q` but says nothing about how `P`'s *external* neighbours sit in the
-  `H`-forest, which is exactly what the blocker needs. Checked on O-56: both
-  choices of `j` leave `0` and `1` sharing the external neighbour `6`, so the
-  quotient stays cyclic.
-* **Assuming `P ∩ U = ∅`** (which would give the clean corollary CS(c)). It
-  fails in ~44% of random abstract cyclic systems.
-* **A two-matroid framing of F2.** The suppression reformulation makes F2
-  "choose one pair `sigma(s) ⊆ N_H(s)` per `s`, all distinct, forming a linear
-  forest on `H`". "Distinct, one per `s`" is a transversal matroid and "forest"
-  is the graphic matroid, but the degree bound `deg <= c(h) <= 2` is **not** a
-  matroid constraint — on the path `a-b-c-d` with `c(b) = c(c) = 1`, `{bc}` is
-  maximal of size 1 while `{ab, cd}` has size 2. So Edmonds' matroid-intersection
-  theorem does not apply and the reformulation does not by itself give F2.
-  Recorded because the reformulation is clean, is what made the fast F2 oracle
-  possible, and the obstruction to using it further is definite.
-* **`Lemma A°` (disconnected) is not a wider universe than connected Lemma A.**
-  Raising capacities only enlarges the feasible set, so
-  `forced(all caps 2) ⊆ forced(caps for e)` for every `e in E(H)`; a disconnected
-  instance decomposes into the component carrying `e` plus all-capacity-2
-  components, each of which is implied by the connected fixed-edge result. So
-  the "connected only" caveat on the existing `n <= 11` evidence is not a gap.
-  (I chased this as a possible untested hole before checking; it is not one.)
-* **Exhaustive SV at n = 11 is out of reach here** (it is what would give the
-  exact count of counterexamples). SV needs `o(G-t)` and `p(G-t)` for every
-  eligible `t`; measured throughput is 2,780 graphs/s at n = 10 and about
-  1,500 graphs/s for the frozen `phase0 run2` at n = 11, projecting to roughly
-  185 CPU-hours for the full 1,006,700,565-graph layer. What I ran instead is the
-  preregistered three-class structured holdout — which was enough to falsify SV,
-  but is not enough to count its counterexamples.
-
----
+# ATTEMPT REPORT — SAFE-EXISTS / universal B-PLUS-2
+
+## Run identity and outcome
+
+- Model/harness: OpenAI Codex, GPT-5, local shell harness.
+- Date: 2026-08-05, America/Chicago.
+- Branch: `attempt/2026-08-05-codex-gpt-5-9d2b`.
+- Fresh base: public `main` commit
+  `64eb3dacd3e332b9464faece8bd42f72e16bf6dc` (`ATTACK.md` v4).
+- Constraint: local commits only. Nothing was pushed; no PR, tag, release, or
+  public post was made.
+- Soft budget: 180 minutes, restarted at `2026-08-05T11:39:54-05:00`, soft
+  deadline `14:39:54-05:00`, with the v4 15-minute wrap rule.
+- Primary target: SAFE-EXISTS, with the four user-designated binding inputs.
+  No secondary target was opened.
+
+The main finite result is **COMPUTATIONALLY VERIFIED (exhaustive n=12
+universe, composite census)**: universal all-cycle B-PLUS-2 has zero failures
+over all 228,810,295 selected cycle components at n=12. This closes the precise
+quantifier gap left by 4d7a; it is finite evidence, not a proof.
+
+The main structural result is a separation. **B-TERMINAL-SLIDE is FALSIFIED at
+n=12**, and both unrestricted SUCCESSOR-ONE statements introduced here are
+**FALSIFIED at n=12**. Nevertheless, the weakest descent-sufficient
+SAFE-2-EXISTS core remains **CONJECTURAL** and retains the inherited exhaustive
+n=12 computational support. A new hard-state-only successor statement survives
+1,140 retained n=12 states and is the recommended proof target.
+
+## Protocol restart, freshness, and branch discipline
+
+The initial pre-resume interpretation that local v3 plus the activation message
+could act as a narrow v4 delta is **WITHDRAWN**. After the user supplied the
+resolved provenance, I ran the requested public-remote commands first, fetched
+public `main`, read its actual v4 and `attempts/LESSONS.md`, and restarted Step 0
+and the time budget. No mathematics or preregistration was performed under the
+withdrawn interpretation.
+
+The isolated clone is
+`<local-clone>`.
+The unique suffix `9d2b` was generated before branch creation. Main was never
+checked out for editing. The first two branch commits record the clean restart:
+
+- `5a458c3` — fresh v4 comprehension gauntlet;
+- `06119dc` — initial SAFE-EXISTS preregistration and frozen checker.
+
+## Step 0 — freshness findings
+
+Checked in the v4 order:
+
+1. GitHub issues and pull requests: no open issue or PR; public `main` was
+   `64eb3da`.
+2. MathOverflow question 513887: zero answers, zero comments, not closed.
+3. Maintained WOWII page: Conjecture 40 still had status `O`.
+4. Web/arXiv searches: no resolving work on Conjecture 40, Lemma A, or
+   SAFE-EXISTS was found. The Formal Conjectures entry remains a statement, not
+   a proof.
+
+Therefore the primary target did not change.
+
+## Step 0.5 — binding lessons and provenance audit
+
+I read public `attempts/LESSONS.md` through the maintenance-reconciliation entry
+and every complete public attempt report: `5047`, `a7c3`, `0eb8`, `4d7a`, and
+`b17e`. The reconciliation lesson requiring post-push existence proofs was
+treated as binding.
+
+The four binding SAFE inputs resolve as follows.
+
+- **FALSIFIED:** SD-SHORT and SD-COUNT-SHORT have six n=11 failures and 1,184
+  n=12 failures. A greedy one-step schedule and scheduling only by cycle choice
+  are dead.
+- **COMPUTATIONALLY VERIFIED (exhaustive n<=11):** VERIFY-2 independently
+  reproduces the six A1 failures, all 20 successful one-lookahead paths, and
+  zero universal B-PLUS-2 failures.
+- **COMPUTATIONALLY VERIFIED (exhaustive n=12, source 4d7a):** SD-2STEP-DESCENT
+  has zero failures on 1,380 A1-failing cycles, and SD-PLUS-2 has zero failures.
+- **OPEN AT START OF THIS RUN:** the universal all-cycle B-PLUS-2 n=12 grade.
+  The 4d7a selection-level scan could skip the 196 A1-bad cycles co-occurring
+  with an A1-good cycle.
+
+There was a provenance mismatch in the user shorthand, handled without assigning
+cause: VERIFY-2 explicitly labels n=12 `NOT CHECKED`; the prospective exhaustive
+n=12 survival is recorded by 4d7a. Both were used at their checked-in scopes.
+
+## Step 1 — comprehension gauntlet
+
+`GAUNTLET.md` was completed in fresh prose and committed before new mathematics.
+It contains:
+
+1. the complete Theorem 3.13/F2 reduction and the separate roles of Lemmas A
+   and B;
+2. the abstract even-cycle demonstration that Hall feasibility alone cannot
+   yield Lemma A;
+3. exact O-56/O-63/O-64 mechanisms and the proof strategies each kills;
+4. the T_F normalization and its proof, including why re-forcing uses F1 rather
+   than monotonicity.
+
+Outcome: **COMPLETED**. The inherited manifest also passed 17/17 entries with
+`cd tools && shasum -a 256 -c SHA256SUMS.txt`.
+
+## Exact SAFE core
+
+`PREREG-SAFE-EXISTS.md` defines:
+
+**SAFE-2-EXISTS.** For every cyclic feasible selection J, either J admits a CES
+minimizing step, or some A1-bad minimizing step J -> J0 has
+`c(J0) <= c(J)` and J0 admits a CES minimizing step.
+
+**MATHEMATICALLY PROVED, conditional on SAFE-2-EXISTS:** this statement is
+descent-sufficient. The first alternative strictly decreases the nonnegative
+integer c. In the second, the first step does not increase c and the CES second
+step strictly decreases it. Repeating blocks of at most two steps reaches an
+acyclic feasible selection, hence F2. This is a state-level existential claim;
+it does not require every bad cycle or every minimizing move to work.
+
+The universal statement remains **CONJECTURAL**. Its inherited finite grade is
+**COMPUTATIONALLY VERIFIED (exhaustive n<=12)** through the stronger 4d7a
+SD-2STEP-DESCENT census. This run did not promote that finite evidence to a
+general proof.
+
+## Gold tests and controls
+
+The primary checker `safe_exists_scan.py` was frozen at sha256
+`880e2822cc7e5a155d103f3d9f6df73c23aa6e5d7ef69aff305e5cc6eeb250b8`
+before mathematical execution.
+
+- `--ces=always`, n=8: 2,584/2,584 cycles A1-good.
+- `--ces=never`, n=8: 2,584/2,584 cycles A1-bad and every failure channel
+  fired. This is a mutation control only.
+- Real n=9: 730 graphs, 24,195 cycle components, zero A1 failures.
+- Real n=11, eight shards: 25,598 graphs; 8,202,633 cycle components;
+  8,071,822 cyclic selections; six A1 failures; 20 bad minimizing paths; zero
+  terminal-slide, successor-one, SD-2STEP, SAFE-2 local, Lemma-A, or path-cap
+  failures. Maximum shard wall time was 1,568.821 s under shared CPU contention.
+- The optimized multi-cycle gold test independently reproduced 130,811 n=11
+  multi-cycle selections, 261,622 cycle components, and zero A1 failures.
+
+These are **COMPUTATIONALLY VERIFIED** controls on the stated finite universes.
+
+## Result 1 — universal B-PLUS-2 through n=12
+
+**Status: COMPUTATIONALLY VERIFIED (all connected bipartite graphs at n=12,
+every minimum FVS, every fixed H-edge, every feasible selection, all
+228,810,295 selected cycle components).**
+
+The conclusion is a composite exhaustive census, not a sample:
+
+1. Fixed 4d7a commit `5cb5bb9a29718562d4d25a6902fd693f0a4677f4`
+   exhaustively records 1,380 A1-bad cycles with profile `(1,0):1,184` and
+   `(2,1):196`, zero SD-PLUS-2 failures, zero Lemma-A violations, and zero caps.
+   On a one-cycle state, selection-level SD-PLUS-2 necessarily grades that sole
+   cycle; hence all 1,184 `(1,0)` cycles are individually covered. Every
+   A1-good cycle is trivially B-PLUS-2-good.
+2. The fixed source retains full certificates for 170/196 `(2,1)` cycles.
+   Generic replay validated all 170 and enumerated 3,376 simple residual paths:
+   every cycle had `d0=3`, first CES length `dCES=5`, zero failures, and zero
+   infeasible candidates.
+3. Certificate caps omitted 14 shard-11 and 12 shard-14 cycles. Exact tail scans
+   started from the entire graph containing each 50th retained certificate.
+   Both boundary graph6 strings matched. Shard 11 graded 26 tail A1 failures,
+   all good (624 bounded paths, 1,121.922 s); shard 14 graded 44, all good
+   (1,008 bounded paths, 497.037 s). There were zero invalid candidates, caps,
+   or B-PLUS-2 failures.
+4. The replay/tail union is exact: shard-11 overlap is 12 and shard-14 overlap
+   is 32, so `170 + 26 + 44 - 12 - 32 = 196` distinct gap cycles.
+
+The generic checker was frozen at sha256
+`b3831f85d5be5c27cddca1c2e4b2e18629c1dd80a0c652c9c3141114ce2715a9`;
+the exact tail checker at
+`75c1468217d6fb9f1fafb9c9a007d63c2064731f20abc3dbfecbdafbe10b31ae`.
+The generic engine reproduced the six n=11 positive-gap controls exactly:
+`d0=3`, `dCES=5`, zero failures.
+
+This result closes the recorded cheapest high-value continuation. It does not
+prove B-PLUS-2 universally.
+
+## Result 2 — terminal-slide and unrestricted successor-one fail
+
+**B-TERMINAL-SLIDE: FALSIFIED, minimum known order n=12.** It holds throughout
+the exhaustive n<=11 data, but every one of the 170 retained `(2,1)` n=12
+certificates has no terminal-slide repair. One independently checked witness is:
+
+- graph6 `K??FFbw}Fw^_`;
+- `S={6,7,8,9,10}`, fixed edge `e=(4,11)`;
+- target selected cycle `{0,1,6,7}` in the selection recorded in
+  `work/9d2b/results/independent-witness.json`.
+
+VERIFY-2's independent engine at public commit
+`6a94cb9b8b137249d6a19f25589112c09fdca9ee` (engine sha256
+`ac11fc10b95e14fb8d6f6d06d2210b6809e0dea1e0b7a28d60081d21b96248a6`)
+confirms: `tau=5`, S is a minimum FVS, selection feasible, two selected cycles,
+target `d0=3`, 12 minimizing paths, zero minimizing CES paths, zero terminal
+slides, and generic first CES length five.
+
+**SUCCESSOR-ONE-ALL and SUCCESSOR-ONE-DESCENT: FALSIFIED at n=12.** On the same
+independent witness, all 12 minimizing successors have one selected cycle,
+minimum residual distance three, and a CES minimizing step. Thus two-step
+descent works, but no length-one second step exists. In the 170-record primary
+replay, 142 fail both unrestricted successor-one forms while all 170 pass
+SD-2STEP-DESCENT.
+
+This separates mismatches from causes. The data establish that terminal-slide
+and length-one successor geometry are too strong in multi-cycle `(2,1)` states;
+they do not establish a general causal explanation for why SAFE-2 survives.
+
+## Result 3 — hard-state successor refinement
+
+**HARD-SUCCESSOR-ONE: CONJECTURAL (exhaustive n<=11 hard states plus 1,140
+retained n=12 hard-state certificates).**
+
+The claim is restricted to states with no A1-good cycle: some minimizing first
+step has `c(J0)<=c(J)` and J0 has a CES minimizing step of length one. Together
+with the direct A1-good alternative it is **MATHEMATICALLY PROVED** to imply
+SAFE-2-EXISTS by the same integer-descent argument.
+
+The frozen replay graded all 1,140 retained `(1,0)` n=12 certificates and all
+3,924 bad minimizing paths: zero terminal-slide, unrestricted successor-one,
+HARD-SUCCESSOR-ONE, SD-2STEP, SAFE-2 local, or path-cap failures. The fixed full
+profile contains 1,184 hard states, so 44 cap-omitted records remain ungraded for
+this post-hoc strengthening (shards 4, 11, 13, 14, 16, and 25). The checker
+sha256 is
+`8ac92f96345b18f90c72a88ad90d0812a205b1ebd55aff6096593c02ccf68897`.
+
+This is not prospective evidence: the statement was formulated after the
+`(1,0)/(2,1)` split was known. Its value is proof-target selection. The
+unrestricted successor-one counterexamples are irrelevant to the weakest SAFE
+state obligation because every one already has an A1-good cycle.
+
+## Post-hoc mechanism observation
+
+**CONJECTURAL, post-hoc observation on the 170 retained `(2,1)` records:** the
+checker-selected shortest generic length-five repair always uses the other
+A1-good cycle. In 142 records it removes one selected incidence of that cycle;
+in 28 it removes two. This explains the data-level distinction between generic
+B-PLUS-2 and terminal extension, but it is neither preregistered universal
+evidence nor a proof.
+
+## Tooling, repairs, and aborted jobs
+
+All current checker hashes are in `work/9d2b/SHA256.txt`; all verdict-bearing
+result hashes are in `work/9d2b/RESULT-SHA256.txt`. Both manifests pass.
+
+Two validator defects were caught before their outputs were used:
+
+- replay v1 compared normalized undirected certificate edges with `(S,H)`
+  generator edges without normalizing both sides; 118 false invalidations;
+- hard-state replay v1 reused a `(2,1)` validator on `(1,0)` records; 1,140
+  false invalidations.
+
+Both v1 outputs are retained with `-v1-invalid` names and excluded from all
+verdicts. The repairs changed only validation, were documented, re-hashed and
+committed before rerun, and then produced zero invalidations.
+
+Four n=12 jobs are **ABORTED-NO-VERDICT**: two full multi-cycle mechanism shards
+and two full generic replacements. They were stopped without output when
+shared-machine contention made them redundant. The exact certificate replay
+plus cap-boundary tails replaced them and completed the primary grade within
+budget. No other process on the shared machine was modified.
+
+## Dead ends and scope boundaries
+
+- **DEAD END / binding:** greedy shortest-step scheduling and scheduling only by
+  choice of cycle; the six n=11 and 1,184 n=12 SD-SHORT failures remain binding.
+- **FALSIFIED:** B-TERMINAL-SLIDE cannot be the universal proof of B-PLUS-2.
+- **FALSIFIED:** unrestricted successor distance one cannot prove
+  SD-2STEP-DESCENT; multi-cycle states force distance three in the verified
+  witness.
+- **NOT CLAIMED:** finite enumeration proves SAFE-EXISTS, Lemma B, F2, or the
+  conjecture in general.
+- **NOT CLAIMED:** VERIFY-2 independently checked the full n=12 census. It did
+  not; only the fixed witness was independently checked here.
 
 ## Recommended next angle
 
-0. **Repair or replace paper Theorem 5.5.** SV is false, so the single-vertex
-   reduction is dead as written. The witnesses say precisely where: `o(G) = 1`
-   with a *unique* minimum OCT, which makes SV's existential quantifier vacuous.
-   Either add a hypothesis excluding that case and prove SV under it (then handle
-   unique-OCT graphs separately), or abandon the single-vertex framing. Section
-   5 of the paper should record this as a new result in version 2;
-   `SV-FALSIFIED.md` is written to be liftable into that strengthening.
-1. **Push LIFT-A-ALL to a bigger n = 11 holdout, and then n = 12.** It is now the
-   *only* surviving route through the general-to-bipartite gap: LIFT-P died with
-   SV on the same witnesses, and LIFT-A-ALL survived them with slack 4. It has 0
-   failures over all 11,716,571 connected graphs `n <= 10` plus the preregistered
-   n = 11 classes. `work/lift.c` is frozen, hashed, gold-tested and dual-engined;
-   full n = 11 is about 185 CPU-hours at the measured rate, i.e. a day on eight
-   cores, and is the single highest-value computation left in the project.
-2. **Attack the residual 5.8%, using the slack.** L2 proves LIFT-A whenever
-   `p(G) <= 2 c_e(G-T) - 1`. Everything hard about the general-to-bipartite step
-   lives in the complement — connected nonbipartite `G` with large path-cover
-   number whose minimum OCTs leave few edge-containing components. The
-   cross-tabulation above says that complement contains **no tight instance**:
-   every uncovered graph has slack `>= 1`. So the remaining obligation is
-   `ell(G) >= 2 tau(G-T) + |T| + 2` on a family where the extremal cases have
-   already been removed — a strictly easier-looking target than LIFT-A itself.
-   Characterize that family first; it is small and `work/lift.c` can list it.
-3. **Push `work/larealize.py` to `|S| = 4, 5`.** The factorisation makes the
-   Lemma-A° counterexample space searchable for the first time. `|S| <= 3` is
-   clean; the interesting regime (`P ∩ U != ∅`, longer forced cycles) starts at
-   `|S| >= 4`. Either a counterexample appears — which would be the run's
-   biggest possible outcome — or the localization histogram grows into real
-   evidence about *where* the violation lives.
-4. **Do not re-derive the localization from `P` or `B_s`.** 39% of the violating
-   sets found by the search are inside neither. Any proposed localization should
-   be run against `work/larealize.py`'s population before a line of prose is
-   written about it.
-5. **`work/fcore.c` and `work/f2.c` make the Lemma-A / F2 universe cheap** (n=13
-   in 2 minutes, versus 7 minutes for n=11 in Python). n = 14 and n = 15 are
-   within reach of one machine; the analogous C rewrite of `b_hslide.py` is the
-   obvious way to finish the n = 12 Lemma-B holdout, but it must be validated
-   against the frozen Python checker on the six n = 11 witnesses first.
+Attack HARD-SUCCESSOR-ONE only on states with no A1-good cycle. This is closer
+to the weakest descent-sufficient obligation than either universal B-PLUS-2 or
+per-bad-cycle SD-2STEP. In all retained n=12 hard states, J has one selected
+cycle, every bad minimizing reroute creates one replacement cycle, and every
+successor admits a length-one CES step. A proof should show that the crossing
+cycle created in this no-good/single-cycle regime necessarily exposes such a
+length-one exchange. It must not quantify over bad cycles in `(2,1)` states:
+those are the new counterexamples, and the original state should simply use its
+other A1-good cycle.
 
----
+The cheapest finite cleanup, if desired before proof work, is to grade the 44
+cap-omitted hard-state records in the six identified shards. It would complete
+HARD-SUCCESSOR-ONE at n=12, but would still be finite evidence.
 
 ## LESSONS FOR FUTURE ATTEMPTS
 
-- [FALSIFIED] **SV (paper Definition 5.4; ATTACK.md open item 3) is FALSE**, and n=11 is its minimum order. Two hand-checkable 11-vertex witnesses in `SV-FALSIFIED.md`: `J???FAWdVD?` (15 edges) and `J???FBObs\?` (16 edges), both `f=9, b=10, p=3`, unique minimum OCT `{0}`, `p(G-0)=2 < 3 = p(G)`. Confirmed by three engines including the repository's own frozen `verification/phase0.c run2` with its SV gold suite passing (`oG=1 pG=3 elig=1 minGain=-1`). Paper Theorem 5.5 now rests on a false hypothesis; Conjecture 40 is untouched (both witnesses satisfy it with slack 4).
-- [FALSIFIED] SV holds for every connected nonbipartite graph on n<=10 — re-verified independently here from Definition 5.4 with 0 failures over all 272,209 such graphs with n<=9 and all 11,712,539 at n=10, both censuses matching the paper exactly. So the falsification is sharp in n.
-- [CONJECTURAL LEAD] Mechanism of every SV counterexample seen: `o(G)=1` with a UNIQUE minimum OCT, which makes SV's existential quantifier vacuous; the single OCT vertex is a hub whose neighbours are all interior in an optimal path cover of `G-t`, so restoring it costs a path. No witness with `o>=2` was found. Any repair of Theorem 5.5 must handle the unique-OCT case separately or drop the single-vertex framing.
-- [FALSIFIED] LIFT-P (`exists minimum OCT T : p(G) <= p(G-T)`) dies with SV: for a unique-singleton minimum OCT the two statements coincide, so the same n=11 witnesses kill it (`lift.c` reports `LIFT-P_fail = SV_fail = 19` on class `3/1024`). It had 0 failures over the entire n<=10 universe — the project's documented "holds to n<=10, killed at n=11" pattern, this time on a preregistered statement of mine.
-- [CONJECTURAL LEAD] LIFT-A and LIFT-A-ALL (`ell(G) >= 2 tau(G-T) + |T| + 1` for some / for EVERY minimum OCT `T`) survive, including on the SV witnesses (slack 4). Preregistered before any run (`PREREG-LIFT.md`, `work/lift.c` sha256 c0cc2dd3…); 0 failures over all 11,716,571 connected graphs n<=10 and over the preregistered n=11 classes; dual-engine at n<=8 and on spread n=10/n=11 samples. With SV/LIFT-P dead, this is the surviving route through the general-to-bipartite gap.
-- [PROVED] L1: for bipartite `B`, `f(B) >= ceil(n_B/2) + c_e` with `c_e` = number of edge-containing components (engine: DeLaViña's 2004 `f >= b/2 + 1`, applied to `G-T`). Hence L2: LIFT-A holds whenever some minimum OCT `T` has `p(G) <= 2 c_e(G-T) - 1` — every traceable `G`, and 94.2% of connected nonbipartite graphs n<=8. **Every LIFT-A-tight graph is inside the class**: over 3<=n<=8 the minimum slack among uncovered graphs is 1, among covered 0. So the remaining obligation is the slacker `ell >= 2 tau(G-T) + |T| + 2` on the uncovered 5.8%.
-- [VERIFIED] Lemma A (forced core acyclic) at n=11: the paper's 994,607-instance footnote figure is now a reproducible hashed run of `tools/forced_core.py`, independently confirmed by `work/fcore.c`. The "not independently reproducible" caveat in paper §4.1 / PROOFS.md D / LEMMA-A-CHALLENGE.md can be lifted. Extended exhaustively to **n=12, 13 and 14** — 10,970,519 / 141,887,501 / **2,391,365,507** instances, 0 cyclic cores at every order. Max forced-core path length grows 8, 10, 10, 12 (about n-2), so forced cores get long but never close. `infeasible (G,S,e) = 0` throughout, confirming Corollary 3.8 over 2.55 billion instances.
-- [TOOLING] `work/fcore.c` (sha256 598bb06f…) decides forcedness by the flow test of paper Thm 3.10 instead of intersecting all feasible selections; agrees field-for-field with `tools/forced_core.py` at n=8..11 and runs n=13 in 115 s versus 414 s for n=11 in Python. Positive control on O-56/63/64 (must report a cyclic core) passes.
-- [VERIFIED] F2-ALL holds through n=13 (`work/f2.c`, sha256 e528a4ae…, positive control on the three witnesses). Its census scope is every minimum FVS with `tau >= 2`, every `H`-edge; the `tau <= 1` layer is omitted as trivial — an incidence cycle requires two `S`-vertices, and at `tau <= 1` every feasible selection is acyclic. F2, not Lemma A + Lemma B, is what Theorem 3.13 needs, and it had never been scanned directly.
-- [PROVED] Lemma CS (carrier–cycle separation), `LEMMA-A-CARRIER.md` §1: with `U = union of B_s over s in P`, every `s in P \ U` has `deg_U(q) <= 1` at both forced ends, and consecutive `s_i, s_{i+1} in P \ U` force `deg_U(q_i) = 0`. Hall layer only; first use of the whole carrier family at once.
-- [TOOLING] Hereditary FVS tightness for all `X ⊆ S` is EQUIVALENT to "`S` is a minimum FVS of `G`". This factorises the Lemma-A° counterexample search — cyclicity of the forced core depends only on the abstract system, minimum-FVS-ness only on the `H`-forest. `work/larealize.py` exploits it: 2,392,972 forest completions of cyclic-forced-core systems, 0 counterexamples, with a positive control hitting `tau=|S|` in 7–22% of acyclic-core completions.
-- [CONJECTURAL LEAD] In 345 of 876 sampled Lemma-A near-misses (39%) the inclusion-minimal hereditarily violating `X` lies inside neither `P` nor any single `B_s`. The three frozen witnesses showed no *single* localization is universal; this says a large minority escapes *all* of them. Test any proposed localization against `work/larealize.py`'s population first.
-- [DEAD END] Lemma CS does not repair the P-local bridge: building an FVS `(Q \ {q_j}) u U` of size `|S|-1` still needs `tau(G[H u P]) <= |P|-1`, refuted as a route by O-55/O-56. CS constrains `U` near `Q` and says nothing about how `P`'s external neighbours sit in the `H`-forest. Also do not assume `P ∩ U = ∅`: it fails in 4,931 of 11,097 random abstract cyclic systems (~44%).
-- [DEAD END] `Lemma A°` (disconnected) is not a wider universe than connected Lemma A: raising capacities only enlarges the feasible set, so `forced(all caps 2) ⊆ forced(caps for e)`, and a disconnected instance decomposes into the `e`-component plus all-capacity-2 components. The "connected instances only" caveat on the n<=11 evidence is not a gap.
-- [DEAD END] F2 is not a two-matroid intersection. Suppressing the degree-2 `S`-vertices makes F2 "pick one pair per `s`, all distinct, forming a linear forest on `H`" — transversal matroid ∩ graphic matroid — but the capacity bound `deg <= 2` is not a matroid constraint (path `a-b-c-d` with `c(b)=c(c)=1`: `{bc}` is maximal of size 1, `{ab,cd}` has size 2). The reformulation is still what made the fast F2 oracle possible.
+- [COMPUTATIONALLY VERIFIED] Universal all-cycle B-PLUS-2 has zero failures through n=12: the 4d7a census covers every A1-good cycle and all 1,184 one-cycle A1-bad states, while this attempt generically graded the complete 196-cycle `(2,1)` gap by 170 fixed-certificate replays plus exact cap-boundary tails; the retained 170 all have `d0=3` and first CES length 5, and every tail-only record has a CES path within `d0+2`.
+- [FALSIFIED] B-TERMINAL-SLIDE is false at n=12 despite holding through n=11: `K??FFbw}Fw^_`, `S={6,7,8,9,10}`, `e=(4,11)` has a feasible two-cycle selection whose target cycle has 12 bad minimizers, no terminal slide, and first generic CES at length 5; VERIFY-2 independently confirms the certificate.
+- [FALSIFIED] Unrestricted SUCCESSOR-ONE-ALL and SUCCESSOR-ONE-DESCENT are false at n=12 on the same witness: every minimizing successor has `d0=3`, although every successor does admit a CES minimizing step, so SD-2STEP-DESCENT survives.
+- [CONJECTURAL LEAD] HARD-SUCCESSOR-ONE restricts length-one successor geometry to states with no A1-good cycle and is descent-sufficient; it has zero failures on all six n=11 hard states and 1,140 retained n=12 `(1,0)` states covering 3,924 minimizing paths, with 44 cap-omitted records still ungraded.
+- [MATHEMATICALLY PROVED] SAFE-2-EXISTS is sufficient for F2: either one CES minimizing step decreases the cycle count, or a nonincreasing minimizing first step followed by a CES minimizing step decreases it within two moves; iteration terminates because the cycle count is a nonnegative integer.
+- [DEAD END] Do not prove terminal-slide or length-one successor geometry for every A1-bad cycle: multi-cycle `(2,1)` states falsify both stronger mechanisms but already satisfy the direct A1-good alternative, so those obligations are irrelevant to the weakest SAFE state claim.
+- [CONJECTURAL LEAD] In all 170 retained `(2,1)` gap records, the checker-selected generic length-five B-PLUS-2 repair uses the other A1-good cycle (one removed incidence in 142 records, two in 28); treat this as post-hoc mechanism data, not a proof.
+- [TOOLING] VERIFY-2 independently confirms scheduled-descent only through n<=11 and marks n=12 NOT CHECKED; the prospective exhaustive n=12 evidence comes from 4d7a, while this attempt used VERIFY-2 only for a fixed n=12 witness recheck.
+- [TOOLING] Normalize undirected certificate edges before comparing them with `(S,H)` incidence selections, and bind replay validators to the intended profile; the preserved invalid v1 runs show that representation and profile checks can otherwise create false failures before mathematics is reached.

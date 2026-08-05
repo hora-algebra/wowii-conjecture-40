@@ -1,0 +1,22 @@
+{
+ "boundary_match": true,
+ "counters": {
+  "a1_failures": 26,
+  "bounded_paths_tested": 624,
+  "bplus2_successes": 26,
+  "cycle_components": 228262,
+  "geng_graphs_seen": 212780,
+  "graphs_in_tail": 779,
+  "infeasible_candidates": 0,
+  "multi_cyclic_selections": 114131
+ },
+ "expected_missing_at_least": 14,
+ "expected_start_g6": "K??FFBw}Fw^_",
+ "failures": [],
+ "first_processed_g6": "K??FFBw}Fw^_",
+ "n": 12,
+ "nshards": 32,
+ "shard": 11,
+ "start_index": 187883,
+ "wall_seconds": 1121.922
+}

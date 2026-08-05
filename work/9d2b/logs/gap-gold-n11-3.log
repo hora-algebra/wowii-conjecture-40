@@ -1,0 +1,1 @@
+{"a1bad_profile": {}, "counters": {"cycle_components": 32796, "geng_graphs_seen": 25598, "graphs_in_shard": 3200, "multi_cyclic_selections": 16398}, "failures": {}, "geng_graphs_total": 25598, "n": 11, "nshards": 8, "output": "work/9d2b/results/gap-n11-3of8.json", "shard": 3, "wall_seconds": 515.189}

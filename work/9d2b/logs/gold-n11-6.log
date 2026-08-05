@@ -1,0 +1,1 @@
+{"a1bad_profile": {}, "ces_mode": "real", "counters": {"cycle_components": 1071199, "cyclic_selections": 1053685, "geng_graphs_seen": 25598, "graphs_in_shard": 3199}, "failures": {}, "geng_graphs_total": 25598, "n": 11, "nshards": 8, "output": "work/9d2b/results/safe-n11-6of8-real.json", "shard": 6, "wall_seconds": 1568.821}
