@@ -75,3 +75,7 @@ Entry format:
 
 - [TOOLING] VERIFY-2 CONFIRMED CP's blind re-derivation and its 115,774/798/18/0 scan, and independently reproduced every scheduled-descent n<=11 anchor. Its n=12 claims were explicitly NOT CHECKED, not downgraded or inferred.
 - [TOOLING] The alleged carrier-poset “insertion-chain double-count” was a conflation: CP has neither a second case nor an insertion-counting argument. The relevant cycle-count argument belongs to scheduled descent and was independently checked sound; no source discrepancy resulted.
+
+## 2026-08-05 — maintenance reconciliation
+
+- [TOOLING] maintenance completion claims require post-push existence proofs (remote SHA + raw-file fetch); a claimed v4 merge that never reached origin was caught by an attempt run's freshness check.
