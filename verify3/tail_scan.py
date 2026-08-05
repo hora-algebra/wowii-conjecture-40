@@ -36,8 +36,10 @@ SCRATCH = ('/private/tmp/claude-501/-Users-christineozols-conj40v2-conj40-verify
 SHARDS = {4: 10, 11: 8, 13: 4, 14: 4, 16: 12, 25: 6}
 
 
-def quick_cycle(J, C, sels, nbH, nbS, cap):
-    """(d0, minimizing steps [(a,p,J0,ces)]) with iterative deepening."""
+def quick_cycle(J, C, sels, nbH, nbS, cap, early=False):
+    """(d0, minimizing steps [(a,p,J0,ces)]) with iterative deepening.
+    early=True: stop and return as soon as one CES minimizing step is seen
+    (sufficient to classify the cycle A1-good)."""
     avoid = [a for a in sorted(C) if any(a not in J2 for J2 in sels)]
     if not avoid:
         return None, None
@@ -47,7 +49,10 @@ def quick_cycle(J, C, sels, nbH, nbS, cap):
             paths = residual_paths(J, a, nbH, nbS, cap, L)
             for p in paths.get(L, []):
                 J0 = toggle(J, a, p)
-                steps.append((a, p, J0, is_ces(J, J0, C)))
+                ces = is_ces(J, J0, C)
+                steps.append((a, p, J0, ces))
+                if early and ces:
+                    return L, steps
         if steps:
             return L, steps
     return None, None
@@ -95,11 +100,14 @@ def scan_graph(args):
                     continue
                 info = []
                 for C in cycles:
-                    d0, steps = quick_cycle(J, C, sels, nbH, nbS, cap)
+                    d0, steps = quick_cycle(J, C, sels, nbH, nbS, cap,
+                                            early=True)
                     if steps is None:
                         info.append((C, None, None, None))
                         continue
                     good = any(c for (_, _, _, c) in steps)
+                    if not good:        # bad: re-collect ALL minimizing steps
+                        d0, steps = quick_cycle(J, C, sels, nbH, nbS, cap)
                     info.append((C, d0, steps, good))
                 ngood = sum(1 for (_, _, _, g) in info if g)
                 nbad = sum(1 for (_, _, _, g) in info if g is False)
@@ -136,11 +144,85 @@ def scan_graph(args):
     return recs
 
 
-def main():
+def tail_graphs_of(sh, g6s, idx):
+    out = subprocess.run(['git', 'show',
+                          f'5cb5bb9:work/sd/sd-v2-n12-{sh}of32.txt'],
+                         capture_output=True, text=True).stdout
+    d = json.loads(out)
+    retained = d['witnesses']['A1-BAD-SELECTION']
+    bi = idx[retained[-1]['g6']]
+    tail = [(i, g6s[i]) for i in range(bi, len(g6s)) if i % 32 == sh]
+    return retained, bi, tail
+
+
+def scan_slice(sh, lo, hi):
+    g6s = open(f'{SCRATCH}/n12.g6').read().split()
+    idx = {g: i for i, g in enumerate(g6s)}
+    retained, bi, tail = tail_graphs_of(sh, g6s, idx)
+    part = tail[lo:hi]
+    with Pool() as pool:
+        found = [r for rs in pool.imap_unordered(scan_graph, part) for r in rs]
+    fn = f'verify3/tail-shard-{sh}-{lo}-{hi}.json'
+    with open(fn, 'w') as fp:
+        json.dump(found, fp, indent=1)
+    print(f"[slice shard {sh} {lo}:{hi}] graphs={len(part)} found={len(found)}"
+          f" -> {fn}", flush=True)
+
+
+def reconcile():
+    import glob
     g6s = open(f'{SCRATCH}/n12.g6').read().split()
     idx = {g: i for i, g in enumerate(g6s)}
     summary = {}
     for sh in sorted(SHARDS):
+        retained, bi, tail = tail_graphs_of(sh, g6s, idx)
+        found = []
+        done = json.load(open(f'verify3/tail-shard-{sh}.json')) \
+            if glob.glob(f'verify3/tail-shard-{sh}.json') else None
+        if done is not None:
+            found = done
+        else:
+            seen = set()
+            for fn in sorted(glob.glob(f'verify3/tail-shard-{sh}-*.json')):
+                for r in json.load(open(fn)):
+                    key = (r['g6'], tuple(r['S']), tuple(r['e']),
+                           json.dumps(r['J']), tuple(r['cycle']))
+                    if key not in seen:
+                        seen.add(key)
+                        found.append(r)
+        overlap = [w for w in retained if idx[w['g6']] >= bi]
+        prof10 = [r for r in found if r['ncyc'] == 1 and r['a1_good'] == 0]
+        prof21 = [r for r in found if r['ncyc'] == 2 and r['a1_good'] == 1]
+        newr = len(found) - len(overlap)
+        summary[sh] = (len(found), len(overlap), newr)
+        print(f"[shard {sh}] found={len(found)} overlap={len(overlap)} "
+              f"new={newr} (1,0)={len(prof10)} (2,1)={len(prof21)} "
+              f"other={len(found)-len(prof10)-len(prof21)}")
+        grades = {}
+        for r in found:
+            key = (r['ncyc'], r['a1_good'])
+            g = grades.setdefault(key, {'n': 0, 'TSLIDE': 0, 'S1ALL': 0,
+                                        'HARD1': 0, 'SD2STEP': 0, 'd0s': set()})
+            g['n'] += 1
+            g['d0s'].add(r['d0'])
+            for k in ('TSLIDE', 'S1ALL', 'HARD1', 'SD2STEP'):
+                g[k] += bool(r[k])
+        for key, g in sorted(grades.items()):
+            print(f"    profile {key}: n={g['n']} d0s={sorted(g['d0s'])} "
+                  f"TSLIDE={g['TSLIDE']}/{g['n']} S1ALL={g['S1ALL']}/{g['n']} "
+                  f"HARD1={g['HARD1']}/{g['n']} SD2STEP={g['SD2STEP']}/{g['n']}")
+    print("[TAIL SUMMARY]", summary)
+
+
+def main():
+    g6s = open(f'{SCRATCH}/n12.g6').read().split()
+    idx = {g: i for i, g in enumerate(g6s)}
+    import os
+    summary = {}
+    for sh in sorted(SHARDS):
+        if os.path.exists(f'verify3/tail-shard-{sh}.json'):
+            print(f"[shard {sh}] already done, skipping", flush=True)
+            continue
         out = subprocess.run(['git', 'show',
                               f'5cb5bb9:work/sd/sd-v2-n12-{sh}of32.txt'],
                              capture_output=True, text=True).stdout
@@ -183,4 +265,9 @@ def main():
 
 
 if __name__ == '__main__':
-    main()
+    if len(sys.argv) > 1 and sys.argv[1] == 'scan':
+        scan_slice(int(sys.argv[2]), int(sys.argv[3]), int(sys.argv[4]))
+    elif len(sys.argv) > 1 and sys.argv[1] == 'reconcile':
+        reconcile()
+    else:
+        main()

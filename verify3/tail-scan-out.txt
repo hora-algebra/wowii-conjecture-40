@@ -1,0 +1,15 @@
+[shard 4] tail_graphs=149 found=16 overlap_retained=6 new=10 (expect missing=10+0) profiles: (1,0)=16 (2,1)=0 other=0
+    profile (1, 0): n=16 d0s=[3] TSLIDE=16/16 S1ALL=16/16 HARD1=16/16 SD2STEP=16/16
+[shard 11] tail_graphs=779 found=34 overlap_retained=12 new=22 (expect missing=8+(2,1)miss) profiles: (1,0)=8 (2,1)=26 other=0
+    profile (1, 0): n=8 d0s=[3] TSLIDE=8/8 S1ALL=8/8 HARD1=8/8 SD2STEP=8/8
+    profile (2, 1): n=26 d0s=[3] TSLIDE=0/26 S1ALL=12/26 HARD1=12/26 SD2STEP=26/26
+[shard 13] tail_graphs=76 found=6 overlap_retained=2 new=4 (expect missing=4+0) profiles: (1,0)=6 (2,1)=0 other=0
+    profile (1, 0): n=6 d0s=[3] TSLIDE=6/6 S1ALL=6/6 HARD1=6/6 SD2STEP=6/6
+[shard 14] tail_graphs=611 found=48 overlap_retained=32 new=16 (expect missing=4+(2,1)miss) profiles: (1,0)=4 (2,1)=44 other=0
+    profile (1, 0): n=4 d0s=[3] TSLIDE=4/4 S1ALL=4/4 HARD1=4/4 SD2STEP=4/4
+    profile (2, 1): n=44 d0s=[3] TSLIDE=0/44 S1ALL=4/44 HARD1=4/44 SD2STEP=44/44
+[shard 16] tail_graphs=180 found=14 overlap_retained=2 new=12 (expect missing=12+0) profiles: (1,0)=14 (2,1)=0 other=0
+    profile (1, 0): n=14 d0s=[3] TSLIDE=14/14 S1ALL=14/14 HARD1=14/14 SD2STEP=14/14
+[shard 25] tail_graphs=102 found=10 overlap_retained=4 new=6 (expect missing=6+0) profiles: (1,0)=10 (2,1)=0 other=0
+    profile (1, 0): n=10 d0s=[3] TSLIDE=10/10 S1ALL=10/10 HARD1=10/10 SD2STEP=10/10
+[TAIL SUMMARY] {4: (16, 6, 10), 11: (34, 12, 22), 13: (6, 2, 4), 14: (48, 32, 16), 16: (14, 2, 12), 25: (10, 4, 6)}
