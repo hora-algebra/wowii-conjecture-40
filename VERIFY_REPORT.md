@@ -143,13 +143,17 @@ blocks (4,6) and (5,5) deduped by S-relabeling, which every predicate is
 invariant under):
 
 ```
-labeled blocks:  21,584,075 systems, 169,047 cyclic forced cores, 0 failures
-(4,6) deduped:    2,948,880 systems,  52,055 cyclic,               0 failures
-(5,5) deduped:    1,147,190 systems,  10,892 cyclic,               0 failures
-total:           ~25.7M systems, ~232k cyclic; NC, NCM/CE, CP-regression,
-                 punctured-tightness regression, A-I+ counting step: 0 failures;
-                 all three negative controls fire in every population that
-                 contains dirty q
+FULL LABELED UNIVERSE (product semantics, every (|S|,|H|), |S|+|H| <= 10):
+  186,192,835 systems; 1,977,897 with a cyclic forced core;
+  NC, NCM/CE, CP-regression, punctured-tightness regression, A-I+ counting
+  step: 0 failures; controls NC-ALL 935,082 / CHORD-ALL 916,722 /
+  PDIS 935,082 (firing in every population that contains dirty q).
+  Largest blocks: (4,6) 65,932,160 systems / 794,910 cyclic;
+  (5,5) 98,676,600 / 1,013,940.  Full table: verify3/sweep-kp10.txt.
+Cross-check (S-relabeling-deduped engine variant, independent run):
+  (4,6) 2,948,880 systems / 52,055 cyclic, 0 failures;
+  (5,5) 1,147,190 / 10,892, 0 failures — orbit ratios consistent
+  (<= 4! and <= 5!), same zero-failure verdicts.
 ```
 
 Graph layer, full census n ≤ 10 (`geng -bc`, every minimum FVS, every

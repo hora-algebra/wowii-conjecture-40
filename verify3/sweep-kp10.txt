@@ -1,0 +1,23 @@
+  (2,3) systems=52 cyclic=0 NC=0 NCM=0 CPR=0 PT=0 AIPhyp=0 AIP=0 ctrl=0/0/0
+  (2,4) systems=441 cyclic=0 NC=0 NCM=0 CPR=0 PT=0 AIPhyp=0 AIP=0 ctrl=0/0/0
+  (2,5) systems=1870 cyclic=0 NC=0 NCM=0 CPR=0 PT=0 AIPhyp=0 AIP=0 ctrl=0/0/0
+  (2,6) systems=4160 cyclic=0 NC=0 NCM=0 CPR=0 PT=0 AIPhyp=0 AIP=0 ctrl=0/0/0
+  (2,7) systems=4620 cyclic=0 NC=0 NCM=0 CPR=0 PT=0 AIPhyp=0 AIP=0 ctrl=0/0/0
+  (2,8) systems=2030 cyclic=0 NC=0 NCM=0 CPR=0 PT=0 AIPhyp=0 AIP=0 ctrl=0/0/0
+  (3,3) systems=244 cyclic=24 NC=0 NCM=0 CPR=0 PT=0 AIPhyp=24 AIP=0 ctrl=18/18/18
+  (3,4) systems=7567 cyclic=414 NC=0 NCM=0 CPR=0 PT=0 AIPhyp=144 AIP=0 ctrl=0/0/0
+  (3,5) systems=105600 cyclic=360 NC=0 NCM=0 CPR=0 PT=0 AIPhyp=360 AIP=0 ctrl=0/0/0
+  (3,6) systems=799200 cyclic=315 NC=0 NCM=0 CPR=0 PT=0 AIPhyp=315 AIP=0 ctrl=0/0/0
+  (3,7) systems=3571260 cyclic=0 NC=0 NCM=0 CPR=0 PT=0 AIPhyp=0 AIP=0 ctrl=0/0/0
+  (4,3) systems=1012 cyclic=0 NC=0 NCM=0 CPR=0 PT=0 AIPhyp=0 AIP=0 ctrl=0/0/0
+  (4,4) systems=95361 cyclic=2934 NC=0 NCM=0 CPR=0 PT=0 AIPhyp=2952 AIP=0 ctrl=2304/2304/2304
+  (4,5) systems=3519670 cyclic=165000 NC=0 NCM=0 CPR=0 PT=0 AIPhyp=44400 AIP=0 ctrl=47520/45360/47520
+  (4,6) systems=65932160 cyclic=794910 NC=0 NCM=0 CPR=0 PT=0 AIPhyp=386670 AIP=0 ctrl=23040/23040/23040
+  (5,3) systems=4084 cyclic=0 NC=0 NCM=0 CPR=0 PT=0 AIPhyp=0 AIP=0 ctrl=0/0/0
+  (5,4) systems=1098727 cyclic=0 NC=0 NCM=0 CPR=0 PT=0 AIPhyp=0 AIP=0 ctrl=0/0/0
+  (5,5) systems=98676600 cyclic=1013940 NC=0 NCM=0 CPR=0 PT=0 AIPhyp=952140 AIP=0 ctrl=862200/846000/862200
+  (6,3) systems=16372 cyclic=0 NC=0 NCM=0 CPR=0 PT=0 AIPhyp=0 AIP=0 ctrl=0/0/0
+  (6,4) systems=12286281 cyclic=0 NC=0 NCM=0 CPR=0 PT=0 AIPhyp=0 AIP=0 ctrl=0/0/0
+  (7,3) systems=65524 cyclic=0 NC=0 NCM=0 CPR=0 PT=0 AIPhyp=0 AIP=0 ctrl=0/0/0
+[SWEEP k+p<=10] systems=186192835 cyclic=1977897 NC_fail=0 NCM_fail=0 CPR_fail=0 PT_fail=0 AIP_hyp=1387005 AIP_fail=0
+    controls: NC-ALL=935082 CHORD-ALL=916722 PDIS=935082
