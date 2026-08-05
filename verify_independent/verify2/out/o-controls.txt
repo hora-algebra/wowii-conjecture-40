@@ -1,0 +1,23 @@
+=== O-56
+   S=['0', '1', '2', '3']  H(incident)=['4', '5', '6', '7', '8']  cap=[2, 2, 2, 2, 2]
+   feasible selections: 1   (published 1)
+   forced cycle: P=['0', '1'] Q=['4', '5']
+   carriers: {'0': ['0', '2', '3'], '1': ['1', '2', '3']}
+   U=['2', '3']  P\U=['0', '1']  P&U empty=True  CP holds=True  ADJ holds=True
+   CONTROL PASS
+=== O-63
+   S=['s', 't', 'u', 'a', 'b']  H(incident)=['h', 'q1', 'q2', 'w', 'z']  cap=[2, 2, 2, 2, 2]
+   feasible selections: 6   (published 6)
+   forced cycle: P=['s', 't'] Q=['q1', 'q2']
+   carriers: {'s': ['s', 'u', 'a', 'b'], 't': ['t']}
+   U=['u', 'a', 'b']  P\U=['s', 't']  P&U empty=True  CP holds=True  ADJ holds=True
+   CONTROL PASS
+=== O-64
+   S=['s', 't', 'u']  H(incident)=['h', 'q1', 'q2', 'w']  cap=[1, 2, 2, 2]
+   feasible selections: 1   (published 1)
+   forced cycle: P=['s', 't'] Q=['q1', 'q2']
+   carriers: {'s': ['s', 'u'], 't': ['t']}
+   U=['u']  P\U=['s', 't']  P&U empty=True  CP holds=True  ADJ holds=True
+   CONTROL PASS
+
+ALL THREE POSITIVE CONTROLS PASS: True

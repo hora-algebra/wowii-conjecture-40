@@ -1,0 +1,21 @@
+======================================================================
+CLAIM (b17e): the ADJ witness is NOT a Lemma-A counterexample -
+  it has tau(G[H u S]) = 1 < 3, so hereditary FVS tightness fails.
+  tau(G[H u S]) = tau(G) = 1  |S| = 3
+  => hereditary FVS tightness FAILS: True
+  H = G - S is a forest: True
+
+======================================================================
+CLAIM (b17e): 'CP guarantees two capacity holes at a maximal vertex' -
+  for s in P\U, both forced ends q obey deg_U(q) <= 1,
+  equivalently each retains >=1 unit of capacity outside U.
+  forced ends of P\U vertices checked : 3168
+  violations of deg_U(q) <= 1          : 0
+  violations of deg_U(q) <= c(q) - 1   : 0
+
+======================================================================
+CLAIM (4d7a): 3 selected cycles impossible below n=13; 2 need n>=9.
+  each selected cycle uses >=2 S- and >=2 H-vertices;
+  feasibility: 2|S| <= sum_h c(h) = 2|H| - 2, so |H| >= |S| + 1.
+  2 disjoint cycles: |S| >= 4, hence |H| >= 5, so n >= 9
+  3 disjoint cycles: |S| >= 6, hence |H| >= 7, so n >= 13

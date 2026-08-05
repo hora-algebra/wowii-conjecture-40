@@ -1,0 +1,2 @@
+TARGET systems=115774 cyclic=798 pdis=18 CP_fail=0 ADJ_fail=18 carrier_nonunique=360
+FIRST_ADJ_FAIL {"cap": [2, 2, 2], "detail": [{"A": {"0": [0], "1": [1], "2": [0, 1, 2]}, "P": [0, 1, 2], "P_minus_U": [2], "Q": [0, 1, 2], "U": [0, 1], "adj_ok": false, "arcs": [[2, 0], [2, 1]], "cp_fail": [], "pdis": true}], "nb": [[0, 1], [0, 2], [0, 1, 2]]}

@@ -1,0 +1,43 @@
+========================================================================
+graph J??FErWxDw?   S=[0, 2, 3, 4]   e=(5, 10)
+  bipartite=True connected=True
+  tau(G)=4  |S|=4  S is a minimum FVS: True
+  H = G-S is a forest: True
+  hereditary FVS tightness tau(G[H u X])=|X| for all X: True
+  feasible selections: 17
+  --- A1-FAILING cycle: |C|=4 edges, |cyc(J)|=1, d0=3, #minimising steps=4, #CES minimisers=0
+      dCES = 5   (gap = 2)
+      shortest bad paths: 4; all with [destroyed=={C}, exactly 1 new cycle Z, (u,t) on Z, d0(J0)=1, |cyc(J0)|=|cyc(J)|, CES minimising 2nd step]: 4/4
+  --- A1-FAILING cycle: |C|=4 edges, |cyc(J)|=1, d0=3, #minimising steps=4, #CES minimisers=0
+      dCES = 5   (gap = 2)
+      shortest bad paths: 4; all with [destroyed=={C}, exactly 1 new cycle Z, (u,t) on Z, d0(J0)=1, |cyc(J0)|=|cyc(J)|, CES minimising 2nd step]: 4/4
+========================================================================
+graph J?B@eQo]Fo?   S=[6, 7, 8, 10]   e=(0, 5)
+  bipartite=True connected=True
+  tau(G)=4  |S|=4  S is a minimum FVS: True
+  H = G-S is a forest: True
+  hereditary FVS tightness tau(G[H u X])=|X| for all X: True
+  feasible selections: 11
+  --- A1-FAILING cycle: |C|=4 edges, |cyc(J)|=1, d0=3, #minimising steps=2, #CES minimisers=0
+      dCES = 5   (gap = 2)
+      shortest bad paths: 2; all with [destroyed=={C}, exactly 1 new cycle Z, (u,t) on Z, d0(J0)=1, |cyc(J0)|=|cyc(J)|, CES minimising 2nd step]: 2/2
+  --- A1-FAILING cycle: |C|=4 edges, |cyc(J)|=1, d0=3, #minimising steps=2, #CES minimisers=0
+      dCES = 5   (gap = 2)
+      shortest bad paths: 2; all with [destroyed=={C}, exactly 1 new cycle Z, (u,t) on Z, d0(J0)=1, |cyc(J0)|=|cyc(J)|, CES minimising 2nd step]: 2/2
+========================================================================
+graph J?B@eOtq`i_   S=[0, 1, 6, 10]   e=(4, 9)
+  bipartite=True connected=True
+  tau(G)=4  |S|=4  S is a minimum FVS: True
+  H = G-S is a forest: True
+  hereditary FVS tightness tau(G[H u X])=|X| for all X: True
+  feasible selections: 17
+  --- A1-FAILING cycle: |C|=4 edges, |cyc(J)|=1, d0=3, #minimising steps=4, #CES minimisers=0
+      dCES = 5   (gap = 2)
+      shortest bad paths: 4; all with [destroyed=={C}, exactly 1 new cycle Z, (u,t) on Z, d0(J0)=1, |cyc(J0)|=|cyc(J)|, CES minimising 2nd step]: 4/4
+  --- A1-FAILING cycle: |C|=4 edges, |cyc(J)|=1, d0=3, #minimising steps=4, #CES minimisers=0
+      dCES = 5   (gap = 2)
+      shortest bad paths: 4; all with [destroyed=={C}, exactly 1 new cycle Z, (u,t) on Z, d0(J0)=1, |cyc(J0)|=|cyc(J)|, CES minimising 2nd step]: 4/4
+========================================================================
+A1-failing cycles found      : 6   (report claims 6)
+total shortest bad paths     : 20   (report/PROOFS sec B3 claim 20)
+ALL STRUCTURAL CLAIMS HELD   : True
