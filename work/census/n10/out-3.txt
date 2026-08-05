@@ -1,0 +1,4 @@
+S1FAIL I??FFBaFw p=3 o=1 (T=64 tau=1 c_e=1 D=1 r=0 g=3 thr5=2 thr6=6 sl=3) (T=256 tau=1 c_e=1 D=1 r=0 g=3 thr5=2 thr6=6 sl=3)
+S1FAIL I??FF?^wo p=3 o=1 (T=512 tau=1 c_e=1 D=1 r=0 g=3 thr5=2 thr6=6 sl=3)
+S1FAIL I??FF?^ww p=3 o=1 (T=512 tau=1 c_e=1 D=1 r=0 g=3 thr5=2 thr6=6 sl=3)
+COND connected=1686434 nonbip=1685985 s1=3 s2=0 s3=0 l6not5=3 tight=7912

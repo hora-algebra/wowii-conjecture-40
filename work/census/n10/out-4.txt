@@ -1,0 +1,1 @@
+COND connected=1654975 nonbip=1654694 s1=0 s2=0 s3=0 l6not5=0 tight=6300

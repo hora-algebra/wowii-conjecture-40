@@ -1,0 +1,12 @@
+E0WIT K????B_w?xb} a=5 b=7 p=4 g=1 excess=0
+E0WIT K????B_w?|bm a=5 b=7 p=4 g=1 excess=0
+E0WIT K????B_w?|b} a=5 b=7 p=4 g=1 excess=0
+E0WIT K????B_w?~b} a=5 b=7 p=4 g=1 excess=0
+E0WIT K????B_FG|[J a=6 b=6 p=4 g=2 excess=0
+E0WIT K????B_Fg|[J a=6 b=6 p=4 g=2 excess=0
+E0WIT K????Bo{?^`} a=6 b=6 p=4 g=1 excess=-2
+E0WIT K????BoBv_@{ a=6 b=6 p=4 g=2 excess=0
+E0WIT K????BoBv_@| a=6 b=6 p=4 g=2 excess=0
+E0WIT K????BoBo^]A a=6 b=6 p=4 g=2 excess=0
+E0WIT K????BoBo^]B a=6 b=6 p=4 g=2 excess=0
+EXC graphs=65803 min_excess=-2 hist: -2:1 0:10 1:153 2:5850 3:4944 4:25446 5:11815 6:12147 7:4297 8:1049 9:80 10:11
