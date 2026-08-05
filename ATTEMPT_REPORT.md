@@ -167,7 +167,15 @@ This is the project's documented death pattern firing on my own statement one
 order after the sample, which is the cheapest possible way for it to fire. It
 also matters for claim 2: multi-cycle selections are *not* rare in general, so
 cycle-choice scheduling is not structurally vacuous — it is vacuous exactly, and
-only, where A1 fails.
+only, where A1 fails at n <= 11.
+
+**Do not over-read the cap of 2.** Three selected cycles need at least six
+`S`-vertices, and feasibility forces `2|S| <= 2|H| - 2`, i.e. `|H| >= |S| + 1`;
+so three selected cycles are impossible for pure counting reasons below
+**n = 13**. The observed maximum of 2 through n = 12 is therefore an arithmetic
+artefact, not evidence, and n = 13 is its first real test. By the same count two
+cycles require `n >= 9`, so n = 9 *was* a genuine test that ONE-CYCLE passed and
+minimal order 10 is a real fact.
 
 ### 5. SD-PLUS-2 — [COMPUTATIONALLY VERIFIED], universe: all connected bipartite `n <= 11`
 
