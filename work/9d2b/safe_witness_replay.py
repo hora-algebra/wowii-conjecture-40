@@ -33,7 +33,8 @@ def replay_one(rec):
         "minimum_fvs_member": frozenset(Sset) in {
             frozenset(S) for S in core.min_fvs_all(nn, adj, len(Sset))},
         "fixed_edge": x not in Sset and y not in Sset and bool(adj[x] >> y & 1),
-        "feasible": J in set(core.feasible(nn, adj, sorted(Sset), x, y)),
+        "feasible": J in {
+            core.norm(F) for F in core.feasible(nn, adj, sorted(Sset), x, y)},
     }
     actual_cycles = {frozenset(cc) for cc, iscy in core.comps(J, (x, y)) if iscy}
     recorded_cycles = {frozenset(cc) for cc in rec["cycles"]}
