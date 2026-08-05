@@ -6,7 +6,12 @@ assert the same verdict (no minimum OCT satisfies the L5 / L6 condition).
 """
 import sys, glob, os
 
-sys.path.insert(0, "/Users/christineozols/conj40v2/attempt-fable-0eb8/work/fable-0eb8")
+# Point this at a checkout of the frozen fable checker; the result artifact
+# deliberately contains no machine-specific path.
+checker_dir = os.environ.get("L6SCAN_DIR")
+if not checker_dir:
+    raise SystemExit("set L6SCAN_DIR to the directory containing l6scan.py")
+sys.path.insert(0, checker_dir)
 from l6scan import parse_graph6, profile
 
 def main(pattern):
