@@ -228,6 +228,15 @@ full machinery, so the n=11 anchor above is itself a test of the filter.
   invalidations, 0 Theorem-4 failures, 0 Theorem-4′ failures**, with the case
   split reported in the n=12 section. Type II(ii) — the case that would falsify
   CL-7 by Proposition 9 — has **never** occurred.
+- **Proposition 12** (path-component count `= |H|−|S|` independent of `c(J)`,
+  total slack `= 2(|H|−|S|−1)`, `|Sat(J)| ≤ |S|+1`) re-checked directly on all
+  237,671 feasible selections at n=9: **0 violations**.
+- **Measured fact 9.2.** Over 1,146 preserved hard-state certificates and 3,932
+  bad minimizing steps, the successor's length-one witness is the freed end `h`
+  alone in 384 steps, a vertex already slack in `J` alone in 1,700, both in
+  1,848, neither in **0**. A proof shaped as "the relocated cycle sees the freed
+  vertex" is therefore refuted on 43% of the population, and so is any argument
+  that ignores `h`.
 - **Hard states are single-cycle (empirical).** All 6 hard states at n=11 and
   every preserved n=12 hard-state record have exactly one selected cycle. This
   independently reproduces the 9d2b observation. I have no proof of it; it is
