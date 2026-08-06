@@ -288,6 +288,22 @@ simultaneously; nothing in the certified stack does that yet.
   excluded from every verdict.
 - The abort path wrote an `int` into the failure dictionary and crashed the
   summary; fixed before the long runs.
+- A launch pattern that backgrounded workers inside a subshell silently
+  double-started six n=12 ranges; both copies wrote the same checkpoint file.
+  Found with `pgrep -fl` (the shell's `ps | grep` pipeline was being filtered by
+  the environment's command wrapper and reported 0), and the duplicates were
+  killed. No result is affected — the two copies compute the same deterministic
+  function of the same interval — but the run wasted about half its CPU for the
+  first ten minutes.
+- **Boundary handoffs can overlap.** When a helper takes over the tail of a
+  worker's interval, the worker is stopped by a watcher that polls its
+  checkpoint; the checkpoint granularity is 200 graphs and the poll is 20 s, so
+  in a sparse region a worker can cross the handoff index between polls. This
+  happened three times (`r2`, `r5`, `r2d`). It was caught because
+  `aggregate_n12.py` **refuses to sum overlapping intervals** and prints them;
+  each overlapping interval was then discarded and re-run rather than
+  reconciled by arithmetic. Discarded files are retained with `-SUPERSEDED-`
+  in their names and excluded from every verdict.
 
 ## n=12 coverage and verdict
 
