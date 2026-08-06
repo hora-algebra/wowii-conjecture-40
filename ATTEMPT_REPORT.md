@@ -215,9 +215,21 @@ full machinery, so the n=11 anchor above is itself a test of the filter.
   steps out of hard states. **0 failures.** In particular CL-7 (the *universal*
   successor form) holds at n=11: every one of the 20 steps yields a successor
   with a slack-adjacent cycle `S`-vertex, i.e. `d₀(Z)=1`.
-- **Theorem 6 is not vacuous:** at n=9 its premise (slack-free closure of a
-  selected cycle) fires on 32 of the 24,195 cycle components, always with
-  `|W| = 1`, and all four conclusions plus Corollary 6.1 hold every time.
+- **Theorem 6 is not vacuous:** its premise (slack-free closure of a selected
+  cycle) fires on 32 of the 24,195 cycle components at n=9 and on 529 of the
+  448,577 at n=10, always with `|W| = 1`, and all four conclusions plus
+  Corollary 6.1 hold every time (`work/064c/results/thm-closure{9,10}.json`).
+- **Theorem 4 / 4′ trichotomy, correctly scoped:** every preserved A1-bad record
+  was replayed from its certificate by `work/064c/thm4_replay.py`, which grades
+  Theorem 4 only when the terminal is not the released end and Theorem 4′
+  otherwise. Over the records available at wrap-up: **0 certificate
+  invalidations, 0 Theorem-4 failures, 0 Theorem-4′ failures**, with the case
+  split reported in the n=12 section. Type II(ii) — the case that would falsify
+  CL-7 by Proposition 9 — has **never** occurred.
+- **Hard states are single-cycle (empirical).** All 6 hard states at n=11 and
+  every preserved n=12 hard-state record have exactly one selected cycle. This
+  independently reproduces the 9d2b observation. I have no proof of it; it is
+  recorded as a proof target, not as a lemma.
 - **n = 12:** a checkpointed, restart-safe exhaustive pass over contiguous
   `geng -bc -q 12` index intervals was launched at 22:53 CDT. Coverage and
   verdict are recorded in the "n=12 status" section below.
