@@ -1,15 +1,15 @@
 {
  "summary": {
-  "graphs": 12672,
-  "instances": 564897,
-  "selections": 88776502,
-  "cycle_components": 8972112,
+  "graphs": 15472,
+  "instances": 775949,
+  "selections": 101617521,
+  "cycle_components": 10313578,
   "a1_fail": 6,
   "hard_states": 6,
   "cap_hits": 0,
   "d0_hist": {
-   "1": 8952,
-   "3": 46225
+   "1": 10293,
+   "3": 50476
   },
   "cl6_ok": 6,
   "cl7_steps": 24,
@@ -29,9 +29,9 @@
    70928,
    106392
   ],
-  "done_upto": 83599,
+  "done_upto": 86399,
   "complete": false,
-  "seconds": 1023.854
+  "seconds": 1145.251
  },
  "a1_records": [
   {

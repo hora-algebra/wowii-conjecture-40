@@ -412,6 +412,66 @@ so neither toggle is CES for `Z`. So the length-3 branch of Corollary 8.1 cannot
 be discharged by the canonical return path: SAFE-2-EXISTS at a hard state needs
 either `d₀(Z)=1`, or a *different* length-3 minimizing step at `J₀` that is CES.
 
+**Theorem 10 (exact equivalence: SAFE-2-EXISTS is a one-step escape from the
+hard set). MATHEMATICALLY PROVED.** Call a cyclic feasible selection *hard* if
+none of its selected cycles is A1-good. Then, for a hard state `J`:
+
+  `J` satisfies SAFE-2-EXISTS
+  ⟺ some minimizing step `J → J₀` has `c(J₀) ≤ c(J)` and `J₀` is **not** hard
+  ⟺ CL-6 holds at `J`.
+
+*Proof.* SAFE-2-EXISTS at a hard `J` asks for a minimizing step `J → J₀` with
+`c(J₀) ≤ c(J)` such that `J₀` has a CES minimizing step; "`J₀` has a CES
+minimizing step" is by definition "some selected cycle of `J₀` is A1-good",
+i.e. "`J₀` is not hard". The second equivalence is Theorem 2 applied to `J₀`
+(a cycle is A1-good iff one of its `S`-vertices has a slack neighbour) together
+with Theorem 1 (a length-one step is automatically CES). ∎
+
+**Corollary 10.1. MATHEMATICALLY PROVED.** F2 follows from the strictly weaker
+
+> **HARD-ESCAPE.** From every hard state there is a finite sequence of
+> minimizing steps, none increasing `c`, reaching a state that is not hard.
+
+*Proof.* A non-hard cyclic state has an A1-good cycle, hence a CES minimizing
+step, which lowers `c` by at least one; iterate and apply Proposition 5. ∎
+
+**Remark 10.2.** So the whole remaining content of SAFE-2-EXISTS is a statement
+about a single finite digraph: put an arc `J → J₀` for every minimizing step out
+of a hard state that does not increase `c`. SAFE-2-EXISTS says no hard state has
+*all* of its out-arcs landing inside the hard set; HARD-ESCAPE says the hard set
+contains no *closed* subset reachable from a hard state. Proposition 9 below
+gives the only mechanism found so far that can pin an out-arc inside the hard
+set, and Theorem 4 says every other out-arc relocates the cycle into a former
+path component while freeing a cycle vertex — which is precisely why the hard
+set looks hard to stay inside.
+
+**Proposition 9 (a conditional falsification of the universal form).
+MATHEMATICALLY PROVED.** Let `J` be a hard state and suppose some minimizing
+step out of `J` is of type II(ii) of Theorem 4′ — terminal at the released end
+`h₂ = h`, first hop `h₁ ∈ Q(C)`. Then the successor `J₀` has **no** length-one
+step at all, so **CL-7 fails at `J`**.
+
+*Proof.* In a type-II(ii) step the toggle is
+`J₀ = J − (s,h) + (s,h₁) − (s₁,h₁) + (s₁,h)`. Degrees: `h` loses one and gains
+one; `h₁` loses one and gains one; nothing else changes. Hence
+`slack(J₀) = slack(J)`. By Theorem 4′(ii) every new cycle of `J₀` lies inside
+`V(C)`, so its `S`-vertices lie in `P(C)`; and every old cycle of `J₀` is a
+cycle of `J`. Because `J` is hard, Theorem 2 says no `S`-vertex on any cycle of
+`J` — in particular none in `P(C)` — has a slack `J`-neighbour, and the slack
+set has not moved. So no `S`-vertex on a cycle of `J₀` has a slack
+`J₀`-neighbour: by Theorem 2 applied to `J₀`, no cycle of `J₀` has `d₀ = 1`. ∎
+
+**Remark 9.1 (a preregistered search target).** Proposition 9 turns "is the
+universal successor form true?" into a finite, local pattern search: a hard
+state whose cycle `C` has a chord `s → q` (`s ∈ P(C)`, `q ∈ Q(C)`, `(s,q) ∉ J`)
+such that the `s`-side `C`-neighbour of `q` is `G`-adjacent to the released end
+`h`, with `d₀(C) = 3`. No such step has been seen in the graded population
+(720 bad minimizing steps over 176 A1-bad records: 536 of type I, 184 of type
+II(i), **0** of type II(ii)). The first type-II(ii) minimizing step at a hard
+state falsifies CL-7 outright and is the cheapest decisive experiment left on
+this branch of the problem. It does **not** by itself falsify CL-6 or
+HARD-SUCCESSOR-ONE, which are existential over steps.
+
 **Where the remaining difficulty sits, exactly.** Let `J` be hard, `C` a
 selected cycle, and take the bad step of Theorem 4. Then the slack set moves by
 exactly one unit: `slack(J₀) = (slack(J) \ {h₂}) ∪ {h}`, and the new cycle `Z`
