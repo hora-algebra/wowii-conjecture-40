@@ -46,8 +46,10 @@ Nothing else in the activation message was down-graded or re-interpreted.
    queried the public repository named in the MathOverflow post,
    `github.com/cozuya/wowii-conjecture-40`: 5 issues and 5 pull requests, **all
    closed/merged**; **0 open**. `main` head `64eb3dacd3e332b9464faece8bd42f72e16bf6dc`
-   at 2026-08-05T16:35:01Z (merge of PR #5), tree-identical to the mirror `main`
-   I branched from.
+   at 2026-08-05T16:35:01Z (merge of PR #5). Tree-identity with the mirror `main`
+   I branched from was checked, not assumed: public `64eb3da` has tree
+   `184ff37bb2b546c6d156433a83067d30d417e1c0`, and
+   `git rev-parse 9b01be1^{tree}` gives the same SHA.
 2. **MathOverflow 513887** ("Can the forced edges of an exact-demand capacitated
    selection in a bipartite incidence model form a cycle, given hereditary FVS
    tightness?"): asked 2 days ago, 17 views, **`answerCount = 0`**, not closed,
