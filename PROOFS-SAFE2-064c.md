@@ -494,6 +494,16 @@ state falsifies CL-7 outright and is the cheapest decisive experiment left on
 this branch of the problem. It does **not** by itself falsify CL-6 or
 HARD-SUCCESSOR-ONE, which are existential over steps.
 
+**Measured fact 9.2 (which slack vertex witnesses the successor).** Over every
+preserved hard-state certificate at n=11 and n=12 (1,146 records, 3,932 bad
+minimizing steps, `work/064c/witness_slack.py`), the slack vertex of `J₀` that
+gives the relocated cycle its length-one step is: the freed end `h` only, in
+384 steps; a vertex that was *already* slack in `J`, only, in 1,700 steps; both,
+in 1,848; neither, in **0**. So a proof shaped as "the relocated cycle sees the
+freed vertex `h`" cannot work — it is refuted on 1,700 of 3,932 steps — and
+neither can a proof that ignores `h`. Any argument must produce *some* slack
+neighbour, not a designated one.
+
 **Where the remaining difficulty sits, exactly.** Let `J` be hard, `C` a
 selected cycle, and take the bad step of Theorem 4. Then the slack set moves by
 exactly one unit: `slack(J₀) = (slack(J) \ {h₂}) ∪ {h}`, and the new cycle `Z`
