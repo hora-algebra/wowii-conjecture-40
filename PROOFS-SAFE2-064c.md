@@ -365,6 +365,38 @@ By Proposition 5 and Corollary 1.1, CL-6 implies SAFE-2-DEC restricted to hard
 states, and together with Theorem 2 (which settles every non-hard state in one
 length-one step) it implies SAFE-2-DEC outright, hence F2.
 
+**Theorem 8 (the successor is at residual distance at most three).
+MATHEMATICALLY PROVED.** In the situation of Theorem 4 (hard state `J`, A1-bad
+`C` with `d₀(C)=3`, bad minimizing step `J → J₀` with released `a=(s,h)`, path
+`s,h₁,s₁,h₂`, new cycle `Z`), the new cycle satisfies `d₀(Z) ≤ 3` in `J₀`.
+
+*Proof.* `s₁ ∈ P(Z)`, and its two `J₀`-incidences are `(s₁,w₁)` and `(s₁,h₂)`,
+both on `Z` (`w₁` is the second `J`-selected neighbour of `s₁`). Release either
+of them, say `a′`. Then
+
+  `s₁ → h₁ → s → h`
+
+is a residual augmenting path in `J₀ − a′`: `(s₁,h₁) ∉ J₀` (it was removed) and
+`h₁ ∈ N_H(s₁)`; `h₁` is still saturated in `J₀ − a′` (it lost `s₁` and gained
+`s`, and `a′` does not touch it), so it is not a terminal and its selected
+incidence `(s,h₁) ∈ J₀` continues the path; `(s,h) ∉ J₀` and `h ∈ N_H(s)`; and
+`deg_{J₀}(h) = 1 < 2 = c(h)` by Theorem 4(f), so `h` is a valid terminal. The
+four vertices are distinct because `h ∈ Q(C)`, `s ∈ P(C)`, `h₁ ∉ V(C)` and
+`s₁ ∉ P(C)`. Hence `d₀(Z) ≤ 3`. ∎
+
+**Corollary 8.1. MATHEMATICALLY PROVED.** In that situation `d₀(Z) ∈ {1,3}`, and
+`d₀(Z) = 1` exactly when some `S`-vertex of `Z` has a slack `J₀`-neighbour
+(Theorem 2), in which case the second step is CES by Theorem 1 and SAFE-2-EXISTS
+holds at `J`.
+
+**Remark 8.2 (the two undo paths are never CES).** Toggling the path of
+Theorem 8 after releasing `(s₁,h₂)` returns exactly `J`, and after releasing
+`(s₁,w₁)` it returns `J` with the single pair `J(s₁) = {h₁,w₁}` replaced by
+`{h₁,h₂}`; in both cases `C` reappears, and `C` is not a selected cycle of `J₀`,
+so neither toggle is CES for `Z`. So the length-3 branch of Corollary 8.1 cannot
+be discharged by the canonical return path: SAFE-2-EXISTS at a hard state needs
+either `d₀(Z)=1`, or a *different* length-3 minimizing step at `J₀` that is CES.
+
 **Where the remaining difficulty sits, exactly.** Let `J` be hard, `C` a
 selected cycle, and take the bad step of Theorem 4. Then the slack set moves by
 exactly one unit: `slack(J₀) = (slack(J) \ {h₂}) ∪ {h}`, and the new cycle `Z`

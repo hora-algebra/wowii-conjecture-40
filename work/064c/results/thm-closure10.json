@@ -1,0 +1,10 @@
+{
+ "n": 10,
+ "cycles": 448577,
+ "premise_fired": 529,
+ "W_size_hist": {
+  "1": 529
+ },
+ "failures": 0,
+ "first_failures": []
+}
