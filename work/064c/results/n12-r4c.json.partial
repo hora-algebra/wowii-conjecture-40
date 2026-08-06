@@ -1,22 +1,22 @@
 {
  "summary": {
-  "graphs": 200,
-  "instances": 24578,
-  "selections": 1699751,
-  "cycle_components": 388175,
-  "a1_fail": 224,
+  "graphs": 400,
+  "instances": 41500,
+  "selections": 4451183,
+  "cycle_components": 959725,
+  "a1_fail": 232,
   "hard_states": 224,
   "cap_hits": 0,
   "d0_hist": {
-   "1": 369,
-   "3": 20150
+   "1": 935,
+   "3": 26806
   },
   "cl6_ok": 224,
   "cl7_steps": 644,
   "failures": {
    "CL1": 0,
    "CL2": 0,
-   "CL3": 0,
+   "CL3": 32,
    "CL4": 0,
    "CL5": 0,
    "CL6": 0,
@@ -29,9 +29,9 @@
    166000,
    169000
   ],
-  "done_upto": 166199,
+  "done_upto": 166399,
   "complete": false,
-  "seconds": 25.478
+  "seconds": 67.459
  },
  "a1_records": [
   {
@@ -14253,5 +14253,1168 @@
    "ok": 2
   }
  ],
- "failures": {}
+ "failures": {
+  "CL3": [
+   {
+    "g6": "K??EFBo}Fw^_",
+    "S": [
+     0,
+     2,
+     3,
+     4,
+     5
+    ],
+    "e": [
+     1,
+     6
+    ],
+    "sel": [
+     [
+      7,
+      8
+     ],
+     [
+      7,
+      9
+     ],
+     [
+      8,
+      9
+     ],
+     [
+      10,
+      11
+     ],
+     [
+      10,
+      11
+     ]
+    ],
+    "cyc": [
+     4,
+     5,
+     10,
+     11
+    ],
+    "a": [
+     4,
+     10
+    ],
+    "path": [
+     4,
+     9,
+     2,
+     10
+    ],
+    "why": [
+     "b:h1_component_is_cycle",
+     "d:Z_meets_C",
+     "e:cycle_count_changed",
+     "f:released_h_not_slack"
+    ]
+   },
+   {
+    "g6": "K??EFBo}Fw^_",
+    "S": [
+     0,
+     2,
+     3,
+     4,
+     5
+    ],
+    "e": [
+     1,
+     6
+    ],
+    "sel": [
+     [
+      7,
+      8
+     ],
+     [
+      7,
+      9
+     ],
+     [
+      8,
+      9
+     ],
+     [
+      10,
+      11
+     ],
+     [
+      10,
+      11
+     ]
+    ],
+    "cyc": [
+     4,
+     5,
+     10,
+     11
+    ],
+    "a": [
+     4,
+     10
+    ],
+    "path": [
+     4,
+     9,
+     3,
+     10
+    ],
+    "why": [
+     "b:h1_component_is_cycle",
+     "d:Z_meets_C",
+     "e:cycle_count_changed",
+     "f:released_h_not_slack"
+    ]
+   },
+   {
+    "g6": "K??EFBo}Fw^_",
+    "S": [
+     0,
+     2,
+     3,
+     4,
+     5
+    ],
+    "e": [
+     1,
+     6
+    ],
+    "sel": [
+     [
+      7,
+      8
+     ],
+     [
+      7,
+      9
+     ],
+     [
+      8,
+      9
+     ],
+     [
+      10,
+      11
+     ],
+     [
+      10,
+      11
+     ]
+    ],
+    "cyc": [
+     4,
+     5,
+     10,
+     11
+    ],
+    "a": [
+     4,
+     11
+    ],
+    "path": [
+     4,
+     9,
+     2,
+     11
+    ],
+    "why": [
+     "b:h1_component_is_cycle",
+     "d:Z_meets_C",
+     "e:cycle_count_changed",
+     "f:released_h_not_slack"
+    ]
+   },
+   {
+    "g6": "K??EFBo}Fw^_",
+    "S": [
+     0,
+     2,
+     3,
+     4,
+     5
+    ],
+    "e": [
+     1,
+     6
+    ],
+    "sel": [
+     [
+      7,
+      8
+     ],
+     [
+      7,
+      9
+     ],
+     [
+      8,
+      9
+     ],
+     [
+      10,
+      11
+     ],
+     [
+      10,
+      11
+     ]
+    ],
+    "cyc": [
+     4,
+     5,
+     10,
+     11
+    ],
+    "a": [
+     4,
+     11
+    ],
+    "path": [
+     4,
+     9,
+     3,
+     11
+    ],
+    "why": [
+     "b:h1_component_is_cycle",
+     "d:Z_meets_C",
+     "e:cycle_count_changed",
+     "f:released_h_not_slack"
+    ]
+   },
+   {
+    "g6": "K??EFBo}Fw^_",
+    "S": [
+     0,
+     2,
+     3,
+     4,
+     5
+    ],
+    "e": [
+     1,
+     7
+    ],
+    "sel": [
+     [
+      6,
+      7
+     ],
+     [
+      8,
+      9
+     ],
+     [
+      8,
+      9
+     ],
+     [
+      10,
+      11
+     ],
+     [
+      10,
+      11
+     ]
+    ],
+    "cyc": [
+     4,
+     5,
+     10,
+     11
+    ],
+    "a": [
+     4,
+     10
+    ],
+    "path": [
+     4,
+     9,
+     2,
+     10
+    ],
+    "why": [
+     "b:h1_component_is_cycle",
+     "d:Z_meets_C",
+     "e:cycle_count_changed",
+     "f:released_h_not_slack"
+    ]
+   },
+   {
+    "g6": "K??EFBo}Fw^_",
+    "S": [
+     0,
+     2,
+     3,
+     4,
+     5
+    ],
+    "e": [
+     1,
+     7
+    ],
+    "sel": [
+     [
+      6,
+      7
+     ],
+     [
+      8,
+      9
+     ],
+     [
+      8,
+      9
+     ],
+     [
+      10,
+      11
+     ],
+     [
+      10,
+      11
+     ]
+    ],
+    "cyc": [
+     4,
+     5,
+     10,
+     11
+    ],
+    "a": [
+     4,
+     10
+    ],
+    "path": [
+     4,
+     9,
+     3,
+     10
+    ],
+    "why": [
+     "b:h1_component_is_cycle",
+     "d:Z_meets_C",
+     "e:cycle_count_changed",
+     "f:released_h_not_slack"
+    ]
+   },
+   {
+    "g6": "K??EFBo}Fw^_",
+    "S": [
+     0,
+     2,
+     3,
+     4,
+     5
+    ],
+    "e": [
+     1,
+     7
+    ],
+    "sel": [
+     [
+      6,
+      7
+     ],
+     [
+      8,
+      9
+     ],
+     [
+      8,
+      9
+     ],
+     [
+      10,
+      11
+     ],
+     [
+      10,
+      11
+     ]
+    ],
+    "cyc": [
+     4,
+     5,
+     10,
+     11
+    ],
+    "a": [
+     4,
+     11
+    ],
+    "path": [
+     4,
+     9,
+     2,
+     11
+    ],
+    "why": [
+     "b:h1_component_is_cycle",
+     "d:Z_meets_C",
+     "e:cycle_count_changed",
+     "f:released_h_not_slack"
+    ]
+   },
+   {
+    "g6": "K??EFBo}Fw^_",
+    "S": [
+     0,
+     2,
+     3,
+     4,
+     5
+    ],
+    "e": [
+     1,
+     7
+    ],
+    "sel": [
+     [
+      6,
+      7
+     ],
+     [
+      8,
+      9
+     ],
+     [
+      8,
+      9
+     ],
+     [
+      10,
+      11
+     ],
+     [
+      10,
+      11
+     ]
+    ],
+    "cyc": [
+     4,
+     5,
+     10,
+     11
+    ],
+    "a": [
+     4,
+     11
+    ],
+    "path": [
+     4,
+     9,
+     3,
+     11
+    ],
+    "why": [
+     "b:h1_component_is_cycle",
+     "d:Z_meets_C",
+     "e:cycle_count_changed",
+     "f:released_h_not_slack"
+    ]
+   },
+   {
+    "g6": "K??EFBo}Fw^_",
+    "S": [
+     1,
+     2,
+     3,
+     4,
+     5
+    ],
+    "e": [
+     0,
+     6
+    ],
+    "sel": [
+     [
+      7,
+      8
+     ],
+     [
+      7,
+      9
+     ],
+     [
+      8,
+      9
+     ],
+     [
+      10,
+      11
+     ],
+     [
+      10,
+      11
+     ]
+    ],
+    "cyc": [
+     4,
+     5,
+     10,
+     11
+    ],
+    "a": [
+     4,
+     10
+    ],
+    "path": [
+     4,
+     9,
+     2,
+     10
+    ],
+    "why": [
+     "b:h1_component_is_cycle",
+     "d:Z_meets_C",
+     "e:cycle_count_changed",
+     "f:released_h_not_slack"
+    ]
+   },
+   {
+    "g6": "K??EFBo}Fw^_",
+    "S": [
+     1,
+     2,
+     3,
+     4,
+     5
+    ],
+    "e": [
+     0,
+     6
+    ],
+    "sel": [
+     [
+      7,
+      8
+     ],
+     [
+      7,
+      9
+     ],
+     [
+      8,
+      9
+     ],
+     [
+      10,
+      11
+     ],
+     [
+      10,
+      11
+     ]
+    ],
+    "cyc": [
+     4,
+     5,
+     10,
+     11
+    ],
+    "a": [
+     4,
+     10
+    ],
+    "path": [
+     4,
+     9,
+     3,
+     10
+    ],
+    "why": [
+     "b:h1_component_is_cycle",
+     "d:Z_meets_C",
+     "e:cycle_count_changed",
+     "f:released_h_not_slack"
+    ]
+   },
+   {
+    "g6": "K??EFBo}Fw^_",
+    "S": [
+     1,
+     2,
+     3,
+     4,
+     5
+    ],
+    "e": [
+     0,
+     6
+    ],
+    "sel": [
+     [
+      7,
+      8
+     ],
+     [
+      7,
+      9
+     ],
+     [
+      8,
+      9
+     ],
+     [
+      10,
+      11
+     ],
+     [
+      10,
+      11
+     ]
+    ],
+    "cyc": [
+     4,
+     5,
+     10,
+     11
+    ],
+    "a": [
+     4,
+     11
+    ],
+    "path": [
+     4,
+     9,
+     2,
+     11
+    ],
+    "why": [
+     "b:h1_component_is_cycle",
+     "d:Z_meets_C",
+     "e:cycle_count_changed",
+     "f:released_h_not_slack"
+    ]
+   },
+   {
+    "g6": "K??EFBo}Fw^_",
+    "S": [
+     1,
+     2,
+     3,
+     4,
+     5
+    ],
+    "e": [
+     0,
+     6
+    ],
+    "sel": [
+     [
+      7,
+      8
+     ],
+     [
+      7,
+      9
+     ],
+     [
+      8,
+      9
+     ],
+     [
+      10,
+      11
+     ],
+     [
+      10,
+      11
+     ]
+    ],
+    "cyc": [
+     4,
+     5,
+     10,
+     11
+    ],
+    "a": [
+     4,
+     11
+    ],
+    "path": [
+     4,
+     9,
+     3,
+     11
+    ],
+    "why": [
+     "b:h1_component_is_cycle",
+     "d:Z_meets_C",
+     "e:cycle_count_changed",
+     "f:released_h_not_slack"
+    ]
+   },
+   {
+    "g6": "K??EFBo}Fw^_",
+    "S": [
+     1,
+     2,
+     3,
+     4,
+     5
+    ],
+    "e": [
+     0,
+     7
+    ],
+    "sel": [
+     [
+      6,
+      7
+     ],
+     [
+      8,
+      9
+     ],
+     [
+      8,
+      9
+     ],
+     [
+      10,
+      11
+     ],
+     [
+      10,
+      11
+     ]
+    ],
+    "cyc": [
+     4,
+     5,
+     10,
+     11
+    ],
+    "a": [
+     4,
+     10
+    ],
+    "path": [
+     4,
+     9,
+     2,
+     10
+    ],
+    "why": [
+     "b:h1_component_is_cycle",
+     "d:Z_meets_C",
+     "e:cycle_count_changed",
+     "f:released_h_not_slack"
+    ]
+   },
+   {
+    "g6": "K??EFBo}Fw^_",
+    "S": [
+     1,
+     2,
+     3,
+     4,
+     5
+    ],
+    "e": [
+     0,
+     7
+    ],
+    "sel": [
+     [
+      6,
+      7
+     ],
+     [
+      8,
+      9
+     ],
+     [
+      8,
+      9
+     ],
+     [
+      10,
+      11
+     ],
+     [
+      10,
+      11
+     ]
+    ],
+    "cyc": [
+     4,
+     5,
+     10,
+     11
+    ],
+    "a": [
+     4,
+     10
+    ],
+    "path": [
+     4,
+     9,
+     3,
+     10
+    ],
+    "why": [
+     "b:h1_component_is_cycle",
+     "d:Z_meets_C",
+     "e:cycle_count_changed",
+     "f:released_h_not_slack"
+    ]
+   },
+   {
+    "g6": "K??EFBo}Fw^_",
+    "S": [
+     1,
+     2,
+     3,
+     4,
+     5
+    ],
+    "e": [
+     0,
+     7
+    ],
+    "sel": [
+     [
+      6,
+      7
+     ],
+     [
+      8,
+      9
+     ],
+     [
+      8,
+      9
+     ],
+     [
+      10,
+      11
+     ],
+     [
+      10,
+      11
+     ]
+    ],
+    "cyc": [
+     4,
+     5,
+     10,
+     11
+    ],
+    "a": [
+     4,
+     11
+    ],
+    "path": [
+     4,
+     9,
+     2,
+     11
+    ],
+    "why": [
+     "b:h1_component_is_cycle",
+     "d:Z_meets_C",
+     "e:cycle_count_changed",
+     "f:released_h_not_slack"
+    ]
+   },
+   {
+    "g6": "K??EFBo}Fw^_",
+    "S": [
+     1,
+     2,
+     3,
+     4,
+     5
+    ],
+    "e": [
+     0,
+     7
+    ],
+    "sel": [
+     [
+      6,
+      7
+     ],
+     [
+      8,
+      9
+     ],
+     [
+      8,
+      9
+     ],
+     [
+      10,
+      11
+     ],
+     [
+      10,
+      11
+     ]
+    ],
+    "cyc": [
+     4,
+     5,
+     10,
+     11
+    ],
+    "a": [
+     4,
+     11
+    ],
+    "path": [
+     4,
+     9,
+     3,
+     11
+    ],
+    "why": [
+     "b:h1_component_is_cycle",
+     "d:Z_meets_C",
+     "e:cycle_count_changed",
+     "f:released_h_not_slack"
+    ]
+   },
+   {
+    "g6": "K??EFBo}Fw^_",
+    "S": [
+     6,
+     7,
+     8,
+     9,
+     10
+    ],
+    "e": [
+     4,
+     11
+    ],
+    "sel": [
+     [
+      0,
+      1
+     ],
+     [
+      0,
+      1
+     ],
+     [
+      2,
+      3
+     ],
+     [
+      2,
+      3
+     ],
+     [
+      4,
+      5
+     ]
+    ],
+    "cyc": [
+     0,
+     1,
+     6,
+     7
+    ],
+    "a": [
+     7,
+     0
+    ],
+    "path": [
+     7,
+     2,
+     8,
+     0
+    ],
+    "why": [
+     "b:h1_component_is_cycle",
+     "d:Z_meets_C",
+     "e:cycle_count_changed",
+     "f:released_h_not_slack"
+    ]
+   },
+   {
+    "g6": "K??EFBo}Fw^_",
+    "S": [
+     6,
+     7,
+     8,
+     9,
+     10
+    ],
+    "e": [
+     4,
+     11
+    ],
+    "sel": [
+     [
+      0,
+      1
+     ],
+     [
+      0,
+      1
+     ],
+     [
+      2,
+      3
+     ],
+     [
+      2,
+      3
+     ],
+     [
+      4,
+      5
+     ]
+    ],
+    "cyc": [
+     0,
+     1,
+     6,
+     7
+    ],
+    "a": [
+     7,
+     0
+    ],
+    "path": [
+     7,
+     2,
+     9,
+     0
+    ],
+    "why": [
+     "b:h1_component_is_cycle",
+     "d:Z_meets_C",
+     "e:cycle_count_changed",
+     "f:released_h_not_slack"
+    ]
+   },
+   {
+    "g6": "K??EFBo}Fw^_",
+    "S": [
+     6,
+     7,
+     8,
+     9,
+     10
+    ],
+    "e": [
+     4,
+     11
+    ],
+    "sel": [
+     [
+      0,
+      1
+     ],
+     [
+      0,
+      1
+     ],
+     [
+      2,
+      3
+     ],
+     [
+      2,
+      3
+     ],
+     [
+      4,
+      5
+     ]
+    ],
+    "cyc": [
+     0,
+     1,
+     6,
+     7
+    ],
+    "a": [
+     7,
+     1
+    ],
+    "path": [
+     7,
+     2,
+     8,
+     1
+    ],
+    "why": [
+     "b:h1_component_is_cycle",
+     "d:Z_meets_C",
+     "e:cycle_count_changed",
+     "f:released_h_not_slack"
+    ]
+   },
+   {
+    "g6": "K??EFBo}Fw^_",
+    "S": [
+     6,
+     7,
+     8,
+     9,
+     10
+    ],
+    "e": [
+     4,
+     11
+    ],
+    "sel": [
+     [
+      0,
+      1
+     ],
+     [
+      0,
+      1
+     ],
+     [
+      2,
+      3
+     ],
+     [
+      2,
+      3
+     ],
+     [
+      4,
+      5
+     ]
+    ],
+    "cyc": [
+     0,
+     1,
+     6,
+     7
+    ],
+    "a": [
+     7,
+     1
+    ],
+    "path": [
+     7,
+     2,
+     9,
+     1
+    ],
+    "why": [
+     "b:h1_component_is_cycle",
+     "d:Z_meets_C",
+     "e:cycle_count_changed",
+     "f:released_h_not_slack"
+    ]
+   }
+  ]
+ }
 }

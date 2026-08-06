@@ -66,8 +66,9 @@ suppose a residual augmenting path of length 1 from `s` exists after releasing
 `deg_{J−a}(h') < c(h')`. Then `J' = J − a + (s,h')` is feasible and CES for `C`;
 moreover the selected cycles of `J'` are exactly those of `J` other than `C`.
 
-*Proof.* The released arc `a` is deleted from the network, so `h' ≠ h` and hence
-`deg_{J−a}(h') = deg_J(h') < c(h')`: `h'` is **slack in `J`**.
+*Proof.* `(s,h') ∉ J` while `a = (s,h) ∈ J`, so `h' ≠ h`; releasing `a` changes
+no degree except at `h`, hence `deg_J(h') = deg_{J−a}(h') < c(h')`: `h'` is
+**slack in `J`**.
 
 *Feasibility.* `s` keeps selected degree 2; `h` drops to `deg_J(h) − 1`; `h'`
 rises to `deg_J(h') + 1 ≤ c(h')`. All other degrees are unchanged.
@@ -103,9 +104,9 @@ Release either incidence `a` of `s` (both lie on `C`). In `J − a` we still hav
 of length 1. Hence `a` is avoidable and `d₀(C) = 1`.
 
 (⟹) A length-one path after releasing `a = (s,h)` ends at some `h'` with
-`(s,h') ∉ J` and `deg_{J−a}(h') < c(h')`. The arc `a` is deleted from the
-network, so `h' ≠ h`, hence `deg_J(h') < c(h')`: `h'` is slack, and `s ∈ P(C)`.
-∎
+`(s,h') ∉ J` and `deg_{J−a}(h') < c(h')`. Since `a ∈ J` and `(s,h') ∉ J` we get
+`h' ≠ h`, so `deg_J(h') = deg_{J−a}(h') < c(h')`: `h'` is slack, and
+`s ∈ P(C)`. ∎
 
 **Remark 2.1.** Theorem 2 makes A1-goodness a *local, one-line* predicate on the
 state: no residual search is needed. It is the reason the hard-state population

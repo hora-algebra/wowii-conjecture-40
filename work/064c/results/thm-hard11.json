@@ -1,0 +1,14 @@
+{
+ "n": 11,
+ "hard_states": 6,
+ "bad_steps": 20,
+ "thm4_fail": [],
+ "thm8_fail": [],
+ "d0Z_hist": {
+  "1": 20
+ },
+ "case_hist": {
+  "I": 20
+ },
+ "cl6_ok": 6
+}
