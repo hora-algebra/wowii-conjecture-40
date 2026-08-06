@@ -172,6 +172,33 @@ full machinery, so the n=11 anchor above is itself a test of the filter.
    `s₁ → h₁ → s → h`; hence `d₀(Z) ∈ {1,3}`. **Remark 8.2:** both toggles along
    that explicit path re-create `C`, so neither is CES — the canonical return
    path cannot discharge the length-3 branch.
+9. **Theorem 10 (exact equivalence).** At a hard state, SAFE-2-EXISTS ⟺ CL-6 ⟺
+   *some non-increasing minimizing step leaves the hard set*. So the target is a
+   statement about one finite digraph on hard states: no hard state may have all
+   its non-increasing minimizing out-arcs land inside the hard set.
+   **Corollary 10.1:** the weaker HARD-ESCAPE (leave the hard set in finitely
+   many non-increasing steps) already gives F2.
+10. **Proposition 9 (conditional falsification of the universal form).** If a
+    hard state admits a minimizing step of type II(ii) — terminal at the
+    released end with the first hop landing back on the cycle — then the
+    successor has no length-one step at all and CL-7 fails. The slack set does
+    not move at such a step. This converts "is the universal successor form
+    true?" into a finite local pattern search, specified in Remark 9.1.
+11. **Proposition 11 (no free lunch).** If `μ = min_J c(J) ≥ 1` then every
+    `c = μ` selection is hard and CL-6, HARD-ESCAPE, SAFE-2-DEC and
+    SAFE-2-EXISTS all fail there. Hence every statement in this family is at
+    least as strong as F2 and false exactly when F2 is false; no proof of any of
+    them can avoid consuming hereditary FVS tightness. This is the structural
+    reason SD-SHORT, B-TERMINAL-SLIDE and SUCCESSOR-ONE all died, and it is the
+    test a new candidate should pass before it is scanned: *where does it use
+    hereditary tightness?*
+12. **Corollary 5.2 / Remark 5.3.** A type-II(i) step (terminal at the released
+    end, first hop onto *another* selected cycle) strictly lowers the cycle
+    count, so SAFE-2-DEC is discharged there in one move. And the whole `(2,1)`
+    population — where B-TERMINAL-SLIDE and unrestricted SUCCESSOR-ONE were
+    falsified at n=12 — has an A1-good cycle by definition, so Theorems 1–2
+    settle it in a single length-one CES step: those recorded counterexamples
+    refute obligations that SAFE-2-EXISTS never needed.
 
 ### COMPUTATIONALLY VERIFIED
 
