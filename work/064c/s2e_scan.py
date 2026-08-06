@@ -681,7 +681,7 @@ def run(n, shard=None, do_cl5=True, do_cl8=True, out=None, tlimit=None):
             continue
         if tlimit and time.time() - t0 > tlimit:
             print("TIME LIMIT hit at graph index %d" % idx)
-            st.fail["ABORTED_AT_INDEX"] = idx
+            st.aborted_at = idx
             break
         gn, adj = g6_decode(g6)
         col = bipartition(gn, adj)
@@ -702,6 +702,7 @@ def run(n, shard=None, do_cl5=True, do_cl8=True, out=None, tlimit=None):
     s = st.summary()
     s["n"] = n
     s["shard"] = shard
+    s["aborted_at"] = getattr(st, "aborted_at", None)
     s["seconds"] = round(time.time() - t0, 3)
     print(json.dumps(s, indent=1))
     if out:

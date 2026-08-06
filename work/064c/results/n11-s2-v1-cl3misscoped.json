@@ -1,0 +1,1124 @@
+{
+ "summary": {
+  "graphs": 6340,
+  "instances": 262675,
+  "selections": 15164613,
+  "cycle_components": 2076437,
+  "a1_fail": 0,
+  "hard_states": 0,
+  "cap_hits": 0,
+  "d0_hist": {
+   "1": 2073,
+   "3": 9631
+  },
+  "cl6_ok": 0,
+  "cl7_steps": 0,
+  "failures": {
+   "CL1": 0,
+   "CL2": 0,
+   "CL3": 14784,
+   "CL4": 0,
+   "CL5": 0,
+   "CL6": 0,
+   "CL7": 0,
+   "CL8": 0
+  },
+  "n": 11,
+  "shard": [
+   2,
+   4
+  ],
+  "sampled_cl1": 2073,
+  "seconds": 97.856
+ },
+ "a1_records": [],
+ "hard_records": [],
+ "failures": {
+  "CL3": [
+   {
+    "g6": "J??EFBo}Fw?",
+    "S": [
+     0,
+     1,
+     3,
+     4
+    ],
+    "e": [
+     2,
+     7
+    ],
+    "sel": [
+     [
+      6,
+      8
+     ],
+     [
+      6,
+      8
+     ],
+     [
+      9,
+      10
+     ],
+     [
+      9,
+      10
+     ]
+    ],
+    "cyc": [
+     3,
+     4,
+     9,
+     10
+    ],
+    "a": [
+     3,
+     9
+    ],
+    "path": [
+     3,
+     8,
+     0,
+     9
+    ],
+    "why": [
+     "b:h1_component_is_cycle",
+     "d:Z_meets_C",
+     "e:cycle_count_changed",
+     "f:released_h_not_slack"
+    ]
+   },
+   {
+    "g6": "J??EFBo}Fw?",
+    "S": [
+     0,
+     1,
+     3,
+     4
+    ],
+    "e": [
+     2,
+     7
+    ],
+    "sel": [
+     [
+      6,
+      8
+     ],
+     [
+      6,
+      8
+     ],
+     [
+      9,
+      10
+     ],
+     [
+      9,
+      10
+     ]
+    ],
+    "cyc": [
+     3,
+     4,
+     9,
+     10
+    ],
+    "a": [
+     3,
+     9
+    ],
+    "path": [
+     3,
+     8,
+     1,
+     9
+    ],
+    "why": [
+     "b:h1_component_is_cycle",
+     "d:Z_meets_C",
+     "e:cycle_count_changed",
+     "f:released_h_not_slack"
+    ]
+   },
+   {
+    "g6": "J??EFBo}Fw?",
+    "S": [
+     0,
+     1,
+     3,
+     4
+    ],
+    "e": [
+     2,
+     7
+    ],
+    "sel": [
+     [
+      6,
+      8
+     ],
+     [
+      6,
+      8
+     ],
+     [
+      9,
+      10
+     ],
+     [
+      9,
+      10
+     ]
+    ],
+    "cyc": [
+     3,
+     4,
+     9,
+     10
+    ],
+    "a": [
+     3,
+     10
+    ],
+    "path": [
+     3,
+     8,
+     0,
+     10
+    ],
+    "why": [
+     "b:h1_component_is_cycle",
+     "d:Z_meets_C",
+     "e:cycle_count_changed",
+     "f:released_h_not_slack"
+    ]
+   },
+   {
+    "g6": "J??EFBo}Fw?",
+    "S": [
+     0,
+     1,
+     3,
+     4
+    ],
+    "e": [
+     2,
+     7
+    ],
+    "sel": [
+     [
+      6,
+      8
+     ],
+     [
+      6,
+      8
+     ],
+     [
+      9,
+      10
+     ],
+     [
+      9,
+      10
+     ]
+    ],
+    "cyc": [
+     3,
+     4,
+     9,
+     10
+    ],
+    "a": [
+     3,
+     10
+    ],
+    "path": [
+     3,
+     8,
+     1,
+     10
+    ],
+    "why": [
+     "b:h1_component_is_cycle",
+     "d:Z_meets_C",
+     "e:cycle_count_changed",
+     "f:released_h_not_slack"
+    ]
+   },
+   {
+    "g6": "J??EFBo}Fw?",
+    "S": [
+     0,
+     2,
+     3,
+     4
+    ],
+    "e": [
+     1,
+     6
+    ],
+    "sel": [
+     [
+      7,
+      8
+     ],
+     [
+      7,
+      8
+     ],
+     [
+      9,
+      10
+     ],
+     [
+      9,
+      10
+     ]
+    ],
+    "cyc": [
+     3,
+     4,
+     9,
+     10
+    ],
+    "a": [
+     3,
+     9
+    ],
+    "path": [
+     3,
+     8,
+     0,
+     9
+    ],
+    "why": [
+     "b:h1_component_is_cycle",
+     "d:Z_meets_C",
+     "e:cycle_count_changed",
+     "f:released_h_not_slack"
+    ]
+   },
+   {
+    "g6": "J??EFBo}Fw?",
+    "S": [
+     0,
+     2,
+     3,
+     4
+    ],
+    "e": [
+     1,
+     6
+    ],
+    "sel": [
+     [
+      7,
+      8
+     ],
+     [
+      7,
+      8
+     ],
+     [
+      9,
+      10
+     ],
+     [
+      9,
+      10
+     ]
+    ],
+    "cyc": [
+     3,
+     4,
+     9,
+     10
+    ],
+    "a": [
+     3,
+     9
+    ],
+    "path": [
+     3,
+     8,
+     2,
+     9
+    ],
+    "why": [
+     "b:h1_component_is_cycle",
+     "d:Z_meets_C",
+     "e:cycle_count_changed",
+     "f:released_h_not_slack"
+    ]
+   },
+   {
+    "g6": "J??EFBo}Fw?",
+    "S": [
+     0,
+     2,
+     3,
+     4
+    ],
+    "e": [
+     1,
+     6
+    ],
+    "sel": [
+     [
+      7,
+      8
+     ],
+     [
+      7,
+      8
+     ],
+     [
+      9,
+      10
+     ],
+     [
+      9,
+      10
+     ]
+    ],
+    "cyc": [
+     3,
+     4,
+     9,
+     10
+    ],
+    "a": [
+     3,
+     10
+    ],
+    "path": [
+     3,
+     8,
+     0,
+     10
+    ],
+    "why": [
+     "b:h1_component_is_cycle",
+     "d:Z_meets_C",
+     "e:cycle_count_changed",
+     "f:released_h_not_slack"
+    ]
+   },
+   {
+    "g6": "J??EFBo}Fw?",
+    "S": [
+     0,
+     2,
+     3,
+     4
+    ],
+    "e": [
+     1,
+     6
+    ],
+    "sel": [
+     [
+      7,
+      8
+     ],
+     [
+      7,
+      8
+     ],
+     [
+      9,
+      10
+     ],
+     [
+      9,
+      10
+     ]
+    ],
+    "cyc": [
+     3,
+     4,
+     9,
+     10
+    ],
+    "a": [
+     3,
+     10
+    ],
+    "path": [
+     3,
+     8,
+     2,
+     10
+    ],
+    "why": [
+     "b:h1_component_is_cycle",
+     "d:Z_meets_C",
+     "e:cycle_count_changed",
+     "f:released_h_not_slack"
+    ]
+   },
+   {
+    "g6": "J??EFBo}Fw?",
+    "S": [
+     0,
+     2,
+     3,
+     4
+    ],
+    "e": [
+     1,
+     7
+    ],
+    "sel": [
+     [
+      6,
+      7
+     ],
+     [
+      8,
+      9
+     ],
+     [
+      8,
+      10
+     ],
+     [
+      9,
+      10
+     ]
+    ],
+    "cyc": [
+     2,
+     3,
+     4,
+     8,
+     9,
+     10
+    ],
+    "a": [
+     2,
+     9
+    ],
+    "path": [
+     2,
+     10,
+     3,
+     9
+    ],
+    "why": [
+     "a:h1_on_cycle",
+     "b:s1_on_cycle",
+     "b:h1_component_is_cycle",
+     "d:Z_meets_C",
+     "f:released_h_not_slack"
+    ]
+   },
+   {
+    "g6": "J??EFBo}Fw?",
+    "S": [
+     0,
+     2,
+     3,
+     4
+    ],
+    "e": [
+     1,
+     7
+    ],
+    "sel": [
+     [
+      6,
+      7
+     ],
+     [
+      8,
+      9
+     ],
+     [
+      8,
+      10
+     ],
+     [
+      9,
+      10
+     ]
+    ],
+    "cyc": [
+     2,
+     3,
+     4,
+     8,
+     9,
+     10
+    ],
+    "a": [
+     3,
+     10
+    ],
+    "path": [
+     3,
+     9,
+     2,
+     10
+    ],
+    "why": [
+     "a:h1_on_cycle",
+     "b:s1_on_cycle",
+     "b:h1_component_is_cycle",
+     "d:Z_meets_C",
+     "f:released_h_not_slack"
+    ]
+   },
+   {
+    "g6": "J??EFBo}Fw?",
+    "S": [
+     0,
+     2,
+     3,
+     4
+    ],
+    "e": [
+     1,
+     7
+    ],
+    "sel": [
+     [
+      6,
+      7
+     ],
+     [
+      8,
+      10
+     ],
+     [
+      8,
+      9
+     ],
+     [
+      9,
+      10
+     ]
+    ],
+    "cyc": [
+     2,
+     3,
+     4,
+     8,
+     9,
+     10
+    ],
+    "a": [
+     3,
+     9
+    ],
+    "path": [
+     3,
+     10,
+     2,
+     9
+    ],
+    "why": [
+     "a:h1_on_cycle",
+     "b:s1_on_cycle",
+     "b:h1_component_is_cycle",
+     "d:Z_meets_C",
+     "f:released_h_not_slack"
+    ]
+   },
+   {
+    "g6": "J??EFBo}Fw?",
+    "S": [
+     0,
+     2,
+     3,
+     4
+    ],
+    "e": [
+     1,
+     7
+    ],
+    "sel": [
+     [
+      6,
+      7
+     ],
+     [
+      8,
+      10
+     ],
+     [
+      8,
+      9
+     ],
+     [
+      9,
+      10
+     ]
+    ],
+    "cyc": [
+     2,
+     3,
+     4,
+     8,
+     9,
+     10
+    ],
+    "a": [
+     2,
+     10
+    ],
+    "path": [
+     2,
+     9,
+     3,
+     10
+    ],
+    "why": [
+     "a:h1_on_cycle",
+     "b:s1_on_cycle",
+     "b:h1_component_is_cycle",
+     "d:Z_meets_C",
+     "f:released_h_not_slack"
+    ]
+   },
+   {
+    "g6": "J??EFBo}Fw?",
+    "S": [
+     1,
+     2,
+     3,
+     4
+    ],
+    "e": [
+     0,
+     6
+    ],
+    "sel": [
+     [
+      7,
+      8
+     ],
+     [
+      7,
+      8
+     ],
+     [
+      9,
+      10
+     ],
+     [
+      9,
+      10
+     ]
+    ],
+    "cyc": [
+     3,
+     4,
+     9,
+     10
+    ],
+    "a": [
+     3,
+     9
+    ],
+    "path": [
+     3,
+     8,
+     1,
+     9
+    ],
+    "why": [
+     "b:h1_component_is_cycle",
+     "d:Z_meets_C",
+     "e:cycle_count_changed",
+     "f:released_h_not_slack"
+    ]
+   },
+   {
+    "g6": "J??EFBo}Fw?",
+    "S": [
+     1,
+     2,
+     3,
+     4
+    ],
+    "e": [
+     0,
+     6
+    ],
+    "sel": [
+     [
+      7,
+      8
+     ],
+     [
+      7,
+      8
+     ],
+     [
+      9,
+      10
+     ],
+     [
+      9,
+      10
+     ]
+    ],
+    "cyc": [
+     3,
+     4,
+     9,
+     10
+    ],
+    "a": [
+     3,
+     9
+    ],
+    "path": [
+     3,
+     8,
+     2,
+     9
+    ],
+    "why": [
+     "b:h1_component_is_cycle",
+     "d:Z_meets_C",
+     "e:cycle_count_changed",
+     "f:released_h_not_slack"
+    ]
+   },
+   {
+    "g6": "J??EFBo}Fw?",
+    "S": [
+     1,
+     2,
+     3,
+     4
+    ],
+    "e": [
+     0,
+     6
+    ],
+    "sel": [
+     [
+      7,
+      8
+     ],
+     [
+      7,
+      8
+     ],
+     [
+      9,
+      10
+     ],
+     [
+      9,
+      10
+     ]
+    ],
+    "cyc": [
+     3,
+     4,
+     9,
+     10
+    ],
+    "a": [
+     3,
+     10
+    ],
+    "path": [
+     3,
+     8,
+     1,
+     10
+    ],
+    "why": [
+     "b:h1_component_is_cycle",
+     "d:Z_meets_C",
+     "e:cycle_count_changed",
+     "f:released_h_not_slack"
+    ]
+   },
+   {
+    "g6": "J??EFBo}Fw?",
+    "S": [
+     1,
+     2,
+     3,
+     4
+    ],
+    "e": [
+     0,
+     6
+    ],
+    "sel": [
+     [
+      7,
+      8
+     ],
+     [
+      7,
+      8
+     ],
+     [
+      9,
+      10
+     ],
+     [
+      9,
+      10
+     ]
+    ],
+    "cyc": [
+     3,
+     4,
+     9,
+     10
+    ],
+    "a": [
+     3,
+     10
+    ],
+    "path": [
+     3,
+     8,
+     2,
+     10
+    ],
+    "why": [
+     "b:h1_component_is_cycle",
+     "d:Z_meets_C",
+     "e:cycle_count_changed",
+     "f:released_h_not_slack"
+    ]
+   },
+   {
+    "g6": "J??EFBo}Fw?",
+    "S": [
+     1,
+     2,
+     3,
+     4
+    ],
+    "e": [
+     0,
+     7
+    ],
+    "sel": [
+     [
+      6,
+      7
+     ],
+     [
+      8,
+      9
+     ],
+     [
+      8,
+      10
+     ],
+     [
+      9,
+      10
+     ]
+    ],
+    "cyc": [
+     2,
+     3,
+     4,
+     8,
+     9,
+     10
+    ],
+    "a": [
+     2,
+     9
+    ],
+    "path": [
+     2,
+     10,
+     3,
+     9
+    ],
+    "why": [
+     "a:h1_on_cycle",
+     "b:s1_on_cycle",
+     "b:h1_component_is_cycle",
+     "d:Z_meets_C",
+     "f:released_h_not_slack"
+    ]
+   },
+   {
+    "g6": "J??EFBo}Fw?",
+    "S": [
+     1,
+     2,
+     3,
+     4
+    ],
+    "e": [
+     0,
+     7
+    ],
+    "sel": [
+     [
+      6,
+      7
+     ],
+     [
+      8,
+      9
+     ],
+     [
+      8,
+      10
+     ],
+     [
+      9,
+      10
+     ]
+    ],
+    "cyc": [
+     2,
+     3,
+     4,
+     8,
+     9,
+     10
+    ],
+    "a": [
+     3,
+     10
+    ],
+    "path": [
+     3,
+     9,
+     2,
+     10
+    ],
+    "why": [
+     "a:h1_on_cycle",
+     "b:s1_on_cycle",
+     "b:h1_component_is_cycle",
+     "d:Z_meets_C",
+     "f:released_h_not_slack"
+    ]
+   },
+   {
+    "g6": "J??EFBo}Fw?",
+    "S": [
+     1,
+     2,
+     3,
+     4
+    ],
+    "e": [
+     0,
+     7
+    ],
+    "sel": [
+     [
+      6,
+      7
+     ],
+     [
+      8,
+      10
+     ],
+     [
+      8,
+      9
+     ],
+     [
+      9,
+      10
+     ]
+    ],
+    "cyc": [
+     2,
+     3,
+     4,
+     8,
+     9,
+     10
+    ],
+    "a": [
+     3,
+     9
+    ],
+    "path": [
+     3,
+     10,
+     2,
+     9
+    ],
+    "why": [
+     "a:h1_on_cycle",
+     "b:s1_on_cycle",
+     "b:h1_component_is_cycle",
+     "d:Z_meets_C",
+     "f:released_h_not_slack"
+    ]
+   },
+   {
+    "g6": "J??EFBo}Fw?",
+    "S": [
+     1,
+     2,
+     3,
+     4
+    ],
+    "e": [
+     0,
+     7
+    ],
+    "sel": [
+     [
+      6,
+      7
+     ],
+     [
+      8,
+      10
+     ],
+     [
+      8,
+      9
+     ],
+     [
+      9,
+      10
+     ]
+    ],
+    "cyc": [
+     2,
+     3,
+     4,
+     8,
+     9,
+     10
+    ],
+    "a": [
+     2,
+     10
+    ],
+    "path": [
+     2,
+     9,
+     3,
+     10
+    ],
+    "why": [
+     "a:h1_on_cycle",
+     "b:s1_on_cycle",
+     "b:h1_component_is_cycle",
+     "d:Z_meets_C",
+     "f:released_h_not_slack"
+    ]
+   }
+  ]
+ }
+}

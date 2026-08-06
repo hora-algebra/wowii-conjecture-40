@@ -73,7 +73,7 @@ def run(n, shard, out, tlimit=None, verify_all=False):
         if shard and idx % shard[1] != shard[0]:
             continue
         if tlimit and time.time() - t0 > tlimit:
-            st.fail["ABORTED_AT_INDEX"] = idx
+            st.aborted_at = idx
             break
         gn, adj = B.g6_decode(g6)
         col = B.bipartition(gn, adj)
@@ -152,6 +152,7 @@ def run(n, shard, out, tlimit=None, verify_all=False):
     s = st.summary()
     s["n"] = n
     s["shard"] = shard
+    s["aborted_at"] = getattr(st, "aborted_at", None)
     s["sampled_cl1"] = st.sampled_cl1
     s["seconds"] = round(time.time() - t0, 3)
     print(json.dumps(s, indent=1))
@@ -204,7 +205,13 @@ def full_cycle_check(inst, g6, st, sel, C, cyc):
         if is_ces:
             good = True
         steps.append((a, p, ns, is_ces, len(ncyc)))
-        if not is_ces and best == 3:
+    # CL-3 is stated for A1-BAD cycles only: grade it after `good` is settled.
+    if not good and best == 3:
+        for (a, p, ns, is_ces, ncount) in steps:
+            if is_ces:
+                continue
+            nE, nd, ninc = B.sel_state(inst, ns)
+            ncyc = set(c[1] for c in B.selected_cycles(inst, nE))
             B.cl3_check(inst, g6, st, sel, (frozenset(vs), es), a, p, ns,
                         old, ncyc, E, degH, inc)
     return (good, steps)
