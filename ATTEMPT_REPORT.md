@@ -153,9 +153,11 @@ full machinery, so the n=11 anchor above is itself a test of the filter.
    settles the remaining terminal-at-the-released-end case: it either strictly
    *decreases* the cycle count or has its first hop on the cycle.
 5. **Proposition 5.** The descent consumes only a strict decrease of the cycle
-   count, not CES; so **SAFE-2-DEC** (defined in the proofs file), strictly
-   weaker than SAFE-2-EXISTS, already implies F2. Theorem 4′(i) exhibits non-CES
-   steps that are count-decreasing, so the gap between the two is real.
+   count, not CES; so **SAFE-2-DEC** (defined in the proofs file), which
+   SAFE-2-EXISTS implies, already gives F2. Theorem 4′(i) exhibits individual
+   non-CES steps that are count-decreasing, so a proof effort stuck on the CES
+   clause has somewhere to go. (Proposition 11 below shows the two statements
+   are nonetheless equi-falsifiable with F2.)
 6. **Theorem 6 (slack-free closure).** If the residual closure `A*` of a
    selected cycle's `S`-side reaches no slack `H`-vertex, then `A*` is
    `ρ`-tight, `|N_H(A*)| ≥ |A*|+1`, the set `W = N_H(A*) \ Y*` is nonempty, and
