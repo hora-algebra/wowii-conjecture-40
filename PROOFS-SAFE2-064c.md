@@ -258,6 +258,21 @@ least one. ∎
 nevertheless count-decreasing. Any proof effort aimed at SAFE-2-EXISTS that gets
 stuck on the CES clause should check SAFE-2-DEC first: it is what F2 consumes.
 
+**Corollary 5.2. MATHEMATICALLY PROVED.** If an A1-bad cycle `C` has a
+minimizing step whose terminal is the released end and whose first hop leaves
+`C` (Theorem 4′(i)), then that single step strictly lowers the cycle count, so
+SAFE-2-DEC is discharged at that state in one move. Such a step exists only when
+the first hop lands on *another selected cycle*; in the graded population it
+accounts for 184 of 720 bad minimizing steps (see `work/064c` results).
+
+**Remark 5.3 (the `(2,1)` population is already free).** A state that has an
+A1-good cycle is settled in one length-one CES step by Theorems 1 and 2 — no
+lookahead, no terminal slide, no successor geometry. The recorded n=12
+falsifications of B-TERMINAL-SLIDE and of unrestricted SUCCESSOR-ONE all live in
+`(2,1)` states, i.e. states that *have* an A1-good cycle. So those
+counterexamples refute obligations that neither SAFE-2-EXISTS nor SAFE-2-DEC
+ever needed. The only states that carry real content are the hard ones.
+
 ---
 
 ## 6. The slack-free closure of a selected cycle is tight
