@@ -13,7 +13,7 @@ def main():
     iv = []
     for f in sorted(glob.glob('results/n12-*.json')) + \
              sorted(glob.glob('results/n12-*.json.partial')):
-        if 'DO-NOT' in f:
+        if 'DO-NOT' in f or 'SUPERSEDED' in f:
             continue
         try:
             s = json.load(open(f))['summary']
