@@ -1,0 +1,41 @@
+{
+ "summary": {
+  "graphs": 35012,
+  "instances": 1142658,
+  "selections": 121029810,
+  "cycle_components": 7469852,
+  "a1_fail": 0,
+  "hard_states": 0,
+  "cap_hits": 0,
+  "d0_hist": {
+   "1": 7489,
+   "3": 2647
+  },
+  "cl6_ok": 0,
+  "cl7_steps": 0,
+  "failures": {
+   "CL1": 0,
+   "CL2": 0,
+   "CL3": 0,
+   "CL4": 0,
+   "CL5": 0,
+   "CL6": 0,
+   "CL7": 0,
+   "CL8": 0
+  },
+  "n": 12,
+  "range": [
+   0,
+   35464
+  ],
+  "done_upto": 35463,
+  "complete": true,
+  "shard": null,
+  "aborted_at": null,
+  "sampled_cl1": 7489,
+  "seconds": 1188.197
+ },
+ "a1_records": [],
+ "hard_records": [],
+ "failures": {}
+}

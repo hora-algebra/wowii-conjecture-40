@@ -427,13 +427,34 @@ i.e. "`J₀` is not hard". The second equivalence is Theorem 2 applied to `J₀`
 (a cycle is A1-good iff one of its `S`-vertices has a slack neighbour) together
 with Theorem 1 (a length-one step is automatically CES). ∎
 
-**Corollary 10.1. MATHEMATICALLY PROVED.** F2 follows from the strictly weaker
+**Corollary 10.1. MATHEMATICALLY PROVED.** F2 follows from the weaker statement
+(weaker because CL-6 implies it)
 
 > **HARD-ESCAPE.** From every hard state there is a finite sequence of
 > minimizing steps, none increasing `c`, reaching a state that is not hard.
 
 *Proof.* A non-hard cyclic state has an A1-good cycle, hence a CES minimizing
 step, which lowers `c` by at least one; iterate and apply Proposition 5. ∎
+
+**Proposition 11 (no free lunch). MATHEMATICALLY PROVED.**
+Let `μ = min{ c(J) : J feasible }` for a fixed instance. If `μ ≥ 1` then every
+feasible selection attaining `μ` is a hard state, and CL-6, HARD-ESCAPE,
+SAFE-2-DEC and SAFE-2-EXISTS all fail at it.
+
+*Proof.* Let `c(J) = μ ≥ 1`. A CES step lowers `c`, so no selected cycle of `J`
+is A1-good: `J` is hard. Any step with `c(J₀) ≤ c(J)` has `c(J₀) = μ` and is
+therefore again hard, so no non-increasing sequence leaves the hard set and no
+second step can lower `c`. ∎
+
+**Remark 11.1.** So every statement in this family — SAFE-2-EXISTS, SAFE-2-DEC,
+HARD-ESCAPE, CL-6, and the earlier SD-SHORT / B-TERMINAL-SLIDE /
+SUCCESSOR-ONE family — is *at least as strong as F2* and is false exactly when
+F2 is false. No proof of any of them can avoid consuming hereditary FVS
+tightness: a purely local argument about toggles would prove `μ = 0` for
+instances where it is false (the abstract even-cycle system of the gauntlet has
+`μ = 1`). This is the structural reason the one-step mechanisms kept dying at
+`n = 11` and `n = 12`, and it is the criterion any new candidate should be held
+to before it is scanned: *where does it use hereditary tightness?*
 
 **Remark 10.2.** So the whole remaining content of SAFE-2-EXISTS is a statement
 about a single finite digraph: put an arc `J → J₀` for every minimizing step out
