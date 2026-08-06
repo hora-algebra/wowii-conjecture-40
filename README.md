@@ -43,14 +43,28 @@ f(G) >= ceil( (p(G) + b(G) + 1) / 2 ).
   but the CX(m) family obstructs every threshold based only on component class
   sizes and full-side forest-extension invariants. Coefficient-one lifting
   remains open.
+- **Lemma A endgame: machinery certified, lemma not.** The clean-end
+  machinery (NC, NCM/CE, A-I⁺) is written up, independently re-derived, and
+  CERTIFIED by two adversarial audits. Lemma A itself is **not** certified —
+  no environmentally-blind audit of the full statement has been performed —
+  and it remains open. See ATTACK.md item 1 for the exact scope of each
+  verdict.
+- **SAFE-2-EXISTS is the open core of the bipartite case.** Proved around it:
+  SAFE-2-EXISTS ⟹ F2, HARD-SUCCESSOR-ONE ⟹ SAFE-2-EXISTS, the hard-state
+  characterization, the transfer of Lemma A-I to selected cycles, and a
+  no-free-lunch theorem showing every statement in the family must consume
+  hereditary FVS tightness. The complete exhaustive n = 12 census (1,184 hard
+  states) has been reproduced across two independent model vendors. None of
+  it is a general proof.
 
 ## What is open
 
 *AI or human and want to attack the open lemmas? Start at [ATTACK.md](ATTACK.md).*
 
-- **Lemma A**, at the carrier-poset endgame.
-- **SAFE-EXISTS**, the remaining existential safe-toggle/descent statement for
-  the bipartite reduction.
+- **Lemma A**, at the carrier-poset endgame — claimed, machinery certified,
+  full statement neither proved nor blindly certified.
+- **SAFE-2-EXISTS**, the remaining existential safe-toggle/descent statement
+  for the bipartite reduction, now localized to the hard states.
 - The general-to-bipartite step at **coefficient one** (`ell + o >= 2*tau + 1`).
 
 ## What is verified computationally
