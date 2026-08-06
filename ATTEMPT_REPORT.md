@@ -299,9 +299,28 @@ worker intervals, refuses to sum overlaps, and lists any gap explicitly)*
    formulate any new statement whose content is "some length-one step is CES":
    Theorem 1 makes that a tautology.
 
+## Jobs and their disposition at wrap-up
+
+- n ≤ 11 scans: **COMPLETE**, verdicts read.
+- n = 12 interval pass: disposition in the n=12 section above; every worker's
+  interval is either complete or truncated at a checkpoint, and uncovered index
+  ranges are named rather than interpolated.
+- `verify_theorems.py --hard 11`: **COMPLETE** (6 hard states, 20 bad steps, all
+  type I, `d₀(Z)=1` throughout, 0 Theorem-4 and 0 Theorem-8 failures).
+- `verify_theorems.py --closure {9,10}`: **COMPLETE**.
+- No job was left running without a recorded disposition; no other process on
+  this machine was modified. Duplicate workers created by a launch that
+  double-started six ranges were detected via `pgrep` and killed, and the r3/r4/
+  r5/r2 boundary handoffs were done snapshot-first so the interval union has no
+  overlap (verified by the aggregator).
+
 ## LESSONS FOR FUTURE ATTEMPTS
 
 - [MATHEMATICALLY PROVED] Every residual augmenting step of length one out of a selected cycle is automatically CES: the terminal of a length-one path is slack, every `H`-vertex of a selected cycle is saturated, so the terminal lies off the cycle and the toggle merges two distinct components; the CES clause of any "length-one" statement (including HARD-SUCCESSOR-ONE) is vacuous.
+- [MATHEMATICALLY PROVED] At a hard state, SAFE-2-EXISTS is *equivalent* to "some minimizing step that does not increase the cycle count leaves the hard set", and the weaker HARD-ESCAPE (leave the hard set in finitely many such steps) already gives F2; so the target is a statement about one finite digraph on hard states, with Theorem 4 describing every out-arc.
+- [MATHEMATICALLY PROVED] No free lunch: if `μ = min_J c(J) ≥ 1` then every `c = μ` selection is hard and SAFE-2-EXISTS, SAFE-2-DEC, HARD-ESCAPE and HARD-SUCCESSOR-ONE all fail there. Every statement in this family is at least as strong as F2 and false exactly when F2 is false, so no proof of any of them can avoid consuming hereditary FVS tightness — the abstract even-cycle system has `μ = 1`. Ask of any new candidate: *where does it use hereditary tightness?*
+- [MATHEMATICALLY PROVED] The universal successor form has a single identified failure mechanism: if a hard state admits a minimizing step whose terminal is the released end and whose first hop lands back on the cycle (type II(ii)), the slack set does not move, every new cycle lies inside the old one, and the successor has no length-one step at all. Searching for that local pattern is the cheapest decisive experiment on this branch; it has never occurred in the graded population.
+- [MATHEMATICALLY PROVED] The whole `(2,1)` population is free: a state with an A1-good cycle is settled by one length-one CES step. The recorded n=12 falsifications of B-TERMINAL-SLIDE and unrestricted SUCCESSOR-ONE all live there, so they refute obligations SAFE-2-EXISTS never needed. Only hard states carry content.
 - [MATHEMATICALLY PROVED] `d₀(C) = 1` iff some `S`-vertex of the selected cycle `C` has a slack `G`-neighbour; hence every A1-bad cycle has `d₀ ≥ 3` and, in a hard state, every `H`-neighbour of every cycle `S`-vertex is saturated. A1-goodness is a local predicate — no residual search is needed to isolate the hard population.
 - [MATHEMATICALLY PROVED] Paper Lemma 4.2 (A-I) transfers verbatim from forced-core cycles to *selected* cycles: `N_H(P(C)) ⊋ Q(C)` for every selected cycle, because the proof uses only that `P(C)` lies in one bipartition class and has no `H`-neighbour off the cycle. The certified Lemma-A stack is usable on the Lemma-B side.
 - [MATHEMATICALLY PROVED] A non-CES minimizing step of length 3 out of an A1-bad cycle whose terminal is not the released end *relocates* the cycle: the new cycle is vertex-disjoint from the old one and lies inside a former path component, the cycle count is unchanged, and the released `H`-end becomes the new slack vertex. This is why one-step mechanisms (SD-SHORT, B-TERMINAL-SLIDE, unrestricted SUCCESSOR-ONE) keep dying.
