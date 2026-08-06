@@ -1,0 +1,89 @@
+{
+ "id": "O-56",
+ "fixed_edge": [
+  10,
+  11
+ ],
+ "hereditary_tightness_violations": 6,
+ "first_violating_sets": [
+  [
+   2,
+   3
+  ],
+  [
+   0,
+   1,
+   2
+  ],
+  [
+   0,
+   1,
+   3
+  ]
+ ],
+ "feasible_selections": 1,
+ "cycles": 1,
+ "T1_fail": 0,
+ "T2_fail": 0,
+ "P12_fail": 0,
+ "T3_fail": 0,
+ "T6_fired": 1,
+ "T6_fail": 0
+}
+{
+ "id": "O-63",
+ "fixed_edge": [
+  6,
+  12
+ ],
+ "hereditary_tightness_violations": 22,
+ "first_violating_sets": [
+  [
+   0,
+   2
+  ],
+  [
+   0,
+   3
+  ],
+  [
+   0,
+   4
+  ]
+ ],
+ "feasible_selections": 6,
+ "cycles": 12,
+ "T1_fail": 0,
+ "T2_fail": 0,
+ "P12_fail": 0,
+ "T3_fail": 6,
+ "T6_fired": 12,
+ "T6_fail": 12
+}
+{
+ "id": "O-64",
+ "fixed_edge": [
+  7,
+  6
+ ],
+ "hereditary_tightness_violations": 2,
+ "first_violating_sets": [
+  [
+   0,
+   1
+  ],
+  [
+   0,
+   1,
+   2
+  ]
+ ],
+ "feasible_selections": 1,
+ "cycles": 1,
+ "T1_fail": 0,
+ "T2_fail": 0,
+ "P12_fail": 0,
+ "T3_fail": 0,
+ "T6_fired": 1,
+ "T6_fail": 0
+}

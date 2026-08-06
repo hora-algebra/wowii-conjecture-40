@@ -230,6 +230,25 @@ full machinery, so the n=11 anchor above is itself a test of the filter.
   invalidations, 0 Theorem-4 failures, 0 Theorem-4′ failures**, with the case
   split reported in the n=12 section. Type II(ii) — the case that would falsify
   CL-7 by Proposition 9 — has **never** occurred.
+- **Witness instantiation (ATTACK.md Step 4(a),(b)), and it separates the
+  lemmas exactly as it should.** `work/064c/witness_check.py` instantiates the
+  branch's lemmas on all three frozen witnesses. Each of them *violates*
+  hereditary FVS tightness (O-56: 6 violating subsets, first `{2,3}` — the
+  recorded `B_s`; O-63: 22; O-64: 2, first `{s,t}` = the cycle's own `S`-side,
+  as recorded). Result:
+
+  | witness | uses tightness? T1 | T2 | Prop 12 | T3 | T6 |
+  |---|---|---|---|---|---|
+  | O-56 (1 selection, 1 cycle) | 0 fail | 0 | 0 | 0 | 0 (fired 1) |
+  | O-63 (6 selections, 12 cycles) | 0 fail | 0 | 0 | **6 fail** | **12 fail** (fired 12) |
+  | O-64 (1 selection, 1 cycle) | 0 fail | 0 | 0 | 0 | 0 (fired 1) |
+
+  Theorems 1 and 2 and Proposition 12 — the results whose proofs use **no**
+  tightness — survive all three witnesses, as they must. Theorems 3 and 6 —
+  the results that **do** consume hereditary tightness — fail on O-63, whose
+  tightness fails hardest. That is the correct outcome and it is the adversarial
+  evidence that those two proofs really use their hypothesis rather than being
+  accidentally true: remove the hypothesis and the conclusion breaks.
 - **Proposition 12** (path-component count `= |H|−|S|` independent of `c(J)`,
   total slack `= 2(|H|−|S|−1)`, `|Sat(J)| ≤ |S|+1`) re-checked directly on all
   237,671 feasible selections at n=9: **0 violations**.
@@ -356,7 +375,7 @@ worker intervals, refuses to sum overlaps, and lists any gap explicitly)*
 - [MATHEMATICALLY PROVED] Slack is exactly path-endedness: the incidence graph always has exactly `|H|−|S|` path components regardless of the cycle count, total slack is `2(|H|−|S|−1)`, and `|Sat(J)| ≤ |S|+1`. So in a hard state the whole neighbourhood of a cycle's `S`-side is squeezed into at most `|S|+1` vertices while needing at least `|P(C)|+1` of them.
 - [MATHEMATICALLY PROVED] If the residual closure `A*` of a selected cycle's `S`-side reaches no slack `H`-vertex, then `A*` is `ρ`-tight, `|N_H(A*)| ≥ |A*|+1`, `W = N_H(A*) \ Y*` is nonempty and every `A*`–`W` incidence is forced; the argument needs the parity fact that `x` and `y` lie in different bipartition classes while `N_H(A*)` lies in one. [DEAD END] This counting cannot prove Lemma A: it closes only when `W = ∅`, and the same counting proves `W ≠ ∅`; dropping `|D|` below `|A*|` requires sparing two `W`-vertices and the `H`-forest can reconnect them — the O-56/O-63/O-64 obstruction reached from a new direction.
 - [DEAD END] Do not try to prove the successor claim by showing the relocated cycle sees the freed vertex `h`: over 1,146 hard-state certificates and 3,932 bad minimizing steps the witnessing slack vertex is `h` alone in 384 steps, a vertex already slack in `J` alone in 1,700, both in 1,848, neither in 0. Any argument must produce *some* slack neighbour, not a designated one.
-- [COMPUTATIONALLY VERIFIED] A fresh independent engine reproduces the record exactly: 2,584 cycle components at n=8; 730 graphs / 24,195 cycle components / 0 A1 failures at n=9; and at n=11, 25,363 graphs with `τ≥1`, 1,061,745 instances, 59,954,062 feasible selections, 8,202,633 cycle components, exactly 6 A1 failures and 6 hard states, with the successor claim holding universally on all 20 minimizing steps.
+- [COMPUTATIONALLY VERIFIED] A fresh independent engine reproduces the record exactly: 2,584 cycle components at n=8; 730 graphs / 24,195 cycle components / 0 A1 failures at n=9; and at n=11, 25,363 graphs with `τ≥1`, 1,061,745 instances, 59,954,062 feasible selections, 8,202,633 cycle components, exactly 6 A1 failures and 6 hard states, with the successor claim holding universally on all 20 minimizing steps. The three frozen witnesses separate the lemmas exactly as they should: the results whose proofs use no tightness (length-one CES, slack-adjacency, the slack/path-end identity) hold on all of O-56, O-63 and O-64 — each of which *violates* hereditary tightness — while the two results that do consume tightness fail on O-63 (6 and 12 failures over its 12 selected cycles) and hold on O-56/O-64. Removing the hypothesis breaks the conclusion, which is the evidence that those proofs use it rather than being accidentally true.
 - [COMPUTATIONALLY VERIFIED] N12PLACEHOLDER
 - [CONJECTURAL LEAD] Every hard state seen so far — all 6 at n=11 and every preserved n=12 record — has exactly **one** selected cycle. If that is a theorem it collapses the hard-state digraph to single-cycle states, where a non-increasing step must keep `c = 1`; proving or refuting it is a well-posed and cheap next target.
 - [TOOLING] Scope every checker to its claim's own quantifier and report premise-firing counts next to "0 failures": grading the bad-step structure on A1-*good* cycles produced 58,468 spurious failures at n=11 before repair, and the slack-free-closure premise fires only 32 times at n=9 and 529 at n=10 — a check that never fires reads exactly like a check that passes. When sharding by contiguous index intervals, have the aggregator refuse to sum overlapping intervals: three boundary handoffs overlapped because the stop-watcher polled more slowly than the checkpoint spacing, and each was re-run rather than reconciled. Freshness tooling: `WebFetch` force-upgrades HTTP to HTTPS and cannot reach the maintained WOWII page (`cms.uhd.edu` refuses TLS; the live mirror is `cms.dt.uh.edu`) or mathoverflow.net, while `curl` reaches both; as of this run Conjecture 40 is still marked `O`, MathOverflow 513887 has `answerCount = 0`, and the public repository has no open issue or PR.
