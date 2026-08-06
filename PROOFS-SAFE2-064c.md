@@ -494,6 +494,29 @@ state falsifies CL-7 outright and is the cheapest decisive experiment left on
 this branch of the problem. It does **not** by itself falsify CL-6 or
 HARD-SUCCESSOR-ONE, which are existential over steps.
 
+**Proposition 12 (slack is exactly path-endedness). MATHEMATICALLY PROVED.**
+For every feasible `J`, writing `p = |H| − |S|`:
+
+(i) the incidence graph has exactly `|H| − |S| + c(J)` components, of which
+    exactly `p` are paths (isolated `H`-vertices counted as trivial paths) —
+    so the number of path components does **not** depend on `c(J)`;
+(ii) the total slack `Σ_h (c(h) − deg_J(h))` equals `2p − 2`;
+(iii) at least `p − 1` `H`-vertices are slack, hence `|Sat(J)| ≤ |S| + 1`.
+
+*Proof.* (i) The incidence graph has `|S| + |H|` vertices and `2|S|` edges and
+every component is a path or a cycle, so the number of components is
+`(|S|+|H|) − 2|S| + c(J)`. (ii)
+`Σ_h c(h) − Σ_h deg_J(h) = (2|H| − 2) − 2|S| = 2p − 2`. (iii) each `H`-vertex
+carries at most `2` units of slack, so at least `p−1` of them are slack, and
+`|Sat(J)| ≤ |H| − (p−1) = |S| + 1`. ∎
+
+**Corollary 12.1.** In a hard state, `N_H(P(C)) ⊆ Sat(J)` for every selected
+cycle `C` (Theorem 2), so the whole neighbourhood of every cycle's `S`-side lies
+inside a set of at most `|S| + 1` vertices, while `|N_H(P(C))| ≥ |P(C)| + 1`
+(Theorem 6(iv)). Hard states are therefore *tight* configurations in a literal
+counting sense — the cycle's `S`-side must find all of its neighbours among the
+few saturated vertices.
+
 **Measured fact 9.2 (which slack vertex witnesses the successor).** Over every
 preserved hard-state certificate at n=11 and n=12 (1,146 records, 3,932 bad
 minimizing steps, `work/064c/witness_slack.py`), the slack vertex of `J₀` that
