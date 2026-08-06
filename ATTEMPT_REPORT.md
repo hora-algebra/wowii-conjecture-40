@@ -28,7 +28,7 @@ Conjecture 40 remain OPEN.**
 ## Provenance incident, and the stance I withdrew
 
 This run began from a working checkout whose `ATTACK.md` was **v1.1**, with every
-local branch and the local mirror `/Users/christineozols/conj40-mirror.git` at
+local branch and the local mirror `<local-mirror>` at
 **v3** or older. I could not locate the v4 protocol the operator had named, and
 reported that. The operator then supplied the resolution: v4 exists on
 `public/main`, landed after a reconciliation audit. I added the `public` remote,
