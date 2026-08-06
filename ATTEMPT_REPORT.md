@@ -264,9 +264,10 @@ simultaneously; nothing in the certified stack does that yet.
 - The abort path wrote an `int` into the failure dictionary and crashed the
   summary; fixed before the long runs.
 
-## n=12 status
+## n=12 coverage and verdict
 
-See "n=12 coverage" at the end of this report (written at wrap-up).
+*(filled in at wrap-up from `work/064c/aggregate_n12.py`, which unions the
+worker intervals, refuses to sum overlaps, and lists any gap explicitly)*
 
 ## Recommended next angle
 

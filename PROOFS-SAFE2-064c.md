@@ -242,8 +242,8 @@ every bad minimizing reroute creates exactly one replacement cycle.
 Definition 3.4, made explicit).
 For F2 it suffices that from every cyclic feasible selection some finite
 sequence of toggles reaches a feasible selection with strictly fewer selected
-cycles. Hence the following statement, strictly weaker than SAFE-2-EXISTS,
-already implies F2:
+cycles. Hence the following statement, weaker than SAFE-2-EXISTS (it is implied
+by it), already implies F2:
 
 > **SAFE-2-DEC.** For every cyclic feasible `J`, either some minimizing step
 > strictly lowers `c`, or some minimizing step `J → J₀` has `c(J₀) ≤ c(J)` and
