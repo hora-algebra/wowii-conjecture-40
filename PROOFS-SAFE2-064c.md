@@ -518,12 +518,12 @@ counting sense — the cycle's `S`-side must find all of its neighbours among th
 few saturated vertices.
 
 **Measured fact 9.2 (which slack vertex witnesses the successor).** Over every
-preserved hard-state certificate at n=11 and n=12 (1,146 records, 3,932 bad
+preserved hard-state certificate at n=11 and n=12 (1,148 records, 3,940 bad
 minimizing steps, `work/064c/witness_slack.py`), the slack vertex of `J₀` that
 gives the relocated cycle its length-one step is: the freed end `h` only, in
-384 steps; a vertex that was *already* slack in `J`, only, in 1,700 steps; both,
+392 steps; a vertex that was *already* slack in `J`, only, in 1,700 steps; both,
 in 1,848; neither, in **0**. So a proof shaped as "the relocated cycle sees the
-freed vertex `h`" cannot work — it is refuted on 1,700 of 3,932 steps — and
+freed vertex `h`" cannot work — it is refuted on 1,700 of 3,940 steps — and
 neither can a proof that ignores `h`. Any argument must produce *some* slack
 neighbour, not a designated one.
 
@@ -534,7 +534,7 @@ sits inside the old path component `K`, disjoint from `C`, whereas the new slack
 vertex `h` sits on the old cycle `C`. CL-6 therefore asks for an adjacency
 between `P(Z)` and `slack(J₀) = (slack(J) \ {h₂}) ∪ {h}` — and by Measured fact
 9.2 the argument may not privilege either part of that set: `h` alone suffices
-in 384 of 3,932 graded steps, a pre-existing slack vertex alone in 1,700.
+in 392 of 3,940 graded steps, a pre-existing slack vertex alone in 1,700.
 
 What is available: `Z` is exactly the component `K₁` of `K` closed up by the new
 incidence (`h₂` had degree one in `J`, so it was an *end* of the path `K`, and
