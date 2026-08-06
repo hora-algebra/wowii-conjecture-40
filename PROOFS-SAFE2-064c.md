@@ -1,0 +1,377 @@
+# Structural results for SAFE-2-EXISTS — branch 064c
+
+Self-contained. Every hypothesis is stated. Status labels follow ATTACK.md
+Step 2. Nothing here is labelled PROVED without a complete derivation in this
+file; nothing is labelled COMPUTATIONALLY VERIFIED without a named universe and
+a hashed checker in `work/064c/`.
+
+---
+
+## 0. Setting
+
+`G` is a finite simple bipartite graph with bipartition classes `L, R`; `S` is a
+minimum feedback vertex set; `H = G − S` is a forest; `e = xy` is a fixed edge of
+`H`. Capacities: `c(x) = c(y) = 1` and `c(h) = 2` for every other `h ∈ H`.
+
+A **feasible selection** `J` assigns to each `s ∈ S` exactly two distinct
+`S`–`H` incidences at `s`, so that each `h ∈ H` receives at most `c(h)` of them.
+Write `J(s)` for the two `H`-vertices selected at `s`, `deg_J(h)` for the number
+of selected incidences at `h`, and `N_H(v)` for the `G`-neighbourhood in `H`.
+
+- `h` is **saturated** if `deg_J(h) = c(h)`, and **slack** if `deg_J(h) < c(h)`.
+- The incidence graph of `J` has all `S`-degrees equal to 2 and all `H`-degrees
+  at most 2, so each component is a path or a cycle. A **selected cycle** is a
+  cyclic component. `c(J)` denotes the number of selected cycles. For a selected
+  cycle `C` put `P(C) = V(C) ∩ S` and `Q(C) = V(C) ∩ H`.
+- **Hereditary FVS tightness** (paper Lemma 3.3, unconditional):
+  `τ(G[H ∪ X]) = |X|` for every `X ⊆ S`, where `τ` is the feedback vertex
+  number.
+- An incidence is **forced** if it lies in every feasible selection; **avoidable**
+  otherwise. **F1** (paper Lemma 3.6): `(s,h)` is forced iff some `ρ`-tight
+  `X ⊆ S` *exposes* it, i.e. `s ∈ X` and `deg_X(h) ≤ c(h)`; here
+  `ρ(X) = Σ_h min(c(h), deg_X(h))` and `X` is tight when `ρ(X) = 2|X|`.
+- **Residual augmenting path** (paper Theorem 3.10): after releasing an
+  incidence `a = (s₀,h₀) ∈ J`, a residual augmenting path is a simple sequence
+  `s₀, h₁, s₁, h₂, …, s_{k−1}, h_k` with `(s_{i−1}, h_i) ∉ J` for all `i`,
+  `(s_i, h_i) ∈ J` for `1 ≤ i ≤ k−1`, `(s₀,h₀)` deleted from the network, and
+  `deg_{J−a}(h_k) < c(h_k)`. Its **length** is `2k−1`. Toggling it gives the
+  feasible selection
+  `J₀ = J − a + (s₀,h₁) − (s₁,h₁) + (s₁,h₂) − ⋯ + (s_{k−1},h_k)`.
+  `a` is avoidable iff such a path exists.
+- `d₀(C)` is the minimum length of a residual augmenting path over the avoidable
+  incidences of `C`. A **minimizing step** for `C` is a toggle along a path of
+  length `d₀(C)`. A toggle `J → J₀` is **CES** for `C` when `C` is not a selected
+  cycle of `J₀` and every selected cycle of `J₀` is a selected cycle of `J`.
+  `C` is **A1-good** if some minimizing step for `C` is CES, else **A1-bad**.
+  `J` is a **hard state** if it is cyclic and every selected cycle is A1-bad.
+
+**Fact 0.** Every `h ∈ Q(C)` satisfies `c(h) = 2` and `deg_J(h) = 2`; in
+particular every `H`-vertex of a selected cycle is saturated, `x` and `y` lie on
+no selected cycle, and every slack `H`-vertex lies on no selected cycle. Also
+`P(C)` lies in a single bipartition class and `Q(C)` in the other.
+
+*Proof.* All vertices of a cyclic component have degree 2 in `J`, and
+`deg_J(h) ≤ c(h) ≤ 2` forces `c(h) = 2 = deg_J(h)`. `C` alternates `S`- and
+`H`-vertices along `G`-edges, and `G` is bipartite, so consecutive vertices of
+`C` lie in opposite classes; the `S`-positions therefore all lie in one class. ∎
+
+---
+
+## 1. Length-one steps are automatically cycle-erasing
+
+**Theorem 1 (LENGTH-ONE-CES). MATHEMATICALLY PROVED.**
+Let `J` be feasible, `C` a selected cycle, `a = (s,h)` an incidence of `C`, and
+suppose a residual augmenting path of length 1 from `s` exists after releasing
+`a` — that is, there is `h' ∈ N_H(s)` with `(s,h') ∉ J` and
+`deg_{J−a}(h') < c(h')`. Then `J' = J − a + (s,h')` is feasible and CES for `C`;
+moreover the selected cycles of `J'` are exactly those of `J` other than `C`.
+
+*Proof.* The released arc `a` is deleted from the network, so `h' ≠ h` and hence
+`deg_{J−a}(h') = deg_J(h') < c(h')`: `h'` is **slack in `J`**.
+
+*Feasibility.* `s` keeps selected degree 2; `h` drops to `deg_J(h) − 1`; `h'`
+rises to `deg_J(h') + 1 ≤ c(h')`. All other degrees are unchanged.
+
+*Cycles.* By Fact 0, `h'` slack implies `h' ∉ V(C)`. In `J − a` the component of
+`s` is the path `P_C := C − a`, whose vertex set is exactly `V(C)`; every other
+component of `J − a` is a component of `J` other than `C`. Since `h' ∉ V(C)`,
+`h'` lies in a component `D ≠ P_C` of `J − a`. Adding the single edge `(s,h')`
+joins two distinct components, so it creates no cycle, and `P_C ∪ D + (s,h')` is
+acyclic. Therefore the cyclic components of `J'` are precisely the cyclic
+components of `J − a`, i.e. the selected cycles of `J` other than `C`. ∎
+
+**Corollary 1.1.** If `d₀(C) = 1` then `C` is A1-good, and a length-one
+minimizing step lowers `c(J)` by exactly one.
+
+---
+
+## 2. A1-goodness is slack-adjacency
+
+**Theorem 2 (A1-GOOD ⟺ SLACK-ADJACENCY). MATHEMATICALLY PROVED.**
+For every feasible `J` and every selected cycle `C`:
+
+  `d₀(C) = 1` ⟺ some `s ∈ P(C)` has a slack `G`-neighbour in `H`.
+
+Consequently, if some `s ∈ P(C)` has a slack neighbour then `C` is A1-good; and
+if `C` is A1-bad then `d₀(C) ≥ 3` and **every** `H`-neighbour of **every**
+vertex of `P(C)` is saturated.
+
+*Proof.* (⟸) Let `s ∈ P(C)` have a slack neighbour `h'`. By Fact 0,
+`h' ∉ V(C)`; both selected incidences at `s` lie on `C`, so `(s,h') ∉ J`.
+Release either incidence `a` of `s` (both lie on `C`). In `J − a` we still have
+`deg(h') ≤ deg_J(h') < c(h')`, so `s → h' → sink` is a residual augmenting path
+of length 1. Hence `a` is avoidable and `d₀(C) = 1`.
+
+(⟹) A length-one path after releasing `a = (s,h)` ends at some `h'` with
+`(s,h') ∉ J` and `deg_{J−a}(h') < c(h')`. The arc `a` is deleted from the
+network, so `h' ≠ h`, hence `deg_J(h') < c(h')`: `h'` is slack, and `s ∈ P(C)`.
+∎
+
+**Remark 2.1.** Theorem 2 makes A1-goodness a *local, one-line* predicate on the
+state: no residual search is needed. It is the reason the hard-state population
+can be isolated cheaply (used by `work/064c/s2e_scan11.py`).
+
+---
+
+## 3. Importing A-I: every selected cycle has an outside neighbour
+
+**Theorem 3 (A-I for selected cycles). MATHEMATICALLY PROVED.**
+For every feasible `J` and every selected cycle `C`: `N_H(P(C)) ⊋ Q(C)`.
+
+*Proof.* Write `P = P(C)`, `Q = Q(C)`, `m = |P| = |Q| ≥ 2`. Suppose
+`N_H(P) ⊆ Q`. By Fact 0, `P` lies in one bipartition class, so `P` is
+independent in `G` and `G[H ∪ P]` has no `P`–`P` edge. Fix `q₀ ∈ Q` and put
+`D = Q \ {q₀}`, `|D| = m−1`. In `G[H ∪ P] − D`:
+
+* the `H`-part is `H − D`, an induced subgraph of the forest `H`, hence a forest;
+* each `s ∈ P` has `N_H(s) ⊆ Q`, so at most the single neighbour `q₀` survives;
+* `P` is independent.
+
+A forest together with additional pairwise non-adjacent vertices of degree at
+most one is again a forest. So `D` is a feedback vertex set of `G[H ∪ P]` of
+size `m − 1 < m = |P|`, contradicting `τ(G[H ∪ P]) = |P|`. ∎
+
+**Provenance.** This is paper Lemma 4.2 (A-I) with "forced-core cycle" replaced
+by "selected cycle": the proof of A-I uses only that the cycle's `S`-side lies in
+one bipartition class and that its `S`-vertices have no `H`-neighbour off the
+cycle. Both hold verbatim for a selected cycle. This is the first transfer of
+the certified Lemma-A stack onto the Lemma-B side.
+
+**Corollary 3.1. MATHEMATICALLY PROVED.** If `C` is A1-bad, then some
+`s ∈ P(C)` has a **saturated** `G`-neighbour `h₁ ∉ Q(C)`.
+*Proof.* Theorem 3 gives a neighbour off `Q(C)`; Theorem 2 makes every
+neighbour of `P(C)` saturated. ∎
+
+---
+
+## 4. Structure of a bad minimizing step of length three
+
+Throughout this section `C` is A1-bad with `d₀(C) = 3`, and `J → J₀` is a
+minimizing step that is **not** CES: released `a = (s,h)` with `(s,h)` an
+incidence of `C`, path `s, h₁, s₁, h₂`, and
+
+  `J₀ = J − (s,h) + (s,h₁) − (s₁,h₁) + (s₁,h₂)`.
+
+Because the path has length 3 and not 1, `h₁` is not slack in `J − a`; since the
+released arc lowers only `h`, this forces `h₁ ≠ h` and `h₁` saturated in `J`.
+The terminal `h₂` satisfies `deg_{J−a}(h₂) < c(h₂)`, i.e. either `h₂ ≠ h` and
+`h₂` is slack in `J`, or `h₂ = h`.
+
+**Theorem 4 (bad-step structure, terminal off the released end).
+MATHEMATICALLY PROVED.** If `h₂ ≠ h` then:
+
+(a) `h₁ ∉ V(C)` and `s₁ ∉ P(C)`;
+(b) the component `K` of `h₁` in `J` is a **path** component;
+(c) `J₀` has exactly one selected cycle `Z` that is not a selected cycle of `J`;
+(d) `V(Z) ⊆ V(K)`, so `V(Z) ∩ V(C) = ∅`;
+(e) `c(J₀) = c(J)`;
+(f) `deg_{J₀}(h) = 1 < 2 = c(h)`: the released `H`-end becomes slack.
+
+*Proof.* (a) `h₂ ≠ h` makes `h₂` slack in `J`, and `(s₁,h₂) ∉ J` with
+`h₂ ∈ N_H(s₁)`; by Theorem 2, `s₁ ∉ P(C)`. If `h₁ ∈ V(C)` then `h₁ ∈ Q(C)` and
+by Fact 0 both selected incidences at `h₁` come from `P(C)`, so `s₁ ∈ P(C)` —
+contradiction. Hence `h₁ ∉ V(C)`.
+
+(b) Suppose `K` is a cycle. In `J − a` the component of `s` is the path `P_C`
+on `V(C)`; `K` is untouched. Adding `(s,h₁)` merges `P_C` and `K` into one
+component containing the cycle `K`. Removing `(s₁,h₁)` — an edge of `K` — leaves
+that component connected with maximum degree 2 and no cycle, i.e. a path.
+Finally `h₂` is slack, so by Fact 0 `h₂ ∉ V(C) ∪ V(K)`, so adding `(s₁,h₂)`
+joins two distinct components and creates no cycle. The selected cycles of `J₀`
+would then be those of `J` minus `{C, K}` — a CES step, contradicting badness.
+So `K` is a path.
+
+(c),(d) With `K` a path, the graph `J − a + (s,h₁)` is a forest of paths except
+that `h₁` may have degree 3; removing `(s₁,h₁)`, an edge of the tree
+`P_C ∪ K + (s,h₁)`, splits that tree into exactly two components: `K₁ ∋ s₁` and
+the component containing `h₁` and `P_C`. No cycle exists at this point, and `C`
+is destroyed (the incidence `(s,h)` is not restored, since `h₁ ≠ h` and
+`s₁ ≠ s`). The step is not CES, so the final addition `(s₁,h₂)` must create a
+cycle; that happens iff `h₂` lies in the component `K₁` of `s₁`, and then the
+unique new cycle is `Z = (the K₁-path from s₁ to h₂) + (s₁,h₂) ⊆ K₁ ⊆ K`.
+Since `V(K) ∩ V(C) = ∅`, (d) follows.
+
+(e) `C` is destroyed, `Z` is created, all other components are untouched.
+
+(f) `h ∈ Q(C)` has `c(h) = 2` and `deg_J(h) = 2` by Fact 0, and `J₀` removes one
+incidence at `h` and adds none (`h₂ ≠ h`, `h₁ ≠ h`). ∎
+
+**Theorem 4′ (terminal at the released end). MATHEMATICALLY PROVED.**
+If `h₂ = h` then exactly one of the following holds:
+
+(i) `h₁ ∉ V(C)` and the component `K` of `h₁` in `J` is a **cycle**; then
+    `c(J₀) = c(J) − 1`;
+(ii) `h₁ ∈ Q(C)`; then `s₁ ∈ P(C)`, the new cycles of `J₀` lie inside `V(C)`,
+    and `c(J₀) ∈ {c(J), c(J)+1}`.
+
+*Proof.* Suppose first `h₁ ∉ V(C)`, with component `K`. If `K` is a path, then
+as in Theorem 4(c) removing `(s₁,h₁)` splits `P_C ∪ K + (s,h₁)` into `K₁ ∋ s₁`
+and the part containing `h₁` and all of `P_C` — in particular containing `h`.
+Then adding `(s₁,h)` joins two distinct components, creating no cycle, so the
+step is CES, contradicting badness. So `K` is a cycle; then, as in Theorem 4(b),
+after `+(s,h₁) −(s₁,h₁)` the merged component is a single path containing both
+`s₁` and `h`, and `+(s₁,h)` closes exactly one cycle there. Both `C` and `K` are
+destroyed and one cycle is created: `c(J₀) = c(J) − 1`.
+
+Now suppose `h₁ ∈ V(C)`, so `h₁ ∈ Q(C)` and (Fact 0) `s₁ ∈ P(C)` is one of the
+two `C`-neighbours of `h₁`. Write `P_C = C − (s,h)` as the path from `h` to `s`,
+and let `α, β` be the `P_C`-neighbours of `h₁` on the `h`-side and the `s`-side
+respectively. Adding `(s,h₁)` creates the cycle `Z₁` consisting of the `P_C`-arc
+from `h₁` to `s` together with `(s,h₁)`, with the path `h … α h₁` attached at
+`h₁`. If `s₁ = β`, then `Z₁` is destroyed and the component is a path containing
+both `h` and `β`, so `+(β,h)` creates exactly one cycle, inside `V(C)`, and
+`c(J₀) = c(J)`. If `s₁ = α`, then `Z₁` survives, the path `h … α` splits off,
+and `+(α,h)` closes a second cycle inside that path; both new cycles lie inside
+`V(C)` and `c(J₀) = c(J) + 1`. ∎
+
+**Remark 4.1 (why this matters).** Theorem 4 says a bad length-three step
+*relocates* the cycle: the new cycle `Z` is vertex-disjoint from `C` and lives
+inside a former path component, while the released `H`-end `h` — a vertex of the
+old cycle — becomes the new slack vertex. So the step does not shrink anything;
+it exchanges "a cycle here, slack there" for "slack here, a cycle there". This
+is exactly why one-step statements (SD-SHORT, B-TERMINAL-SLIDE, unrestricted
+SUCCESSOR-ONE) keep dying, and it explains the recorded n=12 profile in which
+every bad minimizing reroute creates exactly one replacement cycle.
+
+---
+
+## 5. The descent needs only a strict decrease
+
+**Proposition 5. MATHEMATICALLY PROVED** (this is the paper's own remark under
+Definition 3.4, made explicit).
+For F2 it suffices that from every cyclic feasible selection some finite
+sequence of toggles reaches a feasible selection with strictly fewer selected
+cycles. Hence the following statement, strictly weaker than SAFE-2-EXISTS,
+already implies F2:
+
+> **SAFE-2-DEC.** For every cyclic feasible `J`, either some minimizing step
+> strictly lowers `c`, or some minimizing step `J → J₀` has `c(J₀) ≤ c(J)` and
+> some minimizing step from `J₀` strictly lowers `c`.
+
+*Proof.* `c` is a nonnegative integer; a strictly decreasing sequence
+terminates, and a terminal selection has no selected cycle, which with
+Lemma 3.11 (fixed-edge parity) gives the spanning linear forest with `2τ+1`
+edges. SAFE-2-EXISTS implies SAFE-2-DEC because a CES step lowers `c` by at
+least one. ∎
+
+**Remark 5.1.** Theorem 4′(i) supplies a family of *non-CES* steps that are
+nevertheless count-decreasing. Any proof effort aimed at SAFE-2-EXISTS that gets
+stuck on the CES clause should check SAFE-2-DEC first: it is what F2 consumes.
+
+---
+
+## 6. The slack-free closure of a selected cycle is tight
+
+For a feasible `J` define the residual closure of a set `A₀ ⊆ S`:
+
+  `Y_i = ⋃_{s ∈ A_i} ( N_H(s) \ J(s) )`,  `A_{i+1} = A_i ∪ { s' : ∃ h ∈ Y_i, (s',h) ∈ J }`,
+
+and let `A*`, `Y*` be the (finite) limits. These are exactly the vertices
+reachable in the residual digraph of `J` from `A₀`.
+
+**Theorem 6. MATHEMATICALLY PROVED.**
+Let `C` be a selected cycle, `A₀ = P(C)`, and suppose **no** `h ∈ Y*` is slack.
+Put `W = N_H(A*) \ Y*`. Then:
+
+(i) `A*` lies in one bipartition class and `N_H(A*)` in the other; in particular
+    at most one of `x, y` lies in `N_H(A*)`;
+(ii) every selected incidence with `H`-end in `Y*` has its `S`-end in `A*`;
+(iii) `A*` is `ρ`-tight: `ρ(A*) = 2|A*|`;
+(iv) `|N_H(A*)| ≥ |A*| + 1`;
+(v) `W ≠ ∅`, and **every** incidence between `A*` and `W` is forced.
+
+*Proof.* (i) `A₀ = P(C)` lies in one class by Fact 0; `H`-neighbours of that
+class lie in the other; owners of those `H`-vertices lie back in the first.
+Induction. `x` and `y` are adjacent, hence in different classes, so `N_H(A*)`
+contains at most one of them.
+
+(ii) If `(s',h) ∈ J` with `h ∈ Y*` then `s'` is added to `A*` at the next step of
+the closure, by construction.
+
+(iii) Partition `N_H(A*) = Y* ⊔ W`. For `h ∉ N_H(A*)`, `deg_{A*}(h) = 0`.
+For `h ∈ Y*`: `h` is saturated by hypothesis and all its selected incidences
+come from `A*` by (ii), so `deg_{A*}(h) ≥ deg_J(h) = c(h)` and
+`min(c(h), deg_{A*}(h)) = c(h)`. For `h ∈ W`: by definition of `W`, every
+`A*`-neighbour of `h` *selects* `h`, so `deg_{A*}(h) ≤ deg_J(h) ≤ c(h)` and
+`min(c(h), deg_{A*}(h)) = deg_{A*}(h)`. Now count selected incidences with
+`S`-end in `A*`: there are `2|A*|` of them and each has its `H`-end in
+`N_H(A*)`. Writing `E_W` for the number of them with `H`-end in `W`,
+
+  `Σ_{h∈Y*} c(h) = Σ_{h∈Y*} deg_J(h) = 2|A*| − E_W`   (using (ii)),
+  `Σ_{h∈W} deg_{A*}(h) = #(A*–W adjacencies) = E_W`   (definition of `W`).
+
+Hence `ρ(A*) = (2|A*| − E_W) + E_W = 2|A*|`. Feasibility gives `ρ ≥ 2|A*|`, so
+`A*` is tight.
+
+(iv) Put `D = N_H(A*) \ {z₀}` for any `z₀ ∈ N_H(A*)`. In `G[H ∪ A*] − D` the
+`H`-part is a subforest of `H`, `A*` is independent by (i), and each `s ∈ A*` has
+`N_H(s) ⊆ N_H(A*)`, hence at most the one surviving neighbour `z₀`. So `D` is a
+feedback vertex set and `|A*| = τ(G[H ∪ A*]) ≤ |N_H(A*)| − 1`.
+
+(v) If `W = ∅` then `E_W = 0` and `Σ_{h∈Y*} c(h) = 2|A*|`; but by (i) at most one
+vertex of `Y*` has capacity 1, so `Σ_{h∈Y*} c(h) ≥ 2|Y*| − 1 ≥ 2(|A*|+1) − 1`
+by (iv), giving `2|A*| ≥ 2|A*| + 1`, absurd. For forcedness: `A*` is tight by
+(iii) and every `h ∈ W` has `deg_{A*}(h) ≤ c(h)`, so `A*` exposes each incidence
+`(s,h)` with `s ∈ A*`, `h ∈ W ∩ N_H(s)`; F1 makes it forced. ∎
+
+**Corollary 6.1 (dichotomy at a selected cycle). MATHEMATICALLY PROVED,
+conditional on Lemma A.** For every feasible `J` and selected cycle `C`, either
+
+* the residual closure of `P(C)` reaches a slack `H`-vertex — so `C` has an
+  avoidable incidence witnessed by a residual path ending at genuine slack — or
+* some `q ∈ Q(C)` lies in `Y*`, i.e. some closure vertex is adjacent to a cycle
+  vertex of `C` without selecting it.
+
+*Proof.* Suppose neither. By Theorem 6, `W ≠ ∅` and all `A*`–`W` incidences are
+forced. Every `q ∈ Q(C)` lies in `N_H(A*)` (its `C`-owners are in `P(C) ⊆ A*`)
+and, by assumption, not in `Y*`; so `Q(C) ⊆ W` and every incidence of `C` is
+forced. Then the forced core contains the cycle `C`, contradicting Lemma A. ∎
+
+**Remark 6.2 (what Theorem 6 does not do).** Theorem 6 is *not* a proof of
+Lemma A. Its argument closes only when `W = ∅`; in general `W ≠ ∅` and the
+`A*`–`W` incidences form a forced sub-structure that the counting cannot bound,
+because the `H`-forest can reconnect two spared `W`-vertices. Sparing two
+`W`-vertices is exactly what would be needed to push `|D|` below `|A*|`. This is
+the same obstruction that O-56/O-63/O-64 record for the localization attempts,
+reached from a different direction; it is stated here so that the next attempt
+does not re-walk it hoping the closure counting alone suffices.
+
+---
+
+## 7. The target, restated
+
+**Theorem 7 (reformulation of HARD-SUCCESSOR-ONE). MATHEMATICALLY PROVED.**
+Let `J` be a hard state and `J → J₀` any toggle. Then
+
+  "`J₀` admits a CES minimizing step of length one"
+   ⟺ "some `S`-vertex lying on a selected cycle of `J₀` has a slack
+      `G`-neighbour in `J₀`".
+
+*Proof.* Apply Theorem 2 to `J₀` (right side ⟺ some selected cycle `Z` of `J₀`
+has `d₀(Z) = 1`), then Theorem 1 to `J₀` (a length-one minimizing step is
+automatically CES). ∎
+
+So the recorded conjectural lead becomes a statement with no residual search and
+no CES obligation in it:
+
+> **CL-6 (target, CONJECTURAL).** For every hard state `J` there is a minimizing
+> step `J → J₀` with `c(J₀) ≤ c(J)` such that some `S`-vertex on a selected
+> cycle of `J₀` has a slack `G`-neighbour in `J₀`.
+>
+> **CL-7 (universal form, CONJECTURAL).** The same for *every* minimizing step
+> out of a hard state.
+
+By Proposition 5 and Corollary 1.1, CL-6 implies SAFE-2-DEC restricted to hard
+states, and together with Theorem 2 (which settles every non-hard state in one
+length-one step) it implies SAFE-2-DEC outright, hence F2.
+
+**Where the remaining difficulty sits, exactly.** Let `J` be hard, `C` a
+selected cycle, and take the bad step of Theorem 4. Then the slack set moves by
+exactly one unit: `slack(J₀) = (slack(J) \ {h₂}) ∪ {h}`, and the new cycle `Z`
+sits inside the old path component `K`, disjoint from `C`, whereas the new slack
+vertex `h` sits on the old cycle `C`. CL-6 therefore asks for an adjacency
+between `P(Z)` and `slack(J₀)` — that is, between a part of the *old path
+component* and a vertex of the *old cycle*. Theorem 3 applied to `Z` in `J₀`
+gives an `S`-vertex of `Z` with a neighbour off `Q(Z)`, but not a *slack* one;
+closing the gap needs a hereditary-tightness argument that sees `C` and `K`
+simultaneously. That is the precise open obligation left by this run.

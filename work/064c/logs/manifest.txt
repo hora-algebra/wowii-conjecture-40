@@ -1,0 +1,17 @@
+./a1_verify.py: OK
+./b_hslide.py: OK
+./b4_check.py: OK
+./b4_split.py: OK
+./eval_frozen.py: OK
+./eval_L1_holdout.py: OK
+./experiment_b_dual.py: OK
+./experiment_b.py: OK
+./forced_core.py: OK
+./inv_b.py: OK
+./inv40_a.py: OK
+./inv40_b.py: OK
+./mine_n10.py: OK
+./README.md: OK
+./witnesses/O-56.json: OK
+./witnesses/O-63.json: OK
+./witnesses/O-64.json: OK
