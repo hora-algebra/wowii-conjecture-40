@@ -1,0 +1,28 @@
+{
+  "id": "O-64",
+  "source": "ledgers/RESULT_RECORD.md entry O-64 and paper section 4.1 (independently verified)",
+  "refutes": "B_s-localization for Lemma A: the claim that the hereditary violation lives inside the punctured carrier B_s. Here B_s is Hall-tight yet carries NO hereditary violation (tau(G[H u B_s]) = |B_s|); the violation is on the cycle's own S-side P. Also shows capacity-1 and capacity-2 external neighbours are separate branches, and that neither P nor B_s is a universal localizer.",
+  "model": "bipartite incidence-selection (paper section 3): demand 2 per s; c(h)=2 except c=1 on the endpoints of e.",
+  "capacity_case": 1,
+  "vertices": {
+    "S": ["s", "t", "u"],
+    "forced_cycle_S_side": ["s", "t"],
+    "H": ["q1", "r", "q2", "y", "h", "w"]
+  },
+  "incidence_edges_S_H": [["s","q1"],["s","q2"],["s","h"],["t","q1"],["t","q2"],["u","h"],["u","w"]],
+  "H_forest_edges": [["q1","r"],["r","q2"],["q1","y"],["y","h"],["y","w"]],
+  "distinguished_edge": ["h", "y"],
+  "capacities": {"default": 2, "c1_vertices": ["h", "y"]},
+  "feasible_selections": {"count": 1,
+    "unique": {"s": ["q1","q2"], "t": ["q1","q2"], "u": ["h","w"]},
+    "note": "u saturates the capacity-1 vertex h, so s is pushed off h"},
+  "forced_cycle": {"vertices": ["s", "q1", "t", "q2"], "edges": [["s","q1"],["t","q1"],["s","q2"],["t","q2"]]},
+  "carrier": {"A_s": ["s", "u"], "B_s": ["u"]},
+  "hereditary_tightness": {
+    "B_s_is_Hall_tight": true,
+    "tau_G_H_Bs": {"value": 1, "size_Bs": 1, "clean": true,
+      "note": "B_s carries NO hereditary violation and admits no feasible exchange"},
+    "first_violation": {"set": ["s", "t"], "tau": 1, "size": 2, "FVS_witness": ["q1"],
+      "location": "on the forced cycle's own S-side P={s,t}"}
+  }
+}
