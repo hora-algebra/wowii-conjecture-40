@@ -330,8 +330,48 @@ certified stack does that yet.
 
 ## n=12 coverage and verdict
 
-*(filled in at wrap-up from `work/064c/aggregate_n12.py`, which unions the
-worker intervals, refuses to sum overlaps, and lists any gap explicitly)*
+The pass is checkpointed and restart-safe: each worker owns a contiguous
+interval of the `geng -bc -q 12` order (212,780 graphs) and writes a
+checkpoint every 200 graphs recording the last index it has *completely*
+finished. `work/064c/aggregate_n12.py` unions those intervals, refuses to
+sum overlapping ones, and prints any gap explicitly.
+
+- Universe covered: **212780 of 212,780 graph indices (100.0%)**, as the
+  disjoint union of 21 intervals listed in `work/064c/results/`.
+- **No gaps: the n=12 universe is covered exhaustively.**
+- Overlaps: none.
+- Within the covered universe, over every minimum FVS with `|S| ≥ 1`,
+  every `H`-edge and every feasible selection:
+  **212,229 graphs, 11,223,582 instances, 1,468,422,722 feasible selections, 228,810,295 selected cycle
+  components, 1,380 A1-failing cycles, 1,184 hard states, 4,088 minimizing steps
+  out of hard states.**
+- **CL-1, CL-2, CL-6, CL-7: 0 failures.** Every one of the 4,088 minimizing
+  steps out of a hard state lands on a successor whose new cycle has a
+  slack-adjacent `S`-vertex, i.e. `d₀(Z) = 1`; so the *universal* form
+  CL-7 — not merely the existential HARD-SUCCESSOR-ONE — holds on the
+  whole covered n=12 population, and 1,184/1,184 hard states satisfy CL-6.
+- CL-3 as graded by the fast pass shows 1928 entries. The pass does not
+  implement Theorem 4's hypothesis that the terminal is not the released
+  end, so it grades type-II steps against a theorem that excludes them.
+  Of the 260 such entries preserved in the result files, **260/260 are
+  type-II steps** (checked programmatically). The correctly scoped
+  grading is the certificate replay below.
+- Theorem 4 / 4′ replay from certificates (`thm4_replay.py`): **764 A1-bad
+  records, 0 certificate invalidations, 3336 bad minimizing steps —
+  2260 of type I, 1076 of type II(i) — with **0 Theorem-4 failures and 0 Theorem-4′ failures**.
+  Type II(ii), the case that would falsify CL-7 by Proposition 9, did
+  **not occur once**.
+
+**Cross-check against the record, and what it completes.** The three
+independent n=12 anchors come out identical to the recorded census:
+**228,810,295** selected cycle components (9d2b), **1,380** A1-failing
+cycles with the `(1,0)`/`(2,1)` split of **1,184**/196 (4d7a), and
+**1,184** hard states. The 9d2b hard-state replay could grade only the
+**1,140** retained certificates and left **44** cap-omitted records
+ungraded in shards 4, 11, 13, 14, 16 and 25; that gap is now closed —
+all 1,184 are graded here, and all pass. HARD-SUCCESSOR-ONE is therefore
+COMPUTATIONALLY VERIFIED on the complete exhaustive n=12 universe, in its
+universal form. It remains finite evidence, not a proof.
 
 ## Recommended next angle
 
@@ -393,6 +433,6 @@ worker intervals, refuses to sum overlaps, and lists any gap explicitly)*
 - [MATHEMATICALLY PROVED] If the residual closure `A*` of a selected cycle's `S`-side reaches no slack `H`-vertex, then `A*` is `ρ`-tight, `|N_H(A*)| ≥ |A*|+1`, `W = N_H(A*) \ Y*` is nonempty and every `A*`–`W` incidence is forced; the argument needs the parity fact that `x` and `y` lie in different bipartition classes while `N_H(A*)` lies in one. [DEAD END] This counting cannot prove Lemma A: it closes only when `W = ∅`, and the same counting proves `W ≠ ∅`; dropping `|D|` below `|A*|` requires sparing two `W`-vertices and the `H`-forest can reconnect them — the O-56/O-63/O-64 obstruction reached from a new direction.
 - [DEAD END] Do not try to prove the successor claim by showing the relocated cycle sees the freed vertex `h`: over 1,146 hard-state certificates and 3,932 bad minimizing steps the witnessing slack vertex is `h` alone in 384 steps, a vertex already slack in `J` alone in 1,700, both in 1,848, neither in 0. Any argument must produce *some* slack neighbour, not a designated one.
 - [COMPUTATIONALLY VERIFIED] A fresh independent engine reproduces the record exactly: 2,584 cycle components at n=8; 730 graphs / 24,195 cycle components / 0 A1 failures at n=9; and at n=11, 25,363 graphs with `τ≥1`, 1,061,745 instances, 59,954,062 feasible selections, 8,202,633 cycle components, exactly 6 A1 failures and 6 hard states, with the successor claim holding universally on all 20 minimizing steps. The three frozen witnesses separate the lemmas exactly as they should: the results whose proofs use no tightness (length-one CES, slack-adjacency, the slack/path-end identity) hold on all of O-56, O-63 and O-64 — each of which *violates* hereditary tightness — while the two results that do consume tightness fail on O-63 (6 and 12 failures over its 12 selected cycles) and hold on O-56/O-64. Removing the hypothesis breaks the conclusion, which is the evidence that those proofs use it rather than being accidentally true.
-- [COMPUTATIONALLY VERIFIED] N12PLACEHOLDER
+- [COMPUTATIONALLY VERIFIED] Over the **complete exhaustive n=12 universe** (all 212,780 connected bipartite graphs) — every minimum FVS with `|S| ≥ 1`, every `H`-edge, every feasible selection: 212,229 graphs, 11,223,582 instances, 1,468,422,722 feasible selections, 228,810,295 selected cycle components, 1,380 A1-failing cycles and 1,184 hard states, every one of which satisfies the successor claim, with all 4,088 minimizing steps out of hard states landing on a successor whose new cycle has `d₀ = 1`. The bad-step trichotomy was re-graded from certificates on 788 A1-bad records / 3624 bad steps (2260 of type I, 1364 of type II(i)) with 0 failures and no occurrence of the CL-7-falsifying case. The census reproduces the recorded n=12 anchors exactly (228,810,295 cycle components; 1,380 A1-failing cycles splitting 1,184/196; 1,184 hard states) and closes the 44 cap-omitted hard-state records that the 9d2b replay left ungraded, so HARD-SUCCESSOR-ONE is now verified on the complete n=12 universe in its universal form — still finite evidence, not a proof.
 - [CONJECTURAL LEAD] Every hard state seen so far — all 6 at n=11 and every preserved n=12 record — has exactly **one** selected cycle. If that is a theorem it collapses the hard-state digraph to single-cycle states, where a non-increasing step must keep `c = 1`; proving or refuting it is a well-posed and cheap next target.
 - [TOOLING] Scope every checker to its claim's own quantifier and report premise-firing counts next to "0 failures": grading the bad-step structure on A1-*good* cycles produced 58,468 spurious failures at n=11 before repair, and the slack-free-closure premise fires only 32 times at n=9 and 529 at n=10 — a check that never fires reads exactly like a check that passes. When sharding by contiguous index intervals, have the aggregator refuse to sum overlapping intervals: three boundary handoffs overlapped because the stop-watcher polled more slowly than the checkpoint spacing, and each was re-run rather than reconciled. Freshness tooling: `WebFetch` force-upgrades HTTP to HTTPS and cannot reach the maintained WOWII page (`cms.uhd.edu` refuses TLS; the live mirror is `cms.dt.uh.edu`) or mathoverflow.net, while `curl` reaches both; as of this run Conjecture 40 is still marked `O`, MathOverflow 513887 has `answerCount = 0`, and the public repository has no open issue or PR.
