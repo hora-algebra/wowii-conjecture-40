@@ -60,7 +60,7 @@ def cycles_fast(Slist, sel, NHset):
             out.append((P, Q, frozenset(es)))
     return out
 
-def run(n, shard, out, tlimit=None, verify_all=False):
+def run(n, shard, out, tlimit=None, verify_all=False, rng=None, ckpt=200):
     t0 = time.time()
     st = B.Stats()
     st.sampled_cl1 = 0
@@ -69,13 +69,20 @@ def run(n, shard, out, tlimit=None, verify_all=False):
     seen_cycles = 0
     hard_records = []
     a1_records = []
+    done_upto = (rng[0] - 1) if rng else -1
     for idx, g6 in enumerate(lines):
+        if rng and not (rng[0] <= idx < rng[1]):
+            continue
         if shard and idx % shard[1] != shard[0]:
             continue
+        if rng and idx % ckpt == 0 and idx > rng[0]:
+            checkpoint(st, n, shard, rng, done_upto, out, t0,
+                       a1_records, hard_records)
         if tlimit and time.time() - t0 > tlimit:
             st.aborted_at = idx
             break
         gn, adj = B.g6_decode(g6)
+        done_upto = idx
         col = B.bipartition(gn, adj)
         if col is None:
             continue
@@ -151,6 +158,9 @@ def run(n, shard, out, tlimit=None, verify_all=False):
                                 cl67(inst, g6, st, sel, cyc, badcycles))
     s = st.summary()
     s["n"] = n
+    s["range"] = rng
+    s["done_upto"] = done_upto
+    s["complete"] = (rng is None) or (done_upto >= rng[1] - 1)
     s["shard"] = shard
     s["aborted_at"] = getattr(st, "aborted_at", None)
     s["sampled_cl1"] = st.sampled_cl1
@@ -248,6 +258,20 @@ def cl67(inst, g6, st, sel, cyc, badcycles):
                                    sel=[list(x) for x in sel]))
     return rec
 
+def checkpoint(st, n, shard, rng, done_upto, out, t0, a1_records,
+               hard_records):
+    s = st.summary()
+    s.update(n=n, shard=shard, range=rng, done_upto=done_upto,
+             complete=False, seconds=round(time.time() - t0, 3))
+    if out:
+        with open(out + ".partial", "w") as f:
+            json.dump({"summary": s, "a1_records": a1_records[:200],
+                       "hard_records": hard_records[:400],
+                       "failures": {k: v[:20] for k, v in st.fail.items()
+                                    if isinstance(v, list) and v}},
+                      f, indent=1, default=str)
+
+
 if __name__ == "__main__":
     ap = argparse.ArgumentParser()
     ap.add_argument("--n", type=int, default=11)
@@ -255,9 +279,14 @@ if __name__ == "__main__":
     ap.add_argument("--out")
     ap.add_argument("--tlimit", type=float)
     ap.add_argument("--verify-all", action="store_true")
+    ap.add_argument("--range")
     A = ap.parse_args()
     sh = None
     if A.shard:
         i, k = A.shard.split("/")
         sh = (int(i), int(k))
-    run(A.n, sh, A.out, tlimit=A.tlimit, verify_all=A.verify_all)
+    rg = None
+    if A.range:
+        a, b = A.range.split(":")
+        rg = (int(a), int(b))
+    run(A.n, sh, A.out, tlimit=A.tlimit, verify_all=A.verify_all, rng=rg)

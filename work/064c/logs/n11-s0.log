@@ -15,7 +15,7 @@
  "failures": {
   "CL1": 0,
   "CL2": 0,
-  "CL3": 13954,
+  "CL3": 0,
   "CL4": 0,
   "CL5": 0,
   "CL6": 0,
@@ -29,5 +29,5 @@
  ],
  "aborted_at": null,
  "sampled_cl1": 2071,
- "seconds": 94.319
+ "seconds": 91.531
 }
