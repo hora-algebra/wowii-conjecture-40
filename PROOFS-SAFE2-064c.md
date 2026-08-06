@@ -532,8 +532,19 @@ selected cycle, and take the bad step of Theorem 4. Then the slack set moves by
 exactly one unit: `slack(J₀) = (slack(J) \ {h₂}) ∪ {h}`, and the new cycle `Z`
 sits inside the old path component `K`, disjoint from `C`, whereas the new slack
 vertex `h` sits on the old cycle `C`. CL-6 therefore asks for an adjacency
-between `P(Z)` and `slack(J₀)` — that is, between a part of the *old path
-component* and a vertex of the *old cycle*. Theorem 3 applied to `Z` in `J₀`
-gives an `S`-vertex of `Z` with a neighbour off `Q(Z)`, but not a *slack* one;
-closing the gap needs a hereditary-tightness argument that sees `C` and `K`
-simultaneously. That is the precise open obligation left by this run.
+between `P(Z)` and `slack(J₀) = (slack(J) \ {h₂}) ∪ {h}` — and by Measured fact
+9.2 the argument may not privilege either part of that set: `h` alone suffices
+in 384 of 3,932 graded steps, a pre-existing slack vertex alone in 1,700.
+
+What is available: `Z` is exactly the component `K₁` of `K` closed up by the new
+incidence (`h₂` had degree one in `J`, so it was an *end* of the path `K`, and
+`Z = K₁ + (s₁,h₂)`); `P(Z)` is independent and lies in one bipartition class;
+`|N_H(P(Z))| ≥ |P(Z)| + 1` (Theorem 6(iv)); the slack vertices of `J₀` are
+exactly the ends of its `|H| − |S|` path components, up to the two units
+absorbed by `x` and `y` (Proposition 12). What is missing is an argument that
+forces one of those path ends to be `G`-adjacent to `P(Z)`. Every counting
+identity above is satisfied with room to spare in both directions, so the step
+must come from hereditary tightness applied to a set that meets both `P(C)` and
+`P(Z)` — the natural candidate being `X = P(C) ∪ P(Z)`, which is independent and
+one-sided, with the feedback vertex set to build against it still unknown. That
+is the precise open obligation left by this run.
