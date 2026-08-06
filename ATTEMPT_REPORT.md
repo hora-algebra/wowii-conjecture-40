@@ -262,20 +262,24 @@ full machinery, so the n=11 anchor above is itself a test of the filter.
   every preserved n=12 hard-state record have exactly one selected cycle. This
   independently reproduces the 9d2b observation. I have no proof of it; it is
   recorded as a proof target, not as a lemma.
-- **n = 12:** a checkpointed, restart-safe exhaustive pass over contiguous
-  `geng -bc -q 12` index intervals was launched at 22:53 CDT. Coverage and
-  verdict are recorded in the "n=12 status" section below.
+- **n = 12:** a checkpointed, restart-safe pass over contiguous
+  `geng -bc -q 12` index intervals was launched at 22:53 CDT; coverage and
+  verdict are in the "n=12 coverage and verdict" section below.
 
 ### CONJECTURAL (the target itself)
 
 **CL-6 / HARD-SUCCESSOR-ONE, in the reduced form of Theorem 7.** Not proved.
-The reduction is now sharp: by Theorems 4 and 8 the whole question at a hard
-state is whether the relocated cycle `Z` — which lives inside a former *path*
-component — has an `S`-vertex adjacent to the newly freed slack vertex `h`,
-which lives on the former *cycle*. Theorem 3 gives an `S`-vertex of `Z` with a
-neighbour off `Q(Z)`, but not a slack one. Closing that needs a
-hereditary-tightness argument that sees the old cycle and the old path component
-simultaneously; nothing in the certified stack does that yet.
+The reduction is sharp: by Theorems 4 and 8 the whole question at a hard state
+is whether the relocated cycle `Z` — the former path component `K₁` closed up by
+the new incidence — has an `S`-vertex adjacent to *some* vertex of
+`slack(J₀) = (slack(J) \ {h₂}) ∪ {h}`. Measured fact 9.2 forbids privileging
+either part of that set. Theorem 3 supplies an `S`-vertex of `Z` with a
+neighbour off `Q(Z)`, but not a slack one, and Proposition 12 says the slack
+vertices are exactly the ends of the `|H|−|S|` path components. Closing the gap
+needs hereditary tightness applied to a set meeting both `P(C)` and `P(Z)`; the
+natural candidate `X = P(C) ∪ P(Z)` is independent and one-sided, and the
+feedback vertex set to build against it is the missing step. Nothing in the
+certified stack does that yet.
 
 ## Dead ends hit, with reasons
 
