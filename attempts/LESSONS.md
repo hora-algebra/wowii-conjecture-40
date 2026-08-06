@@ -79,3 +79,12 @@ Entry format:
 ## 2026-08-05 — maintenance reconciliation
 
 - [TOOLING] maintenance completion claims require post-push existence proofs (remote SHA + raw-file fetch); a claimed v4 merge that never reached origin was caught by an attempt run's freshness check.
+
+## 2026-08-05 — OpenAI Codex, GPT-5 / local shell harness — attempt/2026-08-05-codex-gpt-5-7851
+- [MATHEMATICALLY PROVED] HARD-SUCCESSOR-ONE implies SAFE-2-EXISTS: an A1-good cycle gives SAFE's direct CES case, while a hard state is exactly the domain where HSO gives SAFE's nonincreasing first step and CES second step; this proves only the reduction, not HSO.
+- [COMPUTATIONALLY VERIFIED] The exhaustive n=12 source profile contains 1,184 hard states and 4,088 bad minimizing first steps; the 44 certificates omitted by retention caps were completed prospectively, with zero HSO failures, zero replay errors, zero path caps, and zero Lemma-A violations (`work/7851/results/hard-tails-real.json`, SHA-256 `b036acbee18484aa59438f75839ce933f0e894dca6fb41c0dd00d430bdc3bcb0`).
+- [COMPUTATIONALLY VERIFIED] OFF-PATH-ESCAPE has zero failures on those 1,184 states: every bad length-three first step replaces the unique 4-cycle by one 4-cycle whose unique off-path `S`-vertex has a length-one CES; 1,140 states are post-hoc regression and only the 44 tail-only states are prospective evidence.
+- [DEAD END] A proof cannot begin universally by applying the certified carrier/poset/NC/A-I+ stack to a forced selected-cycle incidence: 860/1,184 n=12 hard states have zero such incidences; this does not rule out indirect use of hereditary tightness or forced structure elsewhere.
+- [TOOLING] The cap-tail checker (`work/7851/hard_tail.py`, SHA-256 `74155bcf20e8993ddb0090d033384f1da667a319a98a52a5bb14db57453710d8`) checks six exact graph-index/graph6 boundaries, unions state identities with retained certificates, and requires 212,780 `geng` records; all target gates passed in 2,255.174 seconds.
+- [TOOLING] CES mutation controls are live: `CES=always` removes all 1,140 retained hard states, while `CES=never` produces 1,140 HSO and 1,140 OPE failures; hashes for all four result files are in `work/7851/RESULT-SHA256.txt`.
+- [CONJECTURAL] SAFE-2-EXISTS, HARD-SUCCESSOR-ONE, and OFF-PATH-ESCAPE remain unproved universally; the next high-information test is a preregistered n=13 hard-state slice stratified by cycle count and forced selected-cycle incidences, oversampling the zero-incidence and multi-cycle strata.

@@ -1,0 +1,79 @@
+{
+ "boundary_checks": {
+  "11": true,
+  "13": true,
+  "14": true,
+  "16": true,
+  "25": true,
+  "4": true
+ },
+ "boundary_observed": {
+  "11": "K??FFBw}Fw^_",
+  "13": "K?ABCqWXCsKl",
+  "14": "K??Ffbo}Fw^_",
+  "16": "K?AE@bGMF_?~",
+  "25": "K?AB?r_F?{[H",
+  "4": "K?ABBAWeF_?}"
+ },
+ "ces_mode": "real",
+ "combined_summary": {
+  "bad_first_steps": 4088,
+  "forced_cycle_edges": {
+   "0": 860,
+   "2": 324
+  },
+  "hard_states": 1184,
+  "hso_failures": 0,
+  "lemmaA_violations": 0,
+  "ope_failures": 0,
+  "path_caps": 0,
+  "states": 1184
+ },
+ "combined_unique": 1184,
+ "failure_samples": [],
+ "geng_returncode": 0,
+ "mode": "tails",
+ "profile_1_0": 1184,
+ "retained_invalid": 0,
+ "retained_invalid_samples": [],
+ "retained_records": 1140,
+ "retained_summary": {
+  "bad_first_steps": 3924,
+  "forced_cycle_edges": {
+   "0": 822,
+   "2": 318
+  },
+  "hard_states": 1140,
+  "hso_failures": 0,
+  "lemmaA_violations": 0,
+  "ope_failures": 0,
+  "path_caps": 0,
+  "states": 1140
+ },
+ "retained_unique": 1140,
+ "source_commit": "5cb5bb9a29718562d4d25a6902fd693f0a4677f4",
+ "tail_counters": {
+  "cyclic_selections": 4155208,
+  "geng_graphs_seen": 212780,
+  "graphs_in_tails": 1897,
+  "hard_states": 58,
+  "lemmaA_violations": 0,
+  "path_caps": 0
+ },
+ "tail_only_unique": 44,
+ "tail_unique": 58,
+ "target_gate": {
+  "boundaries": true,
+  "combined": true,
+  "geng_complete": true,
+  "hso": true,
+  "missing": true,
+  "no_caps": true,
+  "no_invalid": true,
+  "no_lemmaA_violation": true,
+  "ope": true,
+  "profile": true,
+  "retained": true
+ },
+ "wall_seconds": 2255.174
+}

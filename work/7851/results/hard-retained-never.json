@@ -1,0 +1,24 @@
+{
+ "ces_mode": "never",
+ "mode": "retained",
+ "profile_1_0": 1184,
+ "retained_invalid": 0,
+ "retained_invalid_samples": [],
+ "retained_records": 1140,
+ "retained_summary": {
+  "bad_first_steps": 3924,
+  "forced_cycle_edges": {
+   "0": 822,
+   "2": 318
+  },
+  "hard_states": 1140,
+  "hso_failures": 1140,
+  "lemmaA_violations": 0,
+  "ope_failures": 1140,
+  "path_caps": 0,
+  "states": 1140
+ },
+ "retained_unique": 1140,
+ "source_commit": "5cb5bb9a29718562d4d25a6902fd693f0a4677f4",
+ "wall_seconds": 15.25
+}
