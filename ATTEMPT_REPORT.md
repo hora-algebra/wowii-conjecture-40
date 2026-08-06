@@ -344,12 +344,25 @@ worker intervals, refuses to sum overlaps, and lists any gap explicitly)*
    both `P(C)` and `P(Z)`. The natural candidate is `X = P(C) ∪ P(Z)`, which is
    independent and lies in one bipartition class (proof in
    `PROOFS-SAFE2-064c.md` §7) — the FVS to build against it is the open step.
-2. **Retarget SAFE-2-DEC instead of SAFE-2-EXISTS** (Proposition 5). It is what
-   F2 consumes, it is strictly weaker, and Theorem 4′(i) already supplies
-   count-decreasing non-CES steps that SAFE-2-EXISTS cannot use.
-3. Do **not** re-verify the CES status of length-one steps, and do not
-   formulate any new statement whose content is "some length-one step is CES":
-   Theorem 1 makes that a tautology.
+2. **Decide "hard states have exactly one selected cycle."** Every hard state
+   observed at n=11 and n=12 has one. A proof collapses the hard-state digraph
+   of Theorem 10 to single-cycle states, where a non-increasing step must keep
+   `c = 1` and the relocation theorem describes it completely; a counterexample
+   is equally informative and is cheap to search for.
+3. **Run the Proposition 9 pattern search.** A hard state with `d₀(C)=3` whose
+   cycle has a chord `s → q` with the `s`-side `C`-neighbour of `q` adjacent to
+   the released end falsifies the *universal* successor form outright. Zero
+   instances so far; this is the cheapest decisive experiment left, and it is a
+   local pattern, not a census.
+4. **Retarget SAFE-2-DEC instead of SAFE-2-EXISTS** (Proposition 5): it is what
+   F2 consumes, SAFE-2-EXISTS implies it, and Theorem 4′(i) already supplies
+   count-decreasing non-CES steps that SAFE-2-EXISTS cannot use. Note
+   Proposition 11 first — no statement in this family is easier than F2 in the
+   sense of being true when F2 is false.
+5. Do **not** re-verify the CES status of length-one steps, do not formulate any
+   statement whose content is "some length-one step is CES" (Theorem 1 makes it
+   a tautology), and do not aim a proof at "the relocated cycle sees the freed
+   vertex `h`" (Measured fact 9.2 refutes that shape on 1,700 of 3,932 steps).
 
 ## Jobs and their disposition at wrap-up
 
