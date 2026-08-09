@@ -1,4 +1,4 @@
-# Attack protocol for the open remainder of WOWII Conjecture 40 (v5)
+# Attack protocol for the open remainder of WOWII Conjecture 40 (v6)
 
 This repository is a sealed research artifact (main branch, tags
 v1.0/v1.1/v2.0) plus this protocol. If you are an AI agent: follow this file
@@ -6,7 +6,7 @@ exactly. Do not modify main, with one exception: appending to
 `attempts/LESSONS.md` via pull request per Step 5. Everything you do happens
 on your own attempt branch.
 
-There is no v5 predecessor you are missing. Versions v1.1–v4 existed; v5 is
+There is no v6 predecessor you are missing. Versions v1.1–v5 existed; v6 is
 this file. If an instruction you were given cites an ATTACK.md version higher
 than the newest one actually present on `main`, follow the newest one that
 exists, say so in your report, and treat the instruction as a delta on top of
@@ -15,32 +15,40 @@ it — do not reconstruct a protocol from a version number.
 ## Status of the main statements (see paper.pdf v2 for exact statements)
 
 1. **LEMMA A° (paper §4.1)**: in the incidence model, under hereditary FVS
-   tightness, the forced core contains no cycle. **OPEN — CLAIMED, with
-   non-blind concurrence, and with its machinery CERTIFIED.** Read the three
-   levels separately; they are not the same thing.
-   - CLAIMED: the endgame argument is written up in `LEMMA-A-CLEAN-END.md`
-     (attempt/2026-08-05-claude-opus-5-0520) and, independently derived, in
-     `SEALED-DERIVATION.md` (verify/2026-08-05-verify4).
-   - NON-BLIND CONCURRENCE: the two texts agree on every shared conclusion.
-     Their only materially different step is NC(ii), where they give two
-     compatible and independently valid arguments. Neither reader was
-     environmentally blind: VERIFY-3 logged two contamination breaches before
-     its seal (`verify3/SEALED-NC-DERIVATION.md` §0, committed at `52d4458`),
-     and VERIFY-4's working tree held `LEMMA-A-CLEAN-END.md` and the 0520
-     attempt report outside its phase-1 seal `f2765aa`. Concurrence between
-     non-blind readers is weaker evidence than agreement between blind ones.
-   - CERTIFIED — the machinery only: NC (clean-end chordlessness), NCM/CE,
-     and A-I⁺. VERIFY-4's verdict word is `CERTIFIED` and its own next
-     sentence is the scope: "This verdict covers the mathematical derivations
-     of NC, NCM/CE, and A-I⁺." VERIFY-3 certifies the same machinery, plus
-     186,192,835 labeled systems (1,977,897 with a cyclic forced core, 0
-     failures, controls firing).
-   - **OWED: environmentally-blind certification of the full Lemma A°
-     statement. It has never been performed.** Certifying the machinery is
-     not certifying the lemma. Do not cite Lemma A° as certified, closed, or
-     proved, and do not build on it as if it were. If you can arrange a
-     genuinely blind full-lemma audit, that is the single highest-value
-     verification job available.
+   tightness, the forced core contains no cycle. **OPEN.**
+   `LEMMA-A-CLEAN-END.md` itself says Lemma A remains open, and no controller
+   framing may raise the source's status.
+   - **CERTIFIED — the machinery only:** NC (clean-end chordlessness), NCM/CE,
+     and A-I⁺. VERIFY-4's verdict word is `CERTIFIED` and its own next sentence
+     is the scope: "This verdict covers the mathematical derivations of NC,
+     NCM/CE, and A-I⁺." Certifying the machinery is not certifying Lemma A°.
+   - **REVIEWED-SOUND, NOT BLIND-REPRODUCED — the refutation-hardened endgame
+     document:** VERIFY-5 reviews `LEMMA-A-CLEAN-END.md`; its stated scope is,
+     "This verdict applies to the proved target steps NC, CE, and A-I+; it is
+     not a verdict that Lemma A° itself has been proved." Direct refutation
+     attempts found zero failures for NC(i), NC(ii), the NC consequence,
+     CE/NCM, and A-I⁺, with live controls. This is a soundness review of those
+     steps, not a proof or blind reproduction of Lemma A°
+     (`verify/2026-08-05-verify5`, `VERIFY5_REPORT.md`).
+   - **OPEN OBLIGATION — the carrier-to-blocker bridge.**
+     `SEALED-DERIVATION.md` states the bridge verbatim:
+
+     > **Carrier-to-blocker bridge (CB).** If the normalized forced core contains
+     > `F`, then some nonempty `R subseteq T_F` satisfies
+     > `lambda_H(R) <= |R|-1`.
+
+     The same file characterizes the obstruction verbatim:
+
+     > The carrier results constrain the incidence/capacity layer.  The number
+     > `lambda_H(R)`, however, depends on how those incidences attach through the
+     > components and paths of the forest `H`, and (for general `R subseteq T_F`) on
+     > edges internal to `R`.  Contracting components of `H-D` turns the missing
+     > step into the augmented-quotient geometry described in `proofs/PROOFS.md`:
+     > a deficient blocker must be found even when the quotient is cyclic and even
+     > when its useful vertex set is mixed across `P` and several punctures.
+
+     No packaged result proves CB in general. That is the remaining Lemma A°
+     obligation.
    - Computational status unchanged: verified exhaustively n ≤ 14
      (2,391,365,507 instances at n = 14 alone, zero cyclic cores; dual-engine,
      hashes in paper §6).
