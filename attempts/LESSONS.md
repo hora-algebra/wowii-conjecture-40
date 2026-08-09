@@ -161,3 +161,25 @@ Entry format:
 - [TOOLING] The rule that would have caught this already existed and was not executed. PR #5 landed "maintenance completion claims require post-push existence proofs (remote SHA + raw-file fetch)" on 2026-08-05, and the two batches that followed produced neither proof. A rule is closed by the check that runs, not by the entry that records it.
 - [TOOLING] **Rule now closed.** A batch is not complete when its report says so. It is complete when a separate session, cloning from the network rather than from any local path, re-derives every claim from the clone: remote SHA per pushed ref, HTTP-200 raw-file fetch per branch, PR number and merge state per PR, and the merged file's content on `main`. Until that independent check returns, a batch report is a staging document and must be labelled one.
 
+## 2026-08-08 — VERIFY-5 package audit — verify/2026-08-05-verify5
+
+- [TOOLING] VERIFY-5 verdict (`VERIFY5_REPORT.md` line 5): “REVIEWED-SOUND, NOT BLIND-REPRODUCED”. Scope sentence, quoting `STATEMENT.md`: this report reviews the claim, “Let $G$ be a finite simple bipartite graph, \emph{not necessarily connected}, $S$ a minimum FVS, $H=G-S$, and $e$ a fixed edge of $H$ with capacities as in Definition~\ref{def:selection}. Prove that the forced incidence core is acyclic.”
+- [MATHEMATICALLY PROVED] U1(i), quoted verbatim: `N_S(q) ∩ P = cyc(q)`.
+- [MATHEMATICALLY PROVED] U1(ii), quoted verbatim: `N_S(q) ∩ (U \ P) = ∅`.
+- [MATHEMATICALLY PROVED] U2, quoted verbatim: **Corollary CE (clean ends of a maximal carrier) — MATHEMATICALLY PROVED.** Every forced-core cycle has a cycle vertex `s` — any one whose carrier is inclusion-maximal, which exists by CP — such that **both** forced ends `q` of `s` satisfy `N_S(q) ∩ (P ∪ U) = cyc(q)`. On a `T_F`-normalized instance both ends have `deg_S(q) = 2` exactly.
+- [MATHEMATICALLY PROVED] U3, quoted verbatim: **A-I⁺ — MATHEMATICALLY PROVED.** Suppose there is a **clean** `q_0 ∈ Q` with (1) `Ext(s) = ∅` for both `s ∈ cyc(q_0)`, and (2) `|Ext(s)| ≤ 1` for every other `s ∈ P`. Then `τ(G[H ∪ P]) ≤ m − 1 < m = |P|`, contradicting hereditary FVS tightness. Hence no forced-core cycle of a Lemma-A° instance has this shape.
+- [COMPUTATIONALLY VERIFIED] `VERIFY5_REPORT.md` §5 refutation-table summary, quoted verbatim:
+
+| Step | Targeted refutation attempted | Machine result | Does prose close it? |
+|---|---|---:|---|
+| NC(i) | clean chord at `q`, including overlap and dirty-chord controls | 0 failures | yes |
+| NC(ii) | auxiliary `U\P` neighbour at a clean `q` | 0 failures | yes |
+| NC consequence | wrong `deg_U` identity or extra normalized neighbour | 0 failures | yes |
+| CE/NCM | maximal-carrier end not clean or not chordless | 0 failures | yes |
+| A-I+ | qualifying clean end with a surviving `P`-degree above one | 0 failures | yes |
+
+- [TOOLING] `VERIFY5_REPORT.md` line 364 same-obstruction finding, quoted verbatim: “The target then stops before the carrier-to-blocker bridge, explicitly acknowledging that its results do not control `Ext(P)` in the forest.  That is the same obstruction, not a disagreement between the two derivations.”
+
+## 2026-08-08 — maintenance: Lemma A controller scope-drift correction
+
+- [TOOLING] **Controller scope-drift incident.** `LEMMA-A-CLEAN-END.md`'s own scope says, “**Lemma A and Conjecture 40 remain OPEN.**” The controller's “claimed proof” framing was scope drift, not a claim made by that source. The governing rule was already in force in the VERIFY-4 lesson above: a verdict must travel with its own scope sentence, and a statement's status may be raised only by a verification whose stated scope names that statement.
