@@ -116,5 +116,4 @@ Code (the contents of `verification/`) is released under the **MIT License**
 
 ## Acknowledgment
 
-The mathematics and computations were developed with AI assistance (Claude
-models); all results were independently cross-checked computationally.
+This work used GPT-5.6 Thinking, Claude Opus 4.8, Claude Opus 5, Claude Fable 5, and OpenAI Codex (GPT-5.6 Sol).
