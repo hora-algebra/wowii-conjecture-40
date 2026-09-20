@@ -1,4 +1,4 @@
-# Graffiti.pc Conjecture 40: a deficiency form, a bipartite reduction, and verification to n = 11
+# Written on the Wall II (WOWII) / Graffiti.pc Conjecture 40: a deficiency form, a bipartite reduction, and verification to n = 11
 
 This repository accompanies the note *"The Graffiti.pc conjecture
 `f(G) >= ceil((p(G)+b(G)+1)/2)`: an equivalent deficiency form, a reduction of
