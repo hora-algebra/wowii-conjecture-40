@@ -29,7 +29,7 @@ $$
 任意の $X\subseteq S$ について
 
 $$
-\tau(G[H\cup X])=|X|. \tag{1}
+\tau(G[H\cup X])=|X|. \qquad (1)
 $$
 
 実際、左辺は $X$ を除けば森なので $|X|$ 以下である。
@@ -58,13 +58,13 @@ $$
 $U\cup B$ を除くと、生き残った各 $X$ 頂点の次数は高々1になる。したがって
 
 $$
-\tau(K)\le |U|+|B|\le\left\lfloor\frac{\rho_0(X)}2\right\rfloor. \tag{2}
+\tau(K)\le |U|+|B|\le\left\lfloor\frac{\rho_0(X)}2\right\rfloor. \qquad (2)
 $$
 
 **偶数の場合の厳密な評価。** $U\ne\varnothing$ かつ $\rho_0(X)$ が偶数なら
 
 $$
-\tau(K)\le\frac{\rho_0(X)}2-1. \tag{3}
+\tau(K)\le\frac{\rho_0(X)}2-1. \qquad (3)
 $$
 
 実際、$2|B|<|L|$ なら偶奇から (2) がこの評価を与える。
@@ -74,7 +74,7 @@ $$
 **奇数の場合の等号構造。**
 
 $$
-\tau(K)=|X|,\qquad \rho_0(X)=2|X|+1,\qquad U\ne\varnothing \tag{4}
+\tau(K)=|X|,\qquad \rho_0(X)=2|X|+1,\qquad U\ne\varnothing \qquad (4)
 $$
 
 なら、次のように $X$ が分かれる：
@@ -86,7 +86,7 @@ $$
 さらに
 
 $$
-|X|=|U|+|B|,\qquad |Z|=|U|-1,\qquad U\subseteq N(t). \tag{5}
+|X|=|U|+|B|,\qquad |Z|=|U|-1,\qquad U\subseteq N(t). \qquad (5)
 $$
 
 これを示す。(2) と (4) より、$|X|=|U|+|B|$、$|L|=2|B|+1$ である。
@@ -109,7 +109,7 @@ $$
 とおく。容量付きの Hall 条件は
 
 $$
-\rho(A)\ge2|A|\quad\text{for all }A\subseteq S \tag{6}
+\rho(A)\ge2|A|\quad\text{for all }A\subseteq S \qquad (6)
 $$
 
 であり、これは選択の存在と同値である。
@@ -126,7 +126,7 @@ $\rho(A)=2|A|$ のとき $A$ を **tight** と呼ぶ。以下は (6) の標準�
 **強制辺の特徴づけ。** 辺 $s h$ が強制されることと、
 
 $$
-s\in A,\qquad \rho(A)=2|A|,\qquad d_A(h)\le c(h) \tag{7}
+s\in A,\qquad \rho(A)=2|A|,\qquad d_A(h)\le c(h) \qquad (7)
 $$
 
 を満たす $A$ が存在することは同値である。
@@ -152,7 +152,7 @@ $\rho$ と tight の条件は二部分割の両側に分解される。よって
 最後に、tight な $A$ では、どの選択でも各 $h$ に入る $A$ からの本数が
 
 $$
-\min(c(h),d_A(h)) \tag{8}
+\min(c(h),d_A(h)) \qquad (8)
 $$
 
 に等しい。各項はこの値以下で、総和はともに $2|A|$ だからである。
@@ -190,7 +190,7 @@ $$
 これらの頂点は、2本とも $Q\subseteq U$ に向かう強制閉路上にはない。つまり
 
 $$
-P\subseteq Z. \tag{9}
+P\subseteq Z. \qquad (9)
 $$
 
 ## 5. 厳密な隣接頂点数の不等式
@@ -198,7 +198,7 @@ $$
 空でない任意の $W\subseteq Z$ に対して
 
 $$
-|N_U(W)|\ge|W|+1. \tag{10}
+|N_U(W)|\ge|W|+1. \qquad (10)
 $$
 
 実際、$V=N_U(W)$ は空でない。空なら $W$ の頂点は $H\cup X$ で孤立し、(1) に反する。
@@ -226,7 +226,7 @@ $$
 $A_s$ の最小性により $D=\varnothing$。したがって
 
 $$
-A_s\subseteq Z\cup\{t\}. \tag{11}
+A_s\subseteq Z\cup\{t\}. \qquad (11)
 $$
 
 次に $t\in A_s$ と仮定し、$W=A_s\setminus\{t\}\subseteq Z$ とおく。

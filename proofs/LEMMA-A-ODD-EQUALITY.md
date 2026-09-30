@@ -37,7 +37,7 @@ applicable rights. The Japanese companion contains two further corollaries.
 
 For every X contained in S,
 
-$$\tau(G[H\cup X])=|X|. \tag{1}$$
+$$\tau(G[H\cup X])=|X|. \qquad (1)$$
 
 Indeed a smaller deletion, combined with S minus X, would contradict minimum
 cardinality of S.
@@ -48,11 +48,11 @@ rho0=2u+l. For a in X put d(a)=|N(a) intersect L| and B={a:d(a)>=2}, b=|B|.
 Deleting U union B leaves every remaining X-vertex of degree at most one,
 so the remaining graph is a forest. Consequently
 
-$$\tau(K)\le u+b\le\lfloor\rho_0/2\rfloor. \tag{2}$$
+$$\tau(K)\le u+b\le\lfloor\rho_0/2\rfloor. \qquad (2)$$
 
 If U is nonempty and rho0 is even, this improves to
 
-$$\tau(K)\le\rho_0/2-1. \tag{3}$$
+$$\tau(K)\le\rho_0/2-1. \qquad (3)$$
 
 If 2b<l, parity proves this. If 2b=l, all vertices outside B have d=0.
 Keep one vertex v of U and delete B and U minus v. Each surviving X-vertex
@@ -71,7 +71,7 @@ must remain. Hence t is adjacent to every vertex of U.
 
 For every nonempty W contained in Z,
 
-$$|N_U(W)|\ge |W|+1. \tag{4}$$
+$$|N_U(W)|\ge |W|+1. \qquad (4)$$
 
 The neighbourhood is nonempty, since otherwise isolated W could be retained
 while deleting fewer than |X| vertices of X. Choose v in that neighbourhood
