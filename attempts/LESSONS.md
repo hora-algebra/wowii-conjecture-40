@@ -183,3 +183,12 @@ Entry format:
 ## 2026-08-08 — maintenance: Lemma A controller scope-drift correction
 
 - [TOOLING] **Controller scope-drift incident.** `LEMMA-A-CLEAN-END.md`'s own scope says, “**Lemma A and Conjecture 40 remain OPEN.**” The controller's “claimed proof” framing was scope drift, not a claim made by that source. The governing rule was already in force in the VERIFY-4 lesson above: a verdict must travel with its own scope sentence, and a statement's status may be raised only by a verification whose stated scope names that statement.
+
+## 2026-09-30 — odd-equality proof proposal — attempt/2026-09-30-codex-6e29
+
+- [MATHEMATICALLY PROVED — proof proposal, not upstream certification] A self-contained author-side proof of full Lemma A° is supplied in [the proof note](https://github.com/hora-algebra/wowii-conjecture-40/blob/859676ec0f68ea0fe0673c8a70b4abed49e93f5a/proofs/LEMMA-A-ODD-EQUALITY.md); it uses odd equality structure and canonical-carrier minimality. No accepted-status change is requested by this entry.
+- [MATHEMATICALLY PROVED — proof proposal] For a forest H plus independent X with tau(H union X)=|X| and sum_h min(2,d_X(h))=2|X|+1, if U={h:d_X(h)>=2} is nonempty, the private-neighbour degrees on X are 2 on B, 1 at a unique t, and 0 on Z, with |Z|=|U|-1 and U contained in N(t).
+- [TOOLING] The strict neighbourhood inequality used in the proof is already present in attempt 064c Theorem 6(iv), and the base deletion argument is related to C5b; those ingredients are not claimed as new.
+- [COMPUTATIONALLY VERIFIED] Prospective checks: 5015 connected bipartite graphs of orders 2–10, 158576 minimum-FVS/edge instances; all 33868 labelled simple graphs of orders 0–6 for the auxiliary deletion lemmas, 293990 eligible partitions. Exact premise counts, hashes and reproduction instructions are in review/ on the attempt branch; no assertion failed.
+- [COMPUTATIONALLY VERIFIED] The unchanged upstream oracle reproduces all three O-56/O-63/O-64 negative controls, a1_verify 7 gives 143/143 without caps, and forced_core 8 gives 2186 instances with no cyclic core and maximum path length 6.
+- [TOOLING] This is AI-generated work, with non-blind AI review and no human refereeing or full Lean formalization claimed. Original exploratory work and comprehension were retrospective; only the new recorded scans were prospectively frozen. F2 and Conjecture 40 are not proved by this submission.
