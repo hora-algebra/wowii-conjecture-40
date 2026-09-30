@@ -74,7 +74,7 @@ an acyclic feasible selection from an acyclic intersection of all selections.
 
 ## LESSONS FOR FUTURE ATTEMPTS
 
-- [MATHEMATICALLY PROVED — proof proposal, not upstream certification] A self-contained author-side proof of full Lemma A° is supplied on attempt/2026-09-30-codex-6e29 in proofs/LEMMA-A-ODD-EQUALITY.md; it uses odd equality structure and canonical-carrier minimality. No accepted-status change is requested by this entry.
+- [MATHEMATICALLY PROVED — proof proposal, not upstream certification] A self-contained author-side proof of full Lemma A° is supplied in [the proof note](https://github.com/hora-algebra/wowii-conjecture-40/blob/859676ec0f68ea0fe0673c8a70b4abed49e93f5a/proofs/LEMMA-A-ODD-EQUALITY.md); it uses odd equality structure and canonical-carrier minimality. No accepted-status change is requested by this entry.
 - [MATHEMATICALLY PROVED — proof proposal] For a forest H plus independent X with tau(H union X)=|X| and sum_h min(2,d_X(h))=2|X|+1, if U={h:d_X(h)>=2} is nonempty, the private-neighbour degrees on X are 2 on B, 1 at a unique t, and 0 on Z, with |Z|=|U|-1 and U contained in N(t).
 - [TOOLING] The strict neighbourhood inequality used in the proof is already present in attempt 064c Theorem 6(iv), and the base deletion argument is related to C5b; those ingredients are not claimed as new.
 - [COMPUTATIONALLY VERIFIED] Prospective checks: 5015 connected bipartite graphs of orders 2–10, 158576 minimum-FVS/edge instances; all 33868 labelled simple graphs of orders 0–6 for the auxiliary deletion lemmas, 293990 eligible partitions. Exact premise counts, hashes and reproduction instructions are in review/ on the attempt branch; no assertion failed.
