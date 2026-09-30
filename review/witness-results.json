@@ -1,0 +1,46 @@
+{
+  "status": "PASS",
+  "negative_controls_fired": 3,
+  "results": [
+    {
+      "witness": "O-56",
+      "selections": 1,
+      "forced_edges": 8,
+      "forced_cycle_rank": 1,
+      "tau": 2,
+      "supplied_S_size": 4,
+      "violation": [
+        2,
+        3
+      ],
+      "violation_tau": 1
+    },
+    {
+      "witness": "O-63",
+      "selections": 6,
+      "forced_edges": 4,
+      "forced_cycle_rank": 1,
+      "tau": 3,
+      "supplied_S_size": 5,
+      "violation": [
+        "u",
+        "a",
+        "b"
+      ],
+      "violation_tau": 2
+    },
+    {
+      "witness": "O-64",
+      "selections": 1,
+      "forced_edges": 6,
+      "forced_cycle_rank": 1,
+      "tau": 2,
+      "supplied_S_size": 3,
+      "violation": [
+        "s",
+        "t"
+      ],
+      "violation_tau": 1
+    }
+  ]
+}
